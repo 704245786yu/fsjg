@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.2.xsd"
+	default-autowire="byName">
+
+	<context:annotation-config />
+
+	<!-- 扫描类包以启动注解驱动的Bean -->
+	<context:component-scan base-package="com.biz,com.ctrl,com.dao,com.po"/>
+	<!-- 引入属性文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
+	<!-- 1、数据源，使用C3P0数据源实现 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close"
+		p:driverClass="${jdbc.driverClassName}"
+		p:jdbcUrl="${jdbc.url}"
+		p:user="${jdbc.username}"
+		p:password="${jdbc.password}"
+		p:initialPoolSize="1"
+		p:maxPoolSize="50"
+		p:maxIdleTime="3600"
+		p:idleConnectionTestPeriod="3600"/>
+		
+	<!-- 2、配置SessionFactory、映射信息、Hibernate属性 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:packagesToScan="com.po">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">
+					org.springframework.orm.hibernate4.SpringSessionContext
+				</prop>
+				<prop key="hibernate.jdbc.batch_size">30</prop>
+				<!-- <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop> -->
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 3、基于数据源的事务管理器 -->
+	<bean name="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory"/>
+		
+	<!-- 4、事务的驱动注解,使程序能根据@Transactional来生成事务代理 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>
