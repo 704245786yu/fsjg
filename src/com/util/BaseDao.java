@@ -5,19 +5,25 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**数据库操作基类
- * @param T 实体类的类型
  * @param ID 实体类的ID属性的类型，实现了Serializable接口
+ * @param T 实体类的类型
  * @author zhiyu
  * @version 2016-03-04
  * */
 @SuppressWarnings("unchecked")
-public class BaseDao<T, ID extends Serializable> {
+public class BaseDao<ID extends Serializable, T> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -29,18 +35,87 @@ public class BaseDao<T, ID extends Serializable> {
 		persistentClass = (Class<T>)params[0];
 	}
 	
+//	session.flush();//保持与数据库数据的同步
+//	session.clear();//清楚内部缓存的全部数据，及时释放出占用的内存
+	
 	/**获取上下文关联的Session*/
 	protected Session getCurrentSession(){
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public void flush(){
-		
+	
+	/*========================================
+	 * 增、删、改
+	 * =======================================*/
+	
+	/**保存实体*/
+	public Serializable save(T entity){
+		return getCurrentSession().save(entity);
 	}
 	
-	public void clear(){
-		
+	/**更新实体*/
+	public void update(T entity){
+		getCurrentSession().update(entity);
 	}
+	
+	/**保存或更新实体*/
+	public void saveOrUpdate(T entity){
+		getCurrentSession().saveOrUpdate(entity);
+	}
+	
+	/**删除实体*/
+	public void delete(T entity){
+		getCurrentSession().delete(entity);
+	}
+	
+	/**根据ID删除实体*/
+	public void delete(ID id){
+		Query query = getCurrentSession()
+				.createQuery("delete "+persistentClass.getSimpleName()+"where id = :id");
+		query.setParameter("id" , id).executeUpdate();
+	}
+	
+	/**批量保存*/
+	public void saveBatch(List<T> list){
+		Session session = getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		for(int i=0; i<list.size(); i++){
+			session.save(list.get(i));
+			if(i%30 == 0){//单次批量操作的数目
+				session.flush();
+				session.clear();
+			}
+		}
+		tx.commit();
+	}
+	
+	/**批量保存或更新*/
+	public void saveOrUpdateBatch(List<T> list){
+		Session session = getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		for(int i=0; i<list.size(); i++){
+			session.saveOrUpdate(list.get(i));
+			if(i%30 == 0){//单次批量操作的数目
+				session.flush();
+				session.clear();
+			}
+		}
+		tx.commit();
+	}
+	
+	/**批量删除
+	 * @param ids id数组
+	 * */
+	public void deleteAll(ID[] ids){
+		Query query = getCurrentSession()
+				.createQuery("delete "+persistentClass.getSimpleName()+" where id in (:ids)");
+		query.setParameterList("ids", ids).executeUpdate();
+	}
+	
+	
+	/*==============================================
+	 * 查询
+	 * =============================================*/
 	
 	/**根据ID加载实体，实体类型为Dao的泛型参数类型
 	 * @param id 主键
@@ -59,56 +134,75 @@ public class BaseDao<T, ID extends Serializable> {
 		return (T)getCurrentSession().get(entityClass, id);
 	}
 	
-//	public List<T> findByExample(T exampleInstance,String... excludeProperty){
-//		
-//	}
-	
-	/**保存实体
-	 * */
-	public Serializable save(T entity){
-		return sessionFactory.getCurrentSession().save(entity);
+	/**获取实体总数*/
+	public long findCount(){
+		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
+		criteria.setProjection(Projections.rowCount());
+		return (Long)criteria.uniqueResult();
 	}
 	
-	/**更新实体
+	/**根据HQL查询记录总数
+	 * @param hql hql语句
 	 * */
-	public void update(T entity){
-		sessionFactory.getCurrentSession().update(entity);
-	}
-	
-	/**删除实体
-	 * */
-	public void delete(T entity){
-		sessionFactory.getCurrentSession().delete(entity);
-	}
-	
-	/**根据 ID 删除实体
-	 * */
-	public void delete(Class<T> entityClazz , Serializable id){
-		sessionFactory.getCurrentSession()
-		.createQuery("delete " + entityClazz.getSimpleName()
-		+ " en where en.id = ?0")
-		.setParameter("0" , id)
-		.executeUpdate();
-	}
-	
-	/**获取所有实体
-	 * */
-	public List<T> findAll(Class<T> entityClazz){
-		return getCurrentSession()
-				.createQuery("from "+entityClazz.getSimpleName()).list();
-	}
-	
-	/**获取实体总数
-	 * */
-	public long findCount(Class<T> entityClazz){
-		List<T> l = sessionFactory.getCurrentSession().createQuery("select count(*) from "
-		+ entityClazz.getSimpleName()).list();
-		// 返回查询得到的实体总数
-		if (l != null && l.size() == 1 )
+	public long findCount(String hql, Object... params){
+		Query query = getCurrentSession().createQuery(hql);
+		for(int i=0; i<params.length; i++)
 		{
-		return (Long)l.get(0);
+			query.setParameter(i, params[i]);
 		}
-		return 0;
+		return (Long)query.uniqueResult();
+	}
+	
+	/**根据传入的属性执行查询
+	 * @param propertyNames 精确查询属性名
+	 * @param values1 精确查询属性值
+	 * @param propertyNames 模糊匹配查询属性名
+	 * @param values1 模糊匹配查询属性值，参数值中需加入模糊匹配符
+	 * */
+	public List<T> findByProperty(String[] propertyNames,Object[] values1, 
+			String[] propertyNamesByLike,Object[] values2){
+		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
+
+		for(int i=0; i<propertyNames.length; i++){
+			criteria.add(Restrictions.eq(propertyNames[i], values1[i]));
+		}
+		for(int i=0; i<propertyNamesByLike.length; i++){
+			criteria.add(Restrictions.like(propertyNamesByLike[i], values2[i]));
+		}
+		return criteria.list();
+	}
+	
+	/**QBE查询方式
+	 * @param exampleEntity 包含查询条件的实例
+	 * @param excludeProperty 不需要查询的属性名
+	 * */
+	public List<T> findByExample(T exampleEntity,String... excludeProperty){
+		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
+		Example example = Example.create(exampleEntity);
+		for(String exclude : excludeProperty){
+			example.excludeProperty(exclude);
+		}
+		criteria.add(example);
+		return criteria.list();
+	}
+	
+	/**获取所有实体*/
+	public List<T> findAll(){
+		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
+		return criteria.list();
+	}
+	
+	
+	/*==============================================
+	 * 内部通用查询方法
+	 * =============================================*/
+	
+	protected List<T> findByCriteria(Criterion... criterion){
+		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
+		for(Criterion c : criterion){
+			criteria.add(c);
+		}
+		return criteria.list();
 	}
 	
 	/**根据 HQL语句查询实体*/
@@ -117,47 +211,31 @@ public class BaseDao<T, ID extends Serializable> {
 	}
 	
 	/**根据带占位符参数的 HQL语句查询实体*/
-	protected List<T> find(String hql , Object... params){
-		// 创建查询
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+	protected List<T> find(String hql, Object... params){
+		Query query = getCurrentSession().createQuery(hql);
 		// 为包含占位符的 HQL 语句设置参数
-		for(int i = 0 , len = params.length ; i < len ; i++)
+		for(int i=0; i<params.length; i++)
 		{
-			query.setParameter(i + "" , params[i]);
+			query.setParameter(i, params[i]);
 		}
-		return (List<T>)query.list();
+		return query.list();
 	}
 	
 	/**
 	* 使用 HQL 语句进行分页查询操作
-	* @param hql 需要查询的 HQL 语句
-	* @param pageNo 查询第 pageNo 页的记录
-	* @param pageSize 每页需要显示的记录数
-	* @return 当前页的所有记录
-	*/
-	protected List<T> findByPage(String hql, int pageNo, int pageSize){
-		return sessionFactory.getCurrentSession().createQuery(hql)
-			.setFirstResult((pageNo - 1) * pageSize)
-			.setMaxResults(pageSize)
-			.list();
-	}
-	
-	/**
-	* 使用 HQL 语句进行分页查询操作
-	* @param hql 需要查询的 HQL 语句
-	* @param params 如果 hql 带占位符参数， params 用于传入占位符参数
-	* @param pageNo 查询第 pageNo 页的记录
+	* @param hql 需要查询的 HQL语句
+	* @param params 如果hql带占位符参数， params用于传入占位符参数
+	* @param pageNo 查询第 pageNo页的记录
 	* @param pageSize 每页需要显示的记录数
 	* @return 当前页的所有记录
 	*/
 	protected List<T> findByPage(String hql , int pageNo, int pageSize, Object... params)
 	{
-		// 创建查询
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		// 为包含占位符的 HQL 语句设置参数
-		for(int i = 0 , len = params.length ; i < len ; i++)
+		Query query = getCurrentSession().createQuery(hql);
+		//为包含占位符的 HQL语句设置参数
+		for(int i=0; i<params.length; i++)
 		{
-			query.setParameter(i + "" , params[i]);
+			query.setParameter(i, params[i]);
 		}
 		// 执行分页，并返回查询结果
 		return query.setFirstResult((pageNo - 1) * pageSize)

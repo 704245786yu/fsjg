@@ -47,6 +47,7 @@
 				<prop key="hibernate.current_session_context_class">
 					org.springframework.orm.hibernate4.SpringSessionContext
 				</prop>
+				<prop key="hibernate.jdbc.batch_size">30</prop>
 				<!-- <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop> -->
 			</props>
 		</property>
