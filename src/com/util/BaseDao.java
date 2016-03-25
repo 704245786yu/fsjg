@@ -3,18 +3,19 @@ package com.util;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**数据库操作基类
  * @param ID 实体类的ID属性的类型，实现了Serializable接口
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version 2016-03-04
  * */
 @SuppressWarnings("unchecked")
+@Transactional
 public class BaseDao<ID extends Serializable, T> {
 
 	@Autowired
@@ -32,7 +34,7 @@ public class BaseDao<ID extends Serializable, T> {
 	public BaseDao(){
 		Type genType = getClass().getGenericSuperclass();
 		Type[] params = ((ParameterizedType)genType).getActualTypeArguments();
-		persistentClass = (Class<T>)params[0];
+		persistentClass = (Class<T>)params[1];
 	}
 	
 //	session.flush();//保持与数据库数据的同步
@@ -69,7 +71,7 @@ public class BaseDao<ID extends Serializable, T> {
 	}
 	
 	/**根据ID删除实体*/
-	public void delete(ID id){
+	public void deleteById(ID id){
 		Query query = getCurrentSession()
 				.createQuery("delete "+persistentClass.getSimpleName()+"where id = :id");
 		query.setParameter("id" , id).executeUpdate();
@@ -78,7 +80,6 @@ public class BaseDao<ID extends Serializable, T> {
 	/**批量保存*/
 	public void saveBatch(List<T> list){
 		Session session = getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		for(int i=0; i<list.size(); i++){
 			session.save(list.get(i));
 			if(i%30 == 0){//单次批量操作的数目
@@ -86,13 +87,11 @@ public class BaseDao<ID extends Serializable, T> {
 				session.clear();
 			}
 		}
-		tx.commit();
 	}
 	
 	/**批量保存或更新*/
 	public void saveOrUpdateBatch(List<T> list){
 		Session session = getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		for(int i=0; i<list.size(); i++){
 			session.saveOrUpdate(list.get(i));
 			if(i%30 == 0){//单次批量操作的数目
@@ -100,13 +99,12 @@ public class BaseDao<ID extends Serializable, T> {
 				session.clear();
 			}
 		}
-		tx.commit();
 	}
 	
-	/**批量删除
+	/**根据Id数组批量删除
 	 * @param ids id数组
 	 * */
-	public void deleteAll(ID[] ids){
+	public void deleteByIds(ID[] ids){
 		Query query = getCurrentSession()
 				.createQuery("delete "+persistentClass.getSimpleName()+" where id in (:ids)");
 		query.setParameterList("ids", ids).executeUpdate();
@@ -132,6 +130,14 @@ public class BaseDao<ID extends Serializable, T> {
 	 */
 	public T findById(Class<T> entityClass, Serializable id){
 		return (T)getCurrentSession().get(entityClass, id);
+	}
+	
+	/**根据Ids集合查询*/
+	public List<T> findByIds(Collection<Serializable> ids){
+		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
+		Criterion criterion = Restrictions.in("id", ids);
+		criteria.add(criterion);
+		return criteria.list();
 	}
 	
 	/**获取实体总数*/
@@ -187,7 +193,7 @@ public class BaseDao<ID extends Serializable, T> {
 	}
 	
 	/**获取所有实体*/
-	public List<T> findAll(){
+	public List<T> getAll(){
 		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
 		return criteria.list();
 	}

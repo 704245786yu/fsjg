@@ -1,11 +1,12 @@
 package com.dao;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.po.User;
-import com.util.BaseDao;
-
 @Repository
-public class UserDao extends BaseDao<Integer, User> {
+public class UserDao  {
 
+	@Autowired
+	private SessionFactory sessionFactory;
 }

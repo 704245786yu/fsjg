@@ -4,17 +4,22 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    <title>首页</title>
+<head>
+	<base href="<%=basePath%>">
+	<title>信息发布系统</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-  </head>
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+</head>
   
 <body>
-首页
+	<a href="constantType">字典常量类型</a>
 </body>
+<script src="jquery/jquery.min.js"></script>
+<script src="bootstrap/bootstrap.min.js"></script>
 </html>
