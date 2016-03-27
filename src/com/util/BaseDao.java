@@ -199,10 +199,6 @@ public class BaseDao<ID extends Serializable, T> {
 	}
 	
 	
-	/*==============================================
-	 * 内部通用查询方法
-	 * =============================================*/
-	
 	protected List<T> findByCriteria(Criterion... criterion){
 		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
 		for(Criterion c : criterion){
@@ -225,6 +221,13 @@ public class BaseDao<ID extends Serializable, T> {
 			query.setParameter(i, params[i]);
 		}
 		return query.list();
+	}
+	
+	
+	public List<T> findByPage(int pageNo, int pageSize){
+		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
+		criteria.setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize);
+		return criteria.list();
 	}
 	
 	/**

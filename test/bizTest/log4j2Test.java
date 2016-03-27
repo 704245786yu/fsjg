@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 /**导入log4j-core-2.5.jar和log4j-api-2.5.jar
+ * trace<debug<info<warn<error<fatal
  * */
 public class log4j2Test {
 
@@ -25,5 +26,5 @@ public class log4j2Test {
         logger.fatal("我是fatal信息");
         logger.log(Level.DEBUG, "我是debug信息");//这个就是制定Level类型的调用：谁闲着没事调用这个，也不一定哦！
         logger.exit();//和entry()对应的结束方法，和logger.trace("exit");一个意思
-	}
+	}//http://www.jianshu.com/p/7aec512a003c
 }

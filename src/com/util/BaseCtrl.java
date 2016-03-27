@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BaseCtrl<BIZ extends BaseBiz, PO> {
 
 	@Autowired
-	private BIZ biz;
+	protected BIZ biz;
 
 	protected String defaultPage; //设置Ctrl默认显示的页面，该属性由子类初始化时设置
 	
@@ -39,4 +39,5 @@ public class BaseCtrl<BIZ extends BaseBiz, PO> {
 	public List<PO> getAll(){
 		return biz.getAll();
 	}
+	
 }

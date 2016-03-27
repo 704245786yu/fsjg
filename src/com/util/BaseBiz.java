@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BaseBiz<DAO extends BaseDao, PO> {
 
 	@Autowired
-	private DAO dao;
+	protected DAO dao;
 	
 	public void save(PO entity){
 		dao.save(entity);
@@ -36,4 +36,5 @@ public class BaseBiz<DAO extends BaseDao, PO> {
 	public List<PO> getAll(){
 		return dao.getAll();
 	}
+	
 }

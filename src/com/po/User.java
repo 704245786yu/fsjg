@@ -3,14 +3,19 @@ package com.po;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**用户信息
+/**系统后台管理用户信息
  * */
 @Entity
 @Table(name="sys_user")
 public class User {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String userName;
 	private String realName;

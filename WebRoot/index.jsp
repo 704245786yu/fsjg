@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 	<base href="<%=basePath%>">
-	<title>信息发布系统</title>
+	<title>服饰加工</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
   
 <body>
-	<a href="constantType">字典常量类型</a>
+	<a href="person/manage">个人信息管理</a>
 </body>
 <script src="jquery/jquery.min.js"></script>
 <script src="bootstrap/bootstrap.min.js"></script>
