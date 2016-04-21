@@ -6,12 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.biz.PersonBiz;
+import com.common.BaseCtrl;
 import com.po.Person;
-import com.util.BaseCtrl;
 
 @Controller
 @RequestMapping("person")
-public class PersonCtrl extends BaseCtrl<PersonBiz, Person> {
+public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 
 	public PersonCtrl(){
 		defaultPage = "manage/person";
@@ -24,6 +24,7 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Person> {
 	
 	@RequestMapping("getAllByPage")
 	public List<Person> getAllByPage(int pageNo, int pageSize){
-		return biz.getAllByPage(pageNo, pageSize);
+//		return biz.getAllByPage(pageNo, pageSize);
+		return null;
 	}
 }

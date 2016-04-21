@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -8,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 	<base href="<%=basePath%>">
-	<title>常量类型</title>
+	<title>字典常量</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
@@ -20,14 +21,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 </head>
 <body>
-
 <div class="panel panel-primary">
   <div class="panel-heading">
-    	常量类型配置
+    	字典常量配置
   </div>
   <div class="panel-body">
   	<!-- 搜索框、新增按钮 -->
-    <div  class="row" style="width:100%;padding:10px;">
+    <div id="tb" class="row" style="width:100%;padding:10px;">
 		<div class="col-sm-4">
 			<div class="input-group">
 		      <span class="input-group-btn">
@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	<span class="glyphicon glyphicon-search"></span>
 		        </button>
 		      </span>
-		      <input type="text" class="form-control" id="constantTypeNameParam" placeholder="常量类型名">
+		      <input type="text" class="form-control" id="searchText" placeholder="常量名称">
 		    </div><!-- /input-group -->
 	    </div><!-- /.col-sm-4 -->
 	    
@@ -47,12 +47,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- .row -->
 	
 	<!-- 数据表格 -->
-	<table id="dg" data-toggle="table" data-url="constantType/getAll" data-unique-id="id" onLoadSuccess="datagridOnLoadSuccess">
+	<table id="dg" data-toggle="table" data-url="constantDict/findByPageAndParams" data-unique-id="id"
+			data-pagination="true"
+			data-side-pagination="server"
+			data-query-params="getQueryParams"
+			data-page-size="5"
+			data-page-list="[5,10]">
 	    <thead>
 	        <tr>
-	        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
-	            <th data-field="constantTypeName" data-align="center" data-sortable="true">常量类型名称</th>
-	            <th data-field="constantTypeCode" data-align="center">常量类型编码</th>
+	            <th data-field="constantName" data-align="center">常量名称</th>
+	            <th data-field="constantTypeCode" data-formatter="constantFormatter" data-align="center">常量类型</th>
+	            <th data-field="constantValue" data-align="center">常量值</th>
+	            <th data-field="description" data-align="center">描述</th>
 	            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
 	        </tr>
 	    </thead>
@@ -66,20 +72,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h4 class="modal-title" id="formModalLabel">编辑常量类型</h4>
+				<h4 class="modal-title" id="formModalLabel">编辑字典常量</h4>
 			</div>
 			<div class="modal-body">
 				<form id="ff" method="post" class="form-horizontal" action="constantType/save">
+					<input type="hidden" name="id"/>
 					<div class="form-group">
-						<label for="constantTypeName" class="col-sm-3 control-label">常量类型名</label>
+						<label for="constantName" class="col-sm-3 control-label">常量名称</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="constantTypeName" name="constantTypeName">
+							<input type="text" class="form-control" name="constantName">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="constantTypeCode" class="col-sm-3 control-label">常量类型编码 </label>
+						<label for="constantTypeCode" class="col-sm-3 control-label">常量类型 </label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="constantTypeCode" name="constantTypeCode">
+							<select class="form-control" id="constantTypeCode" name="constantTypeCode">
+								<c:forEach var="constantType" items="${constantTypes}">
+									<option value="${constantType.constantTypeCode}">${constantType.constantTypeName}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="constantValue" class="col-sm-3 control-label">常量值 </label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="constantValue">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="description" class="col-sm-3 control-label">描述 </label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="description">
 						</div>
 					</div>
 					<div class="form-group">
@@ -88,7 +111,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						</div>
 					</div>
-					<input type="hidden" name="id"/>
 				</form>
 			</div><!-- modal-body -->
 		</div><!-- modal-content -->
@@ -106,5 +128,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/sys/constantType.js"></script>
+<script src="JS/sys/constantDict.js"></script>
 </html>
