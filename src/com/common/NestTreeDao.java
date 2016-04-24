@@ -8,7 +8,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.common.po.NestTreePO;
-import com.po.sys.Menu;
+import com.util.JacksonJson;
 
 /**操作嵌套集合（层次）树
  * */
@@ -95,12 +95,13 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 	
 	/**获取节点信息，包括后代节点，以及每个节点的层次信息，结果按左值排序
 	 * */
-	@SuppressWarnings("unchecked")
 	public List<PO> getNodeWithDescendant(ID id){
 		PO node = super.findById(id);
 		String tableName = super.getTableName();
 		//获取对应数据表列名
 		List<Object[]> propertyColumnNames = super.getPropertyAndColumnNames();
+		propertyColumnNames = propertyColumnNames.subList(2, propertyColumnNames.size());
+		
 		StringBuffer sqlBuffer = new StringBuffer("select t1.id");
 		for(Object[] propertyColumnName : propertyColumnNames){
 			sqlBuffer.append(",t1."+propertyColumnName[1]+" as "+propertyColumnName[0]);
@@ -108,11 +109,6 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 		sqlBuffer.append(", count(t2.lft) as hierarchy from (select * from ")
 			.append(tableName).append(" where lft between :lft1 and :rgt1) as t1, (select lft,rgt from ")
 			.append(tableName).append(" where lft between :lft2 and :rgt2) as t2 where t1.lft between t2.lft and t2.rgt group by t1.lft order by t1.lft");
-		
-		/*String sql = "select t1.*, count(t2.lft) as hierarchy from "
-				+ "(select * from "+tableName+" where lft between :lft1 and :rgt1) as t1, "
-				+ "(select lft,rgt from "+tableName+" where lft between :lft2 and :rgt2) as t2 "
-				+ "where t1.lft between t2.lft and t2.rgt group by t1.lft order by t1.lft";*/
 
 		List<Object[]> scalar = new ArrayList<Object[]>();
 		scalar.add(new Object[]{"id",StandardBasicTypes.INTEGER});
@@ -120,8 +116,13 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
         	scalar.add(new Object[]{propertyColumnName[0],propertyColumnName[2]});
         }
         scalar.add(new Object[]{"hierarchy",StandardBasicTypes.LONG});
-		List<PO> list = (List<PO>)super.findByNativeSql(sqlBuffer.toString(), new String[]{"lft1","rgt1","lft2","rgt2"},
-				new Integer[]{node.getLft(),node.getRgt(),node.getLft(),node.getRgt()}, scalar);
+        List<Integer> values = new ArrayList<Integer>();
+        values.add(node.getLft());
+        values.add(node.getRgt());
+        values.add(node.getLft());
+        values.add(node.getRgt());
+		List<PO> list = (List<PO>)super.findByNativeSql(sqlBuffer.toString(), 
+				new String[]{"lft1","rgt1","lft2","rgt2"}, values, scalar);
 		return list;
 	}
 
@@ -138,16 +139,29 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 		return (List<ID>)find("select id from "+super.persistentName+" where lft between ? and ?",list);
 	}
 	
-	/**获取邻接列表模型
+	/**将匹配的记录转换为邻接列表模型
+	 * @param ids 要转换的所有记录的ID
 	 * */
-	public List getAdjTree(){
-//		select b.nodeName as parent, e.nodeName as child from organization as e left outer join organization as b on b.lft = 
-//				(select max(lft) from organization as s where e.lft > s.lft and e.lft < s.rgt);
-		List<Menu> list = new ArrayList<Menu>();
-		Menu m = new Menu();
-		m.setMenuName("哈哈哈");
-		m.setpId(1);
-		list.add(m);
+	public List<PO> transformAdjTree(ID[] ids){
+		String tableName = super.getTableName();
+		List<Object[]> propertyColumnNames = super.getPropertyAndColumnNames();
+		propertyColumnNames = propertyColumnNames.subList(2, propertyColumnNames.size());
+//		for(Object[] propertyColumn : propertyColumnNames){
+//			System.out.println(propertyColumn[0]+" "+propertyColumn[1]);
+//		}
+		String sql = "select e.id, b.id as pId, e.menu_name as menuName, e.path from "
+				+ "(select * from "+tableName+" where id in (:ids)) as e "
+				+" left outer join "+tableName+" as b on b.lft = (select max(lft) from "+tableName
+				+" as s where e.lft > s.lft and e.lft < s.rgt) ORDER BY e.lft";
+		List<Object[]> scalar = new ArrayList<Object[]>();
+		scalar.add(new Object[]{"id",StandardBasicTypes.INTEGER});
+		scalar.add(new Object[]{"pId",StandardBasicTypes.INTEGER});
+		scalar.add(new Object[]{"menuName",StandardBasicTypes.STRING});
+		scalar.add(new Object[]{"path",StandardBasicTypes.STRING});
+		List<ID[]> values = new ArrayList<ID[]>();
+		values.add(ids);
+		List<PO> list = super.findByNativeSql(sql.toString(), new String[]{"ids"},
+				values, scalar);
 		return list;
 	}
 }

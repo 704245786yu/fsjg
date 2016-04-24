@@ -380,10 +380,15 @@ public class BaseDao<ID extends Serializable, T> {
 	/**根据本地SQL执行查询，并返回需要封装成的Bean类型
 	 * @param scalars Object[0] SQL语句中的列别名 Object[1] hibernate Type类型
 	 * */
-	public List<?> findByNativeSql(String sql, String[] propertyNames, Object[] values, List<Object[]> scalars){
+	public List<T> findByNativeSql(String sql, String[] propertyNames, List<?> values, List<Object[]> scalars){
 		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(sql);
 		for(int i=0; i<propertyNames.length; i++){
-			sqlQuery.setParameter(propertyNames[i], values[i]);
+			if(values.get(i) instanceof Object[])
+				sqlQuery.setParameterList(propertyNames[i], (Object[])values.get(i));
+			else if(values.get(i) instanceof Collection)
+				sqlQuery.setParameterList(propertyNames[i], (Collection<?>)values.get(i));
+			else
+				sqlQuery.setParameter(propertyNames[i], values.get(i));
 		}
 		for(Object[] scalar : scalars){
 			sqlQuery.addScalar((String)scalar[0],(org.hibernate.type.Type)scalar[1]);

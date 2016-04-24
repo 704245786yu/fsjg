@@ -11,9 +11,9 @@ import com.common.po.NestTreePO;
 public abstract class NestTreeCtrl<BIZ extends NestTreeBiz<?, ?, ?>, ID extends Serializable, PO extends NestTreePO>
 		extends BaseCtrl<BIZ, ID, PO> {
 
-	@RequestMapping("getAdjTree")
-	@ResponseBody
-	public List<?> getAdjTree(){
-		return biz.getAdjTree();
-	}
+//	@RequestMapping("getAdjTree")
+//	@ResponseBody
+//	public List<?> getAdjTree(){
+//		return biz.getAdjTree();
+//	}
 }

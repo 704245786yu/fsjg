@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.common.po.NestTreePO;
 
-public abstract class NestTreeBiz<DAO extends NestTreeDao<?, ?>, ID extends Serializable, PO extends NestTreePO>
+public abstract class NestTreeBiz< DAO extends NestTreeDao<ID, PO>, ID extends Serializable, PO extends NestTreePO >
 		extends BaseBiz<DAO, ID, PO> {
 
-	public List<PO> getAdjTree(){
-		return dao.getAdjTree();
+	public List<PO> transformAdjTree(ID[] ids){
+		return dao.transformAdjTree(ids);
 	}
 }

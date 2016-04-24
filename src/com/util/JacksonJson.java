@@ -60,6 +60,10 @@ public class JacksonJson {
 		return strWriter.toString();    
 	}
 	
+	public static void printBeanToJson(Object object){
+		System.out.println(beanToJson(object));
+	}
+	
 	/**
 	 * 时间的格式化处理
 	 * */
