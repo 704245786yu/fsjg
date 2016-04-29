@@ -14,6 +14,9 @@ public class Menu extends NestTreePO{
 	private String menuName;
 	
 	private String path;
+	
+	@Column(name="img_path")
+	private String imgPath;
 
 	public String getMenuName() {
 		return menuName;
@@ -29,6 +32,14 @@ public class Menu extends NestTreePO{
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
 }

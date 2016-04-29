@@ -376,6 +376,21 @@ public class BaseDao<ID extends Serializable, T> {
 	}
 	
 	//=============================本地SQL查询============================
+	/**使用sql执行更新语句。propertyNames数组长度要与values数组长度一致。
+	 * @param sql 要执行的sql语句
+	 * @param propertyNames 参数名
+	 * @param values 参数值
+	 * @return 返回更改的行数
+	 * */
+	public int executeUpdateByNativeSql(String sql, String[] propertyNames,Object[] values){
+		Session session = getCurrentSession();
+		Query query = session.createSQLQuery(sql);
+		for(int i=0; i<propertyNames.length; i++){
+			query.setParameter(propertyNames[i], values[i]);
+		}
+		return query.executeUpdate();
+	}
+	
 	
 	/**根据本地SQL执行查询，并返回需要封装成的Bean类型
 	 * @param scalars Object[0] SQL语句中的列别名 Object[1] hibernate Type类型
