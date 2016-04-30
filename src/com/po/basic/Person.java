@@ -1,4 +1,4 @@
-package com.po;
+package com.po.basic;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

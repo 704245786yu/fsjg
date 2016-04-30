@@ -1,12 +1,10 @@
-package com.biz;
-
-import java.util.List;
+package com.biz.basic;
 
 import org.springframework.stereotype.Service;
 
 import com.common.BaseBiz;
-import com.dao.PersonDao;
-import com.po.Person;
+import com.dao.basic.PersonDao;
+import com.po.basic.Person;
 
 @Service
 public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {

@@ -1,13 +1,13 @@
-package com.ctrl;
+package com.ctrl.basic;
 
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.biz.PersonBiz;
+import com.biz.basic.PersonBiz;
 import com.common.BaseCtrl;
-import com.po.Person;
+import com.po.basic.Person;
 
 @Controller
 @RequestMapping("person")
