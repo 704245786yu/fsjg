@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**系统后台用户
  * */
 @Entity
@@ -25,14 +27,26 @@ public class User {
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="rold_id")
+	@Column(name="role_id")
 	private Integer roleId;
 	
-	@Column(name="update_id")
+	@Column(name="update_by")
 	private Integer updateBy;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name="update_time")
 	private Date updateTime;
+
+	
+	public User(Integer id, String userName, Integer roleId, Integer updateBy,
+			Date updateTime) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.roleId = roleId;
+		this.updateBy = updateBy;
+		this.updateTime = updateTime;
+	}
 
 	public Integer getId() {
 		return id;

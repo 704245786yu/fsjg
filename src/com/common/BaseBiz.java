@@ -40,15 +40,13 @@ public class BaseBiz<DAO extends BaseDao, ID extends Serializable, PO> {
 	}
 	
 	/**分页获取所有数据
-	 * @param total 总记录数
 	 * @param offset 偏移量，即记录索引位置
 	 * @param pageSize 每页记录数
 	 * */
-	public BootTablePageDto<PO> getAllByPage(Long total, int offset, int pageSize){
+	public BootTablePageDto<PO> getAllByPage(int offset, int pageSize){
 		BootTablePageDto<PO> bt = new BootTablePageDto<PO>();
 		//若前端没有传递数据记录总数，则查询数据总记录数
-		if(total == null)
-			total = dao.getCount();
+		long total = dao.getCount();
 		bt.setTotal(total);
 		bt.setRows(dao.getAllByPage(offset,pageSize));
 		return bt;

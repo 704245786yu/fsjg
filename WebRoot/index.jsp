@@ -19,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body>
 	<a href="person/manage">个人信息管理</a>
+	<a href="user">后台用户管理</a>
 </body>
 <script src="jquery/jquery.min.js"></script>
 <script src="bootstrap/bootstrap.min.js"></script>

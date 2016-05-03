@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- .row -->
 	
 	<!-- 数据表格 -->
-	<table id="dg" data-toggle="table" data-url="constantType/getAll" data-unique-id="id" onLoadSuccess="datagridOnLoadSuccess">
+	<table id="dg" data-toggle="table" data-url="constantType/getAll" data-unique-id="id">
 	    <thead>
 	        <tr>
 	        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
