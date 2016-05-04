@@ -11,24 +11,18 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-/**系统后台用户
- * */
 @Entity
-@Table(name="sys_user")
-public class User {
+@Table(name="sys_role")
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name="user_name")
-	private String userName;
+	@Column(name="role_name")
+	private String roleName;
 	
-	@Column(name="password")
-	private String password;
-	
-	@Column(name="role_id")
-	private Integer roleId;
+	private String description;
 	
 	@Column(name="update_by")
 	private Integer updateBy;
@@ -37,18 +31,7 @@ public class User {
 	@Column(name="update_time")
 	private Date updateTime;
 
-	public User(){}
 	
-	public User(Integer id, String userName, Integer roleId, Integer updateBy,
-			Date updateTime) {
-		super();
-		this.id = id;
-		this.userName = userName;
-		this.roleId = roleId;
-		this.updateBy = updateBy;
-		this.updateTime = updateTime;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -57,28 +40,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Integer getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Integer getUpdateBy() {

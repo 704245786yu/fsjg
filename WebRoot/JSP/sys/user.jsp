@@ -34,10 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</button>
 						</span> 
 						<input type="text" class="form-control" id="searchText" placeholder="用户名">
-					</div>
-					<!-- /input-group -->
-				</div>
-				<!-- /.col-sm-4 -->
+					</div><!-- /input-group -->
+				</div><!-- /.col-sm-4 -->
 
 				<div class="col-sm-1">
 					<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -45,25 +43,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span class="glyphicon glyphicon-plus"></span> 添加
 					</button>
 				</div>
-			</div>
-			<!-- .row -->
+			</div><!-- .row -->
 
 			<!-- 数据表格 -->
 			<table id="dg" data-toggle="table" data-url="user/getAll" data-unique-id="id">
 				<thead>
 					<tr>
 						<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
-						<th data-field="userName" data-align="center" data-sortable="true">用户名</th>
-						<th data-field="roleId" data-align="center" data-sortable="true">角色ID</th>
+						<th data-field="userName" data-align="center">用户名</th>
+						<th data-field="roleId" data-align="center" data-formatter="roleFormatter">角色</th>
 						<th data-field="updateTime" data-align="center">更新时间</th>
 						<th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
 					</tr>
 				</thead>
 			</table>
-		</div>
-		<!-- panel-body -->
-	</div>
-	<!-- panel -->
+		</div><!-- panel-body -->
+	</div><!-- panel -->
 
 	<!-- 添加/更新模态框 -->
 	<div class="modal fade" id="formModal" tabindex="-1" role="dialog">
@@ -75,15 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<h4 class="modal-title" id="formModalLabel">编辑用户信息</h4>
 				</div>
 				<div class="modal-body">
-					<form id="ff" method="post" class="form-horizontal" action="sysUser/save">
-					<input type="hidden"  name="id"/>
-						<div class="form-group">
-							<label for="sourceId" class="col-sm-3 control-label">通信源地址</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="sourceId"
-									name="sourceId" placeholder="通信源地址">
-							</div>
-						</div>
+					<form id="ff" method="post" class="form-horizontal" action="user/saveUser">
 						<div class="form-group">
 							<label for="userName" class="col-sm-3 control-label">用户名</label>
 							<div class="col-sm-9">
@@ -91,45 +78,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									name="userName" placeholder="用户名">
 							</div>
 						</div>
-						<div id='oldpwdDiv'  class="form-group">
-							<label for="oldPassWord" class="col-sm-3 control-label">原密码</label>
-							<div class="col-sm-9">
-								<input type="password" class="form-control" id="oldPassWord"
-									name="oldPassWord"  placeholder="原密码">
-							</div>
-						</div>
 						<div class="form-group">
 							<label for="passWord" class="col-sm-3 control-label">密码</label>
 							<div class="col-sm-9">
-								<input type="password" class="form-control" id="passWord"
-									name="passWord"  placeholder="密码">
+								<input type="password" class="form-control" id="password"
+									name="password" placeholder="密码">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="rePassWord" class="col-sm-3 control-label">密码确认</label>
+							<label for="rePassword" class="col-sm-3 control-label">密码确认</label>
 							<div class="col-sm-9">
-								<input type="password" class="form-control" id="rePassWord"
-									name="rePassWord" autocomplete="off"  placeholder="密码确认">
+								<input type="password" class="form-control" id="rePassword"
+									name="rePassword" autocomplete="off"  placeholder="密码确认">
 							</div>
 						</div>
-
 						<div class="form-group">
-							<label for="roleId" class="col-sm-3 control-label">角色ID</label>
+							<label for="roleId" class="col-sm-3 control-label">角色</label>
 							<div class="col-sm-9">
 								<select class="form-control" id="roleId" name="roleId">
-									<option value="none"></option>
-									<option value="1">1</option>
-									<option value="0">0</option>
-
+									<c:forEach var="role" items="${roles}">
+										<option value="${role.id}">${role.roleName}</option>
+									</c:forEach>
 								</select>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="organizationId" class="col-sm-3 control-label">所属组织ID</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="organizationId"
-									name="organizationId" placeholder="所属组织ID">
 							</div>
 						</div>
 						<div class="form-group">
@@ -141,14 +111,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<input type="hidden" name="id" />
 					</form>
-				</div>
-				<!-- modal-body -->
-			</div>
-			<!-- modal-content -->
-		</div>
-		<!-- modal-dialog -->
-	</div>
-	<!-- modal -->
+				</div><!-- modal-body -->
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
 </body>
 
 <script src="plugin/jquery.min.js"></script>

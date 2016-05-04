@@ -1,8 +1,14 @@
+var g_role = new Object();//全局变量,角色
 $(function() {
+	//获取字典常量类型
+	$("select[name='roleId'] > option").each(function () {
+        var txt = $(this).text(); //获取单个text
+        var val = $(this).val(); //获取单个value
+        g_role[val] = txt;
+    });
 	new BsFormTableExtend().closeFormModal();// form模态框关闭事件，触发该事件时重置form
 });
 
-// 根据常量名称搜索
 function search() {
 	$('#dg').bootstrapTable('selectPage', 1);
 }
@@ -14,6 +20,11 @@ $('#searchText').keydown(function(event) {
 	}
 });
 
+//用户角色
+function roleFormatter(value,row,index){
+	return g_role[value];
+}
+
 // 表单验证
 $('#ff').bootstrapValidator({
 	feedbackIcons : {
@@ -22,75 +33,6 @@ $('#ff').bootstrapValidator({
 		validating : 'glyphicon glyphicon-refresh'
 	},
 	fields : {
-		passWord : {
-			message : '密码不合法',
-			validators : {
-				notEmpty : {
-					message : '密码不能为空'
-				},
-				stringLength : {
-					max : 20,
-					message : '最多20个字符'
-				}
-			}
-		},
-		rePassWord : {
-			message : '密码不一致',
-			validators : {
-				notEmpty : {
-					message : '确认密码不能为空'
-				},
-				stringLength : {
-					max : 20,
-					message : '最多20个字符'
-				},
-				identical: {
-                    field: 'passWord',
-                    message: '确认密码与原密码不一致'
-                }
-			}
-		},
-		
-		oldPassWord : {
-			validators : {
-				notEmpty : {
-					message : '不能为空'
-				},
-				stringLength : {
-					max : 20,
-					message : '最多20个字符'
-				},
-				callback : {
-					message : '您输入的原密码有误',
-					callback : function(value, validator) {
-						var res = false;
-						if (value.length <= 20 && value.length >= 1) {
-							$.ajax({
-								url : "sysUser/checkOldPwd",
-								type : 'post',
-								dataType : 'json',
-								async : false,
-								data : {
-									oldPassWord : value,
-									userName : $("#userName").val()
-								},
-								success : function(data) {
-					
-									if (data == true) {
-										res = true;	
-									}
-								}
-							});
-							
-						} 
-						else {
-							res=false;
-						}
-						return res;
-					}
-				}
-			}
-		},
 		userName : {
 			validators : {
 				notEmpty : {
@@ -101,8 +43,35 @@ $('#ff').bootstrapValidator({
 					message : '最多10个字符'
 				}
 			}
+		},
+		password : {
+			message : '密码不合法',
+			validators : {
+				notEmpty : {
+					message : '密码不能为空'
+				},
+				stringLength : {
+					max : 10,
+					message : '最多10个字符'
+				}
+			}
+		},
+		rePassword : {
+			message : '密码不一致',
+			validators : {
+				notEmpty : {
+					message : '确认密码不能为空'
+				},
+				stringLength : {
+					max : 10,
+					message : '最多10个字符'
+				},
+				identical: {
+                    field: 'password',
+                    message: '确认密码与原密码不一致'
+                }
+			}
 		}
-
 	}
 }).on('success.form.bv', function(e) {
 	new BsFormTableExtend().submitFunc(e);
@@ -110,14 +79,12 @@ $('#ff').bootstrapValidator({
 
 // 新增
 function add() {
-	document.getElementById('oldpwdDiv').style.display = "none";
-	$('#ff').attr('action', 'user/save');
+	$('#ff').attr('action', 'user/saveUser');
 }
 
 // 修改
 function modify(id) {
-	document.getElementById('oldpwdDiv').style.display = "";
-	new BsFormTableExtend().showModifyForm(id, 'user/update');
+	new BsFormTableExtend().showModifyForm(id, 'user/updateUser');
 }
 
 // 删除

@@ -19,6 +19,4 @@ public class UserDao extends BaseDao<Integer,User>{
 		return super.find("select new User(id, userName, roleId, updateBy, updateTime) from User");
 	}
 
-	
-	
 }

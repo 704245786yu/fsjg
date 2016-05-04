@@ -3,63 +3,56 @@ package com.ctrl.sys;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.biz.sys.RoleBiz;
 import com.biz.sys.UserBiz;
 import com.common.BaseCtrl;
-import com.dto.BootTablePageDto;
+import com.po.sys.Role;
 import com.po.sys.User;
 
 @Controller
 @RequestMapping("user")
 public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 
+	@Autowired
+	private RoleBiz roleBiz;
+	
 	public UserCtrl() {
 		defaultPage = "sys/user";
 	}
 
-	/**
-	 * 检验用户输入的“原密码”与真实密码是否一致
-	 * 
-	 * @param oldPassWord
-	 *            用户输入的“原密码”
-	 * @param userName
-	 * @return
-	 */
-	/*@RequestMapping("checkOldPwd")
+	/**显示默认的页面*/
+	@Override
+	public ModelAndView showDefaultPage() {
+		ModelAndView mav = new ModelAndView();
+		List<Role> roles = roleBiz.getAll();
+		mav.addObject("roles", roles);
+		mav.setViewName(defaultPage);
+		return mav;
+	}
+	
+	@RequestMapping("saveUser")
 	@ResponseBody
-	public Boolean checkOldPwd(String oldPassWord, String userName) {
-
-		BootTablePageDto<User> bt = new BootTablePageDto<User>();
-		bt = UserBiz.findByPageAndParams(0, 5, userName);
-		String pwd = bt.getRows().get(0).getPassWord().toString();
-		//System.out.println(pwd);
-		if (pwd.equals(oldPassWord)) {
-			return true;
-		} else {
-			return false;
-
-		}
-
-	}*/
-	@RequestMapping("save")
-	@ResponseBody
-	public User save(User User) {
-
-		User.setUpdateBy(888);// 用户ID，暂时写死，后期获取登陆用户来获得此数据
+	public User saveUser(User user, HttpSession session) {
 		Date date = new Date();
-		User.setUpdateTime(date);
-		return super.save(User);
+		user.setUpdateTime(date);
+		return super.save(user);
 
 	}
-	@RequestMapping("update")
+	
+
+	@RequestMapping("updateUser")
 	@ResponseBody
-	public User update(User User) {
-		User.setUpdateBy(888);// 用户ID，暂时写死，后期获取登陆用户来获得此数据
+	public User update(User user, HttpSession session) {
 		Date date = new Date();
-		User.setUpdateTime(date);
-		return super.update(User);
+		user.setUpdateTime(date);
+		return super.update(user);
 	}
 }
