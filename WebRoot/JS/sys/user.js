@@ -9,8 +9,18 @@ $(function() {
 	new BsFormTableExtend().closeFormModal();// form模态框关闭事件，触发该事件时重置form
 });
 
-function search() {
-	$('#dg').bootstrapTable('selectPage', 1);
+//根据常量名称搜索
+function search(){
+	var data = $('#dg').bootstrapTable('getData');
+	var param = $('#searchText').val().trim();
+	$('#dg').bootstrapTable('getRowsHidden',true);
+	if(param != ''){
+		for(var i=0; i<data.length; i++){
+			var searchText = data[i].userName;
+			if(searchText.indexOf(param,0) == -1)
+				$('#dg').bootstrapTable('hideRow',{index:i});
+		}
+	}
 }
 
 // 查询框回车执行查询操作
