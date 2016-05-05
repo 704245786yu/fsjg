@@ -18,9 +18,22 @@ function getQueryParams(params){
 	return params;
 }
 
-//常量类型编码
-function constantFormatter(value,row,index){
-	return g_constantType[value];
+//个人实名状态
+var g_authenticationState = ['未认证','已认证'];
+function authenFormatter(value,row,index){
+	return g_authenticationState[value];
+}
+
+//审核状态
+var g_auditState = ['待审核','未通过','已通过'];
+function auditFormatter(value,row,index){
+	return g_auditState[value];
+}
+
+//用户状态
+var g_personState = ['正常','冻结'];
+function personFormatter(value,row,index){
+	return g_personState[value];
 }
 
 //根据常量名称搜索
