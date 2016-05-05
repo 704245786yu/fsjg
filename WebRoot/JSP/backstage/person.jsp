@@ -59,9 +59,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="userName" data-align="center">用户名</th>
 		            <th data-field="realName" data-align="center">真实姓名</th>
 		            <th data-field="telephone" data-align="center">手机号码</th>
-		            <th data-field="authenticationState" data-align="center">个人实名状态</th>
-		            <th data-field="auditState" data-align="center">审核状态</th>
 		            <th data-field="createTime" data-align="center">注册时间</th>
+		            <th data-field="authenticationState" data-align="center" data-formatter="authenFormatter">个人实名状态</th>
+		            <th data-field="auditState" data-align="center" data-formatter="auditFormatter">审核状态</th>
+		            <th data-field="personState" data-align="center" data-formatter="personFormatter">用户状态</th>
 		            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
 		        </tr>
 		    </thead>
@@ -75,20 +76,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h4 class="modal-title" id="formModalLabel">编辑常量类型</h4>
+				<h4 class="modal-title" id="formModalLabel">编辑个人用户</h4>
 			</div>
 			<div class="modal-body">
 				<form id="ff" method="post" class="form-horizontal" action="constantType/save">
 					<div class="form-group">
-						<label for="constantTypeCode" class="col-sm-3 control-label">常量类型编码 </label>
+						<label for="userName" class="col-sm-3 control-label">用户名 </label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="constantTypeCode" name="constantTypeCode">
+							<input type="text" class="form-control" id="userName" name="userName">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="constantTypeName" class="col-sm-3 control-label">常量类型名</label>
+						<label for="realName" class="col-sm-3 control-label">真实姓名</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="constantTypeName" name="constantTypeName">
+							<input type="text" class="form-control" id="realName" name="realName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="gender" class="col-sm-3 control-label">性别</label>
+						<div class="col-sm-9">
+							<select class="form-control" id="gender" name="gender">
+								<c:forEach var="constantDict" items="${constantDicts}">
+									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
+								</c:forEach>
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
