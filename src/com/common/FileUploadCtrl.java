@@ -1,8 +1,5 @@
 package com.common;
 
-import java.io.File;
-import java.io.IOException;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -11,18 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fileUploadUtil.UploadProgressStatus;
-
 @Controller
 @RequestMapping("fileUploadCtrl")
 public class FileUploadCtrl {
-	
-	@RequestMapping("getFileUploadProgress")
-	@ResponseBody
-	public UploadProgressStatus getFileUploadProgress(HttpSession session){
-		UploadProgressStatus uploadProgressStatus = (UploadProgressStatus)session.getAttribute("uploadProgressStatus");
-		return uploadProgressStatus;
-	}
 	
 	/**上传文件
 	 * @param file Spring MVC会将上传的文件自动绑定到MultipartFile对象中
