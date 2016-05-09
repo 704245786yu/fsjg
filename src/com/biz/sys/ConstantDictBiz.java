@@ -12,6 +12,14 @@ import com.po.sys.ConstantDict;
 
 @Service
 public class ConstantDictBiz extends BaseBiz<ConstantDictDao, Integer, ConstantDict>{
+	
+	/**根据constantTypeCode常量类型编码查询字典常量
+	 * */
+	public List<ConstantDict> findByConstantTypeCode(String constantTypeCode){
+		ConstantDict constantDict = new ConstantDict();
+		constantDict.setConstantTypeCode(constantTypeCode);
+		return dao.findByExample(constantDict);
+	}
 
 	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
 	 * @param offset 偏移量，即记录索引位置

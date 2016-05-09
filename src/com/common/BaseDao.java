@@ -305,8 +305,7 @@ public class BaseDao<ID extends Serializable, T> {
 	}
 	
 	/**根据带占位符参数的 HQL语句查询实体*/
-	@SuppressWarnings("rawtypes")
-	public List<?> find(String hql, List params){
+	public List<?> find(String hql, List<?> params){
 		Query query = getCurrentSession().createQuery(hql);
 		// 为包含占位符的 HQL 语句设置参数
 		for(int i=0; i<params.size(); i++)
@@ -315,17 +314,6 @@ public class BaseDao<ID extends Serializable, T> {
 		}
 		return query.list();
 	}
-	
-	/**根据带占位符参数的 HQL语句查询实体,返回一个实体的多个字段值*/
-//	protected List<Object> findFields(String hql, Object... params){
-//		Query query = getCurrentSession().createQuery(hql);
-//		// 为包含占位符的 HQL 语句设置参数
-//		for(int i=0; i<params.length; i++)
-//		{
-//			query.setParameter(i, params[i]);
-//		}
-//		return query.list();
-//	}
 	
 	/**
 	* 使用 HQL 语句进行分页查询操作

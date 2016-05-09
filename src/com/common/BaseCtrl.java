@@ -63,12 +63,13 @@ public class BaseCtrl<BIZ extends BaseBiz, ID extends Serializable, PO> {
 	}
 	
 	/**分页查询所有数据
+	 * @param total 总记录数
 	 * @param offset 偏移量，即记录索引位置
 	 * @param pageSize 每页记录数
 	 * */
 	@RequestMapping("getAllByPage")
 	@ResponseBody
-	public BootTablePageDto<PO> getAllByPage(int offset, int pageSize){
-		return biz.getAllByPage(offset, pageSize);
+	public BootTablePageDto<PO> getAllByPage(Long total, int offset, int pageSize){
+		return biz.getAllByPage(total, offset, pageSize);
 	}
 }
