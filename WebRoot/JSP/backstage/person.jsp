@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -97,6 +98,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="col-sm-9">
 							<select class="form-control" id="gender" name="gender">
 								<c:forEach var="constantDict" items="${constantDicts}">
+									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="gender" class="col-sm-3 control-label">审核状态</label>
+						<div class="col-sm-9">
+							<select class="form-control" id="auditState" name="auditState">
+								<c:forEach var="constantDict" items="${auditStates}">
 									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
 								</c:forEach>
 							</select>

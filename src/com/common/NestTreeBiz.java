@@ -33,6 +33,8 @@ public abstract class NestTreeBiz < DAO extends NestTreeDao<ID, PO>, ID extends 
 	}
 	
 	public List<PO> transformAdjTree(ID[] ids){
+		if(ids.length == 0)
+			return null;
 		return dao.transformAdjTree(ids);
 	}
 }

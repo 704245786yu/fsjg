@@ -10,7 +10,7 @@
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
-	<context:component-scan base-package="com.ctrl" />
+	<context:component-scan base-package="com.ctrl,com.common" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/JSP/" p:suffix=".jsp" />
@@ -18,4 +18,15 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 
 	<mvc:default-servlet-handler />
+	
+	 <!-- 文件上传
+	 	defaultEncoding:请求的编码格式，默认为ISO-8859-1。该值必须和用户JSP的pageEncoding属性一致,以便正确读取表单的内容。
+	 	maxUploadSize:上传文件大小限制 指定所上传文件的总大小不能超过5242880B。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和
+	 	uploadTempDir:上传文件的临时路径。该属性设置了文件上传过程所使用的临时目录，文件上传完成后，临时目录中的临时文件会被自动清除。
+	  -->
+	 <bean id="multipartResolver"
+	 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+	 	p:defaultEncoding="UTF-8"
+	 	p:maxUploadSize="-1"
+	 	p:uploadTempDir="uploadFile"/>
 </beans>
