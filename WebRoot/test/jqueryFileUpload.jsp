@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<i class="glyphicon glyphicon-plus"></i>
 		<span>请选择图片文件...</span>
 		<!-- The file input field used as target for the file upload widget -->
-		<input id="fileupload" type="file" name="files" data-url="fileUploadCtrl/upload" multiple>
+		<input id="fileupload" type="file" name="file" data-url="person/uploadExcel">
 	</span>
 	<br>
 	<!-- 进度条 -->

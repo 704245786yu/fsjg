@@ -47,8 +47,8 @@ public class MicroOfficeFile {
 		return wb;
 	}
 
-	/**
-	 * 取Excel所有数据，包含header
+	/**取Excel所有数据，包含header
+	 * @param sheetIndex sheet下标从0开始
 	 * @return List<String[]>
 	 */
 	public List<String[]> getAllData(Workbook wb, int sheetIndex) {

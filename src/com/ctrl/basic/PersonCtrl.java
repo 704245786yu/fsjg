@@ -2,9 +2,15 @@ package com.ctrl.basic;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.biz.basic.PersonBiz;
@@ -12,6 +18,7 @@ import com.biz.sys.ConstantDictBiz;
 import com.common.BaseCtrl;
 import com.po.basic.Person;
 import com.po.sys.ConstantDict;
+import com.util.MicroOfficeFile;
 
 @Controller
 @RequestMapping("person")
@@ -35,6 +42,15 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 		mav.addObject("auditStates", auditStates);
 		mav.setViewName("backstage/person");
 		return mav;
+	}
+
+	@RequestMapping("uploadExcel")
+	@ResponseBody
+	public Object uploadExcel(@RequestParam("file")MultipartFile file,HttpSession httpSession){
+		MicroOfficeFile mof = new MicroOfficeFile();
+		Workbook wb = mof.readExcel(file);
+		List<String[]> data = mof.getAllData(wb,0);
+		return biz.batchSavePerson(data);
 	}
 	
 	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
