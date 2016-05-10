@@ -78,11 +78,11 @@ public class BaseCtrl<BIZ extends BaseBiz, ID extends Serializable, PO> {
 	}
 	
 	/**上传文件
-	 * @param files Spring MVC会将上传的文件自动绑定到MultipartFile对象中
+	 * @param files 前端上传文件的属性名。Spring MVC会将上传的文件自动绑定到MultipartFile对象中
 	 * */
-	@RequestMapping("upload")
+	@RequestMapping("uploadFile")
 	@ResponseBody
-	public String uploadFile(@RequestParam("files")MultipartFile[] files,HttpSession httpSession){
+	public Object uploadFile(@RequestParam("files")MultipartFile[] files,HttpSession httpSession){
 		for(int i=0; i<files.length; i++){
 			MultipartFile file = files[i];
 			if(!file.isEmpty()){
