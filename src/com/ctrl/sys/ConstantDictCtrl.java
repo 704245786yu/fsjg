@@ -26,6 +26,7 @@ public class ConstantDictCtrl extends BaseCtrl<ConstantDictBiz, Integer, Constan
 		defaultPage = "sys/constantDict";
 	}
 
+	@Override
 	@RequestMapping
 	public ModelAndView showDefaultPage() {
 		List<ConstantType> constantTypes = constantTypeBiz.getAll();

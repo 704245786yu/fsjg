@@ -23,11 +23,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body>
 	<!-- The fileinput-button span is used to style the file input field as button -->
-	<span class="btn btn-success fileinput-button">
+	<!--<span class="btn btn-success fileinput-button">
 		<i class="glyphicon glyphicon-plus"></i>
 		<span>请选择图片文件...</span>
 		<!-- The file input field used as target for the file upload widget -->
-		<input id="fileupload" type="file" name="file" data-url="person/uploadExcel">
+		<!--<input id="fileupload" type="file" name="file" data-url="person/uploadExcel">
+	</span>
+	<br> -->
+	<span class="btn btn-success fileinput-button">
+		<i class="glyphicon glyphicon-plus"></i>
+		<span>请选择省市信息EXCEL文件...</span>
+		<!-- The file input field used as target for the file upload widget -->
+		<input id="fileupload" type="file" accept="application/vnd.ms-excel" name="file" data-url="district/uploadExcel">
 	</span>
 	<br>
 	<!-- 进度条 -->
