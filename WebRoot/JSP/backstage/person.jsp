@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h4 class="modal-title" id="formModalLabel">编辑个人用户</h4>
 			</div>
 			<div class="modal-body">
-				<form id="ff" method="post" class="form-horizontal" action="constantType/save">
+				<form id="ff" method="post" class="form-horizontal" action="person/save">
 					<div class="form-group">
 						<label for="userName" class="col-sm-3 control-label">用户名 </label>
 						<div class="col-sm-9">
@@ -94,23 +94,111 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="password" class="col-sm-3 control-label">密码</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="password" name="password">
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="gender" class="col-sm-3 control-label">性别</label>
 						<div class="col-sm-9">
 							<select class="form-control" id="gender" name="gender">
-								<c:forEach var="constantDict" items="${constantDicts}">
+								<c:forEach var="constantDict" items="${gender}">
 									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="age" class="col-sm-3 control-label">年龄</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="age" name="age">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="province" class="col-sm-3 control-label">省</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="province" name="province">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="city" class="col-sm-3 control-label">市</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="city" name="city">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="county" class="col-sm-3 control-label">县</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="county" name="county">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="town" class="col-sm-3 control-label">镇/街道</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="town" name="town">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="detailAddr" class="col-sm-3 control-label">详细地址</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="detailAddr" name="detailAddr">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="telephone" class="col-sm-3 control-label">电话</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="telephone" name="telephone">
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="gender" class="col-sm-3 control-label">审核状态</label>
 						<div class="col-sm-9">
 							<select class="form-control" id="auditState" name="auditState">
-								<c:forEach var="constantDict" items="${auditStates}">
+								<c:forEach var="constantDict" items="${auditState}">
 									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
 								</c:forEach>
 							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="personState" class="col-sm-3 control-label">用户状态</label>
+						<div class="col-sm-9">
+							<select class="form-control" id="personState" name="personState">
+								<c:forEach var="constantDict" items="${personState}">
+									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email" class="col-sm-3 control-label">电子邮箱</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="email" name="email">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="qq" class="col-sm-3 control-label">QQ</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="qq" name="qq">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="fixPhone" class="col-sm-3 control-label">固定电话</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="fixPhone" name="fixPhone">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="wechat" class="col-sm-3 control-label">微信</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="wechat" name="wechat">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="idCard" class="col-sm-3 control-label">身份证号</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="idCard" name="idCard">
 						</div>
 					</div>
 					<div class="form-group">

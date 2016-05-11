@@ -40,7 +40,7 @@ public class BaseCtrl<BIZ extends BaseBiz, ID extends Serializable, PO> {
 	
 	@RequestMapping("update")
 	@ResponseBody
-	public PO update(PO po){
+	public PO update(PO po, HttpSession httpSession){
 		biz.update(po);
 		return po;
 	}

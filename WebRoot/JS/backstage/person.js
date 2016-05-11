@@ -115,15 +115,15 @@ $('#ff').bootstrapValidator({
 
 //新增
 function add(){
-	$('#ff').attr('action','constantDict/save');
+	$('#ff').attr('action','person/save');
 }
 
 //修改
 function modify(id){
-	new BsFormTableExtend().showModifyForm(id, 'constantDict/update');
+	new BsFormTableExtend().showModifyForm(id, 'person/update');
 }
 
 //删除
 function del(index,id){
-	new BsFormTableExtend().delRecord(index,id,'constantDict/delete/');
+	new BsFormTableExtend().delRecord(index,id,'person/delete/');
 }

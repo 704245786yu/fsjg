@@ -35,11 +35,13 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 	 * */
 	@RequestMapping("manage")
 	public ModelAndView showManagePerson(){
-		List<ConstantDict> genders = constantDictBiz.findByConstantTypeCode("gender");
-		List<ConstantDict> auditStates = constantDictBiz.findByConstantTypeCode("audit_state");
+		List<ConstantDict> gender = constantDictBiz.findByConstantTypeCode("gender");
+		List<ConstantDict> auditState = constantDictBiz.findByConstantTypeCode("audit_state");
+		List<ConstantDict> personState = constantDictBiz.findByConstantTypeCode("person_state");
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("genders", genders);
-		mav.addObject("auditStates", auditStates);
+		mav.addObject("gender", gender);
+		mav.addObject("auditState", auditState);
+		mav.addObject("personState", personState);
 		mav.setViewName("backstage/person");
 		return mav;
 	}
@@ -51,6 +53,12 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 		Workbook wb = mof.readExcel(file);
 		List<String[]> data = mof.getAllData(wb,0);
 		return biz.batchSavePerson(data);
+	}
+	
+	@Override
+	public Person update(Person person,HttpSession httpSession){
+		biz.update(person);
+		return person;
 	}
 	
 	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。

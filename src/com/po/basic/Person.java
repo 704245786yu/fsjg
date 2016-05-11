@@ -29,7 +29,7 @@ public class Person {
 	
 	private String password;
 	
-	private Byte gender; //0：男 1：女
+	private String gender;
 	
 	private Byte age;
 	
@@ -119,11 +119,11 @@ public class Person {
 		this.password = password;
 	}
 
-	public Byte getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(Byte gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 

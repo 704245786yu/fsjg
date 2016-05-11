@@ -53,6 +53,7 @@ public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 	public User update(User user, HttpSession session) {
 		Date date = new Date();
 		user.setUpdateTime(date);
-		return super.update(user);
+		biz.update(user);
+		return user;
 	}
 }
