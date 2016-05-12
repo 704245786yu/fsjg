@@ -1,0 +1,17 @@
+/*==========SYS表基础数据==============*/
+
+-- sys_constant_type
+delete from sys_constant_type;
+insert into sys_constant_type values (1,'audit_state','审核状态');
+insert into sys_constant_type values (2,'person_state','用户状态');
+
+-- sys_constant_type
+delete from sys_constant_dict;
+insert into sys_constant_dict values(1,'audit_state','待审核',0,null);
+insert into sys_constant_dict values(2,'audit_state','未通过',1,null);
+insert into sys_constant_dict values(3,'audit_state','已通过',2,null);
+insert into sys_constant_dict values(4,'person_state','正常',0,null);
+insert into sys_constant_dict values(5,'person_state','冻结',1,null);
+
+-- sys_menu
+insert into sys_menu values(1,'根菜单',null,null,1,2);

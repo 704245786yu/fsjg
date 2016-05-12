@@ -19,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 	<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+	<link href="plugin/jQuery-File-Upload/css/jquery.fileupload.css" rel="stylesheet">
 </head>
   
 <body>
@@ -44,6 +45,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" onclick="add()">
 					<span class="glyphicon glyphicon-plus"></span> 添加
 				</button>
+			</div>
+			<div class="col-sm-1">
+				<span class="btn btn-success fileinput-button">
+					<i class="glyphicon glyphicon-plus"></i>
+					<span>上传Excel文件...</span>
+					<!-- The file input field used as target for the file upload widget -->
+					<input id="fileupload" type="file" name="file" data-url="person/uploadExcel">
+				</span>
 			</div>
 		</div><!-- .row -->
 	
@@ -103,9 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label for="gender" class="col-sm-3 control-label">性别</label>
 						<div class="col-sm-9">
 							<select class="form-control" id="gender" name="gender">
-								<c:forEach var="constantDict" items="${gender}">
-									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
-								</c:forEach>
+								<option value="男">男</option>
+								<option value="女">女</option>
 							</select>
 						</div>
 					</div>
@@ -128,13 +136,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="county" class="col-sm-3 control-label">县</label>
+						<label for="county" class="col-sm-3 control-label">区县</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="county" name="county">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="town" class="col-sm-3 control-label">镇/街道</label>
+						<label for="town" class="col-sm-3 control-label">镇/乡/街道</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="town" name="town">
 						</div>
@@ -152,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="gender" class="col-sm-3 control-label">审核状态</label>
+						<label for="auditState" class="col-sm-3 control-label">审核状态</label>
 						<div class="col-sm-9">
 							<select class="form-control" id="auditState" name="auditState">
 								<c:forEach var="constantDict" items="${auditState}">
@@ -214,6 +222,130 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- modal-dialog -->
 </div><!-- modal -->
 
+<!-- 查看个人用户 -->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="dialog" style="width:500px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+				<h4 class="modal-title">查看个人用户</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">用户名 </label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="userName"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">真实姓名</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="realName"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">性别</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="gender"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">年龄</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="age"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">省</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="province"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">市</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="city"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">区县</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="county"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">镇/乡/街道</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="town"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">详细地址</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="detailAddr"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">电话</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="telephone"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">实名认证状态</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="authenticationState"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">审核状态</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="auditState"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">用户状态</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="personState"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email" class="col-sm-3 control-label">电子邮箱</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="email"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="qq" class="col-sm-3 control-label">QQ</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="qq"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="fixPhone" class="col-sm-3 control-label">固定电话</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="fixPhone"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="wechat" class="col-sm-3 control-label">微信</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="wechat"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="idCard" class="col-sm-3 control-label">身份证号</label>
+						<div class="col-sm-9">
+							<p class="form-control-static" name="idCard"></p>
+						</div>
+					</div>
+				</div>
+			</div><!-- modal-body -->
+		</div><!-- modal-content -->
+	</div><!-- modal-dialog -->
+</div><!-- modal -->
+
 </body>
 
 <script src="plugin/jquery.min.js"></script>
@@ -223,6 +355,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>

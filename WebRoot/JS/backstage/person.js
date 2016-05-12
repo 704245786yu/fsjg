@@ -1,4 +1,5 @@
 var g_constantType = new Object();//全局变量,常量类型
+
 $(function(){
 	new BsFormTableExtend().closeFormModal();//form模态框关闭事件，触发该事件时重置form
 	//获取字典常量类型
@@ -11,11 +12,30 @@ $(function(){
 
 function getQueryParams(params){
 	params.pageSize = params.limit;
-	var searchText = $('#searchText').val().trim();
-	params.constantName = searchText;
+//	var searchText = $('#searchText').val().trim();
+//	params.constantName = searchText;
 	delete params.limit;
 	delete params.order;
 	return params;
+}
+
+function operFormatter(value,row,index){
+	var viewBtn = "<button type='button' class='btn btn-default btn-xs' title='查看' onclick='view("+row.id+")'><span class='text-primary glyphicon glyphicon-eye-open'></span></button>";
+	var modifyBtn = " <button type='button' class='btn btn-default btn-xs' title='修改' onclick='modify("+row.id+")'><span class='text-primary glyphicon glyphicon-edit'></span></button>";
+	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
+	return viewBtn + modifyBtn + delBtn;
+}
+
+function view(id){
+	var row = $('#dg').bootstrapTable('getRowByUniqueId',id);
+	var pAry = $('#viewModal p');
+	for(var i=0; i<pAry.length; i++){
+		var $p = $(pAry[i]);
+		var name = $p.attr("name");
+		console.log(name);
+		$p.html(row[name]);
+	}
+	$('#viewModal').modal('show');//显示form模态框
 }
 
 //个人实名状态
@@ -127,3 +147,19 @@ function modify(id){
 function del(index,id){
 	new BsFormTableExtend().delRecord(index,id,'person/delete/');
 }
+
+$('#fileupload').fileupload({
+	done: function (e, data) {	//上传请求成功完成后的回调处理方法
+		if(data.result == 1){	//跳转到最后一页，以展示最新数据
+			var opt = $('#dg').bootstrapTable('getOptions');
+//		  		var pageSize = opt.pageSize;
+			var pageNumber = opt.pageNumber;
+			console.log(pageNumber);
+//		  		var totalRows = opt.totalRows;
+//		  		var tzPageNumber = Math.ceil(totalRows/pageSize);
+			$('#dg').bootstrapTable('selectPage',pageNumber);
+		}else{
+			alert('上传文件失败');
+		}
+	}
+});

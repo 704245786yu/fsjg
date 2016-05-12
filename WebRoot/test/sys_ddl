@@ -1,0 +1,8 @@
+create table if not exists sys_menu(
+	id int primary key auto_increment,
+  menu_name varchar(20) not null COMMENT '菜单名称',
+  path varchar(50) COMMENT '菜单访问路径',
+	img_path varchar(50) comment '菜单图片',
+	lft int NOT NULL UNIQUE COMMENT '节点左序号值',
+  rgt int NOT NULL UNIQUE COMMENT '节点右序号值'
+) comment '系统菜单表';

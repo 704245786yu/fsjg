@@ -13,16 +13,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
-  
-<body>
-	<a href="person/manage">个人信息管理</a>
-	<a href="user">后台用户管理</a>
-	
-	<a href="test/jqueryFileUpload.jsp">Fileupload Test</a>
-</body>
-<script src="jquery/jquery.min.js"></script>
-<script src="bootstrap/bootstrap.min.js"></script>
+
+<frameset rows="60,*" cols="*" frameborder="yes" border="0" framespacing="0">
+  <frame src="JSP/sys/top.jsp" name="top_frame" scrolling="No" noresize="noresize" id="top_frame" title="top_frame" />
+  <frameset rows="*" cols="260,*" framespacing="0" frameborder="no" border="0">
+    <frame src="JSP/sys/left.jsp" name="left_frame" scrolling="No" noresize="noresize" id="left_frame" title="left_frame" />
+    <frame src="" name="right_frame" id="right_frame" title="right_frame" />
+  </frameset>
+</frameset>
+
 </html>

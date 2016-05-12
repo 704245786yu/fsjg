@@ -45,10 +45,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		data-row-style="rowStyle" data-unique-id="id">
 	    <thead>
 	        <tr>
-	            <th data-field="menuName"  data-sortable="true">菜单名</th>
+	            <th data-field="menuName">菜单名</th>
 	            <th data-field="path" data-align="center">链接路径</th>
 	            <th data-field="imgPath" data-align="center">图片位置</th>
-	            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
+	            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
 	        </tr>
 	    </thead>
 	</table>

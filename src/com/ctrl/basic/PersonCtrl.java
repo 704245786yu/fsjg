@@ -18,6 +18,7 @@ import com.biz.sys.ConstantDictBiz;
 import com.common.BaseCtrl;
 import com.po.basic.Person;
 import com.po.sys.ConstantDict;
+import com.po.sys.User;
 import com.util.MicroOfficeFile;
 
 @Controller
@@ -35,11 +36,9 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 	 * */
 	@RequestMapping("manage")
 	public ModelAndView showManagePerson(){
-		List<ConstantDict> gender = constantDictBiz.findByConstantTypeCode("gender");
 		List<ConstantDict> auditState = constantDictBiz.findByConstantTypeCode("audit_state");
 		List<ConstantDict> personState = constantDictBiz.findByConstantTypeCode("person_state");
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("gender", gender);
 		mav.addObject("auditState", auditState);
 		mav.addObject("personState", personState);
 		mav.setViewName("backstage/person");
@@ -48,11 +47,18 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 
 	@RequestMapping("uploadExcel")
 	@ResponseBody
-	public Object uploadExcel(@RequestParam("file")MultipartFile file,HttpSession httpSession){
-		MicroOfficeFile mof = new MicroOfficeFile();
-		Workbook wb = mof.readExcel(file);
-		List<String[]> data = mof.getAllData(wb,0);
-		return biz.batchSavePerson(data);
+	public Integer uploadExcel(@RequestParam("file")MultipartFile file,HttpSession httpSession){
+		try{
+			MicroOfficeFile mof = new MicroOfficeFile();
+			Workbook wb = mof.readExcel(file);
+			List<String[]> data = mof.getAllData(wb,0);
+			User loginUser = (User)httpSession.getAttribute("loginUser");
+			biz.batchSavePerson(data.subList(2, data.size()),1);
+			return 1;
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	
 	@Override
