@@ -14,4 +14,7 @@ insert into sys_constant_dict values(4,'person_state','正常',0,null);
 insert into sys_constant_dict values(5,'person_state','冻结',1,null);
 
 -- sys_menu
-insert into sys_menu values(1,'根菜单',null,null,1,2);
+INSERT INTO `sys_menu` VALUES ('1', '根菜单', null, null, '1', '8');
+INSERT INTO `sys_menu` VALUES ('2', '系统后台', '', '', '2', '7');
+INSERT INTO `sys_menu` VALUES ('3', '后台用户管理', 'person/manage', '', '3', '4');
+INSERT INTO `sys_menu` VALUES ('4', '菜单管理', 'menu', '', '5', '6');
