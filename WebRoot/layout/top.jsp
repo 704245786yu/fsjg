@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>主页面</title>
+    <title>顶部边栏</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -19,11 +19,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
 </head>
   
-  <body>
-    <div id="aa" style="margin:0">   
-    	<div >
-   			<h3 class="bb" >系统后台管理</h3>
-   		</div>   		
+<body>
+	<div style="margin:0">
+		<h3>系统后台管理</h3>
 	</div>
-  </body>
+</body>
 </html>
