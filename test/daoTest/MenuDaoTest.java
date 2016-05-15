@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.dao.sys.MenuDao;
+import com.sys.dao.MenuDao;
 import com.util.JacksonJson;
 
 @RunWith(SpringJUnit4ClassRunner.class)

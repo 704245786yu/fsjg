@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="authenticationState" data-align="center" data-formatter="authenFormatter">个人实名状态</th>
 		            <th data-field="auditState" data-align="center" data-formatter="auditFormatter">审核状态</th>
 		            <th data-field="personState" data-align="center" data-formatter="personFormatter">用户状态</th>
-		            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
+		            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
 		        </tr>
 		    </thead>
 		</table>

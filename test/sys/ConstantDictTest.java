@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.dao.sys.ConstantDictDao;
-import com.dao.sys.ConstantTypeDao;
-import com.po.sys.ConstantDict;
-import com.po.sys.ConstantType;
+import com.sys.dao.ConstantDictDao;
+import com.sys.dao.ConstantTypeDao;
+import com.sys.po.ConstantDict;
+import com.sys.po.ConstantType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")

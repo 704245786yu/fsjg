@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <th data-field="roleName" data-align="center" data-sortable="true">角色名</th>
 	            <th data-field="description" data-align="center">描述</th>
 	            <th data-field="updateTime" data-align="center">更新时间</th>
-	            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
+	            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
 	        </tr>
 	    </thead>
 	</table>
@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<form id="ff" method="post" class="form-horizontal row">
 					<!-- 菜单树 -->
 					<div class="col-sm-6">
-						<h5>菜单</h5>
+						<h5><b>菜单</b></h5>
 						<ul id="tree" class="ztree"></ul>
 					</div>
 					<div class="col-sm-6">
