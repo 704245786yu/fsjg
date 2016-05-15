@@ -13,13 +13,16 @@ import com.util.JacksonJson;
 
 @Service
 public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
+	private static final String treeRoot = "100000000000";//100000000000是自定义的根节点，已经手动在数据库添加
 	@Autowired
 	private DistrictDao districtDao;
 	/**批量保存省市街道信息
 	 * */
-	public Integer batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data){
+	public Integer batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data,Integer userId){
 		//JacksonJson.printBeanToJson(data);
 		//TODO something
+		
+		String userIdString=userId.toString();
 		//用来放置符合条件的数据
 		List<String[]> tempData=new ArrayList<>();
 		//构建数组，和数据库格式一致
@@ -33,7 +36,7 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		}
 		//添加省份信息
 		if(!ifExistList.contains(provinceCode)){
-			provinceData=new String[]{provinceCode,proviceName,"100000000000",null,null};//100000000000是自定义的根节点，已经手动在数据库添加
+			provinceData=new String[]{provinceCode,proviceName,treeRoot,userIdString,null};
 			tempData.add(provinceData);
 			ifExistList.add(provinceCode);
 		}
@@ -43,17 +46,17 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		{
 			String[] dataRow=data.get(i);
 			if(!ifExistList.contains(dataRow[1])){//市级
-				 provinceData=new String[]{dataRow[1],dataRow[2],provinceCode,null,null};
+				 provinceData=new String[]{dataRow[1],dataRow[2],provinceCode,userIdString,null};
 				 tempData.add(provinceData);
 				 ifExistList.add(dataRow[1]);
 			}
 			if(!ifExistList.contains(dataRow[3])){//区级
-				 provinceData=new String[]{dataRow[3],dataRow[4],dataRow[1],null,null};
+				 provinceData=new String[]{dataRow[3],dataRow[4],dataRow[1],userIdString,null};
 				 tempData.add(provinceData);
 				 ifExistList.add(dataRow[3]);
 			}
 			if(!ifExistList.contains(dataRow[5])){//城镇
-				 provinceData=new String[]{dataRow[5],dataRow[6],dataRow[3],null,null};
+				 provinceData=new String[]{dataRow[5],dataRow[6],dataRow[3],userIdString,null};
 				 tempData.add(provinceData);
 				 ifExistList.add(dataRow[5]);
 			}
