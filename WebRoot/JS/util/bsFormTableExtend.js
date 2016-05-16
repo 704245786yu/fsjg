@@ -23,7 +23,6 @@ BsFormTableExtend.prototype.showModifyForm = function(id, action, datagridId, fo
 	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
 	$('#'+ff).attr('action',action);//设置form表单action
 	$('#'+ff).autofill( data,{restrict:true} );//填充form表单
-	console.log(data);
 	$('#'+formModal).modal('show');//显示form模态框
 }
 

@@ -56,9 +56,9 @@ public class RoleCtrl extends BaseCtrl<RoleBiz, Integer, Role>{
 		return biz.save(role, menuIds, authorityIds);
 	}
 	
-//	@RequestMapping("updateRole")
-//	@ResponseBody
-	public Role update(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam("authorityIds[]")Integer[] authorityIds,HttpSession httpSession){
+	@RequestMapping("updateRole")
+	@ResponseBody
+	public Role updateRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam("authorityIds[]")Integer[] authorityIds,HttpSession httpSession){
 		User user = (User)httpSession.getAttribute("loginUser");
 		JacksonJson.printBeanToJson(role);
 		JacksonJson.printBeanToJson(menuIds);

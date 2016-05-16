@@ -90,8 +90,9 @@ function submitFunc(e){
 	e.preventDefault();
     var $form = $(e.target);
     var action = $form.attr('action');
-    var roleName = $('#roleName').text();
-    var description = $('#description').text();
+    var roleId = $('input[name="id"]').val();
+    var roleName = $('#roleName').val();
+    var description = $('#description').val();
     //获取勾选的菜单ID
     var checkedNodes = g_zTree.getCheckedNodes(true);
     var menuIds = new Array();
@@ -103,6 +104,7 @@ function submitFunc(e){
     for(var i=0; i<checkboxs.length; i++)
     	authorityIds.push(checkboxs[i].value);
     var obj = {
+    		'id':roleId,
     		'roleName':roleName,
     		'description':description,
     		'menuIds':menuIds,
