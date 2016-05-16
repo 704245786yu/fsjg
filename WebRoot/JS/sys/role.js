@@ -7,6 +7,8 @@ var setting = {
 	},
 	callback:{
 		onAsyncSuccess:function(event,treeId,treeNode, msg){
+			var node = g_zTree.getNodeByParam("path", "home", null);
+			g_zTree.checkNode(node, true, true);	//默认勾选首页菜单
 			g_zTree.expandAll(true);
 		}
 	},
@@ -88,7 +90,6 @@ function submitFunc(e){
 	e.preventDefault();
     var $form = $(e.target);
     var action = $form.attr('action');
-
     var roleName = $('#roleName').text();
     var description = $('#description').text();
     //获取勾选的菜单ID

@@ -169,6 +169,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/util/treeUtil.js"></script>
 <script src="JS/sys/role.js"></script>
 </html>

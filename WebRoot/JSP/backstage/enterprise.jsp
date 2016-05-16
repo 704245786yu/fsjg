@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
   </body>
   <script src="plugin/jquery.min.js"></script>
-<script src="plugin/bootstgit ap/js/bootstrap.min.js"></script>
+<script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <!-- 添加Jquery框架对iframe元素上传的支持 -->
 <script src="plugin/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>

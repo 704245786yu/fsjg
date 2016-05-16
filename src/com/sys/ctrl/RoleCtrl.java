@@ -1,6 +1,9 @@
 package com.sys.ctrl;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import com.sys.dto.MenuAndAuthorityDto;
 import com.sys.po.Authority;
 import com.sys.po.Menu;
 import com.sys.po.Role;
+import com.sys.po.User;
 import com.util.JacksonJson;
 
 @Controller
@@ -42,21 +46,26 @@ public class RoleCtrl extends BaseCtrl<RoleBiz, Integer, Role>{
 	
 	@RequestMapping("saveRole")
 	@ResponseBody
-	public Role saveRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam("authorityIds[]")Integer[] authorityIds){
-		JacksonJson.printBeanToJson(role);
-		JacksonJson.printBeanToJson(menuIds);
-		JacksonJson.printBeanToJson(authorityIds);
-		role.setId(10);
-		return role;
+	public Role saveRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam("authorityIds[]")Integer[] authorityIds,HttpSession httpSession){
+		User user = (User)httpSession.getAttribute("loginUser");
+//		JacksonJson.printBeanToJson(role);
+//		JacksonJson.printBeanToJson(menuIds);
+//		JacksonJson.printBeanToJson(authorityIds);
+//		role.setUpdateBy(user.getId());
+		role.setUpdateTime(new Date());
+		return biz.save(role, menuIds, authorityIds);
 	}
 	
-	@RequestMapping("uploadRole")
-	@ResponseBody
-	public Role uploadRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam("authorityIds[]")Integer[] authorityIds){
+//	@RequestMapping("updateRole")
+//	@ResponseBody
+	public Role update(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam("authorityIds[]")Integer[] authorityIds,HttpSession httpSession){
+		User user = (User)httpSession.getAttribute("loginUser");
 		JacksonJson.printBeanToJson(role);
 		JacksonJson.printBeanToJson(menuIds);
 		JacksonJson.printBeanToJson(authorityIds);
-		role.setId(10);
+//		role.setUpdateBy(user.getId());
+		role.setUpdateTime(new Date());
+		biz.update(role, menuIds, authorityIds);
 		return role;
 	}
 	
