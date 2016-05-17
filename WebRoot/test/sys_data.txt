@@ -5,7 +5,8 @@ delete from sys_constant_type;
 insert into sys_constant_type values (1,'authentication_state','个人实名认证状态');
 insert into sys_constant_type values (2,'audit_state','审核状态');
 insert into sys_constant_type values (3,'person_state','用户状态');
-insert into sys_constant_type values (4,'process_type','加工类型');
+insert into sys_constant_type values (4,'qualification_state','企业资质认证状态');
+insert into sys_constant_type values (5,'process_type','加工类型');
 
 -- sys_constant_type
 delete from sys_constant_dict;
@@ -16,21 +17,27 @@ insert into sys_constant_dict values(4,'audit_state','未通过',1,null);
 insert into sys_constant_dict values(5,'audit_state','已通过',2,null);
 insert into sys_constant_dict values(6,'person_state','正常',0,null);
 insert into sys_constant_dict values(7,'person_state','冻结',1,null);
-insert into sys_constant_dict values(8,'process_type','清加工',0,null);
-insert into sys_constant_dict values(9,'process_type','经销',1,null);
-insert into sys_constant_dict values(10,'process_type','自营出口',2,null);
-insert into sys_constant_dict values(11,'process_type','其他',3,null);
+insert into sys_constant_dict values(8,'qualification_state','未认证',0,null);
+insert into sys_constant_dict values(9,'qualification_state','已认证',1,null);
+insert into sys_constant_dict values(10,'process_type','清加工',0,null);
+insert into sys_constant_dict values(11,'process_type','经销',1,null);
+insert into sys_constant_dict values(12,'process_type','自营出口',2,null);
+insert into sys_constant_dict values(13,'process_type','其他',3,null);
 
 -- sys_menu
 delete from sys_menu;
-INSERT INTO `sys_menu` VALUES ('1', '根菜单', null, null, '1', '16');
-INSERT INTO `sys_menu` VALUES ('2', '系统后台', '', '', '2', '15');
+INSERT INTO `sys_menu` VALUES ('1', '根菜单', null, null, '1', '24');
+INSERT INTO `sys_menu` VALUES ('2', '系统后台', '', '', '2', '23');
 INSERT INTO `sys_menu` VALUES ('3', '后台用户管理', 'person/manage', '', '3', '4');
 INSERT INTO `sys_menu` VALUES ('4', '菜单管理', 'menu', '', '5', '6');
 INSERT INTO `sys_menu` VALUES ('5', '常量类型', 'constantType', '', '7', '8');
 INSERT INTO `sys_menu` VALUES ('6', '字典常量', 'constantDict', '', '9', '10');
 INSERT INTO `sys_menu` VALUES ('7', '系统用户管理', 'user', '', '11', '12');
 INSERT INTO `sys_menu` VALUES ('8', '角色管理', 'role', '', '13', '14');
+INSERT INTO `sys_menu` VALUES ('9', '地区管理', 'district', '', '15', '16');
+INSERT INTO `sys_menu` VALUES ('10', '企业信息管理', 'enterprise', '', '17', '18');
+INSERT INTO `sys_menu` VALUES ('11', '首页', 'home', '', '19', '20');
+INSERT INTO `sys_menu` VALUES ('12', '快产专家', 'personContractor/backstage', '', '21', '22');
 
 -- sys_authority
 delete from sys_authority;
@@ -47,3 +54,10 @@ INSERT INTO `sys_role` VALUES ('1', '管理员', null, null, '2016-05-11 16:28:1
 -- sys_user
 delete from sys_user;
 INSERT INTO `sys_user` VALUES ('1', 'admin', '123456', '1', null, '2016-05-11 16:28:15');
+
+
+-- basic_person
+INSERT INTO `basic_person` VALUES ('1', '王大', '王大2', '', null, null, null, null, null, null, null, null, null, '2016-05-17 17:31:07', null, null, null, null, null, null, null, null, null, null, null, null);
+
+-- basic_person_contractor
+INSERT INTO `basic_person_contractor` VALUES ('1', '1', '33', '13', '10', null, null, null, '2016-05-17 19:01:27', null, '2016-05-17 20:20:31');

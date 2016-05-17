@@ -204,12 +204,12 @@ public class Enterprise {
 		this.organizationCode = organizationCode;
 	}
 
-	public Byte getReceiveOrderType() {
-		return receiveOrderType;
+	public Byte getProcessType() {
+		return processType;
 	}
 
-	public void setReceiveOrderType(Byte receiveOrderType) {
-		this.receiveOrderType = receiveOrderType;
+	public void setProcessType(Byte processType) {
+		this.processType = processType;
 	}
 
 	public Short getStaffAmount() {
@@ -375,8 +375,8 @@ public class Enterprise {
 	@Column(name = "organization_code")
 	private String organizationCode;
 	
-	@Column(name = "receive_order_type")
-	private Byte receiveOrderType; 
+	@Column(name = "process_type")
+	private Byte processType; 
 	
 	@Column(name = "staff_amount")
 	private Short staffAmount;
