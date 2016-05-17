@@ -98,6 +98,19 @@ function seqnumFormatter(value,row,index){
 	return index+1;
 }
 
+/**operFormatterVUD中VUD表示table的操作栏目中显示view、update、del按钮
+ * table显示 view、update、del按钮
+ * @param value 对应表格field的值
+ * @param {Object} row 当前行的数据
+ * @param {Number} index 行索引
+ * */
+function operFormatterVUD(value,row,index){
+	var viewBtn = "<button type='button' class='btn btn-default btn-xs' title='查看' onclick='view("+row.id+")'><span class='text-primary glyphicon glyphicon-eye-open'></span></button>";
+	var modifyBtn = " <button type='button' class='btn btn-default btn-xs' title='修改' onclick='modify("+row.id+")'><span class='text-primary glyphicon glyphicon-edit'></span></button>";
+	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
+	return viewBtn + modifyBtn + delBtn;
+}
+
 /**table显示修改、删除按钮
  * @param value 对应表格field的值
  * @param {Object} row 当前行的数据

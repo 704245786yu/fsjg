@@ -24,21 +24,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <body>
 <div class="panel panel-primary">
-	<div class="panel-heading">
-		快产专家管理
-	</div>
+	<div class="panel-heading">快产专家管理</div>
 	<div class="panel-body">
 		<!-- 搜索框、新增按钮 -->
-		<div id="tb" class="row" style="width:100%;padding:10px;">
+		<div class="row" style="width:100%;padding:10px;">
 			<div class="col-sm-4">
-				<div class="input-group">
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-primary" onclick="search()">
-							<span class="glyphicon glyphicon-search"></span>
-						</button>
-					</span>
-					<input type="text" class="form-control" id="searchText" placeholder="常量名称">
-				</div><!-- /input-group -->
+					<label for="workerAmount">员工数量</label>
+					<input type="text" class="form-control" name="workerAmount" placeholder="员工数量">
+			</div><!-- /.col-sm-4 -->
+			<div class="col-sm-4">
+					<label for="processYear">加工年限</label>
+					<input type="text" class="form-control" name="processYear" placeholder="加工年限">
+			</div><!-- /.col-sm-4 -->
+			<div class="col-sm-4">
+					<label for="startDate">发布日期</label>
+					<input type="text" class="form-control" name="startDate" placeholder="开始日期"> 至
+					<input type="text" class="form-control" name="startDate" placeholder="结束日期">
 			</div><!-- /.col-sm-4 -->
 	    
 			<div class="col-sm-1">
@@ -56,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div><!-- .row -->
 	
 		<!-- 数据表格 -->
-		<table id="dg" data-toggle="table" data-url="person/getAllByPage" data-unique-id="id"
+		<table id="dg" data-toggle="table" data-url="personContractor/findByPageAndParams" data-unique-id="id"
 				data-pagination="true"
 				data-side-pagination="server"
 				data-query-params="getQueryParams"
@@ -65,14 +66,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <thead>
 		        <tr>
 		        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
-		            <th data-field="userName" data-align="center">用户名</th>
-		            <th data-field="realName" data-align="center">真实姓名</th>
-		            <th data-field="telephone" data-align="center">手机号码</th>
-		            <th data-field="createTime" data-align="center">注册时间</th>
-		            <th data-field="authenticationState" data-align="center" data-formatter="authenFormatter">个人实名状态</th>
-		            <th data-field="auditState" data-align="center" data-formatter="auditFormatter">审核状态</th>
-		            <th data-field="personState" data-align="center" data-formatter="personFormatter">用户状态</th>
-		            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
+		            <th data-field="realName" data-align="center">姓名</th>
+		            <th data-field="processType" data-align="center" data-formatter="processFormatter">加工类型 </th>
+		            <th data-field="processYear" data-align="center">加工年限(年)</th>
+		            <th data-field="workerAmount" data-align="center">工人数量</th>
+		            <th data-field="createTime" data-align="center" data-formatter="dateFormatter">创建时间</th>
+		            <th data-formatter="operFormatterVUD" class="col-sm-2" data-align="center">操作</th>
 		        </tr>
 		    </thead>
 		</table>
@@ -90,122 +89,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="modal-body">
 				<form id="ff" method="post" class="form-horizontal" action="person/save">
 					<div class="form-group">
-						<label for="userName" class="col-sm-3 control-label">用户名 </label>
+						<label for="auditState" class="col-sm-3 control-label">加工类型</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="userName" name="userName">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="realName" class="col-sm-3 control-label">真实姓名</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="realName" name="realName">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="password" class="col-sm-3 control-label">密码</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="password" name="password">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="gender" class="col-sm-3 control-label">性别</label>
-						<div class="col-sm-9">
-							<select class="form-control" id="gender" name="gender">
-								<option value="男">男</option>
-								<option value="女">女</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="age" class="col-sm-3 control-label">年龄</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="age" name="age">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="province" class="col-sm-3 control-label">省</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="province" name="province">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="city" class="col-sm-3 control-label">市</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="city" name="city">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="county" class="col-sm-3 control-label">区县</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="county" name="county">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="town" class="col-sm-3 control-label">镇/乡/街道</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="town" name="town">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="detailAddr" class="col-sm-3 control-label">详细地址</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="detailAddr" name="detailAddr">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="telephone" class="col-sm-3 control-label">电话</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="telephone" name="telephone">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="auditState" class="col-sm-3 control-label">审核状态</label>
-						<div class="col-sm-9">
-							<select class="form-control" id="auditState" name="auditState">
-								<c:forEach var="constantDict" items="${auditState}">
+							<select class="form-control" id="processType" name="processType">
+								<c:forEach var="constantDict" items="${processTypes}">
 									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="personState" class="col-sm-3 control-label">用户状态</label>
+						<label for="processYear" class="col-sm-3 control-label">加工年限</label>
 						<div class="col-sm-9">
-							<select class="form-control" id="personState" name="personState">
-								<c:forEach var="constantDict" items="${personState}">
-									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
-								</c:forEach>
-							</select>
+							<input type="text" class="form-control" id="processYear" name="processYear">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="email" class="col-sm-3 control-label">电子邮箱</label>
+						<label for="workerAmount" class="col-sm-3 control-label">工人数量</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="email" name="email">
+							<input type="text" class="form-control" id="workerAmount" name="workerAmount">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="qq" class="col-sm-3 control-label">QQ</label>
+						<label for="quote" class="col-sm-3 control-label">报价</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="qq" name="qq">
+							<input type="text" class="form-control" id="quote" name="quote">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fixPhone" class="col-sm-3 control-label">固定电话</label>
+						<label for="equipment" class="col-sm-3 control-label">生产设备</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="fixPhone" name="fixPhone">
+							<input type="text" class="form-control" id="equipment" name="equipment">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="wechat" class="col-sm-3 control-label">微信</label>
+						<label for="processDesc" class="col-sm-3 control-label">加工说明</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="wechat" name="wechat">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="idCard" class="col-sm-3 control-label">身份证号</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="idCard" name="idCard">
+							<input type="text" class="form-control" id="processDesc" name="processDesc">
 						</div>
 					</div>
 					<div class="form-group">
@@ -360,5 +280,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
+<script src="JS/util/MyJsDate.js"></script>
 <script src="JS/backstage/personContractor.js"></script>
 </html>

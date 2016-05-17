@@ -3,6 +3,7 @@
  */
 //动态创建菜单
 var data;
+var basedata;
 $(document).ready(function(){
 	$.ajax({
 		type : "get",
@@ -15,7 +16,10 @@ $(document).ready(function(){
 	 });
 	var ul=document.getElementById("demo-list");              
 	for(var i=0;i<data.length;i++){
-		if(data[i].pId==1){
+		if(data[i].pId==null){
+			basedata=data[i];
+		}
+		if(data[i].pId==basedata.id){
 			var obj=document.createElement("li"); 
 			obj.id=data[i].id;
 			if(data[i].path==null||data[i].path==""){

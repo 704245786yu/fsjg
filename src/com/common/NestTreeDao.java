@@ -16,13 +16,13 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 	/**添加根节点
 	 * @deprecated 根节点直接人工操作数据库,不建议通过页面添加，这有可能导致添加根节点的用户越级添加的风险
 	 * */
-	@Deprecated
 	@Transactional
 	public PO addRootNode(PO po){
 		po.setLft(1);
+		String tableName = super.getTableName();
 		//更新表中所有节点的左右值
-		super.executeUpdate("update "+super.persistentName+" set lft = lft + 1 order by lft desc");
-		super.executeUpdate("update "+super.persistentName+" set rgt = rgt + 1 order by rgt desc");
+		super.executeUpdateByNativeSql("update "+tableName+" set lft = lft + 1 order by lft desc",new String[]{},new Object[]{});
+		super.executeUpdateByNativeSql("update "+tableName+" set rgt = rgt + 1 order by rgt desc",new String[]{},new Object[]{});
 		int count = ((Long)super.getCount()).intValue();
 		po.setRgt( (count+1)*2 );
 		super.save(po);
@@ -132,7 +132,7 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
         List<Integer> values = new ArrayList<Integer>();
         values.add(node.getLft());
         values.add(node.getRgt());
-		List<PO> list = super.findByNativeSql(sqlBuffer.toString(), 
+		List<PO> list = (List<PO>)super.findByNativeSql(sqlBuffer.toString(), 
 				new String[]{"lft","rgt"}, values, scalar);
 		return list;
 	}

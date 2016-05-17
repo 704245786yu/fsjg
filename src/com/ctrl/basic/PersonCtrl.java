@@ -34,8 +34,8 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 	
 	/**后台个人用户管理页面
 	 * */
-	@RequestMapping("manage")
-	public ModelAndView showManagePerson(){
+	@RequestMapping("backstage")
+	public ModelAndView showBackstageManage(){
 		List<ConstantDict> auditState = constantDictBiz.findByConstantTypeCode("audit_state");
 		List<ConstantDict> personState = constantDictBiz.findByConstantTypeCode("person_state");
 		ModelAndView mav = new ModelAndView();

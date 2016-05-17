@@ -2,16 +2,24 @@
 
 -- sys_constant_type
 delete from sys_constant_type;
-insert into sys_constant_type values (1,'audit_state','审核状态');
-insert into sys_constant_type values (2,'person_state','用户状态');
+insert into sys_constant_type values (1,'authentication_state','个人实名认证状态');
+insert into sys_constant_type values (2,'audit_state','审核状态');
+insert into sys_constant_type values (3,'person_state','用户状态');
+insert into sys_constant_type values (4,'process_type','加工类型');
 
 -- sys_constant_type
 delete from sys_constant_dict;
-insert into sys_constant_dict values(1,'audit_state','待审核',0,null);
-insert into sys_constant_dict values(2,'audit_state','未通过',1,null);
-insert into sys_constant_dict values(3,'audit_state','已通过',2,null);
-insert into sys_constant_dict values(4,'person_state','正常',0,null);
-insert into sys_constant_dict values(5,'person_state','冻结',1,null);
+insert into sys_constant_dict values(1,'audit_state','未认证',0,null);
+insert into sys_constant_dict values(2,'audit_state','已认证',1,null);
+insert into sys_constant_dict values(3,'audit_state','待审核',0,null);
+insert into sys_constant_dict values(4,'audit_state','未通过',1,null);
+insert into sys_constant_dict values(5,'audit_state','已通过',2,null);
+insert into sys_constant_dict values(6,'person_state','正常',0,null);
+insert into sys_constant_dict values(7,'person_state','冻结',1,null);
+insert into sys_constant_dict values(8,'process_type','清加工',0,null);
+insert into sys_constant_dict values(9,'process_type','经销',1,null);
+insert into sys_constant_dict values(10,'process_type','自营出口',2,null);
+insert into sys_constant_dict values(11,'process_type','其他',3,null);
 
 -- sys_menu
 delete from sys_menu;

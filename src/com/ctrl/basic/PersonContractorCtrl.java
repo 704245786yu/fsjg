@@ -1,6 +1,7 @@
 package com.ctrl.basic;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.biz.basic.PersonContractorBiz;
 import com.common.BaseCtrl;
-import com.po.basic.Person;
+import com.dto.BootTablePageDto;
 import com.po.basic.PersonContractor;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
@@ -33,16 +34,14 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 		defaultPage = "backstage/personContractor";
 	}
 	
-	/**后台个人用户管理页面
+	/**后台快产专家管理页面
 	 * */
-	@RequestMapping("manage")
-	public ModelAndView showManagePerson(){
-		List<ConstantDict> auditState = constantDictBiz.findByConstantTypeCode("audit_state");
-		List<ConstantDict> personState = constantDictBiz.findByConstantTypeCode("person_state");
+	@RequestMapping("backstage")
+	public ModelAndView showBackstageManage(){
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("auditState", auditState);
-		mav.addObject("personState", personState);
-		mav.setViewName("backstage/person");
+		mav.addObject("processTypes", processTypes);
+		mav.setViewName("backstage/personContractor");
 		return mav;
 	}
 
@@ -68,14 +67,14 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 		return personContractor;
 	}
 	
-	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
+	/**分页查询
 	 * @param offset 偏移量，即记录索引位置
-	 * @param pageSize 每页记录数
-	 * @param constantName 要模糊查询的常量名称
+	 * @param pageSize 每页需要显示的记录数
+	 * @return 返回PersonContractor的部分属性，以及Person的realName属性
 	 * */
-	/*@RequestMapping("findByPageAndParams")
+	@RequestMapping("findByPageAndParams")
 	@ResponseBody
-	public BootTablePageDto<ConstantDict> findByPageAndParams(int offset, int pageSize, String constantName){
-		return biz.findByPageAndParams(offset,pageSize,constantName);
-	}*/
+	public BootTablePageDto<Map<String,Object>> findByPageAndParams(int offset, int pageSize){
+		return biz.findByPageAndParams(offset,pageSize);
+	}
 }

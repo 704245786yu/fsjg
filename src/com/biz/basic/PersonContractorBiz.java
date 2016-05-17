@@ -3,6 +3,7 @@ package com.biz.basic;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.common.BaseBiz;
 import com.dao.basic.PersonContractorDao;
 import com.dao.basic.PersonDao;
+import com.dto.BootTablePageDto;
 import com.po.basic.Person;
 import com.po.basic.PersonContractor;
 import com.util.NumberTransform;
@@ -55,9 +57,16 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 		personDao.saveBatch(list);
 	}
 	
-	/**分页获取所有数据
+	/**分页查询
+	 * @param offset 偏移量，即记录索引位置
+	 * @param pageSize 每页需要显示的记录数
+	 * @return 返回PersonContractor的部分属性，以及Person的realName属性
 	 * */
-//	public List<Person> getAllByPage(int pageNo, int pageSize){
-//		return dao.findByPage(pageNo, pageSize);
-//	}
+	public BootTablePageDto<Map<String,Object>> findByPageAndParams(int offset, int pageSize){
+		BootTablePageDto<Map<String,Object>> bt = new BootTablePageDto<Map<String,Object>>();
+		long total = dao.getCount();
+		bt.setTotal(total);
+		bt.setRows(dao.findByPageAndParams(offset,pageSize));
+		return bt;
+	}
 }

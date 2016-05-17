@@ -1,13 +1,13 @@
-var g_constantType = new Object();//全局变量,常量类型
-
+var g_processType = new Object();
 $(function(){
 	new BsFormTableExtend().closeFormModal();//form模态框关闭事件，触发该事件时重置form
-	//获取字典常量类型
-	$("select[name='constantTypeCode'] > option").each(function () {
-        var txt = $(this).text(); //获取单个text
-        var val = $(this).val(); //获取单个value
-        g_constantType[val] = txt;
-    });
+	
+	//初始化g_processType，供table的processType格式化显示用
+	var processTypes = $('#processType option');
+	$.each(processTypes, function(i,n){
+		g_processType[n.value] = n.text; 
+	});
+	console.log(g_processType);
 });
 
 function getQueryParams(params){
@@ -17,13 +17,6 @@ function getQueryParams(params){
 	delete params.limit;
 	delete params.order;
 	return params;
-}
-
-function operFormatter(value,row,index){
-	var viewBtn = "<button type='button' class='btn btn-default btn-xs' title='查看' onclick='view("+row.id+")'><span class='text-primary glyphicon glyphicon-eye-open'></span></button>";
-	var modifyBtn = " <button type='button' class='btn btn-default btn-xs' title='修改' onclick='modify("+row.id+")'><span class='text-primary glyphicon glyphicon-edit'></span></button>";
-	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
-	return viewBtn + modifyBtn + delBtn;
 }
 
 function view(id){
@@ -38,22 +31,14 @@ function view(id){
 	$('#viewModal').modal('show');//显示form模态框
 }
 
-//个人实名状态
-var g_authenticationState = ['未认证','已认证'];
-function authenFormatter(value,row,index){
-	return g_authenticationState[value];
+//加工类型
+function processFormatter(value,row,index){
+	return g_processType[value];
 }
 
-//审核状态
-var g_auditState = ['待审核','未通过','已通过'];
-function auditFormatter(value,row,index){
-	return g_auditState[value];
-}
-
-//用户状态
-var g_personState = ['正常','冻结'];
-function personFormatter(value,row,index){
-	return g_personState[value];
+//日期格式化
+function dateFormatter(value,row,index){
+	return new Date(value).format("yyyy-MM-dd hh:mm:ss");
 }
 
 //根据常量名称搜索

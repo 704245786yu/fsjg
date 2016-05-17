@@ -19,13 +19,6 @@ function getQueryParams(params){
 	return params;
 }
 
-function operFormatter(value,row,index){
-	var viewBtn = "<button type='button' class='btn btn-default btn-xs' title='查看' onclick='view("+row.id+")'><span class='text-primary glyphicon glyphicon-eye-open'></span></button>";
-	var modifyBtn = " <button type='button' class='btn btn-default btn-xs' title='修改' onclick='modify("+row.id+")'><span class='text-primary glyphicon glyphicon-edit'></span></button>";
-	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
-	return viewBtn + modifyBtn + delBtn;
-}
-
 function view(id){
 	var row = $('#dg').bootstrapTable('getRowByUniqueId',id);
 	var pAry = $('#viewModal p');
