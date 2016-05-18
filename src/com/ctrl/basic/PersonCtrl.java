@@ -77,4 +77,9 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 	public BootTablePageDto<ConstantDict> findByPageAndParams(int offset, int pageSize, String constantName){
 		return biz.findByPageAndParams(offset,pageSize,constantName);
 	}*/
+	
+	@RequestMapping("dateRangePickerDemo")
+	public String dateRangePickerDemo(){
+		return "../plugin/bootstrap-daterangepicker/website/index";
+	}
 }

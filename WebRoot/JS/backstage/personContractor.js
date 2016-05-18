@@ -7,7 +7,17 @@ $(function(){
 	$.each(processTypes, function(i,n){
 		g_processType[n.value] = n.text; 
 	});
-	console.log(g_processType);
+	$('input[name="daterange"]').daterangepicker({
+//		maxDate: new Date(),
+		timePicker: true,
+		timePicker24Hour:true,
+        timePickerIncrement: 1,
+		locale:{
+			format:'YYYY-MM-DD HH:mm',
+			applyLabel: '确定',
+			cancelLabel: '取消'
+		}
+	});
 });
 
 function getQueryParams(params){
