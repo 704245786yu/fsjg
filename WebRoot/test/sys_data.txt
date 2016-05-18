@@ -26,8 +26,8 @@ insert into sys_constant_dict values(13,'process_type','其他',3,null);
 
 -- sys_menu
 delete from sys_menu;
-INSERT INTO `sys_menu` VALUES ('1', '根菜单', null, null, '1', '24');
-INSERT INTO `sys_menu` VALUES ('2', '系统后台', '', '', '2', '23');
+INSERT INTO `sys_menu` VALUES ('1', '根菜单', null, null, '1', '26');
+INSERT INTO `sys_menu` VALUES ('2', '系统后台', '', '', '2', '25');
 INSERT INTO `sys_menu` VALUES ('3', '后台用户管理', 'person/manage', '', '3', '4');
 INSERT INTO `sys_menu` VALUES ('4', '菜单管理', 'menu', '', '5', '6');
 INSERT INTO `sys_menu` VALUES ('5', '常量类型', 'constantType', '', '7', '8');
@@ -37,7 +37,8 @@ INSERT INTO `sys_menu` VALUES ('8', '角色管理', 'role', '', '13', '14');
 INSERT INTO `sys_menu` VALUES ('9', '地区管理', 'district', '', '15', '16');
 INSERT INTO `sys_menu` VALUES ('10', '企业信息管理', 'enterprise', '', '17', '18');
 INSERT INTO `sys_menu` VALUES ('11', '首页', 'home', '', '19', '20');
-INSERT INTO `sys_menu` VALUES ('12', '快产专家', 'personContractor/backstage', '', '21', '22');
+INSERT INTO `sys_menu` VALUES ('12', '快产专家', 'personContractor', '', '21', '22');
+INSERT INTO `sys_menu` VALUES ('13', '服饰类型', 'costumeCategory', '', '23', '24');
 
 -- sys_authority
 delete from sys_authority;
@@ -61,3 +62,20 @@ INSERT INTO `basic_person` VALUES ('1', '王大', '王大2', '', null, null, nul
 
 -- basic_person_contractor
 INSERT INTO `basic_person_contractor` VALUES ('1', '1', '33', '13', '10', null, null, null, '2016-05-17 19:01:27', null, '2016-05-17 20:20:31');
+
+-- basic_costume_category
+delete from basic_costume_category;
+INSERT INTO `basic_costume_category` VALUES ('1', '服饰类型', null, '1', '28', null, '2016-05-18 08:24:51');
+INSERT INTO `basic_costume_category` VALUES ('2', '服装', '1', '2', '17', null, '2016-05-18 08:23:16');
+INSERT INTO `basic_costume_category` VALUES ('3', '梭织服装', '101', '3', '10', null, '2016-05-18 08:22:07');
+INSERT INTO `basic_costume_category` VALUES ('4', '普通梭织薄料服装', '10101', '4', '5', null, '2016-05-18 08:20:35');
+INSERT INTO `basic_costume_category` VALUES ('5', '普通梭织厚料服装', '10102', '6', '7', null, '2016-05-18 08:21:38');
+INSERT INTO `basic_costume_category` VALUES ('6', '真丝/雪纺服装', '10103', '8', '9', null, '2016-05-18 08:22:07');
+INSERT INTO `basic_costume_category` VALUES ('7', '针织服装', '102', '11', '16', null, '2016-05-18 08:23:16');
+INSERT INTO `basic_costume_category` VALUES ('8', '普通针织薄料服装', '10201', '12', '13', null, '2016-05-18 08:22:53');
+INSERT INTO `basic_costume_category` VALUES ('9', '普通针织厚料服装', '10202', '14', '15', null, '2016-05-18 08:23:16');
+INSERT INTO `basic_costume_category` VALUES ('10', '服饰', '2', '18', '23', null, '2016-05-18 08:24:04');
+INSERT INTO `basic_costume_category` VALUES ('11', '帽子', '201', '19', '20', null, '2016-05-18 08:23:54');
+INSERT INTO `basic_costume_category` VALUES ('12', '领带', '202', '21', '22', null, '2016-05-18 08:24:04');
+INSERT INTO `basic_costume_category` VALUES ('13', '家访', '3', '24', '27', null, '2016-05-18 08:24:51');
+INSERT INTO `basic_costume_category` VALUES ('14', '装饰布艺', '301', '25', '26', null, '2016-05-18 08:24:51');
