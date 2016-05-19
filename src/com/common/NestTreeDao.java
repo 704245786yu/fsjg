@@ -75,14 +75,15 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 	 * */
 	public void delNodeRecursion(ID id){
 		PO po = super.findById(id);
+		String tableName = super.getTableName();
 		int lft = po.getLft();
 		int rgt = po.getRgt();
 		int width = rgt - lft + 1;
 		super.executeUpdate("delete from "+super.persistentName+" where lft between :lft and :rgt",
 				new String[]{"lft","rgt"}, new Integer[]{lft,rgt});
-		super.executeUpdate("update "+super.persistentName+" set rgt = rgt-:width where rgt > :rgt order by rgt",
+		super.executeUpdateByNativeSql("update "+tableName+" set rgt = rgt-:width where rgt > :rgt order by rgt",
 				new String[]{"width","rgt"}, new Integer[]{width,rgt});
-		super.executeUpdate("update "+super.persistentName+" set lft = lft-:width where lft > :rgt order by lft",
+		super.executeUpdateByNativeSql("update "+tableName+" set lft = lft-:width where lft > :rgt order by lft",
 				new String[]{"width","rgt"}, new Integer[]{width,rgt});
 	}
 	
@@ -91,18 +92,19 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 	 * */
 	public void delNodeNonrecursion(ID id){
 		PO po = super.findById(id);
+		String tableName = super.getTableName();
 		int lft = po.getLft();
 		int rgt = po.getRgt();
 		super.delete(po);
 		super.flush();//此处需要flush，否则接下来连续两句的update有可能会导致键重复错误
 		//更新所有后代节点的左右值
-		super.executeUpdate(
-			"update "+super.persistentName+" set lft = lft-1, rgt = rgt-1 where lft between :lft and :rgt order by lft",
+		super.executeUpdateByNativeSql(
+			"update "+tableName+" set lft = lft-1, rgt = rgt-1 where lft between :lft and :rgt order by lft",
 			new String[]{"lft","rgt"}, new Integer[]{lft,rgt});
 		//更新被删节点所有右边节点的左右值
-		super.executeUpdate("update "+super.persistentName+" set rgt = rgt-2 where rgt > :rgt order by rgt",
+		super.executeUpdateByNativeSql("update "+tableName+" set rgt = rgt-2 where rgt > :rgt order by rgt",
 			new String[]{"rgt"}, new Integer[]{rgt});
-		super.executeUpdate("update "+super.persistentName+" set lft = lft-2 where lft > :rgt order by lft",
+		super.executeUpdateByNativeSql("update "+tableName+" set lft = lft-2 where lft > :rgt order by lft",
 			new String[]{"rgt"}, new Integer[]{rgt});
 	}
 	
