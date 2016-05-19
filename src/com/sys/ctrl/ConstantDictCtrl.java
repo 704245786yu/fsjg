@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +37,15 @@ public class ConstantDictCtrl extends BaseCtrl<ConstantDictBiz, Integer, Constan
 		return mav;
 	}
 
+	/**此处需注意防止SQL注入
+	 * constantTypeCode只能由字母和下划线组成
+	 * */
+	@RequestMapping("findByConstantTypeCode/{constantTypeCode}")
+	@ResponseBody
+	public List<ConstantDict> findByConstantTypeCode(@PathVariable String constantTypeCode){
+		return biz.findByConstantTypeCode(constantTypeCode);
+	}
+	
 	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
 	 * @param offset 偏移量，即记录索引位置
 	 * @param pageSize 每页记录数
