@@ -34,4 +34,5 @@ public class GenericTypeTest {
 		System.out.println(values instanceof  Collection);
 		System.out.println(ary instanceof Object[]);
 	}
+	
 }

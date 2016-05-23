@@ -212,12 +212,17 @@ public class BaseDao<ID extends Serializable, T> {
 	
 	/**根据HQL查询记录总数
 	 * @param hql hql语句
+	 * @param paramNames 命名查询参数名
+	 * @param values 命名查询参数值
 	 * */
-	public long getCount(String hql, Object... params){
+	public long getCount(String hql, String[] paramNames, Object[] values){
 		Query query = getCurrentSession().createQuery(hql);
-		for(int i=0; i<params.length; i++)
+		for(int i=0; i<paramNames.length; i++)
 		{
-			query.setParameter(i, params[i]);
+			if(values[i] instanceof Collection)
+				query.setParameterList(paramNames[i], (Collection<?>)values[i]);
+			else
+				query.setParameter(paramNames[i], values[i]);
 		}
 		return (Long)query.uniqueResult();
 	}
@@ -315,21 +320,37 @@ public class BaseDao<ID extends Serializable, T> {
 		return query.list();
 	}
 	
+	/**HQL命名查询
+	 * @param paramNames 参数名
+	 * @param params 参数值
+	 * */
+	public List<?> find(String hql, String[] paramNames, Object[] params){
+		Query query = getCurrentSession().createQuery(hql);
+		for(int i=0; i<paramNames.length; i++)
+		{
+			query.setParameter(paramNames[i], params[i]);
+		}
+		return query.list();
+	}
+	
 	/**
 	* 使用 HQL 语句进行分页查询操作
 	* @param hql 需要查询的 HQL语句
-	* @param offset 偏移量，即记录索引位置
-	* @param pageSize 每页需要显示的记录数
 	* @param params 如果hql带占位符参数， params用于传入占位符参数
+	* @param offset 偏移量，即记录索引位置
+	* @param pageSize 每页记录数
 	* @return 当前页的所有记录
 	*/
-	protected List<?> findByPage(String hql , int offset, int pageSize, Object... params)
+	protected List<?> findByPage(String hql , int offset, int pageSize, String[] paramNames, Object[] params)
 	{
 		Query query = getCurrentSession().createQuery(hql);
 		//为包含占位符的 HQL语句设置参数
-		for(int i=0; i<params.length; i++)
+		for(int i=0; i<paramNames.length; i++)
 		{
-			query.setParameter(i, params[i]);
+			if(params[i] instanceof Collection)
+				query.setParameterList(paramNames[i], (Collection<?>)params[i]);
+			else
+				query.setParameter(paramNames[i], params[i]);
 		}
 		// 执行分页，并返回查询结果
 		return query.setFirstResult(offset)

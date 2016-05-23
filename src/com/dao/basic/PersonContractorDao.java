@@ -28,7 +28,8 @@ public class PersonContractorDao extends BaseDao<Integer, PersonContractor>{
 				.append("pc.createTime as createTime, ")
 				.append("p.realName as realName) ")
 				.append("from PersonContractor pc, Person p where pc.id = p.id");
-		List<Map<String,Object>> list = (List<Map<String,Object>>)super.findByPage(hql.toString(),offset,pageSize);
+		List<Map<String,Object>> list = (List<Map<String,Object>>)super.findByPage(hql.toString(),
+				offset, pageSize, new String[]{}, new Object[]{});
 		return list;
 	}
 }

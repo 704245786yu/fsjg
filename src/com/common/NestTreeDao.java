@@ -139,7 +139,7 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 		return list;
 	}
 
-	/**查询某节点的所有后代节点的ID
+	/**查询某节点的所有后代节点的ID，返回的集合里不包含父节点ID本身。
 	 * @param id 父节点Id
 	 * @return List<ID>
 	 * */
@@ -147,7 +147,7 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 	public List<ID> getDescendantId(ID id){
 		PO po = super.findById(id);
 		List<Integer> list = new ArrayList<Integer>();
-		list.add(po.getLft()+1);
+		list.add(po.getLft()+1);	//避免查询的数据包含父节点本身
 		list.add(po.getRgt());
 		return (List<ID>)find("select id from "+super.persistentName+" where lft between ? and ?",list);
 	}
