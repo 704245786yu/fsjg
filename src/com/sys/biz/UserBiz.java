@@ -2,11 +2,9 @@ package com.sys.biz;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.common.BaseBiz;
-import com.dto.BootTablePageDto;
 import com.sys.dao.UserDao;
 import com.sys.po.User;
 
@@ -51,16 +49,4 @@ public class UserBiz extends BaseBiz<UserDao, Integer, User>{
 			return users.get(0);
 	}
 	
-	/**查询用户信息
-	 * 限制：只能查看本组织和子组织的用户。
-	 * */
-	/*public BootTablePageDto<User> findByOrgWithPage(int offset, int pageSize, int organizationId){
-		BootTablePageDto<User> bt = new BootTablePageDto<User>();
-		List<Integer> orgIds = organizationDao.getDescendantId(organizationId);
-		orgIds.add(0, organizationId);
-		Long total = dao.getCountByOrg(orgIds);
-		bt.setTotal(total);
-		bt.setRows(dao.findByOrgWithPage(offset, pageSize, orgIds));
-		return bt;
-	}*/
 }
