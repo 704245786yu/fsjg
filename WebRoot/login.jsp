@@ -27,10 +27,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2 text">
-						<h1>中国服饰加工网</h1>
+						<h1>中国服饰加工平台管理平台</h1>
 						<div class="description">
 							<p>
-								<b></b>
+								<b>Chinese apparel processing network platform management background</b>
 							</p>
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 						<div class="form-top">
 							<div class="form-top-left">
 								<h3>登录</h3>
-								<p>请输入你的用户名和密码进行登录:</p>
+								<!-- <p>请输入你的用户名和密码进行登录:</p> -->
 							</div>
 							<div class="form-top-right">
 								<i class="fa fa-key"></i>
