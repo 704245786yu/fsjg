@@ -43,7 +43,8 @@ public class LoginCtrl {
 		return mav;
 	}
 	
-	//退出
+	/**退出
+	 * */
 	@RequestMapping("logout")
 	public ModelAndView logout(HttpSession session){
 		session.removeAttribute(loginUserKey);
