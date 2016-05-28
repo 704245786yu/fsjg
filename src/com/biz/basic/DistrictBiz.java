@@ -13,14 +13,6 @@ import com.po.basic.District;
 public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 	
 	private static final String treeRoot = "100000000000";//100000000000是自定义的根节点，已经手动在数据库添加
-<<<<<<< HEAD
-	
-	/**批量保存省市街道信息
-	 * */
-	public Integer batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data,Integer userId){
-=======
-	@Autowired
-	private DistrictDao districtDao;
 	
 	/**批量保存省市街道信息
 	 * */
@@ -28,7 +20,6 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		//JacksonJson.printBeanToJson(data);
 		//TODO something
 		
->>>>>>> 1027427c637897b16b9a272ff737caa1a5e87bc0
 		String userIdString=userId.toString();
 		//用来放置符合条件的数据
 		List<String[]> tempData=new ArrayList<>();

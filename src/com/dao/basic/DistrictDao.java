@@ -1,6 +1,9 @@
 package com.dao.basic;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.common.BaseDao;
@@ -8,9 +11,6 @@ import com.po.basic.District;
 
 @Repository
 public class DistrictDao extends BaseDao<Integer, District>{
-<<<<<<< HEAD
- 
-=======
    public void save(List<String[]> data){
 	   List<District> districts=new ArrayList<>();
 	   District district=null;
@@ -25,5 +25,4 @@ public class DistrictDao extends BaseDao<Integer, District>{
 	}
 	   saveBatch(districts);
    }
->>>>>>> 1027427c637897b16b9a272ff737caa1a5e87bc0
 }
