@@ -9,16 +9,17 @@ import org.springframework.stereotype.Service;
 import com.common.BaseBiz;
 import com.dao.basic.DistrictDao;
 import com.po.basic.District;
-import com.util.JacksonJson;
 
 @Service
 public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
+	
 	private static final String treeRoot = "100000000000";//100000000000是自定义的根节点，已经手动在数据库添加
 	@Autowired
 	private DistrictDao districtDao;
+	
 	/**批量保存省市街道信息
 	 * */
-	public Integer batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data,Integer userId){
+	public Integer batchSaveDistrict1(String proviceName,String provinceCode,List<String[]> data,Integer userId){
 		//JacksonJson.printBeanToJson(data);
 		//TODO something
 		
@@ -30,7 +31,7 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		//将已经添加的编号加入，做防重复验证(第一步载入数据库已经存在的，第二部载入文档当中的)
 		List<String> ifExistList=new ArrayList<>();
 		//取出数据库数据
-		List<District> districts=districtDao.getDistricts();
+		List<District> districts=dao.getAll();
 		for (District district : districts) {
 			ifExistList.add(district.getDistrictCode().toString());
 		}
@@ -66,5 +67,43 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		}
 		districtDao.save(tempData);
 		return 1;
+	}
+	
+	/**批量保存省市街道信息
+	 * @author zhiyu
+	 * */
+	public void batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data,Integer userId){
+		System.out.println("一共有"+data.size()+"行记录");
+		//将已经添加的地区编号加入，做防重复验证(载入文档当中的)
+		List<String> existDistrict = new ArrayList<>();
+		
+		ArrayList<District> list = new ArrayList<District>();
+		
+		//添加省份信息
+		District province = new District(Long.parseLong(provinceCode), proviceName, null, userId);
+		list.add(province);
+		
+		//开始读取每行的数据
+		int length=data.size();
+		for(int i=1;i<length;i++)
+		{
+			String[] dataRow=data.get(i);
+			if( !existDistrict.contains(dataRow[1]) ){//市级
+				existDistrict.add(dataRow[1]);
+				District city =new District(Long.parseLong(dataRow[1]), dataRow[2], province.getDistrictCode(), userId);
+				list.add(city);
+			}
+			if( !existDistrict.contains(dataRow[3]) ){//区级
+				existDistrict.add(dataRow[3]);
+				District county = new District(Long.parseLong(dataRow[3]), dataRow[4], Long.parseLong(dataRow[1]), userId);
+				list.add(county);
+			}
+			if( !existDistrict.contains(dataRow[5]) ){//城镇
+				existDistrict.add(dataRow[5]);
+				District town = new District(Long.parseLong(dataRow[5]), dataRow[6], Long.parseLong(dataRow[3]), userId);
+				list.add(town);
+			}
+		}
+		dao.saveOrUpdateBatch(list);
 	}
 }

@@ -10,11 +10,12 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * 平台省市街道信息
+ * 省市街道信息
  * */
 @Entity
 @Table(name = "basic_district")
 public class District {
+	
 	@Id
 	@Column(name = "district_code")
 	private Long districtCode;
@@ -28,6 +29,15 @@ public class District {
 	@Column(name = "update_time")
 	private Date updateTime;
 
+	public District(){}
+	
+	public District(Long districtCode, String districtName, Long pCode, Integer updateBy) {
+		this.districtCode = districtCode;
+		this.districtName = districtName;
+		this.pCode = pCode;
+		this.updateBy = updateBy;
+	}
+	
 	public Long getDistrictCode() {
 		return districtCode;
 	}

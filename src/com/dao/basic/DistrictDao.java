@@ -24,8 +24,4 @@ public class DistrictDao extends BaseDao<Integer, District>{
 	}
 	   saveBatch(districts);
    }
-   //获取已经存入的省市街道信息
-   public List<District> getDistricts(){
-	  return getAll();
-   }
 }
