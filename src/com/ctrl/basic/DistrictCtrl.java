@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.biz.basic.DistrictBiz;
 import com.common.BaseCtrl;
 import com.po.basic.District;
+import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 import com.util.MicroOfficeFile;
 
@@ -28,9 +29,12 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
 		defaultPage = "backstage/district";
 	}
 	
+	/**@author 裘俊宏
+	 * =========支煜修改2016-05-28=========
+	 * */
 	@RequestMapping("uploadExcel")
 	@ResponseBody
-	public Object uploadExcel(@RequestParam("file")MultipartFile file,HttpSession httpSession){
+	public Integer uploadExcel(@RequestParam("file") MultipartFile file, HttpSession session){
 		//String aa=file.getContentType();//application/vnd.ms-excel
 		//String bb=file.getName();//file
 		try{
@@ -44,11 +48,12 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
 			MicroOfficeFile mof = new MicroOfficeFile();
 			Workbook wb = mof.readExcel(file);
 			List<String[]> data = mof.getAllData(wb,0);
-			User loginUser = (User)httpSession.getAttribute("loginUser");
-			return districtBiz.batchSaveDistrict(provinceName,provinceCode,data,1);
+			User loginUser = UserCtrl.getLoginUser(session);
+			districtBiz.batchSaveDistrict(provinceName,provinceCode,data,loginUser.getId());
+			return 1;
 		}catch(Exception ex){
 			ex.printStackTrace();
-			return "上传失败";
+			return 0;
 		}
 		
 	}
