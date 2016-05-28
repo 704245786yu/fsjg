@@ -37,17 +37,22 @@ public class RoleCtrl extends BaseCtrl<RoleBiz, Integer, Role>{
 		defaultPage = "sys/role";
 	}
 	
-	public ModelAndView showDefaultPage(){
+	@Override
+	@RequestMapping
+	public ModelAndView showDefaultPage(HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("authorities", authorityBiz.getAll());
 		mav.setViewName(defaultPage);
 		return mav;
 	}
 	
+	/**添加角色
+	 * @param authorityIds 角色可不设置权限，所以该值可为null
+	 * */
 	@RequestMapping("saveRole")
 	@ResponseBody
-	public Role saveRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam("authorityIds[]")Integer[] authorityIds,HttpSession httpSession){
-		User user = (User)httpSession.getAttribute("loginUser");
+	public Role saveRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam(value="authorityIds[]", required=false)Integer[] authorityIds,HttpSession session){
+		User user = UserCtrl.getLoginUser(session);
 //		JacksonJson.printBeanToJson(role);
 //		JacksonJson.printBeanToJson(menuIds);
 //		JacksonJson.printBeanToJson(authorityIds);
@@ -56,10 +61,13 @@ public class RoleCtrl extends BaseCtrl<RoleBiz, Integer, Role>{
 		return biz.save(role, menuIds, authorityIds);
 	}
 	
+	/**修改角色
+	 * @param authorityIds 角色可不设置权限，所以该值可为null
+	 * */
 	@RequestMapping("updateRole")
 	@ResponseBody
-	public Role updateRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam("authorityIds[]")Integer[] authorityIds,HttpSession httpSession){
-		User user = (User)httpSession.getAttribute("loginUser");
+	public Role updateRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam(value="authorityIds[]", required=false)Integer[] authorityIds,HttpSession session){
+		User user = UserCtrl.getLoginUser(session);;
 		JacksonJson.printBeanToJson(role);
 		JacksonJson.printBeanToJson(menuIds);
 		JacksonJson.printBeanToJson(authorityIds);
@@ -81,4 +89,13 @@ public class RoleCtrl extends BaseCtrl<RoleBiz, Integer, Role>{
 		menuAndAuth.setAuthorityList(authList);
 		return menuAndAuth;
 	}
+	
+	/**根据当前用于获取低等级角色*/
+	@RequestMapping("getLowGradeRole")
+	@ResponseBody
+	public List<Role> getLowGradeRole(HttpSession session){
+		User user = UserCtrl.getLoginUser(session);
+		return biz.getLowGradeRole(user.getRoleId());
+	}
+
 }

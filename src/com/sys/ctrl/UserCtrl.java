@@ -28,11 +28,19 @@ public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 		defaultPage = "sys/user";
 	}
 
+	/**获取当前登录用户*/
+	public static User getLoginUser(HttpSession session){
+		return (User)session.getAttribute(LoginCtrl.loginUserKey);
+	}
+	
 	/**显示默认的页面*/
 	@Override
-	public ModelAndView showDefaultPage() {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping
+	public ModelAndView showDefaultPage(HttpSession session) {
+		User loginUser = this.getLoginUser(session);
+		//获取所有权限低于当前用户的角色....暂未实现
 		List<Role> roles = roleBiz.getAll();
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("roles", roles);
 		mav.setViewName(defaultPage);
 		return mav;
@@ -40,7 +48,7 @@ public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 	
 	@Override
 	public User save(User user, HttpSession session) {
-		User loginUser = (User)session.getAttribute(LoginCtrl.loginUserKey);
+		User loginUser = this.getLoginUser(session);
 		user.setUpdateBy(loginUser.getId());
 		biz.save(user);
 		return user;
@@ -49,7 +57,7 @@ public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 
 	@Override
 	public User update(User user, HttpSession session) {
-		User loginUser = (User)session.getAttribute(LoginCtrl.loginUserKey);
+		User loginUser = this.getLoginUser(session);
 		user.setUpdateBy(loginUser.getId());
 		biz.update(user);
 		return user;
@@ -62,7 +70,7 @@ public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 	@ResponseBody
 	public Integer modifyPwd(Integer userId, String oldPwd, String password, HttpSession session){
 		try{
-			User loginUser = (User)session.getAttribute(LoginCtrl.loginUserKey);
+			User loginUser = this.getLoginUser(session);
 			int updateBy = loginUser.getId();
 //			int loginUserId = null;
 			return biz.modifyPwd(userId, oldPwd, password, updateBy);
@@ -75,13 +83,12 @@ public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 	/**查询用户信息
 	 * 限制：只能查看本组织和子组织的用户。
 	 * */
-	@RequestMapping("findByPage")
-	@ResponseBody
-	public BootTablePageDto<User> findByPage(int offset, int pageSize, HttpSession session){
-		User loginUser = (User)session.getAttribute("loginUser");
+//	@RequestMapping("findByPage")
+//	@ResponseBody
+//	public BootTablePageDto<User> findByPage(int offset, int pageSize, HttpSession session){
+//		User loginUser = this.getLoginUser(session);
 //		return biz.findByOrgWithPage(offset, pageSize, organizationId);
-		return null;
-	}
+//	}
 	
 	@Override
 	public List<User> getAll(){

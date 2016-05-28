@@ -33,13 +33,13 @@ public class Person {
 	
 	private Byte age;
 	
-	private String province;
+	private Long province;
 	
-	private String city;
+	private Long city;
 	
-	private String county;
+	private Long county;
 	
-	private String town;
+	private Long town;
 	
 	@Column(name="detail_addr")
 	private String detailAddr;
@@ -52,9 +52,6 @@ public class Person {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name="create_time")
 	private Date createTime;	//注册时间
-	
-	@Column(name="authentication_state")
-	private Byte authenticationState;	//个人实名认证状态 0：未认证 1：已认证
 	
 	@Column(name="audit_state")
 	private Byte auditState;	//审核状态，0：待审核 1：未通过 2：已通过
@@ -135,35 +132,35 @@ public class Person {
 		this.age = age;
 	}
 
-	public String getProvince() {
+	public Long getProvince() {
 		return province;
 	}
 
-	public void setProvince(String province) {
+	public void setProvince(Long province) {
 		this.province = province;
 	}
 
-	public String getCity() {
+	public Long getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(Long city) {
 		this.city = city;
 	}
 
-	public String getCounty() {
+	public Long getCounty() {
 		return county;
 	}
 
-	public void setCounty(String county) {
+	public void setCounty(Long county) {
 		this.county = county;
 	}
 
-	public String getTown() {
+	public Long getTown() {
 		return town;
 	}
 
-	public void setTown(String town) {
+	public void setTown(Long town) {
 		this.town = town;
 	}
 
@@ -221,14 +218,6 @@ public class Person {
 
 	public void setAuditTime(Date auditTime) {
 		this.auditTime = auditTime;
-	}
-
-	public Byte getAuthenticationState() {
-		return authenticationState;
-	}
-
-	public void setAuthenticationState(Byte authenticationState) {
-		this.authenticationState = authenticationState;
 	}
 
 	public Byte getPersonState() {

@@ -25,9 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 <div class="panel panel-primary">
-  <div class="panel-heading">
-    	角色管理
-  </div>
+  <div class="panel-heading">角色管理</div>
   <div class="panel-body">
   	<!-- 搜索框、新增按钮 -->
     <div  class="row" style="width:100%;padding:10px;">

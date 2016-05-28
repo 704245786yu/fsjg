@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.NestTreeCtrl;
 import com.sys.biz.MenuBiz;
 import com.sys.po.Menu;
+import com.sys.po.User;
 
 @Controller
 @RequestMapping("menu")
@@ -24,6 +25,8 @@ public class MenuCtrl extends NestTreeCtrl<MenuBiz, Integer, Menu>{
 	/**根据用户所属角色获取相应菜单
 	 * */
 	public List<Menu> getMenuByUser(HttpSession session){
+		User user = UserCtrl.getLoginUser(session);
+		
 		return null;
 	}
 	

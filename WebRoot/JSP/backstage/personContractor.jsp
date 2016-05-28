@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>后台快产专家管理</title>
+    <title>快产专家管理</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
@@ -27,23 +27,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="panel panel-primary">
 	<div class="panel-heading">快产专家管理</div>
 	<div class="panel-body">
-		<!-- 搜索框、新增按钮 -->
-		<div class="row" style="width:100%;padding:10px;">
-			<div class="col-sm-4">
-					<label for="startDate">发布日期</label>
-					<input type="text" class="form-control" id="daterange" name="daterange">
-					 <!-- 至
-					<input type="text" class="form-control" name="startDate" placeholder="结束日期"> -->
-			</div><!-- /.col-sm-4 -->
-			<div class="col-sm-4">
-					<label for="workerAmount">员工数量</label>
-					<input type="text" class="form-control" name="workerAmount">
-			</div><!-- /.col-sm-4 -->
-			<div class="col-sm-4">
-					<label for="processYear">加工年限</label>
-					<input type="text" class="form-control" name="processYear">
-			</div><!-- /.col-sm-4 -->
+		<!-- 查询条件 -->
+		<div class="form-inline" style="padding-bottom:10px;">
+			<div class="form-group">
+				<label for="startDate">发布日期</label>
+				<input type="text" class="form-control" style="width:270px;" id="daterange" name="daterange">
+			</div>
+			<div class="form-group">
+				<label for="workerAmount">员工数量</label>
+				<input type="text" class="form-control" name="workerAmount">
+			</div>
+			<div class="form-group">
+				<label for="processYear">加工年限</label>
+				<input type="text" class="form-control" name="processYear">
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-primary">查询</button>
+				<button type="button" class="btn btn-primary">清空</button>
+			</div>
+	    </div><!-- form-inline -->
 	    
+	    <!-- 新增、批量导入按钮 -->
+	    <div class="row" style="padding-bottom:10px;">
 			<div class="col-sm-1">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" onclick="add()">
 					<span class="glyphicon glyphicon-plus"></span> 添加
@@ -52,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="col-sm-1">
 				<span class="btn btn-success fileinput-button">
 					<i class="glyphicon glyphicon-upload"></i>
-					<span>上传Excel文件...</span>
+					<span>批量导入</span>
 					<input id="fileupload" type="file" name="file" data-url="personContractor/uploadExcel">
 				</span>
 			</div>

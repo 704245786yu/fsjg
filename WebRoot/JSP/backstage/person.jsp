@@ -46,14 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<span class="glyphicon glyphicon-plus"></span> 添加
 				</button>
 			</div>
-			<div class="col-sm-1">
-				<span class="btn btn-success fileinput-button">
-					<i class="glyphicon glyphicon-plus"></i>
-					<span>上传Excel文件...</span>
-					<!-- The file input field used as target for the file upload widget -->
-					<input id="fileupload" type="file" name="file" data-url="person/uploadExcel">
-				</span>
-			</div>
 		</div><!-- .row -->
 	
 		<!-- 数据表格 -->
@@ -70,8 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="realName" data-align="center">真实姓名</th>
 		            <th data-field="telephone" data-align="center">手机号码</th>
 		            <th data-field="createTime" data-align="center">注册时间</th>
-		            <th data-field="authenticationState" data-align="center" data-formatter="authenFormatter">个人实名状态</th>
-		            <th data-field="auditState" data-align="center" data-formatter="auditFormatter">审核状态</th>
+		            <th data-field="auditState" data-align="center" data-formatter="auditFormatter">个人实名审核状态</th>
 		            <th data-field="personState" data-align="center" data-formatter="personFormatter">用户状态</th>
 		            <th data-formatter="operFormatterVUD" class="col-sm-2" data-align="center">操作</th>
 		        </tr>

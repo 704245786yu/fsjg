@@ -12,11 +12,15 @@ import com.sys.po.User;
 @Transactional
 public class UserDao extends BaseDao<Integer,User>{
 
-	/**获取用户信息，但不包括密码
-	 * */
-	@Override
-	public List<User> getAll() {
-		return super.find("select new User(id, userName, roleId, updateBy, updateTime) from User");
+	public Long getCountByOrg(List<Integer> orgIds){
+		String hql = "select count(id) from User where organizationId in (:orgIds)";
+		return super.getCount(hql, new String[]{"orgIds"}, new Object[]{orgIds});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<User> findByOrgWithPage(int offset, int pageSize, List<Integer> orgIds){
+		String hql = "from User where organizationId in (:orgIds)";
+		return (List<User>)super.findByPage(hql, offset, pageSize, new String[]{"orgIds"}, new Object[]{orgIds});
 	}
 
 }

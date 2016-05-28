@@ -125,12 +125,43 @@ function submitFunc(e){
 
 //新增
 function add(){
+	g_zTree.checkAllNodes(false);	//清空所有旧的勾选记录
 	$('#ff').attr('action','role/saveRole');
 }
 
 //修改
 function modify(id){
-	new BsFormTableExtend().showModifyForm(id, 'role/updateRole');
+	showModifyForm(id, 'role/updateRole');
+}
+
+//显示修改操作表单
+function showModifyForm(id, action){
+	//根据Id获取对应行数据
+	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
+	$('#ff').attr('action',action);//设置form表单action
+	$('#ff').autofill( data,{restrict:true} );//填充form表单
+	
+	//获取要修改的角色关联的菜单和权限信息
+	$.get("role/getMenuAndAuth/"+id,function(data){
+		//勾选上要修改的角色所能操作的菜单
+		var menuList = data.menuList;
+		g_zTree.checkAllNodes(false);	//取消勾选所有节点，清除上次选中的记录
+		for(var i=0; i<menuList.length; i++){
+			var menu = menuList[i];
+			var node = g_zTree.getNodeByParam('id',menu.id,null);
+			g_zTree.checkNode(node, true, false);
+		}
+		
+		//勾选要修改的角色所拥有的权限
+		var authorityList = data.authorityList;
+		$('input[name="authorityId"]').prop('checked',false);
+		for(var i=0; i<authorityList.length; i++){
+			var authority = authorityList[i];
+			$('input[value="'+authority.id+'"]').prop('checked',true);
+		}
+		
+		$('#formModal').modal('show');
+	});
 }
 
 //删除
@@ -149,6 +180,7 @@ function detail(id){
 	});
 }
 
+//Fires after the table body is rendered and available in the DOM
 $('#menuDg').on('post-body.bs.table', function (e, data) {
 	$(this).treegrid();//表格数据加载成功渲染树
 })

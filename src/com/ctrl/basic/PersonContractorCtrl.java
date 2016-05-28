@@ -53,7 +53,7 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 			Workbook wb = mof.readExcel(file);
 			List<String[]> data = mof.getAllData(wb,0);
 			User loginUser = (User)httpSession.getAttribute("loginUser");
-			biz.batchSavePerson(data.subList(2, data.size()),1);
+			biz.batchSavePersonContractor(data.subList(2, data.size()),1);
 			return 1;
 		}catch(Exception e){
 			e.printStackTrace();

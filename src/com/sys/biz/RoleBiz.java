@@ -1,6 +1,7 @@
 package com.sys.biz;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class RoleBiz extends BaseBiz<RoleDao, Integer, Role>{
 	private RoleAuthorityDao roleAuthorityDao;
 	
 	/**保存角色,并同时保存角色与菜单关系，角色与权限关系
+	 * @param authorityIds 可为null
 	 * */
 	@Transactional
 	public Role save(Role role, Integer[] menuIds, Integer[] authorityIds){
@@ -34,15 +36,18 @@ public class RoleBiz extends BaseBiz<RoleDao, Integer, Role>{
 			roleMenu.setMenuId(menuId);
 			roleMenuList.add(roleMenu);
 		}
-		ArrayList<RoleAuthority> roleAuthorityList = new ArrayList<RoleAuthority>();
-		for(int authorityId : authorityIds){
-			RoleAuthority roleAuthority = new RoleAuthority();
-			roleAuthority.setRoleId(roleId);
-			roleAuthority.setAuthorityId(authorityId);
-			roleAuthorityList.add(roleAuthority);
-		}
 		roleMenuDao.saveBatch(roleMenuList);
-		roleAuthorityDao.saveBatch(roleAuthorityList);
+		
+		if(authorityIds != null){
+			ArrayList<RoleAuthority> roleAuthorityList = new ArrayList<RoleAuthority>();
+			for(int authorityId : authorityIds){
+				RoleAuthority roleAuthority = new RoleAuthority();
+				roleAuthority.setRoleId(roleId);
+				roleAuthority.setAuthorityId(authorityId);
+				roleAuthorityList.add(roleAuthority);
+			}
+			roleAuthorityDao.saveBatch(roleAuthorityList);
+		}
 		return role;
 	}
 
@@ -64,15 +69,18 @@ public class RoleBiz extends BaseBiz<RoleDao, Integer, Role>{
 			roleMenu.setMenuId(menuId);
 			roleMenuList.add(roleMenu);
 		}
-		ArrayList<RoleAuthority> roleAuthorityList = new ArrayList<RoleAuthority>();
-		for(int authorityId : authorityIds){
-			RoleAuthority roleAuthority = new RoleAuthority();
-			roleAuthority.setRoleId(roleId);
-			roleAuthority.setAuthorityId(authorityId);
-			roleAuthorityList.add(roleAuthority);
-		}
 		roleMenuDao.saveBatch(roleMenuList);
-		roleAuthorityDao.saveBatch(roleAuthorityList);
+
+		if(authorityIds != null){
+			ArrayList<RoleAuthority> roleAuthorityList = new ArrayList<RoleAuthority>();
+			for(int authorityId : authorityIds){
+				RoleAuthority roleAuthority = new RoleAuthority();
+				roleAuthority.setRoleId(roleId);
+				roleAuthority.setAuthorityId(authorityId);
+				roleAuthorityList.add(roleAuthority);
+			}
+			roleAuthorityDao.saveBatch(roleAuthorityList);
+		}
 	}
 	
 	@Transactional
@@ -83,4 +91,12 @@ public class RoleBiz extends BaseBiz<RoleDao, Integer, Role>{
 		super.deleteById(id);
 	}
 	
+	/**根据当前角色ID获取该ID对应的角色信息和低等级角色
+	 * @param roleId 角色ID
+	 * @return 返回角色列表，其中包括roleId对应的角色，和等级（权限）低于该角色的所有角色。
+	 * */
+	public List<Role> getLowGradeRole(int roleId){
+		
+		return null;
+	}
 }

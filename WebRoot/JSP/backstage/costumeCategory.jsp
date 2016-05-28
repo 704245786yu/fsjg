@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="panel-heading">服饰类型</div>
   <div class="panel-body">
   	<!-- 搜索框、新增按钮 -->
-    <div  class="row" style="width:100%;padding:10px;">
+    <div class="row" style="width:100%;padding:10px;">
 		<div class="col-sm-4">
 			<div class="input-group">
 		      <span class="input-group-btn">

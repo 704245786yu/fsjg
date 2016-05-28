@@ -24,9 +24,10 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 	
 	private static final String defaultPassword = "123456";
 	
-	/**批量保存个人用户信息
+	/**批量保存快产专家信息
+	 * 快产专家拥有个人Person的所有字段，先保存Person后保存PersonContractor
 	 * */
-	public void batchSavePerson(List<String[]> data,Integer userId){
+	public void batchSavePersonContractor(List<String[]> data,Integer userId){
 		List<Person> list = new ArrayList<Person>();
 		for(int i=0; i<data.size(); i++){
 			String[] temp = data.get(i);
@@ -36,14 +37,13 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 			person.setPassword(defaultPassword);	//密码为默认密码
 			person.setGender(temp[2]);
 			person.setAge(NumberTransform.getByte(temp[3]));
-			person.setProvince(temp[5]);
-			person.setCity(temp[6]);
-			person.setCounty(temp[7]);
-			person.setTown(temp[8]);
+//			person.setProvince(temp[5]);
+//			person.setCity(temp[6]);
+//			person.setCounty(temp[7]);
+//			person.setTown(temp[8]);
 			person.setTelephone(temp[9]);
 			person.setCreateBy(userId);
 			person.setCreateTime(new Date());
-			person.setAuthenticationState((byte)0);//默认0：未认证
 			person.setAuditState((byte)0);//默认0：待审核
 			person.setPersonState((byte)0);//默认0：正常
 			person.setEmail(temp[14]);

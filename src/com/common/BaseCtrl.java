@@ -23,7 +23,7 @@ public class BaseCtrl<BIZ extends BaseBiz, ID extends Serializable, PO> {
 	
 	/**显示默认的页面*/
 	@RequestMapping
-	public ModelAndView showDefaultPage(){
+	public ModelAndView showDefaultPage(HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(defaultPage);
 		return mav;
