@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.biz.basic.EnterpriseBiz;
 import com.common.BaseCtrl;
 import com.po.basic.Enterprise;
+import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 import com.util.MicroOfficeFile;
 
@@ -29,19 +30,21 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		defaultPage = "backstage/enterprise";
 	}
 	
+	/**批量导入工厂信息
+	 * */
 	@RequestMapping("uploadExcel")
 	@ResponseBody
-	public Object uploadExcel(@RequestParam("file")MultipartFile file,HttpSession httpSession){
+	public Integer uploadExcel(@RequestParam("file")MultipartFile file,HttpSession session){
 		try{
 			MicroOfficeFile mof = new MicroOfficeFile();
 			Workbook wb = mof.readExcel(file);
 			List<String[]> data = mof.getAllData(wb,0);
-			User loginUser = (User)httpSession.getAttribute("loginUser");
-		    enterpriseBiz.batchSaveEnterprise(data.subList(2, data.size()),1);
-		    return "上传成功";
+			User loginUser = UserCtrl.getLoginUser(session);
+		    enterpriseBiz.batchSaveEnterprise(data.subList(2, data.size()),loginUser.getId());
+		    return 1;	//返回中文乱码
 		}catch(Exception ex){
 			ex.printStackTrace();
-			return "上传失败";
+			return 0;
 		}
 		
 	}
