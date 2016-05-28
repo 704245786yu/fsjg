@@ -3,25 +3,19 @@ package com.biz.basic;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.common.BaseBiz;
 import com.dao.basic.DistrictDao;
 import com.po.basic.District;
-import com.util.JacksonJson;
 
 @Service
 public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 	private static final String treeRoot = "100000000000";//100000000000是自定义的根节点，已经手动在数据库添加
-	@Autowired
-	private DistrictDao districtDao;
+	
 	/**批量保存省市街道信息
 	 * */
 	public Integer batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data,Integer userId){
-		//JacksonJson.printBeanToJson(data);
-		//TODO something
-		
 		String userIdString=userId.toString();
 		//用来放置符合条件的数据
 		List<String[]> tempData=new ArrayList<>();
@@ -30,7 +24,7 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		//将已经添加的编号加入，做防重复验证(第一步载入数据库已经存在的，第二部载入文档当中的)
 		List<String> ifExistList=new ArrayList<>();
 		//取出数据库数据
-		List<District> districts=districtDao.getDistricts();
+		List<District> districts=dao.getAll();
 		for (District district : districts) {
 			ifExistList.add(district.getDistrictCode().toString());
 		}
@@ -61,10 +55,20 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 				 ifExistList.add(dataRow[5]);
 			}
 		}
-		for (String[] _tempData : tempData) {
-			System.out.println(_tempData[0]+_tempData[1]+_tempData[2]);
+//		for (String[] _tempData : tempData) {
+//			System.out.println(_tempData[0]+_tempData[1]+_tempData[2]);
+//		}
+		List<District> _districts=new ArrayList<>();
+		   for (String[] _data : tempData) {
+			   District  district=new District();
+			   district.setDistrictCode(Long.parseLong(_data[0]));
+			   district.setDistrictName(_data[1]);
+			   district.setpCode(Long.parseLong(_data[2]));
+			   district.setUpdateBy(Integer.parseInt(_data[3]));
+			   district.setUpdateTime(null);
+			   _districts.add(district);
 		}
-		districtDao.save(tempData);
-		return 1;
+		dao.saveBatch(_districts);
+		return 1;  
 	}
 }
