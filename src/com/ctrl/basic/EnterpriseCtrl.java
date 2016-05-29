@@ -27,7 +27,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	private EnterpriseBiz enterpriseBiz;
 	
 	public EnterpriseCtrl(){
-		defaultPage = "backstage/enterprise";
+		defaultPage = "backstage/enterprise/enterprise";
 	}
 	
 	/**批量导入工厂信息

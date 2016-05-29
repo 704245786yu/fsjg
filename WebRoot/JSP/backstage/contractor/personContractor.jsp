@@ -82,70 +82,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- panel-body -->
 </div><!-- panel -->
 
-<!-- 添加/更新模态框
-<div class="modal fade" id="formModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="dialog" style="width:500px">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h4 class="modal-title" id="formModalLabel">编辑快产专家</h4>
-			</div>
-			<div class="modal-body">
-				<form id="ff" method="post" class="form-horizontal" action="person/save">
-					<div class="form-group">
-						<label for="auditState" class="col-sm-3 control-label">加工类型</label>
-						<div class="col-sm-9">
-							<select class="form-control" id="processType" name="processType">
-								<c:forEach var="constantDict" items="${processTypes}">
-									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="processYear" class="col-sm-3 control-label">加工年限</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="processYear" name="processYear">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="workerAmount" class="col-sm-3 control-label">工人数量</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="workerAmount" name="workerAmount">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="quote" class="col-sm-3 control-label">报价</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="quote" name="quote">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="equipment" class="col-sm-3 control-label">生产设备</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="equipment" name="equipment">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="processDesc" class="col-sm-3 control-label">加工说明</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="processDesc" name="processDesc">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-4 col-sm-offset-8" style="text-align:right">
-							<button type="submit" name="save" class="btn btn-primary">保存</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						</div>
-					</div>
-					<input type="hidden" name="id"/>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
- -->
-
 <!-- 查看快产专家
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="dialog" style="width:500px">
@@ -284,7 +220,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/backstage/personContractor.js"></script>
+<script src="JS/backstage/contractor/personContractor.js"></script>
 
 <%@ include file="editPersonContractor.jsp" %>
 

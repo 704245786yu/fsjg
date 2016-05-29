@@ -33,7 +33,7 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 	private ConstantDictBiz constantDictBiz;
 	
 	public PersonContractorCtrl(){
-		defaultPage = "backstage/personContractor";
+		defaultPage = "backstage/contractor/personContractor";
 	}
 	
 	/**后台快产专家管理页面

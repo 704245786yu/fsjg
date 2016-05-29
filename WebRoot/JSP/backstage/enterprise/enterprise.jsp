@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
 	<link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 	<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 	<link href="plugin/jQuery-File-Upload/css/jquery.fileupload.css" rel="stylesheet">
@@ -24,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
   
 <body>
-<div class="panel panel-primary">
+<div id="listPanel" class="panel panel-primary">
 	<div class="panel-heading">工厂信息管理</div>
 	<div class="panel-body">
 		<!-- 查询条件 -->
@@ -83,11 +82,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</table>
 	</div><!-- panel-body -->
 </div><!-- panel -->		
-</body>
+
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-<script src="plugin/jquery.formautofill.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
@@ -100,5 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/backstage/enterprise.js"></script>
+<script src="JS/backstage/enterprise/enterprise.js"></script>
+
+<%@ include file="editEnterprise.jsp" %>
+</body>
 </html>
