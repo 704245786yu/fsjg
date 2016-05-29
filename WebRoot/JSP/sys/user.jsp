@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<!-- .row -->
 
 			<!-- 数据表格 -->
-			<table id="dg" data-toggle="table" data-url="user/findByPage"
+			<table id="dg" data-toggle="table" data-url="user/getAllByPage"
 				data-unique-id="id" data-query-params="getQueryParams" 
 				data-pagination="true" data-side-pagination="server"
 				data-page-size="5"

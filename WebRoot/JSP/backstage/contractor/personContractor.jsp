@@ -4,7 +4,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -24,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
   
 <body>
-<div class="panel panel-primary">
+<div id="listPanel" class="panel panel-primary">
 	<div class="panel-heading">快产专家管理</div>
 	<div class="panel-body">
 		<!-- 查询条件 -->
@@ -49,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    <!-- 新增、批量导入按钮 -->
 	    <div class="row" style="padding-bottom:10px;">
-			<div class="col-sm-2">
+			<div class="col-sm-3">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" onclick="add()">
 					<span class="glyphicon glyphicon-plus"></span> 添加
 				</button>
@@ -83,70 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- panel-body -->
 </div><!-- panel -->
 
-<!-- 添加/更新模态框 -->
-<div class="modal fade" id="formModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="dialog" style="width:500px">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h4 class="modal-title" id="formModalLabel">编辑快产专家</h4>
-			</div>
-			<div class="modal-body">
-				<form id="ff" method="post" class="form-horizontal" action="person/save">
-					<div class="form-group">
-						<label for="auditState" class="col-sm-3 control-label">加工类型</label>
-						<div class="col-sm-9">
-							<select class="form-control" id="processType" name="processType">
-								<c:forEach var="constantDict" items="${processTypes}">
-									<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="processYear" class="col-sm-3 control-label">加工年限</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="processYear" name="processYear">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="workerAmount" class="col-sm-3 control-label">工人数量</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="workerAmount" name="workerAmount">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="quote" class="col-sm-3 control-label">报价</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="quote" name="quote">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="equipment" class="col-sm-3 control-label">生产设备</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="equipment" name="equipment">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="processDesc" class="col-sm-3 control-label">加工说明</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="processDesc" name="processDesc">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-4 col-sm-offset-8" style="text-align:right">
-							<button type="submit" name="save" class="btn btn-primary">保存</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						</div>
-					</div>
-					<input type="hidden" name="id"/>
-				</form>
-			</div><!-- modal-body -->
-		</div><!-- modal-content -->
-	</div><!-- modal-dialog -->
-</div><!-- modal -->
-
-<!-- 查看快产专家 -->
+<!-- 查看快产专家
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="dialog" style="width:500px">
 		<div class="modal-content">
@@ -265,17 +201,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 				</div>
-			</div><!-- modal-body -->
-		</div><!-- modal-content -->
-	</div><!-- modal-dialog -->
-</div><!-- modal -->
-
-</body>
-
+			</div>
+		</div>
+	</div>
+</div>
+ -->
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-<script src="plugin/jquery.formautofill.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
@@ -288,6 +220,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/util/MyJsDate.js"></script>
-<script src="JS/backstage/personContractor.js"></script>
+<script src="JS/backstage/contractor/personContractor.js"></script>
+
+<%@ include file="editPersonContractor.jsp" %>
+
+</body>
 </html>

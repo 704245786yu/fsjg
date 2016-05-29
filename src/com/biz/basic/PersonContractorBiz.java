@@ -12,6 +12,7 @@ import com.common.BaseBiz;
 import com.dao.basic.PersonContractorDao;
 import com.dao.basic.PersonDao;
 import com.dto.BootTablePageDto;
+import com.dto.PersonContractorDto;
 import com.po.basic.Person;
 import com.po.basic.PersonContractor;
 import com.util.NumberTransform;
@@ -67,6 +68,15 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 		}
 		personDao.saveBatch(personList);
 		dao.saveBatch(contractorList);
+	}
+	
+	/**根据ID获取快产专家DTO，快产专家信息同时包括Person信息和自身信息*/
+	public PersonContractorDto getById(int id){
+		Person person = personDao.findById(id);
+		person.setPassword(null);	//不允许返回password
+		PersonContractor personContractor = dao.findById(id);
+		PersonContractorDto dto = new PersonContractorDto(person, personContractor);
+		return dto;
 	}
 	
 	/**分页查询
