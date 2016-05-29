@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- .row -->
 	
 	<!-- 数据表格 -->
-	<table id="dg" data-toggle="table" data-url="costumeCategory/getAllByPage" 
+	<table id="dg" data-toggle="table" data-url="costumeCategory/getAdjTree" 
 		data-row-style="rowStyle" data-unique-id="id">
 	    <thead>
 	        <tr>

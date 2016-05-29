@@ -80,23 +80,9 @@ public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 		}
 	}
 	
-	/**查询用户信息
-	 * 限制：只能查看本组织和子组织的用户。
-	 * */
-//	@RequestMapping("findByPage")
-//	@ResponseBody
-//	public BootTablePageDto<User> findByPage(int offset, int pageSize, HttpSession session){
-//		User loginUser = this.getLoginUser(session);
-//		return biz.findByOrgWithPage(offset, pageSize, organizationId);
-//	}
-	
 	@Override
 	public List<User> getAll(){
 		return null;
 	}
 
-	@Override
-	public BootTablePageDto<User> getAllByPage(Long total, int offset, int pageSize){
-		return null;
-	}
 }

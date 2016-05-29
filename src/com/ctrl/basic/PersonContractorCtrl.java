@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.biz.basic.PersonContractorBiz;
 import com.common.BaseCtrl;
 import com.dto.BootTablePageDto;
+import com.dto.PersonContractorDto;
 import com.po.basic.PersonContractor;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
@@ -65,6 +67,13 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 	public PersonContractor update(PersonContractor personContractor,HttpSession httpSession){
 		biz.update(personContractor);
 		return personContractor;
+	}
+	
+	/**根据ID获取快产专家DTO，快产专家信息同时包括Person信息和自身信息*/
+	@RequestMapping("getById/{id}")
+	@ResponseBody
+	public PersonContractorDto getById(@PathVariable int id){
+		return biz.getById(id);
 	}
 	
 	/**分页查询

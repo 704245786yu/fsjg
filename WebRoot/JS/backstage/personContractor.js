@@ -1,7 +1,5 @@
 var g_processType = new Object();
 $(function(){
-	new BsFormTableExtend().closeFormModal();//form模态框关闭事件，触发该事件时重置form
-	
 	//初始化g_processType，供table的processType格式化显示用
 	var processTypes = $('#processType option');
 	$.each(processTypes, function(i,n){
@@ -48,7 +46,7 @@ function processFormatter(value,row,index){
 
 //日期格式化
 function dateFormatter(value,row,index){
-	return new Date(value).format("yyyy-MM-dd hh:mm:ss");
+	return moment(value).format('YYYY-MM-DD HH:mm');
 }
 
 //根据常量名称搜索
@@ -62,81 +60,6 @@ $('#searchText').keydown(function(event){
 		search();
 	}
 });
-
-//表单验证
-$('#ff').bootstrapValidator({
-    feedbackIcons: {
-        valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-        validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-    	constantName: {
-    		validators: {
-    			notEmpty: {
-    				message: '不能为空'
-    			},
-    			stringLength: {
-    				max: 10,
-    				message: '最多10个字符'
-    			}
-    		}
-    	},
-    	constantTypeCode: {
-            validators: {
-                notEmpty: {
-                    message: '不能为空'
-                },
-                stringLength: {
-                    min: 1,
-                    max: 20,
-                    message: '请输入1到20个字符'
-                },
-                regexp: {
-                    regexp: /^[a-zA-Z_]+$/,
-                    message: '只能由字母和下划线组成'
-                }
-            }
-        },
-        constantValue: {
-            validators: {
-                notEmpty: {
-                    message: '不能为空'
-                },
-                stringLength: {
-                    min: 1,
-                    max: 8,
-                    message: '请输入1到8个字符'
-                },
-                regexp: {
-                    regexp: /^[0-9]+$/,
-                    message: '只能输入数字'
-                }
-            }
-        },
-        description: {
-            validators: {
-                stringLength: {
-                    min: 1,
-                    max: 30,
-                    message: '请输入1到30个字符'
-                }
-            }
-        }
-    }
-}).on('success.form.bv', function(e) {
-	new BsFormTableExtend().submitFunc(e);
-});
-
-//新增
-function add(){
-	$('#ff').attr('action','person/save');
-}
-
-//修改
-function modify(id){
-	new BsFormTableExtend().showModifyForm(id, 'person/update');
-}
 
 //删除
 function del(index,id){

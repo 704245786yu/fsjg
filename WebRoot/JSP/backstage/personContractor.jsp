@@ -4,7 +4,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -24,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
   
 <body>
-<div class="panel panel-primary">
+<div id="listPanel" class="panel panel-primary">
 	<div class="panel-heading">快产专家管理</div>
 	<div class="panel-body">
 		<!-- 查询条件 -->
@@ -49,12 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    <!-- 新增、批量导入按钮 -->
 	    <div class="row" style="padding-bottom:10px;">
-			<div class="col-sm-1">
+			<div class="col-sm-3">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" onclick="add()">
 					<span class="glyphicon glyphicon-plus"></span> 添加
 				</button>
-			</div>
-			<div class="col-sm-1">
 				<span class="btn btn-success fileinput-button">
 					<i class="glyphicon glyphicon-upload"></i>
 					<span>批量导入</span>
@@ -85,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- panel-body -->
 </div><!-- panel -->
 
-<!-- 添加/更新模态框 -->
+<!-- 添加/更新模态框
 <div class="modal fade" id="formModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="dialog" style="width:500px">
 		<div class="modal-content">
@@ -143,12 +140,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<input type="hidden" name="id"/>
 				</form>
-			</div><!-- modal-body -->
-		</div><!-- modal-content -->
-	</div><!-- modal-dialog -->
-</div><!-- modal -->
+			</div>
+		</div>
+	</div>
+</div>
+ -->
 
-<!-- 查看快产专家 -->
+<!-- 查看快产专家
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="dialog" style="width:500px">
 		<div class="modal-content">
@@ -267,17 +265,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 				</div>
-			</div><!-- modal-body -->
-		</div><!-- modal-content -->
-	</div><!-- modal-dialog -->
-</div><!-- modal -->
-
-</body>
-
+			</div>
+		</div>
+	</div>
+</div>
+ -->
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-<script src="plugin/jquery.formautofill.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
@@ -290,6 +284,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/util/MyJsDate.js"></script>
 <script src="JS/backstage/personContractor.js"></script>
+
+<%@ include file="editPersonContractor.jsp" %>
+
+</body>
 </html>
