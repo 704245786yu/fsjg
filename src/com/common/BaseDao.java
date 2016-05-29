@@ -287,12 +287,12 @@ public class BaseDao<ID extends Serializable, T> {
 	
 	/**分页获取所有数据
 	 * @param offset 偏移量，即记录索引位置
-	 * @param pageSize 每页记录数
+	 * @param limit 每页记录数
 	 * */
-	public List<T> getAllByPage(int offset, int pageSize){
+	public List<T> getAllByPage(int offset, int limit){
 		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
 		criteria.setFirstResult(offset)
-				.setMaxResults(pageSize);
+				.setMaxResults(limit);
 		return criteria.list();
 	}
 	
@@ -338,10 +338,10 @@ public class BaseDao<ID extends Serializable, T> {
 	* @param hql 需要查询的 HQL语句
 	* @param params 如果hql带占位符参数， params用于传入占位符参数
 	* @param offset 偏移量，即记录索引位置
-	* @param pageSize 每页记录数
+	* @param limit 每页记录数
 	* @return 当前页的所有记录
 	*/
-	protected List<?> findByPage(String hql , int offset, int pageSize, String[] paramNames, Object[] params)
+	protected List<?> findByPage(String hql , int offset, int limit, String[] paramNames, Object[] params)
 	{
 		Query query = getCurrentSession().createQuery(hql);
 		//为包含占位符的 HQL语句设置参数
@@ -354,7 +354,7 @@ public class BaseDao<ID extends Serializable, T> {
 		}
 		// 执行分页，并返回查询结果
 		return query.setFirstResult(offset)
-				.setMaxResults(pageSize)
+				.setMaxResults(limit)
 				.list();
 	}
 	
@@ -362,10 +362,10 @@ public class BaseDao<ID extends Serializable, T> {
 	* 使用QBC 进行分页查询操作
 	* @param params List<Object[]> Object[]数组内容 0：匹配方式 1：列名 2：值
 	* @param offset 偏移量，即记录索引位置
-	* @param pageSize 每页记录数
+	* @param limit 每页记录数
 	* @return 当前页的所有记录
 	*/
-	public List<T> findByPageAndParams(List<Object[]> params, int offset, int pageSize)
+	public List<T> findByPageAndParams(List<Object[]> params, int offset, int limit)
 	{
 		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
 		for(int i=0; i<params.size(); i++){
@@ -380,7 +380,7 @@ public class BaseDao<ID extends Serializable, T> {
 		}
 		// 执行分页，并返回查询结果
 		return criteria.setFirstResult(offset)
-				.setMaxResults(pageSize)
+				.setMaxResults(limit)
 				.list();
 	}
 	

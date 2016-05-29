@@ -49,12 +49,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    <!-- 新增、批量导入按钮 -->
 	    <div class="row" style="padding-bottom:10px;">
-			<div class="col-sm-1">
+			<div class="col-sm-2">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" onclick="add()">
 					<span class="glyphicon glyphicon-plus"></span> 添加
 				</button>
-			</div>
-			<div class="col-sm-1">
 				<span class="btn btn-success fileinput-button">
 					<i class="glyphicon glyphicon-upload"></i>
 					<span>批量导入</span>

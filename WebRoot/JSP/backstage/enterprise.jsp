@@ -8,59 +8,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
 <head>
-    <base href="<%=basePath%>">
-    
-    <title>企业信息管理</title>
-    
+	<base href="<%=basePath%>">
+    <title>工厂信息管理</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 	<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 	<link href="plugin/jQuery-File-Upload/css/jquery.fileupload.css" rel="stylesheet">
-
-  </head>
+	<link href="plugin/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+</head>
   
-  <body>
-   <div class="panel panel-primary">
+<body>
+	<div class="panel panel-primary">
 		<div class="panel-heading">企业信息管理</div>
 		<div class="panel-body">
-		
-		<!-- 搜索框、新增按钮 -->
-		<div id="tb" class="row" style="width:100%;padding:10px;">
-			<div class="col-sm-4">
-				<div class="input-group">
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-primary" onclick="search()">
-							<span class="glyphicon glyphicon-search"></span>
-						</button>
-					</span>
-					<input type="text" class="form-control" id="searchText" placeholder="常量名称">
-				</div><!-- /input-group -->
-			</div><!-- /.col-sm-4 -->
+		<!-- 查询条件 -->
+		<div class="form-inline" style="padding-bottom:10px;">
+			<div class="form-group">
+				<label for="workerAmount">工厂名称</label>
+				<input type="text" class="form-control" name="enterpriseName">
+			</div>
+			<div class="form-group">
+				<label for="processYear">加工年限</label>
+				<input type="text" class="form-control" name="processYear">
+			</div>
+			<div class="form-group">
+				<label for="startDate">注册时间</label>
+				<input type="text" class="form-control" style="width:270px;" id="daterange" name="daterange">
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-primary">查询</button>
+				<button type="button" class="btn btn-primary">清空</button>
+			</div>
+	    </div><!-- form-inline -->
 	    
-			<div class="col-sm-1">
+	    <!-- 新增、批量导入按钮 -->
+	    <div class="row" style="padding-bottom:10px;">
+			<div class="col-sm-2">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" onclick="add()">
 					<span class="glyphicon glyphicon-plus"></span> 添加
 				</button>
+				<span class="btn btn-success fileinput-button">
+					<i class="glyphicon glyphicon-upload"></i>
+					<span>批量导入</span>
+					<input id="fileupload" type="file" accept="application/vnd.ms-excel" name="file" data-url="enterprise/uploadExcel">
+				</span>
 			</div>
-			<span class="btn btn-success fileinput-button"> <i
-				class="glyphicon glyphicon-plus"></i> <span>批量导入</span>
-				<!-- The file input field used as target for the file upload widget -->
-				<input id="fileupload" type="file" accept="application/vnd.ms-excel"
-				name="file" data-url="enterprise/uploadExcel">
-			</span>
 		</div><!-- .row -->
-		
-	
-			<!-- 进度条 -->
-			<div id="progress" class="progress">
-				<div class="progress-bar progress-bar-success"></div>
-			</div>
 			
 			<!-- 数据表格 -->
 		<table id="dg" data-toggle="table" data-url="enterprise/getAllByPage" data-unique-id="id"
@@ -101,13 +100,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        </tr>
 		    </thead>
 		</table>
-			
-			
-			<!-- 已上传图片文件列表 -->
-			<div id="files" class="files"></div>
 		</div>
 	</div>
-  </body>
+</body>
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
@@ -118,6 +113,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+
+<script src="plugin/bootstrap-daterangepicker/moment.min.js"></script>
+<script src="plugin/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
