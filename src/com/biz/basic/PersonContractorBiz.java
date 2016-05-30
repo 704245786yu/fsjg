@@ -81,14 +81,14 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 	
 	/**分页查询
 	 * @param offset 偏移量，即记录索引位置
-	 * @param pageSize 每页需要显示的记录数
+	 * @param limit 每页需要显示的记录数
 	 * @return 返回PersonContractor的部分属性，以及Person的realName属性
 	 * */
-	public BootTablePageDto<Map<String,Object>> findByPageAndParams(int offset, int pageSize){
+	public BootTablePageDto<Map<String,Object>> findByPageAndParams(int offset, int limit){
 		BootTablePageDto<Map<String,Object>> bt = new BootTablePageDto<Map<String,Object>>();
 		long total = dao.getCount();
 		bt.setTotal(total);
-		bt.setRows(dao.findByPageAndParams(offset,pageSize));
+		bt.setRows(dao.findByPageAndParams(offset,limit));
 		return bt;
 	}
 }

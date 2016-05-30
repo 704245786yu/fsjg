@@ -6,26 +6,32 @@
 	<div class="panel-body">
 		<form id="ff" method="post" class="form-horizontal">
 			<input type="hidden" name="id"/>
+			
 			<div class="form-group">
-				<label for="userName" class="col-sm-3 control-label">用户名 </label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="userName" name="userName">
+				<div class="group">
+					<label for="userName" class="col-sm-1 control-label">用户名 </label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="userName" name="userName">
+					</div>
+				</div>
+				<div class="group">
+					<label for="enterpriseNumber" class="col-sm-1 control-label">工厂编号</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="enterpriseNumber" name="enterpriseNumber">
+					</div>
+				</div>
+				<div class="group">
+					<label for="enterpriseName" class="col-sm-1 control-label">工厂名称</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="enterpriseName" name="enterpriseName">
+					</div>
 				</div>
 			</div>
 			
 			<!-- trade_id 行业分类 -->
 			
 			<div class="form-group">
-				<label for="enterpriseNumber" class="col-sm-3 control-label">工厂编号</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="enterpriseNumber" name="enterpriseNumber">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="enterpriseName" class="col-sm-3 control-label">工厂名称</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="enterpriseName" name="enterpriseName">
-				</div>
+				
 			</div>
 			<div class="form-group">
 				<label for="linkman" class="col-sm-3 control-label">联系人</label>
@@ -154,5 +160,5 @@
 </div><!-- panel -->
 
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-<script src="plugin/jquery.formFill.js"></script>
-<script src="JS/backstage/contractor/editEnterprise.js"></script>
+<script src="plugin/jquery.formautofill.min.js"></script>
+<script src="JS/backstage/enterprise/editEnterprise.js"></script>

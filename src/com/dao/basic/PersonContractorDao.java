@@ -13,11 +13,11 @@ public class PersonContractorDao extends BaseDao<Integer, PersonContractor>{
 
 	/**分页查询
 	 * @param offset 偏移量，即记录索引位置
-	 * @param pageSize 每页需要显示的记录数
+	 * @param limit 每页需要显示的记录数
 	 * @return 返回PersonContractor的部分属性，以及Person的realName属性
 	 * */
 	@SuppressWarnings("unchecked")
-	public List<Map<String,Object>> findByPageAndParams(int offset, int pageSize){
+	public List<Map<String,Object>> findByPageAndParams(int offset, int limit){
 		StringBuffer hql = new StringBuffer("select new map(pc.id as id, ")
 				.append("pc.processType as processType, ")
 				.append("pc.processYear as processYear, ")
@@ -29,7 +29,7 @@ public class PersonContractorDao extends BaseDao<Integer, PersonContractor>{
 				.append("p.realName as realName) ")
 				.append("from PersonContractor pc, Person p where pc.id = p.id");
 		List<Map<String,Object>> list = (List<Map<String,Object>>)super.findByPage(hql.toString(),
-				offset, pageSize, new String[]{}, new Object[]{});
+				offset, limit, new String[]{}, new Object[]{});
 		return list;
 	}
 }

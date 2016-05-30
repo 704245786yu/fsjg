@@ -3,10 +3,8 @@ $(function() {
 });
 
 function getQueryParams(params) {
-	params.pageSize = params.limit;
 //	var searchText = $('#searchText').val().trim();
 //	params.userName = searchText;
-	delete params.limit;
 	delete params.order;
 	return params;
 }

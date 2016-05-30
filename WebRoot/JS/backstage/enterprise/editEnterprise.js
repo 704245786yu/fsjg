@@ -78,7 +78,7 @@ function add(){
 //新增，该方法由主页面的add按钮触发
 function modify(id){
 	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
-	$("#ff").fill(data);
+	$("#ff").autofill(data);
 	$('#ff').attr('action','enterprise/update');
 	showForm();
 }

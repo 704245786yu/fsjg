@@ -20,10 +20,8 @@ $(function(){
 });
 
 function getQueryParams(params){
-	params.pageSize = params.limit;
 //	var searchText = $('#searchText').val().trim();
 //	params.constantName = searchText;
-	delete params.limit;
 	delete params.order;
 	return params;
 }

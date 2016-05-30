@@ -78,12 +78,12 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 	
 	/**分页查询
 	 * @param offset 偏移量，即记录索引位置
-	 * @param pageSize 每页需要显示的记录数
+	 * @param limit 每页需要显示的记录数
 	 * @return 返回PersonContractor的部分属性，以及Person的realName属性
 	 * */
 	@RequestMapping("findByPageAndParams")
 	@ResponseBody
-	public BootTablePageDto<Map<String,Object>> findByPageAndParams(int offset, int pageSize){
-		return biz.findByPageAndParams(offset,pageSize);
+	public BootTablePageDto<Map<String,Object>> findByPageAndParams(int offset, int limit){
+		return biz.findByPageAndParams(offset,limit);
 	}
 }
