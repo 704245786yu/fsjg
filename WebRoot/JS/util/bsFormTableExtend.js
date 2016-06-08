@@ -78,14 +78,18 @@ BsFormTableExtend.prototype.delRecord = function(index,id,action,datagridId){
 
 /**form模态框关闭事件，触发该事件时重置form
  * @param {Number} formModalId form所在模态框Id. default value:formModal
+ * @param othreFun 关闭Form表单窗口的其他操作
  * */
-BsFormTableExtend.prototype.closeFormModal = function(formModalId){
-	var formModalId = formModalId == undefined ? '#formModal':'#'+formModal;
+BsFormTableExtend.prototype.closeFormModal = function(formModalId,otherFun){
+	var formModalId = formModalId == undefined ? '#formModal':'#'+formModalId;
 	$(formModalId).on('hide.bs.modal', function (e) {
-		 var $target = $(e.target);
-		 var $form = $target.find("form");
-		 $form.bootstrapValidator('resetForm', true);
-		 $form[0].reset();
+		var $target = $(e.target);
+		var $form = $target.find("form");
+		$form.bootstrapValidator('resetForm', true);
+		$form[0].reset();
+		//执行其他操作
+		if(otherFun != undefined)
+			otherFun();
 	});
 }
 

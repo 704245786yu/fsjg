@@ -27,6 +27,9 @@ public class User {
 	@Column(name="password")
 	private String password;
 	
+	@Column(name="real_name")
+	private String realName;
+	
 	@Column(name="role_id")
 	private Integer roleId;
 	
@@ -71,6 +74,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
 	}
 
 	public Integer getRoleId() {

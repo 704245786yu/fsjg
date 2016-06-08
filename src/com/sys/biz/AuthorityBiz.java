@@ -11,7 +11,7 @@ import com.sys.po.Authority;
 @Service
 public class AuthorityBiz extends BaseBiz<AuthorityDao, Integer, Authority>{
 	
-	/**根据角色获取关联的菜单,以邻接列表模型返回
+	/**根据角色获取关联的权限
 	 * */
 	public List<Authority> getAuthByRoleId(int roleId){
 		return dao.getAuthByRoleId(roleId);

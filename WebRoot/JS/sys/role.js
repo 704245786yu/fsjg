@@ -3,7 +3,7 @@ var g_zTree = null;//zTree对象
 var setting = {
 	async:{
 		enable: true,
-		url:"menu/getAdjTree"
+		url:"menu/getOwnMenu"
 	},
 	callback:{
 		onAsyncSuccess:function(event,treeId,treeNode, msg){
@@ -29,6 +29,7 @@ var setting = {
 };
 
 $(function(){
+	setting.async.url = $('#treeUrl').val();
 	g_zTree = $.fn.zTree.init($("#tree"),setting);
 	new BsFormTableExtend().closeFormModal();//form模态框关闭事件，触发该事件时重置form
 });

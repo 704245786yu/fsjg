@@ -21,7 +21,7 @@ public class MenuBiz extends NestTreeBiz<MenuDao, Integer, Menu>{
 	public List<Menu> getMenuByRoleId(int roleId){
 		List<?> menuIdList = roleMenuDao.getMenuIdByRoleId(roleId);
 		Integer[] menuIds = new Integer[menuIdList.size()];
-		for(int i=0; i<menuIds.length; i++){
+		for(int i=0; i<menuIdList.size(); i++){
 			menuIds[i] = (Integer)menuIdList.get(i);
 		}
 		return this.transformAdjTree(menuIds);

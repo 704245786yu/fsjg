@@ -37,4 +37,5 @@ public abstract class NestTreeBiz < DAO extends NestTreeDao<ID, PO>, ID extends 
 			return null;
 		return dao.transformAdjTree(ids);
 	}
+	
 }

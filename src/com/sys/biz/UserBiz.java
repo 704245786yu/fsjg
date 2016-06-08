@@ -2,7 +2,6 @@ package com.sys.biz;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.common.BaseBiz;
@@ -11,33 +10,8 @@ import com.sys.dao.UserDao;
 import com.sys.po.User;
 
 @Service
-public class UserBiz extends BaseBiz<UserDao, Integer, User>{
-
-	/**更新用户更新除密码外的所有字段。
-	 * */
-	@Override
-	public void update(User user) {
-		User oldUser = dao.findById(user.getId());
-		user.setPassword(oldUser.getPassword());//设置原始密码
-		dao.update(user);
-	}
+public class UserBiz extends BaseBiz<UserDao, Integer, User> {
 	
-	/**修改密码
-	 * 先比较用户输入的原密码是否确实与数据库中的密码相同，若相同则更新，不同则不更新
-	 * @return 1：正常 2：原密码输入错误
-	 * */
-	public Integer modifyPwd(Integer userId, String oldPwd, String password, Integer updateBy){
-		User user = dao.findById(userId);
-		if(oldPwd.equals(user.getPassword())){
-			user.setPassword(password);
-			user.setUpdateBy(updateBy);
-			dao.update(user);
-			return 1;
-		}else{
-			return 2;
-		}
-	}
-
 	/**用户登陆检测
 	 * @return 查询不到返回null。
 	 * */
@@ -51,16 +25,47 @@ public class UserBiz extends BaseBiz<UserDao, Integer, User>{
 			return users.get(0);
 	}
 	
-	/**查询用户信息
-	 * 限制：只能查看本组织和子组织的用户。
+	/**更新用户，但不更新用户密码
 	 * */
-//	public BootTablePageDto<User> findByOrgWithPage(int offset, int pageSize, int organizationId){
-//		BootTablePageDto<User> bt = new BootTablePageDto<User>();
-//		List<Integer> orgIds = organizationDao.getDescendantId(organizationId);
-//		orgIds.add(0, organizationId);
-//		Long total = dao.getCountByOrg(orgIds);
-//		bt.setTotal(total);
-//		bt.setRows(dao.findByOrgWithPage(offset, pageSize, orgIds));
-//		return bt;
-//	}
+	@Override
+	public void update(User user) {
+		User oldUser = dao.findById(user.getId());
+		user.setPassword(oldUser.getPassword());	//设置用户的原密码
+		dao.update(user);
+	}
+	
+	/**密码验证
+	 * @return 验证通过返回true,失败返回false
+	 * */
+	public String checkPwd(Integer userId, String oldPassword){
+		List<?> passwords = dao.find("select password from User where id =:id",new String[]{"id"},new Integer[]{userId});
+		String password = (String)passwords.get(0);
+		if(password.equals(oldPassword))
+			return "{\"valid\":true}";
+		else
+			return "{\"valid\":false}";
+	}
+	
+	/**修改密码
+	 * */
+	public void modifyPwd(Integer userId, String password, Integer updateBy){
+		dao.executeUpdate("update User set password =:password, updateBy =:updateBy where id =:userId",
+				new String[]{"password","updateBy","userId"}, new Object[]{password, updateBy,userId});
+	}
+	
+	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
+	 * @param offset 偏移量，即记录索引位置
+	 * @param limit 每页记录数
+	 * @param useName 模糊查询
+	 * */
+	@SuppressWarnings("unchecked")
+	public BootTablePageDto<User> findByPageAndParams(int offset, int limit, String userName) {
+		BootTablePageDto<User> bt = new BootTablePageDto<User>();
+		String[] paramNames = new String[]{"userName"};
+		String[] values = new String[]{'%'+userName+'%'};
+		Long total = dao.getCount("select count(1) from User where userName like :userName", paramNames, values);
+		bt.setTotal(total);
+		bt.setRows((List<User>)dao.findByPage("from User where userName like :userName", offset, limit, paramNames, values));
+		return bt;
+	}
 }

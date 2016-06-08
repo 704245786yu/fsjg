@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- .row -->
 	
 	<!-- 数据表格 -->
-	<table id="dg" data-toggle="table" data-url="role/getAll" data-unique-id="id">
+	<table id="dg" data-toggle="table" data-url="role/getLowGradeRole" data-unique-id="id">
 	    <thead>
 	        <tr>
 	        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
@@ -76,6 +76,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="col-sm-6">
 						<h5><b>菜单</b></h5>
 						<ul id="tree" class="ztree"></ul>
+						<c:if test="${loginUser.roleId == 1}">
+							<input id="treeUrl" type="hidden" value="menu/getAdjTree"/>
+						</c:if>
+						<c:if test="${loginUser.roleId != 1}">
+							<input id="treeUrl" type="hidden" value="menu/getOwnMenu"/>
+						</c:if>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">

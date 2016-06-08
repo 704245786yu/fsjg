@@ -31,14 +31,14 @@ public class BaseCtrl<BIZ extends BaseBiz, ID extends Serializable, PO> {
 	
 	@RequestMapping("save")
 	@ResponseBody
-	public PO save(PO po, HttpSession httpSession){
+	public PO save(PO po, HttpSession session){
 		biz.save(po);
 		return po;
 	}
 	
 	@RequestMapping("update")
 	@ResponseBody
-	public PO update(PO po, HttpSession httpSession){
+	public PO update(PO po, HttpSession session){
 		biz.update(po);
 		return po;
 	}
@@ -48,7 +48,7 @@ public class BaseCtrl<BIZ extends BaseBiz, ID extends Serializable, PO> {
 	 * */
 	@RequestMapping("delete/{id}")
 	@ResponseBody
-	public Integer delete(@PathVariable ID id, HttpSession httpSession){
+	public Integer delete(@PathVariable ID id, HttpSession session){
 		try{
 			biz.deleteById(id);
 		}catch(Exception e){

@@ -5,10 +5,11 @@
 var data;
 var basedata;
 $(document).ready(function(){
+	var contextPath = $('#path').val();
 	$.ajax({
 		type : "get",
 		async : false,
-		url : "menu/getAdjTree",	
+		url : "menu/getOwnMenu",	
 		dataType : "json",							
 		success : function(returndatas) {
 			data=returndatas;
@@ -25,7 +26,7 @@ $(document).ready(function(){
 			if(data[i].path==null||data[i].path==""){
 				obj.innerHTML="<a href='javascript:void(0);' target='right_frame'>"+data[i].menuName+"</a>";           
 			}else{
-				obj.innerHTML="<a href="+data[i].path+" target='right_frame'>"+data[i].menuName+"</a>";  
+				obj.innerHTML="<a href="+contextPath+"/"+data[i].path+" target='right_frame'>"+data[i].menuName+"</a>";  
 			}
 			ul.appendChild(obj);  
 			}
@@ -41,7 +42,7 @@ $(document).ready(function(){
 				if(data[i].path==null||data[i].path==""){
 					obj2.innerHTML="<a href='javascript:void(0);' target='right_frame'>"+data[i].menuName+"</a>";           
 				}else{
-					obj2.innerHTML="<a href="+data[i].path+" target='right_frame'>"+data[i].menuName+"</a>";  
+					obj2.innerHTML="<a href="+contextPath+"/"+data[i].path+" target='right_frame'>"+data[i].menuName+"</a>";  
 				}
 				obj1.appendChild(obj2);  
 				li.appendChild(obj1);
@@ -53,13 +54,6 @@ $(document).ready(function(){
 		jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
 		
 	});
- $(function(){	
-		//顶部导航切换
-		$("#demo-list li").click(function(){
-			$("#demo-list li.active").removeClass("active")
-			$(this).addClass("active");
-		})	
-	})	
  (function($) {
 $.expr[":"].Contains = function(a, i, m) {
 	return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
@@ -71,23 +65,6 @@ function filterList(header, list) {
 	var form = $("<form>").attr({
 		"class":"filterform",
 		action:"#"
-	}), input = $("<input>").attr({
-		"class":"filterinput",
-		type:"text"
-	});
-	$(form).append(input).appendTo(header);
-	$(input).change(function() {
-		var filter = $(this).val();
-		if (filter) {
-			$matches = $(list).find("a:Contains(" + filter + ")").parent();
-			$("li", list).not($matches).slideUp();
-			$matches.slideDown();
-		} else {
-			$(list).find("li").slideDown();
-		}
-		return false;
-	}).keyup(function() {
-		$(this).change();
 	});
 }
 $(function() {

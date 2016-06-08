@@ -22,12 +22,13 @@ public class MenuCtrl extends NestTreeCtrl<MenuBiz, Integer, Menu>{
 		defaultPage = "sys/menu";
 	}
 	
-	/**根据用户所属角色获取相应菜单
+	/**获取登录用户自己的菜单
 	 * */
-	public List<Menu> getMenuByUser(HttpSession session){
+	@RequestMapping("getOwnMenu")
+	@ResponseBody
+	public List<Menu> getOwnMenu(HttpSession session){
 		User user = UserCtrl.getLoginUser(session);
-		
-		return null;
+		return biz.getMenuByRoleId(user.getRoleId());
 	}
 	
 	/**根据角色获取关联的菜单,以邻接列表模型返回

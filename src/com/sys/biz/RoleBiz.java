@@ -96,7 +96,9 @@ public class RoleBiz extends BaseBiz<RoleDao, Integer, Role>{
 	 * @return 返回角色列表，其中包括roleId对应的角色，和等级（权限）低于该角色的所有角色。
 	 * */
 	public List<Role> getLowGradeRole(int roleId){
-		
-		return null;
+		List<Integer> roleIds1 = roleMenuDao.getLowGradeRoleId(roleId);
+		List<Integer> roleIds2 = roleAuthorityDao.getLowGradeRoleId(roleId);
+		roleIds1.retainAll(roleIds2);
+		return dao.findByIds(roleIds1);
 	}
 }

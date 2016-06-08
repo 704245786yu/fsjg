@@ -194,7 +194,7 @@ public class BaseDao<ID extends Serializable, T> {
 	}
 	
 	/**根据Ids集合查询*/
-	public List<T> findByIds(Collection<Serializable> ids){
+	public List<T> findByIds(Collection<? extends Serializable> ids){
 		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
 		Criterion criterion = Restrictions.in("id", ids);
 		criteria.add(criterion);
@@ -341,7 +341,7 @@ public class BaseDao<ID extends Serializable, T> {
 	* @param limit 每页记录数
 	* @return 当前页的所有记录
 	*/
-	protected List<?> findByPage(String hql , int offset, int limit, String[] paramNames, Object[] params)
+	public List<?> findByPage(String hql , int offset, int limit, String[] paramNames, Object[] params)
 	{
 		Query query = getCurrentSession().createQuery(hql);
 		//为包含占位符的 HQL语句设置参数
@@ -400,6 +400,20 @@ public class BaseDao<ID extends Serializable, T> {
 		return query.executeUpdate();
 	}
 	
+	/**根据本地SQL执行查询，并返回List<?>
+	 * */
+	public List<?> findByNativeSql(String sql, String[] propertyNames, Object[] values){
+		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(sql);
+		for(int i=0; i<propertyNames.length; i++){
+			if(values[i] instanceof Object[])
+				sqlQuery.setParameterList(propertyNames[i], (Object[])values[i]);
+			else if(values[i] instanceof Collection)
+				sqlQuery.setParameterList(propertyNames[i], (Collection<?>)values[i]);
+			else
+				sqlQuery.setParameter(propertyNames[i], values[i]);
+		}
+		return sqlQuery.list();
+	}
 	
 	/**根据本地SQL执行查询，并返回需要封装成的Bean类型
 	 * @param scalars Object[0] SQL语句中的列别名 Object[1] hibernate Type类型

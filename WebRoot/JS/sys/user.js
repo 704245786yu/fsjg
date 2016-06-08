@@ -1,10 +1,47 @@
-$(function() {
-	new BsFormTableExtend().closeFormModal();// form模态框关闭事件，触发该事件时重置form
+var g_role = new Object();//角色
+
+$(function(){
+	//获取角色
+	$("select[name='roleId'] > option").each(function () {
+        var txt = $(this).text(); //获取单个text
+        var val = $(this).val(); //获取单个value
+        g_role[val] = txt;
+    });
+	$('#meter').entropizer({
+		target:'#password',
+		engine: {
+	        classes: ['lowercase', 'uppercase', 'numeric','symbols','symbolsCommon']
+	    },
+	    buckets: [
+	          { max: 45, strength: '弱', color: '#e13' },
+	          { min: 45, max: 60, strength: '中', color: '#f80' },
+	          { min: 60, max: 75, strength: '强', color: '#8c0' },
+	          { min: 75, strength: '极强', color: '#0c8' }
+	    ],
+		update: function(data, ui) {
+	        ui.bar.css({
+	            'background-color': data.color,
+	            'width': data.percent + '%'
+	        });
+	        ui.text.html(data.strength);
+	    }
+	});
+	new BsFormTableExtend().closeFormModal(undefined,resetForm);// form模态框关闭事件，触发该事件时重置form
+	new BsFormTableExtend().closeFormModal('pwdformModal',resetMeter);
 });
 
+function resetForm(){
+	$('.selectpicker').selectpicker("deselectAll");//对使用了bootstarp-select的表单执行取消选择
+}
+
+function resetMeter(){
+	$('.entropizer-bar').css('width','0%');
+	$('.entropizer-text').html('弱');
+}
+
 function getQueryParams(params) {
-//	var searchText = $('#searchText').val().trim();
-//	params.userName = searchText;
+	var searchText = $('#searchText').val().trim();
+	params.userName = searchText;
 	delete params.order;
 	return params;
 }
@@ -20,6 +57,18 @@ $('#searchText').keydown(function(event) {
 	}
 });
 
+//格式化角色信息
+function roleFormatter(value,row,index){
+	return g_role[value];
+}
+
+function operFormatter(value,row,index){
+	var modifyBtn = " <button type='button' class='btn btn-default btn-xs' title='修改' onclick='modify("+row.id+")'><span class='text-primary glyphicon glyphicon-edit'></span></button>";
+	var modifyPwdBtn = " <button type='button' class='btn btn-default btn-xs' title='重设密码' onclick='showPwdFormModal("+row.id+")'><span class='text-primary fa fa-key'></span></button>";
+	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
+	return modifyBtn + modifyPwdBtn + delBtn;
+}
+
 // 表单验证
 $('#ff').bootstrapValidator({
 	feedbackIcons : {
@@ -27,7 +76,7 @@ $('#ff').bootstrapValidator({
 		invalid : 'glyphicon glyphicon-remove',
 		validating : 'glyphicon glyphicon-refresh'
 	},
-	fields:{
+	fields : {
 		userName : {
 			validators : {
 				notEmpty : {
@@ -38,90 +87,87 @@ $('#ff').bootstrapValidator({
 					message : '最多10个字符'
 				}
 			}
-		},
-		passWord : {
-			message : '密码不合法',
-			validators : {
-				notEmpty : {
-					message : '密码不能为空'
-				},
-				stringLength : {
-					max : 20,
-					message : '最多20个字符'
-				}
-			}
-		},
-		rePassWord : {
-			message : '密码不一致',
-			validators : {
-				notEmpty : {
-					message : '确认密码不能为空'
-				},
-				stringLength : {
-					max : 20,
-					message : '最多20个字符'
-				},
-				identical: {
-                    field: 'passWord',
-                    message: '确认密码与原密码不一致'
-                }
-			}
 		}
-		/*oldPassWord : {
-			validators : {
-				notEmpty : {
-					message : '不能为空'
-				},
-				stringLength : {
-					max : 20,
-					message : '最多20个字符'
-				},
-				callback : {
-					message : '您输入的原密码有误',
-					callback : function(value, validator) {
-						var res = false;
-						if (value.length <= 20 && value.length >= 1) {
-							$.ajax({
-								url : "sysUser/checkOldPwd",
-								type : 'post',
-								dataType : 'json',
-								async : false,
-								data : {
-									oldPassWord : value,
-									userName : $("#userName").val()
-								},
-								success : function(data) {
-					
-									if (data == true) {
-										res = true;	
-									}
-								}
-							});
-							
-						} 
-						else {
-							res=false;
-						}
-						return res;
-					}
-				}
-			}
-		},*/
 	}
 }).on('success.form.bv', function(e) {
 	new BsFormTableExtend().submitFunc(e);
 });
 
+$('#modifyPwdForm').bootstrapValidator({
+	feedbackIcons : {
+		valid : 'glyphicon glyphicon-ok',
+		invalid : 'glyphicon glyphicon-remove',
+		validating : 'glyphicon glyphicon-refresh'
+	},
+	fields : {
+		oldPassword : {
+			validators : {
+				notEmpty : {
+					message : '不能为空'
+				},
+				stringLength : {
+					min : 6,
+					max : 20,
+					message : '字符个数6~20'
+				},
+				remote : {
+					trigger: 'keyup',
+					delay:1000,
+					message: '您输入的原密码有误',
+					url:'user/checkPwd',
+					data: function(validator) {
+						return {userId: $('#modifyPwdForm > input[name="id"]').val()};
+					}
+				}
+			}
+		},
+		password : {
+			validators : {
+				notEmpty : {
+					message : '不能为空'
+				},
+				stringLength : {
+					min : 6,
+					max : 20,
+					message : '字符个数6~20'
+				}
+			}
+		},
+		rePassword : {
+			validators : {
+				notEmpty : {
+					message : '不能为空'
+				},
+				identical : {
+					field : 'password',
+					message : '确认密码与原密码不一致'
+				}
+			}
+		}
+	}
+}).on('success.form.bv', function(e) {
+	e.preventDefault();
+	var $form = $(e.target);
+    $.post($form.attr('action'), $form.serialize(), function(data) {
+    	if(data == 'success')
+    		$('#pwdformModal').modal('hide');
+    });
+});
+
 // 新增
 function add() {
-	document.getElementById('oldpwdDiv').style.display = "none";
 	$('#ff').attr('action', 'user/save');
 }
 
 // 修改
 function modify(id) {
-	document.getElementById('oldpwdDiv').style.display = "";
 	new BsFormTableExtend().showModifyForm(id, 'user/update');
+}
+
+//显示密码修改模态框
+function showPwdFormModal(id) {
+	$('#modifyPwdForm').autofill( {'id':id},{restrict:true} );
+	$('#pwdformModal').modal('show');
 }
 
 // 删除
