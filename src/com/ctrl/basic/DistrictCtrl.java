@@ -1,11 +1,11 @@
 package com.ctrl.basic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,12 +18,11 @@ import com.po.basic.District;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 import com.util.MicroOfficeFile;
+import com.vo.ReturnValueVo;
 
 @Controller
 @RequestMapping("district")
 public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
-	@Autowired
-	private DistrictBiz districtBiz;
 	
 	public DistrictCtrl(){
 		defaultPage = "backstage/district";
@@ -31,12 +30,14 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
 	
 	/**@author 裘俊宏
 	 * =========支煜修改2016-05-28=========
+	 * @return ReturnValueVo errorRowNum 数据有问题的行号
 	 * */
 	@RequestMapping("uploadExcel")
 	@ResponseBody
-	public Integer uploadExcel(@RequestParam("file") MultipartFile file, HttpSession session){
+	public ReturnValueVo uploadExcel(@RequestParam("file") MultipartFile file, HttpSession session){
 		//String aa=file.getContentType();//application/vnd.ms-excel
 		//String bb=file.getName();//file
+		ReturnValueVo returnValue = new ReturnValueVo();
 		try{
 			String fileName=file.getOriginalFilename();//江苏省-320000.xls 获取省编号已经名称
 		    String[] tempStrings=fileName.split("\\.");
@@ -49,12 +50,17 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
 			Workbook wb = mof.readExcel(file);
 			List<String[]> data = mof.getAllData(wb,0);
 			User loginUser = UserCtrl.getLoginUser(session);
-			districtBiz.batchSaveDistrict(provinceName,provinceCode,data,loginUser.getId());
-			return 1;
+			ArrayList<Integer> errorRowNum = biz.batchSaveDistrict(provinceName,provinceCode,data,loginUser.getId());
+			if(errorRowNum == null){
+				returnValue.setStatus(ReturnValueVo.SUCCESS);
+			}else{
+				returnValue.setStatus(ReturnValueVo.ERROR);
+				returnValue.setValue(errorRowNum);
+			}
 		}catch(Exception ex){
 			ex.printStackTrace();
-			return 0;
+			returnValue.setStatus(ReturnValueVo.EXCEPTION);
 		}
-		
+		return returnValue;
 	}
 }

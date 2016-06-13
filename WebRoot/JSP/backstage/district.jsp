@@ -2,20 +2,18 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
 <!DOCTYPE HTML>
 <html>
 <head>
-<base href="<%=basePath%>">
-<title>省市街道信息管理</title>
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<base href="<%=basePath%>">
+	<title>省市街道信息管理</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">

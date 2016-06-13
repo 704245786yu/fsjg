@@ -78,8 +78,9 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 	
 	/**批量保存省市街道信息
 	 * @author zhiyu
+	 * @return ArrayList<Integer> errorRowNum 数据有问题的行号
 	 * */
-	public void batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data,Integer userId){
+	public ArrayList<Integer> batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data,Integer userId){
 		System.out.println("一共有"+data.size()+"行记录");
 		//将已经添加的地区编号加入，做防重复验证(载入文档当中的)
 		List<String> existDistrict = new ArrayList<>();
@@ -90,27 +91,38 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		District province = new District(Long.parseLong(provinceCode), proviceName, null, userId);
 		list.add(province);
 		
+		//记录有问题的数据行号
+		ArrayList<Integer> errorRowNum = new ArrayList<Integer>();
 		//开始读取每行的数据
 		int length=data.size();
 		for(int i=1;i<length;i++)
 		{
-			String[] dataRow=data.get(i);
-			if( !existDistrict.contains(dataRow[1]) ){//市级
-				existDistrict.add(dataRow[1]);
-				District city =new District(Long.parseLong(dataRow[1]), dataRow[2], province.getDistrictCode(), userId);
-				list.add(city);
-			}
-			if( !existDistrict.contains(dataRow[3]) ){//区级
-				existDistrict.add(dataRow[3]);
-				District county = new District(Long.parseLong(dataRow[3]), dataRow[4], Long.parseLong(dataRow[1]), userId);
-				list.add(county);
-			}
-			if( !existDistrict.contains(dataRow[5]) ){//城镇
-				existDistrict.add(dataRow[5]);
-				District town = new District(Long.parseLong(dataRow[5]), dataRow[6], Long.parseLong(dataRow[3]), userId);
-				list.add(town);
+			try{
+				String[] dataRow=data.get(i);
+				if( !existDistrict.contains(dataRow[1]) ){//市级
+					existDistrict.add(dataRow[1]);
+					District city =new District(Long.parseLong(dataRow[1]), dataRow[2], province.getDistrictCode(), userId);
+					list.add(city);
+				}
+				if( !existDistrict.contains(dataRow[3]) ){//区级
+					existDistrict.add(dataRow[3]);
+					District county = new District(Long.parseLong(dataRow[3]), dataRow[4], Long.parseLong(dataRow[1]), userId);
+					list.add(county);
+				}
+				if( !existDistrict.contains(dataRow[5]) ){//城镇
+					existDistrict.add(dataRow[5]);
+					District town = new District(Long.parseLong(dataRow[5]), dataRow[6], Long.parseLong(dataRow[3]), userId);
+					list.add(town);
+				}
+			}catch(Exception e){
+				errorRowNum.add(i);
+				e.printStackTrace();
 			}
 		}
-		dao.saveOrUpdateBatch(list);
+		if(errorRowNum.size() == 0){
+			dao.saveOrUpdateBatch(list);
+			return null;
+		}else
+			return errorRowNum;
 	}
 }
