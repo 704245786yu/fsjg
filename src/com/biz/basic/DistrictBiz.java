@@ -99,17 +99,17 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		{
 			try{
 				String[] dataRow=data.get(i);
-				if( !existDistrict.contains(dataRow[1]) ){//市级
+				if( !dataRow[1].equals("") && !existDistrict.contains(dataRow[1]) ){//市级
 					existDistrict.add(dataRow[1]);
 					District city =new District(Long.parseLong(dataRow[1]), dataRow[2], province.getDistrictCode(), userId);
 					list.add(city);
 				}
-				if( !existDistrict.contains(dataRow[3]) ){//区级
+				if( !dataRow[3].equals("") && !existDistrict.contains(dataRow[3]) ){//区级
 					existDistrict.add(dataRow[3]);
 					District county = new District(Long.parseLong(dataRow[3]), dataRow[4], Long.parseLong(dataRow[1]), userId);
 					list.add(county);
 				}
-				if( !existDistrict.contains(dataRow[5]) ){//城镇
+				if( !dataRow[5].equals("") && !existDistrict.contains(dataRow[5]) ){//城镇
 					existDistrict.add(dataRow[5]);
 					District town = new District(Long.parseLong(dataRow[5]), dataRow[6], Long.parseLong(dataRow[3]), userId);
 					list.add(town);

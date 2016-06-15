@@ -1,12 +1,5 @@
-
 $(function(){
 	new BsFormTableExtend().closeFormModal();//form模态框关闭事件，触发该事件时重置form
-	//获取字典常量类型
-	/*$("select[name='constantTypeCode'] > option").each(function () {
-        var txt = $(this).text(); //获取单个text
-        var val = $(this).val(); //获取单个value
-        g_constantType[val] = txt;
-    });*/
 });
 
 function getQueryParams(params){
@@ -85,12 +78,15 @@ function del(index,id){
 
 $('#fileupload').fileupload({
 	done: function (e, data) {	//上传请求成功完成后的回调处理方法
-		if(data.result == 1){	//跳转到最后一页，以展示最新数据
+		var result = data.result;
+		if(result.status == 200){	//跳转到最后一页，以展示最新数据
 			var opt = $('#dg').bootstrapTable('getOptions');
 			var pageNumber = opt.pageNumber;
 			$('#dg').bootstrapTable('selectPage',pageNumber);
-		}else{
-			alert('上传文件失败');
+		}else if(result.status == 500){
+			alert("第"+JSON.stringify(result.value)+"数据有问题");
+		}else if(result.status == 501){
+			alert("文件上传异常");
 		}
 	}
 });
