@@ -8,53 +8,41 @@
 			<%-- 快产专家的个人信息 --%>
 			<input type="hidden" name="person.id"/>
 			<div class="form-group">
-				<label for="userName" class="col-sm-3 control-label">用户名 </label>
-				<div class="col-sm-9">
+				<label for="userName" class="col-sm-1 control-label">用户名 </label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="userName" name="person.userName">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="realName" class="col-sm-3 control-label">真实姓名</label>
-				<div class="col-sm-9">
+				<label for="realName" class="col-sm-1 control-label">真实姓名</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="realName" name="person.realName">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="gender" class="col-sm-3 control-label">性别</label>
-				<div class="col-sm-9">
+				<label for="gender" class="col-sm-1 control-label">性别</label>
+				<div class="col-sm-2">
 					<select class="form-control" id="gender" name="person.gender">
 						<option value="男">男</option>
 						<option value="女">女</option>
 					</select>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="age" class="col-sm-3 control-label">年龄</label>
-				<div class="col-sm-9">
+				<label for="age" class="col-sm-1 control-label">年龄</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="age" name="person.age">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="province" class="col-sm-3 control-label">省</label>
-				<div class="col-sm-9">
+				<label for="province" class="col-sm-1 control-label">省</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="province" name="person.province">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="city" class="col-sm-3 control-label">市</label>
-				<div class="col-sm-9">
+				<label for="city" class="col-sm-1 control-label">市</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="city" name="person.city">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="county" class="col-sm-3 control-label">区县</label>
-				<div class="col-sm-9">
+				<label for="county" class="col-sm-1 control-label">区县</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="county" name="person.county">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="town" class="col-sm-3 control-label">镇/乡/街道</label>
-				<div class="col-sm-9">
+				<label for="town" class="col-sm-1 control-label">镇/乡/街道</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="town" name="person.town">
 				</div>
 			</div>
