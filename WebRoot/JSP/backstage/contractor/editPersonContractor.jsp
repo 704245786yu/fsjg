@@ -7,6 +7,7 @@
 		<form id="ff" method="post" class="form-horizontal">
 			<%-- 快产专家的个人信息 --%>
 			<input type="hidden" name="person.id"/>
+			
 			<div class="form-group">
 				<label for="userName" class="col-sm-1 control-label">用户名 </label>
 				<div class="col-sm-2">
@@ -28,10 +29,10 @@
 					<input type="text" class="form-control" id="age" name="person.age">
 				</div>
 			</div>
-			<div class="form-group">
+			<div id="districtDiv" class="form-group">
 				<label for="province" class="col-sm-1 control-label">省</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="province" name="person.province">
+					<select class="form-control" id="province" name="person.province"></select>
 				</div>
 				<label for="city" class="col-sm-1 control-label">市</label>
 				<div class="col-sm-2">
@@ -58,26 +59,6 @@
 					<input type="text" class="form-control" id="telephone" name="person.telephone">
 				</div>
 			</div>
-			<%-- <div class="form-group">
-				<label for="auditState" class="col-sm-3 control-label">审核状态</label>
-				<div class="col-sm-9">
-					<select class="form-control" id="auditState" name="auditState">
-						<c:forEach var="constantDict" items="${auditState}">
-							<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
-						</c:forEach>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="personState" class="col-sm-3 control-label">用户状态</label>
-				<div class="col-sm-9">
-					<select class="form-control" id="personState" name="personState">
-						<c:forEach var="constantDict" items="${personState}">
-							<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
-						</c:forEach>
-					</select>
-				</div>
-			</div> --%>
 			<div class="form-group">
 				<label for="email" class="col-sm-3 control-label">电子邮箱</label>
 				<div class="col-sm-9">

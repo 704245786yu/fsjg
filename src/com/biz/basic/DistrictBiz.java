@@ -125,4 +125,20 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		}else
 			return errorRowNum;
 	}
+	
+	/**根据父节点代码获取地区名字和地区代码
+	 * @param pCode 可为null，表示获取省级信息
+	 * @return List<District> districtCode districtName
+	 * */
+	@SuppressWarnings("unchecked")
+	public List<District> getNameAndCodeByPcode(Long pCode){
+		if(pCode == null){
+			String hql = "select new District(districtCode, districtName) from District where pCode is null";
+			return (List<District>)dao.find(hql);
+		}else{
+			String hql = "select new District(districtCode, districtName) from District where pCode =:pCode";
+			return (List<District>)dao.find(hql, new String[]{"pCode"}, new Long[]{pCode});
+		}
+	}
+	
 }

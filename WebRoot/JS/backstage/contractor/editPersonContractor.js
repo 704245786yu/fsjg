@@ -1,3 +1,19 @@
+$(function(){
+	initDistrictSelect('#province', null);
+	$('#districtDiv' > 'select').change();
+});
+
+/**初始化城市下拉框信息*/
+function initDistrictSelect(selectId, pCode){
+	$.get("district/getByParent",{'pCode':pCode},function(data){
+		var $district = $(selectId).empty();
+		$('<option>').text('--请选择--').appendTo($district);
+		for(var i=0; i<data.length; i++){
+			$('<option>').text(data[i].districtName).val(data[i].districtCode).appendTo($district);
+		}
+	});
+}
+
 //表单验证
 $('#ff').bootstrapValidator({
     feedbackIcons: {
@@ -6,7 +22,7 @@ $('#ff').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-    	constantName: {
+    	'person.realName': {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -16,8 +32,8 @@ $('#ff').bootstrapValidator({
     				message: '最多10个字符'
     			}
     		}
-    	},
-    	constantTypeCode: {
+    	}
+    	/*constantTypeCode: {
             validators: {
                 notEmpty: {
                     message: '不能为空'
@@ -57,7 +73,7 @@ $('#ff').bootstrapValidator({
                     message: '请输入1到30个字符'
                 }
             }
-        }
+        }*/
     }
 }).on('success.form.bv', function(e) {
 	new BsFormTableExtend().submitFunc(e);

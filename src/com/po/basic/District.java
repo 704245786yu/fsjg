@@ -31,6 +31,11 @@ public class District {
 
 	public District(){}
 	
+	public District(Long districtCode, String districtName){
+		this.districtCode = districtCode;
+		this.districtName = districtName;
+	}
+	
 	public District(Long districtCode, String districtName, Long pCode, Integer updateBy) {
 		this.districtCode = districtCode;
 		this.districtName = districtName;

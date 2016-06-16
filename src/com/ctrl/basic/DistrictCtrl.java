@@ -63,4 +63,14 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
 		}
 		return returnValue;
 	}
+	
+	/**根据父节点获取所有子节点信息
+	 * @param pCode 可为null，表示获取省级信息
+	 * @return List<District> districtCode districtName
+	 * */
+	@RequestMapping("getByParent")
+	@ResponseBody
+	public List<District> getByParent(Long pCode){
+		return biz.getNameAndCodeByPcode(pCode);
+	}
 }
