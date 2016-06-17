@@ -36,62 +36,52 @@
 				</div>
 				<label for="city" class="col-sm-1 control-label">市</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="city" name="person.city">
+					<select class="form-control" id="city" name="person.city"></select>
 				</div>
 				<label for="county" class="col-sm-1 control-label">区县</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="county" name="person.county">
+					<select class="form-control" id="county" name="person.county"></select>
 				</div>
 				<label for="town" class="col-sm-1 control-label">镇/乡/街道</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="town" name="person.town">
+					<select class="form-control" id="town" name="person.town"></select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="detailAddr" class="col-sm-3 control-label">详细地址</label>
-				<div class="col-sm-9">
+				<label for="detailAddr" class="col-sm-1 control-label">详细地址</label>
+				<div class="col-sm-8">
 					<input type="text" class="form-control" id="detailAddr" name="person.detailAddr">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="telephone" class="col-sm-3 control-label">电话</label>
-				<div class="col-sm-9">
+				<label for="telephone" class="col-sm-1 control-label">电话</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="telephone" name="person.telephone">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="email" class="col-sm-3 control-label">电子邮箱</label>
-				<div class="col-sm-9">
+				<label for="email" class="col-sm-1 control-label">电子邮箱</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="email" name="person.email">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="qq" class="col-sm-3 control-label">QQ</label>
-				<div class="col-sm-9">
+				<label for="qq" class="col-sm-1 control-label">QQ</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="qq" name="person.qq">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="fixPhone" class="col-sm-3 control-label">固定电话</label>
-				<div class="col-sm-9">
+				<label for="fixPhone" class="col-sm-1 control-label">固定电话</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="fixPhone" name="person.fixPhone">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="wechat" class="col-sm-3 control-label">微信</label>
-				<div class="col-sm-9">
+				<label for="wechat" class="col-sm-1 control-label">微信</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="wechat" name="person.wechat">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="postalCode" class="col-sm-3 control-label">邮政编码</label>
-				<div class="col-sm-9">
+				<label for="postalCode" class="col-sm-1 control-label">邮政编码</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="postalCode" name="person.postalCode">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="idCard" class="col-sm-3 control-label">身份证号</label>
-				<div class="col-sm-9">
+				<label for="idCard" class="col-sm-1 control-label">身份证号</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="idCard" name="person.idCard">
 				</div>
 			</div>
