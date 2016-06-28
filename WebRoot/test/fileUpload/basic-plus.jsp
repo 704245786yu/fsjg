@@ -5,18 +5,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE HTML>
-<!--
-/*
- * jQuery File Upload Plugin Basic Plus Demo
- * https://github.com/blueimp/jQuery-File-Upload
- *
- * Copyright 2013, Sebastian Tschan
- * https://blueimp.net
- *
- * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
- */
--->
 <html lang="en">
 <head>
 <!-- Force latest IE rendering engine or ChromeFrame if installed -->
@@ -38,12 +26,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <h2 class="lead">Basic Plus version</h2>
     <br>
     <!-- The fileinput-button span is used to style the file input field as button -->
+    <form action="personContractor/uploadExcel" enctype="multipart/form-data">
+    
     <span class="btn btn-success fileinput-button">
         <i class="glyphicon glyphicon-plus"></i>
         <span>Add files...</span>
         <!-- The file input field used as target for the file upload widget -->
-        <input id="fileupload" type="file" name="files[]" multiple>
     </span>
+    	<input id="fileupload" type="file" name="file"/>
+    
+    <button type="submit">提交</button>
+    </form>
     <br>
     <br>
     <!-- The container for the uploaded files -->
@@ -76,9 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- The File Upload validation plugin -->
 <script src="js/jquery.fileupload-validate.js"></script>
 <script>
-/*jslint unparam: true, regexp: true */
-/*global window, $ */
-$(function () {
+/* $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
         autoUpload: false,
@@ -92,15 +83,15 @@ $(function () {
         $.each(data.files, function (index, file) {
             var node = $('<p/>')
                     .append($('<span/>').text(file.name));
-            /*if (!index) {
+            if (!index) {
                 node
                     .append('<br>')
                     .append(uploadButton.clone(true).data(data));
-            } */
+            }
             node.appendTo(data.context);
         });
     });
-});
+}); */
 </script>
 </body>
 </html>
