@@ -43,7 +43,7 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("processTypes", processTypes);
-		mav.setViewName("backstage/personContractor");
+		mav.setViewName("backstage/contractor/personContractor");
 		return mav;
 	}
 
