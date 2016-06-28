@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<link href="plugin/jquery-accordion-menu/jquery-accordion-menu.css" rel="stylesheet"/>
-	<link href="plugin/jquery-accordion-menu/font-awesome.css" rel="stylesheet"/>
+	<link href="plugin/awesome-bootstrap-checkbox/Font-Awesome/css/font-awesome.min.css" rel="stylesheet"/>
 	<link href="layout/left.css" rel="stylesheet"/>
 </head>
   

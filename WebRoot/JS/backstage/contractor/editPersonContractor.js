@@ -27,8 +27,12 @@ $(function(){
 			initDistrictSelect(selectId, code);
 		});
 	});
+	
 });
-
+//$('#idCardPhoto').fileupload({
+//	done: function (e, data) {	//上传请求成功完成后的回调处理方法
+//	}
+//});
 /**初始化城市下拉框信息*/
 function initDistrictSelect(selectId, pCode){
 	$.get("district/getByParent",{'pCode':pCode},function(data){
@@ -130,48 +134,45 @@ $('#ff').bootstrapValidator({
     				message: '最多20个字符'
     			}
     		}
+    	},
+    	'contractor.processYear': {
+    		validators: {
+    			integer: {
+    				message: '必须为数字'
+    			}
+    		}
+    	},
+    	'contractor.workerAmount': {
+    		validators: {
+    			integer: {
+    				message: '必须为数字'
+    			}
+    		}
+    	},
+    	'contractor.quote': {
+    		validators: {
+    			stringLength: {
+    				max: 30,
+    				message: '最多30个字符'
+    			}
+    		}
+    	},
+    	'contractor.equipment': {
+    		validators: {
+    			stringLength: {
+    				max: 50,
+    				message: '最多50个字符'
+    			}
+    		}
+    	},
+    	'contractor.processDesc': {
+    		validators: {
+    			stringLength: {
+    				max: 100,
+    				message: '最多100个字符'
+    			}
+    		}
     	}
-    	/*constantTypeCode: {
-            validators: {
-                notEmpty: {
-                    message: '不能为空'
-                },
-                stringLength: {
-                    min: 1,
-                    max: 20,
-                    message: '请输入1到20个字符'
-                },
-                regexp: {
-                    regexp: /^[a-zA-Z_]+$/,
-                    message: '只能由字母和下划线组成'
-                }
-            }
-        },
-        constantValue: {
-            validators: {
-                notEmpty: {
-                    message: '不能为空'
-                },
-                stringLength: {
-                    min: 1,
-                    max: 8,
-                    message: '请输入1到8个字符'
-                },
-                regexp: {
-                    regexp: /^[0-9]+$/,
-                    message: '只能输入数字'
-                }
-            }
-        },
-        description: {
-            validators: {
-                stringLength: {
-                    min: 1,
-                    max: 30,
-                    message: '请输入1到30个字符'
-                }
-            }
-        }*/
     }
 }).on('success.form.bv', function(e) {
 	new BsFormTableExtend().submitFunc(e);

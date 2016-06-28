@@ -84,6 +84,14 @@
 				<div class="col-sm-2">
 					<input type="text" class="form-control" id="idCard" name="person.idCard">
 				</div>
+				<label for="idCardPhoto" class="col-sm-1 control-label">身份证号</label>
+				<div class="col-sm-2">
+					<span class="btn btn-success fileinput-button">
+					<i class="glyphicon glyphicon-upload"></i>
+					<span>上传照片</span>
+					<input id="idCardPhoto" type="file" name="file[]" multiple>
+				</span>
+				</div>
 			</div>
 			
 			<%-- 快产专家-承包信息 --%>
