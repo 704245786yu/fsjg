@@ -84,47 +84,49 @@
 				<div class="col-sm-2">
 					<input type="text" class="form-control" id="idCard" name="person.idCard">
 				</div>
+				<label for="idCardPhoto" class="col-sm-1 control-label">身份证号</label>
+				<div class="col-sm-2">
+					<span class="btn btn-success fileinput-button">
+					<i class="glyphicon glyphicon-upload"></i>
+					<span>上传照片</span>
+					<input id="idCardPhoto" type="file" name="file[]" multiple>
+				</span>
+				</div>
 			</div>
 			
 			<%-- 快产专家-承包信息 --%>
 			<input type="hidden" name="contractor.id"/>
 			<div class="form-group">
-				<label for="auditState" class="col-sm-3 control-label">加工类型</label>
-				<div class="col-sm-9">
+				<label for="auditState" class="col-sm-1 control-label">加工类型</label>
+				<div class="col-sm-2">
 					<select class="form-control" id="processType" name="contractor.processType">
 						<c:forEach var="constantDict" items="${processTypes}">
 							<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
 						</c:forEach>
 					</select>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="processYear" class="col-sm-3 control-label">加工年限</label>
-				<div class="col-sm-9">
+				<label for="processYear" class="col-sm-1 control-label">加工年限</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="processYear" name="contractor.processYear">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="workerAmount" class="col-sm-3 control-label">工人数量</label>
-				<div class="col-sm-9">
+				<label for="workerAmount" class="col-sm-1 control-label">工人数量</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="workerAmount" name="contractor.workerAmount">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="quote" class="col-sm-3 control-label">报价</label>
-				<div class="col-sm-9">
+				<label for="quote" class="col-sm-1 control-label">报价</label>
+				<div class="col-sm-5">
 					<input type="text" class="form-control" id="quote" name="contractor.quote">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="equipment" class="col-sm-3 control-label">生产设备</label>
-				<div class="col-sm-9">
+				<label for="equipment" class="col-sm-1 control-label">生产设备</label>
+				<div class="col-sm-5">
 					<input type="text" class="form-control" id="equipment" name="contractor.equipment">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="processDesc" class="col-sm-3 control-label">加工说明</label>
-				<div class="col-sm-9">
+				<label for="processDesc" class="col-sm-1 control-label">加工说明</label>
+				<div class="col-sm-11">
 					<input type="text" class="form-control" id="processDesc" name="contractor.processDesc">
 				</div>
 			</div>
