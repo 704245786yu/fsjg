@@ -28,6 +28,9 @@ $(function(){
 		});
 	});
 	
+	$('#ff').ajaxForm(function(){
+		alert('ajaxForm');
+	});
 });
 //$('#idCardPhoto').fileupload({
 //	done: function (e, data) {	//上传请求成功完成后的回调处理方法
@@ -45,7 +48,7 @@ function initDistrictSelect(selectId, pCode){
 }
 
 //表单验证
-$('#ff').bootstrapValidator({
+/*$('#ff').bootstrapValidator({
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
         invalid: 'glyphicon glyphicon-remove',
@@ -176,7 +179,7 @@ $('#ff').bootstrapValidator({
     }
 }).on('success.form.bv', function(e) {
 	new BsFormTableExtend().submitFunc(e);
-});
+});*/
 
 //显示Form表单，隐藏其他面板
 function showForm(){
@@ -186,7 +189,7 @@ function showForm(){
 
 //新增，该方法由主页面的add按钮触发
 function add(){
-	$('#ff').attr('action','personContractor/save');
+	$('#ff').attr('action','personContractor/saveData');
 	showForm();
 }
 

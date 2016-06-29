@@ -49,7 +49,7 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 
 	@RequestMapping("uploadExcel")
 	@ResponseBody
-	public Integer uploadExcel(@RequestParam("file")MultipartFile file,HttpSession httpSession){
+	public Integer uploadExcel(@RequestParam("files")MultipartFile file,HttpSession httpSession){
 		try{
 			MicroOfficeFile mof = new MicroOfficeFile();
 			Workbook wb = mof.readExcel(file);
@@ -61,6 +61,16 @@ public class PersonContractorCtrl extends BaseCtrl<PersonContractorBiz, Integer,
 			e.printStackTrace();
 			return 0;
 		}
+	}
+	
+	/***/
+	@RequestMapping("saveData")
+	@ResponseBody
+	public PersonContractor saveData(@RequestParam("files")MultipartFile[] files, PersonContractor personContractor,HttpSession httpSession){
+		for(int i=0; i<files.length; i++){
+			System.out.println(files[i].getOriginalFilename());
+		}
+		return null;
 	}
 	
 	@Override

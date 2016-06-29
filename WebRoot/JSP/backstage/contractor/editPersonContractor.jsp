@@ -4,7 +4,7 @@
 <div id="editPanel" class="panel panel-primary" style="display:none;">
 	<div class="panel-heading">编辑快产专家</div>
 	<div class="panel-body">
-		<form id="ff" method="post" class="form-horizontal">
+		<form id="ff" method="post" enctype="multipart/form-data" class="form-horizontal">
 			<%-- 快产专家的个人信息 --%>
 			<input type="hidden" name="person.id"/>
 			
@@ -89,8 +89,8 @@
 					<span class="btn btn-success fileinput-button">
 					<i class="glyphicon glyphicon-upload"></i>
 					<span>上传照片</span>
-					<input id="idCardPhoto" type="file" name="file[]" multiple>
 				</span>
+					<input id="idCardPhoto" type="file" name="files" multiple>
 				</div>
 			</div>
 			
@@ -141,6 +141,7 @@
 	</div><!-- panel-body -->
 </div><!-- panel -->
 
+<script src="plugin/jquery.form.min.js"></script>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.formFill.js"></script>
 <script src="JS/backstage/contractor/editPersonContractor.js"></script>
