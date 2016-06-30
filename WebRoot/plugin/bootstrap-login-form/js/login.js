@@ -1,6 +1,4 @@
 jQuery(document).ready(function() {
-    //Fullscreen background
-    $.backstretch("plugin/bootstrap-login-form/img/login_bg.jpg");
 
     $("input").focus(function(){
     	$(this).removeClass('input-error');
