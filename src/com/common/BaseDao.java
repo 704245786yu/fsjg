@@ -133,7 +133,12 @@ public class BaseDao<ID extends Serializable, T> {
 		Session session = getCurrentSession();
 		Query query = session.createQuery(hql);
 		for(int i=0; i<propertyNames.length; i++){
-			query.setParameter(propertyNames[i], values[i]);
+			if(values[i] instanceof Object[])
+				query.setParameterList(propertyNames[i], (Object[])values[i]);
+			else if(values[i] instanceof Collection)
+				query.setParameterList(propertyNames[i], (Collection<?>)values[i]);
+			else
+				query.setParameter(propertyNames[i], values[i]);
 		}
 		return query.executeUpdate();
 	}
@@ -324,11 +329,16 @@ public class BaseDao<ID extends Serializable, T> {
 	 * @param paramNames 参数名
 	 * @param params 参数值
 	 * */
-	public List<?> find(String hql, String[] paramNames, Object[] params){
+	public List<?> find(String hql, String[] paramNames, Object[] values){
 		Query query = getCurrentSession().createQuery(hql);
 		for(int i=0; i<paramNames.length; i++)
 		{
-			query.setParameter(paramNames[i], params[i]);
+			if(values[i] instanceof Object[])
+				query.setParameterList(paramNames[i], (Object[])values[i]);
+			else if(values[i] instanceof Collection)
+				query.setParameterList(paramNames[i], (Collection<?>)values[i]);
+			else
+				query.setParameter(paramNames[i], values[i]);
 		}
 		return query.list();
 	}
@@ -432,5 +442,24 @@ public class BaseDao<ID extends Serializable, T> {
 			sqlQuery.addScalar((String)scalar[0],(org.hibernate.type.Type)scalar[1]);
 		}
 		return sqlQuery.setResultTransformer(Transformers.aliasToBean(persistentClass)).list();
+	}
+	
+	/**根据本地SQL执行查询，并返回需要封装成的Bean类型
+	 * @param scalars Object[0] SQL语句中的列别名 Object[1] hibernate Type类型
+	 * */
+	public List<?> findByNativeSql(String sql, String[] propertyNames, List<?> values, List<Object[]> scalars, Class<?> clazz){
+		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(sql);
+		for(int i=0; i<propertyNames.length; i++){
+			if(values.get(i) instanceof Object[])
+				sqlQuery.setParameterList(propertyNames[i], (Object[])values.get(i));
+			else if(values.get(i) instanceof Collection)
+				sqlQuery.setParameterList(propertyNames[i], (Collection<?>)values.get(i));
+			else
+				sqlQuery.setParameter(propertyNames[i], values.get(i));
+		}
+		for(Object[] scalar : scalars){
+			sqlQuery.addScalar((String)scalar[0],(org.hibernate.type.Type)scalar[1]);
+		}
+		return sqlQuery.setResultTransformer(Transformers.aliasToBean(clazz)).list();
 	}
 }

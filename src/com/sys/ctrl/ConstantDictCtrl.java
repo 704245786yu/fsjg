@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.common.BaseCtrl;
-import com.dto.BootTablePageDto;
+import com.common.dto.BootTablePageDto;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.biz.ConstantTypeBiz;
 import com.sys.po.ConstantDict;

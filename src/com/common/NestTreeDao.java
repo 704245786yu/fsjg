@@ -108,6 +108,35 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 			new String[]{"rgt"}, new Integer[]{rgt});
 	}
 	
+	/**获取直接子节点*/
+	public List<PO> getChild(ID id){
+		PO node = super.findById(id);
+		String tableName = super.getTableName();
+		//获取数据表列名
+		List<Object[]> propertyColumnNames = super.getPropertyAndColumnNames();
+		propertyColumnNames = propertyColumnNames.subList(2, propertyColumnNames.size());
+		
+		StringBuffer sqlBuffer = new StringBuffer("select t1.id");
+		for(Object[] propertyColumnName : propertyColumnNames){
+			sqlBuffer.append(",t1."+propertyColumnName[1]+" as "+propertyColumnName[0]);
+		}
+		sqlBuffer.append(" from (select * from ")
+			.append(tableName).append(" where lft between :lft and :rgt) as t1, (select lft,rgt from ")
+			.append(tableName).append(" where lft between :lft and :rgt) as t2 where t1.lft between t2.lft and t2.rgt group by t1.lft having count(t2.lft) = 2 order by t1.lft");
+
+		List<Object[]> scalar = new ArrayList<Object[]>();
+		scalar.add(new Object[]{"id",StandardBasicTypes.INTEGER});
+        for (Object[] propertyColumnName : propertyColumnNames) {
+        	scalar.add(new Object[]{propertyColumnName[0],propertyColumnName[2]});
+        }
+        List<Integer> values = new ArrayList<Integer>();
+        values.add(node.getLft());
+        values.add(node.getRgt());
+		List<PO> list = (List<PO>)super.findByNativeSql(sqlBuffer.toString(), 
+				new String[]{"lft","rgt"}, values, scalar);
+		return list;
+	}
+	
 	/**获取节点信息，包括后代节点，以及每个节点的层次信息，结果按左值排序
 	 * */
 	public List<PO> getNodeWithDescendant(ID id){
@@ -139,7 +168,7 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 		return list;
 	}
 
-	/**查询某节点的所有后代节点的ID，返回的集合里不包含父节点ID本身。
+	/**获取所有后代节点的ID
 	 * @param id 父节点Id
 	 * @return List<ID>
 	 * */
@@ -147,7 +176,7 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 	public List<ID> getDescendantId(ID id){
 		PO po = super.findById(id);
 		List<Integer> list = new ArrayList<Integer>();
-		list.add(po.getLft()+1);	//避免查询的数据包含父节点本身
+		list.add(po.getLft()+1);
 		list.add(po.getRgt());
 		return (List<ID>)find("select id from "+super.persistentName+" where lft between ? and ?",list);
 	}

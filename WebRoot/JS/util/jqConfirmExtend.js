@@ -5,27 +5,41 @@
 function JqConfirmExtend(){
 }
 
+/**显示信息
+ * @param {String} title 标题
+ * @param {String} content 内容
+ * */
+JqConfirmExtend.prototype.showDialog = function(title,content){
+    $.dialog({
+        title: title,
+        content: content
+    });
+}
+
+/**提示框
+ * @param {String} content 提示内容
+ * @param {Function} func 确认后要执行的操作
+ * */
+JqConfirmExtend.prototype.showConfirm = function(content, func){
+	$.confirm({
+		title: false,
+		content: content,
+		confirmButton: '确定',
+		cancelButton: '取消',
+		confirmButtonClass: 'btn-danger',
+		cancelButtonClass: 'btn-primary',
+		confirm: func
+	});
+}
+
 /**删除操作弹出框
  * @param {Number} index 要删除的行下标
  * @param {Function} func 点击确认按钮后要执行的操作
- * @param {String} title 弹出框标题
- * @param {String} content 弹出框内容
  * */
-var g_icon={
-	warning:'text-warning glyphicon glyphicon-warning-sign',
-	danger:'text-danger glyphicon glyphicon-exclamation-sign'
-};
-JqConfirmExtend.prototype.delConfirm = function(index, func, title, content, icon){
-	if(title == undefined || title == null)
-		title = false;
-	if(content == undefined || title == null)
-		content = "确定删除第" + (index + 1) + "行么？";
-	if(content == undefined || title == null)
-		content = "确定删除第" + (index + 1) + "行么？";
+JqConfirmExtend.prototype.delConfirm = function(index, func){
 	$.confirm({
-		icon: g_icon[icon],
-		title: title,
-		content: content,
+		title: false,
+		content: "确定删除第" + (index + 1) + "行么？",
 		confirmButton: '确定',
 		cancelButton: '取消',
 		confirmButtonClass: 'btn-danger',

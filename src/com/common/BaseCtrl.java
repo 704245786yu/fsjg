@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dto.BootTablePageDto;
+import com.common.dto.BootTablePageDto;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 public class BaseCtrl<BIZ extends BaseBiz, ID extends Serializable, PO> {

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.common.BaseBiz;
-import com.dto.BootTablePageDto;
+import com.common.dto.BootTablePageDto;
 import com.sys.dao.ConstantDictDao;
 import com.sys.po.ConstantDict;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.common.BaseBiz;
-import com.dto.BootTablePageDto;
+import com.common.dto.BootTablePageDto;
 import com.sys.dao.UserDao;
 import com.sys.po.User;
 

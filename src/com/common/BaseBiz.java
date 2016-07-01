@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.dto.BootTablePageDto;
+import com.common.dto.BootTablePageDto;
 
 /**基础业务类
  * */

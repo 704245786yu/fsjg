@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.biz.basic.PersonContractorBiz;
 import com.common.BaseCtrl;
-import com.dto.BootTablePageDto;
+import com.common.dto.BootTablePageDto;
 import com.dto.PersonContractorDto;
 import com.po.basic.PersonContractor;
 import com.sys.biz.ConstantDictBiz;

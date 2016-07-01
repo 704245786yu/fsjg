@@ -20,58 +20,46 @@
 </head>
 <body>
 <!-- Top content -->
-<div class="topBanner">
+<!-- <div class="top-banner">
 	<img src="image/logo.png">
-</div>
-	<!-- Top content -->
-	<div class="top-content">
-		<div class="inner-bg">
-			<div class="container">
-				<div class="row">
+</div> -->
+<div class="container form-box">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2 form-box-content">
+			<h2>用户登录</h2>
+			<form class="form-group" action="login/loginCheck" method="post">
+				<h4 id="errorMsg" style="display:none;color:red">用户名或密码错误</h4>
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-user"></span>
+						</span>
+						<input type="text" name="userName" placeholder="用户名" class="form-control" id="userName">
+					</div>
 				</div>
-
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-lock"></span>
+						</span>
+						<input type="password" name="password" placeholder="密码" class="form-control" id="password">
+					</div>
+				</div>
 				<div class="row">
-					<div class="col-sm-6 col-sm-offset-3 form-box">
-						<div class="form-top">
-							<div class="form-top-left">
-								<h3>登录</h3>
-								<!-- <p>请输入你的用户名和密码进行登录:</p> -->
-							</div>
-							<div class="form-top-right">
-								<i class="fa fa-key"></i>
-							</div>
-						</div>
-						
-						<div class="form-bottom">
-							<form role="form" action="login/loginCheck" method="post" class="login-form">
-								<h4 id="errorMsg" style="display:none;color:red">用户名或密码错误</h4>
-								<div class="form-group">
-									<label class="sr-only" for="form-username">用户名</label>
-									<input
-										type="text" name="userName" placeholder="用户名"
-										class="form-username form-control" id="userName">
-								</div>
-								<div class="form-group">
-									<label class="sr-only" for="form-password">密码</label>
-									<input
-										type="password" name="password" placeholder="密码"
-										class="form-password form-control" id="password">
-								</div>
-								
-								<!-- <h4><span class="label label-warning">用户名或密码错误</span></h4> -->
-								<!-- <h4><span class="label label-danger">用户名或密码错误</span></h4> -->
-								<button type="submit" class="btn">登 录</button>
-							</form>
-						</div><!-- form-bottom -->
-						
-					</div><!-- col-sm -->
-				</div><!-- row -->
-			</div><!-- container -->
-		</div><!-- inner-bg -->
-	</div><!-- top-content -->
+					<div class="col-sm-6">
+						<button type="submit" class="btn btn-primary btn-lg">登 录</button>
+					</div>
+					<div class="col-sm-6">
+						<button type="button" class="btn btn-warning btn-lg">注册</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="plugin/bootstrap-login-form/js/login.js"></script>
+<script src="JS/main/login.js"></script>
 </body>
 </html>
 

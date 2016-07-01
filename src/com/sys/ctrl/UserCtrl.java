@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.common.BaseCtrl;
-import com.dto.BootTablePageDto;
+import com.common.dto.BootTablePageDto;
 import com.sys.biz.RoleBiz;
 import com.sys.biz.UserBiz;
 import com.sys.po.Role;
