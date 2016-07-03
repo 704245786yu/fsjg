@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +22,6 @@ import com.util.MicroOfficeFile;
 @RequestMapping("enterprise")
 public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 
-	@Autowired
-	private EnterpriseBiz enterpriseBiz;
-	
 	public EnterpriseCtrl(){
 		defaultPage = "backstage/enterprise/enterprise";
 	}
@@ -40,12 +36,32 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			Workbook wb = mof.readExcel(file);
 			List<String[]> data = mof.getAllData(wb,0);
 			User loginUser = UserCtrl.getLoginUser(session);
-		    enterpriseBiz.batchSaveEnterprise(data.subList(2, data.size()),loginUser.getId());
+		    biz.batchSaveEnterprise(data.subList(2, data.size()),loginUser.getId());
 		    return 1;	//返回中文乱码
 		}catch(Exception ex){
 			ex.printStackTrace();
 			return 0;
 		}
-		
+	}
+	
+	/**获取优秀企业*/
+	@RequestMapping("getExcellent")
+	@ResponseBody
+	public List<Enterprise> getExcellent(){
+		return biz.getExcellent();
+	}
+	
+	/**最新入住的企业*/
+	@RequestMapping("getNewest")
+	@ResponseBody
+	public List<Enterprise> getNewest(){
+		return biz.getNewest();
+	}
+	
+	/**最新认证加工厂*/
+	@RequestMapping("getNewAuth")
+	@ResponseBody
+	public List<Enterprise> getNewAuth(){
+		return biz.getNewAuth();
 	}
 }

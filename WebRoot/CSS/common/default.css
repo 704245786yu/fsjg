@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+.container-fluid{
+	width:95%;
+	margin-top:8px;
+}
+
+h3.cus-panel-title{
+	font-size:20px;
+	color:#008AE6;
+}

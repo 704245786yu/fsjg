@@ -20,9 +20,9 @@
 </head>
 <body>
 <!-- Top content -->
-<!-- <div class="top-banner">
+<div class="top-banner">
 	<img src="image/logo.png">
-</div> -->
+</div>
 <div class="container form-box">
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2 form-box-content">

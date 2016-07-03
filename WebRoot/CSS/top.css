@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+.top{
+	padding:5px 90px;
+	background-color:#f0f0f0;
+}
+.top .signIn{
+	margin-left:40px;
+}
+.top div{
+	float:right;
+}
+.top div > span{
+	margin-left:20px;
+}
+.top .glyphicon{
+	color:#FF842F;
+}
+
+
+.banner{
+	margin:20px;
+}
+.banner .glyphicon{
+	color:#FF842F;
+}
+.searchBox{
+	padding-top:10px;
+	/* float:right;
+	width:50%; */
+}
+.searchBox .form-control{
+	border-color: #007FE5;
+}
+
+
+nav.topNav{
+	height:49px;
+	padding-left:50px;
+	background-image: url("../image/nav-blue.png");
+	/* background-color: #008CE8; */
+}
+nav li a{
+	width:150px;
+	font-size:18px;
+	text-align:center;
+	color:white;
+}

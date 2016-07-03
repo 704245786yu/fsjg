@@ -39,7 +39,7 @@ public class LoginCtrl {
 	@RequestMapping("index")
 	public ModelAndView showIndex(){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("../index");
+		mav.setViewName("../JSP/backstage/index");
 		return mav;
 	}
 	

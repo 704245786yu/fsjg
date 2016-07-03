@@ -55,4 +55,21 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		}
 		dao.saveBatch(list);
 	}
+	
+	/**获取优秀企业
+	 * 暂时获取列表中前10个
+	 * */
+	public List<Enterprise> getExcellent(){
+		return dao.getAllByPage(0, 10);
+	}
+	
+	/**最新入住的企业*/
+	public List<Enterprise> getNewest(){
+		return dao.getNewest();
+	}
+	
+	/**最新认证加工厂*/
+	public List<Enterprise> getNewAuth(){
+		return dao.getNewest();
+	}
 }

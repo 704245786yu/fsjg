@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+nav{
+	height:49px;
+	padding-left:50px;
+	background-image: url("../../image/nav-blue.png");
+	/* background-color: #008CE8; */
+}
+
+nav li a{
+	width:150px;
+	font-size:18px;
+	text-align:center;
+	color:white;
+}
