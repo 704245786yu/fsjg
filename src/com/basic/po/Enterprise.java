@@ -1,30 +1,14 @@
 package com.basic.po;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**企业信息
  * */
 @Entity
 @Table(name="basic_enterprise")
-public class Enterprise {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
-	
-	@Column(name="user_name")
-	private String userName;	//用户名，登录平台用，可为空
-	
-	private String password;
+public class Enterprise extends CustomerAbstract{
 	
 	@Column(name="trade_id")
 	private Integer tradeId;	//行业分类，为服饰分类的一级类目
@@ -36,40 +20,6 @@ public class Enterprise {
 	private String enterpriseName;
 	
 	private String linkman;
-	
-	private Long province;	//省
-	
-	private Long city;	//市
-	
-	private Long county;	//区县
-	
-	private Long town;	//镇/乡/街道
-	
-	@Column(name="detail_addr")
-	private String detailAddr;	//详细地址
-	
-	private String telephone;	//手机号,手机号需唯一,用户可通过手机号登录系统
-	
-	private String fixPhone;
-	
-	private Long qq;
-	
-	@Column(name="create_by")
-	private Integer createBy;	//创建人。0：表示用户自行注册，非0表示由平台管理人员录入
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "create_time")
-	private Date createTime;	//创建时间(注册时间)
-	
-	@Column(name = "audit_state")
-	private Byte auditState;	//审核状态，审核企业的资质。待审核:Wait 未通过:N 已通过:Y
-	
-	@Column(name = "audit_by")
-	private Integer auditBy;
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "audit_time")
-	private Date auditTime;
 	
 	@Column(name = "sale_market")
 	private Byte saleMarket;	//销售市场
@@ -109,40 +59,11 @@ public class Enterprise {
 	@Column(name = "website_url")
 	private String websiteUrl;	//企业网址
 	
-	private String wechat;	//微信号
-	
-	private String email;	//电子邮箱
-	
 	@Column(name = "enterprise_img")
 	private String enterpriseImg;	//工厂图片,多图片用逗号隔开
 	
 	private String description;	//工厂描述
 
-	/**getter setter
-	 * */
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Integer getTradeId() {
 		return tradeId;
@@ -174,110 +95,6 @@ public class Enterprise {
 
 	public void setLinkman(String linkman) {
 		this.linkman = linkman;
-	}
-
-	public Long getProvince() {
-		return province;
-	}
-
-	public void setProvince(Long province) {
-		this.province = province;
-	}
-
-	public Long getCity() {
-		return city;
-	}
-
-	public void setCity(Long city) {
-		this.city = city;
-	}
-
-	public Long getCounty() {
-		return county;
-	}
-
-	public void setCounty(Long county) {
-		this.county = county;
-	}
-
-	public Long getTown() {
-		return town;
-	}
-
-	public void setTown(Long town) {
-		this.town = town;
-	}
-
-	public String getDetailAddr() {
-		return detailAddr;
-	}
-
-	public void setDetailAddr(String detailAddr) {
-		this.detailAddr = detailAddr;
-	}
-
-	public String getTelephone() {
-		return telephone;
-	}
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-
-	public String getFixPhone() {
-		return fixPhone;
-	}
-
-	public void setFixPhone(String fixPhone) {
-		this.fixPhone = fixPhone;
-	}
-
-	public Long getQq() {
-		return qq;
-	}
-
-	public void setQq(Long qq) {
-		this.qq = qq;
-	}
-
-	public Integer getCreateBy() {
-		return createBy;
-	}
-
-	public void setCreateBy(Integer createBy) {
-		this.createBy = createBy;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Byte getAuditState() {
-		return auditState;
-	}
-
-	public void setAuditState(Byte auditState) {
-		this.auditState = auditState;
-	}
-
-	public Integer getAuditBy() {
-		return auditBy;
-	}
-
-	public void setAuditBy(Integer auditBy) {
-		this.auditBy = auditBy;
-	}
-
-	public Date getAuditTime() {
-		return auditTime;
-	}
-
-	public void setAuditTime(Date auditTime) {
-		this.auditTime = auditTime;
 	}
 
 	public Byte getSaleMarket() {
@@ -382,22 +199,6 @@ public class Enterprise {
 
 	public void setWebsiteUrl(String websiteUrl) {
 		this.websiteUrl = websiteUrl;
-	}
-
-	public String getWechat() {
-		return wechat;
-	}
-
-	public void setWechat(String wechat) {
-		this.wechat = wechat;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getEnterpriseImg() {

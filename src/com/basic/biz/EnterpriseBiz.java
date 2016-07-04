@@ -48,7 +48,6 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 			enterprise.setWechat(temp[25]);
 			enterprise.setEmail(temp[26]);
 			//是否有企业logo数据库无对应字段
-			
 			enterprise.setCreateBy(userId);
 			enterprise.setAuditState((byte)0);
 			list.add(enterprise);
