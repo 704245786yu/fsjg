@@ -5,9 +5,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.biz.basic.CostumeCategoryBiz;
+import com.basic.biz.CostumeCategoryBiz;
+import com.basic.po.CostumeCategory;
 import com.common.NestTreeCtrl;
-import com.po.basic.CostumeCategory;
 import com.sys.po.User;
 
 @Controller

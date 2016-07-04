@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.biz.basic.DistrictBiz;
+import com.basic.biz.DistrictBiz;
 import com.util.JacksonJson;
 
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.basic.dao.DistrictDao;
+import com.basic.po.District;
 import com.common.BaseBiz;
-import com.dao.basic.DistrictDao;
-import com.po.basic.District;
 
 @Service
 public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.biz.basic.PersonBiz;
+import com.basic.biz.PersonBiz;
+import com.basic.po.Person;
 import com.common.BaseCtrl;
-import com.po.basic.Person;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
 import com.sys.po.User;

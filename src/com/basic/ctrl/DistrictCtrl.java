@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.biz.basic.DistrictBiz;
+import com.basic.biz.DistrictBiz;
+import com.basic.po.District;
 import com.common.BaseCtrl;
 import com.common.vo.ReturnValueVo;
-import com.po.basic.District;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 import com.util.MicroOfficeFile;

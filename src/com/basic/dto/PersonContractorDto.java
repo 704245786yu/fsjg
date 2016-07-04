@@ -1,7 +1,7 @@
 package com.basic.dto;
 
-import com.po.basic.Person;
-import com.po.basic.PersonContractor;
+import com.basic.po.Person;
+import com.basic.po.PersonContractor;
 
 public class PersonContractorDto {
 

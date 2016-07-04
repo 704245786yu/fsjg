@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.basic.po.District;
 import com.common.BaseDao;
-import com.po.basic.District;
 
 @Repository
 public class DistrictDao extends BaseDao<Integer, District>{

@@ -2,8 +2,8 @@ package com.basic.dao;
 
 import org.springframework.stereotype.Repository;
 
+import com.basic.po.CostumeCategory;
 import com.common.NestTreeDao;
-import com.po.basic.CostumeCategory;
 
 /**@author zhiyu
  * */

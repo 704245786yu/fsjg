@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.biz.basic.EnterpriseBiz;
+import com.basic.biz.EnterpriseBiz;
+import com.basic.po.Enterprise;
 import com.common.BaseCtrl;
-import com.po.basic.Enterprise;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 import com.util.MicroOfficeFile;

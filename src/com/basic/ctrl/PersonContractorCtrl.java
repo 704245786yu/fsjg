@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.biz.basic.PersonContractorBiz;
+import com.basic.biz.PersonContractorBiz;
+import com.basic.dto.PersonContractorDto;
+import com.basic.po.PersonContractor;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
-import com.dto.PersonContractorDto;
-import com.po.basic.PersonContractor;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
 import com.sys.po.User;

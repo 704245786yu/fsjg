@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.basic.dao.EnterpriseDao;
+import com.basic.po.Enterprise;
 import com.common.BaseBiz;
-import com.dao.basic.EnterpriseDao;
-import com.po.basic.Enterprise;
 
 @Service
 public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{

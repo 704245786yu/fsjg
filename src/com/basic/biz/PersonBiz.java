@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.basic.dao.PersonDao;
+import com.basic.po.Person;
 import com.common.BaseBiz;
-import com.dao.basic.PersonDao;
-import com.po.basic.Person;
 import com.util.NumberTransform;
 
 @Service

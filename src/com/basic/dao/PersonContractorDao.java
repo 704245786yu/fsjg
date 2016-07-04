@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.basic.po.PersonContractor;
 import com.common.BaseDao;
-import com.po.basic.PersonContractor;
 
 @Repository
 public class PersonContractorDao extends BaseDao<Integer, PersonContractor>{
