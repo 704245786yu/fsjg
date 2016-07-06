@@ -34,15 +34,6 @@ public class LoginCtrl {
 		}
 	}
 	
-	/**登录成功后显示主界面
-	 * */
-	@RequestMapping("index")
-	public ModelAndView showIndex(){
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("../JSP/backstage/index");
-		return mav;
-	}
-	
 	//退出
 	@RequestMapping("logout")
 	public ModelAndView logout(HttpSession session){

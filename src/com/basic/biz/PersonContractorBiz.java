@@ -34,9 +34,9 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 		for(int i=0; i<data.size(); i++){
 			String[] temp = data.get(i);
 			Person person = new Person();
-			person.setUserName(temp[9]);	//用户名默认为手机号码
+//			person.setUserName(temp[9]);	//用户名默认为手机号码
 			person.setRealName(temp[1]);
-			person.setPassword(defaultPassword);	//密码为默认密码
+//			person.setPassword(defaultPassword);	//密码为默认密码
 			person.setGender(temp[2]);
 			person.setAge(NumberTransform.getByte(temp[3]));
 //			temp[4] 专业技能
@@ -45,9 +45,9 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 //			person.setCounty(temp[7]);
 //			person.setTown(temp[8]);
 			person.setDetailAddr(temp[9]);
-			person.setTelephone(temp[10]);
-			person.setCreateBy(userId);
-			person.setCreateTime(new Date());
+//			person.setTelephone(temp[10]);
+//			person.setCreateBy(userId);
+//			person.setCreateTime(new Date());
 			person.setAuditState((byte)0);//默认0：待审核
 			person.setPersonState((byte)0);//默认0：正常
 			person.setEmail(temp[15]);
@@ -73,7 +73,7 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 	/**根据ID获取快产专家DTO，快产专家信息同时包括Person信息和自身信息*/
 	public PersonContractorDto getById(int id){
 		Person person = personDao.findById(id);
-		person.setPassword(null);	//不允许返回password
+//		person.setPassword(null);	//不允许返回password
 		PersonContractor personContractor = dao.findById(id);
 		PersonContractorDto dto = new PersonContractorDto(person, personContractor);
 		return dto;

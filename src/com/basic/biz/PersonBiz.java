@@ -23,18 +23,18 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 		for(int i=0; i<data.size(); i++){
 			String[] temp = data.get(i);
 			Person person = new Person();
-			person.setUserName(temp[9]);	//用户名默认为手机号码
+//			person.setUserName(temp[9]);	//用户名默认为手机号码
 			person.setRealName(temp[1]);
-			person.setPassword(defaultPassword);	//密码为默认密码
+//			person.setPassword(defaultPassword);	//密码为默认密码
 			person.setGender(temp[2]);
 			person.setAge(NumberTransform.getByte(temp[3]));
 //			person.setProvince(temp[5]);
 //			person.setCity(temp[6]);
 //			person.setCounty(temp[7]);
 //			person.setTown(temp[8]);
-			person.setTelephone(temp[9]);
-			person.setCreateBy(userId);
-			person.setCreateTime(new Date());
+//			person.setTelephone(temp[9]);
+//			person.setCreateBy(userId);
+//			person.setCreateTime(new Date());
 			person.setAuditState((byte)0);//默认0：待审核
 			person.setPersonState((byte)0);//默认0：正常
 			person.setEmail(temp[14]);

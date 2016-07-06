@@ -3,11 +3,27 @@ package com.basic.po;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public abstract class CustomerAbstract {
+/**个人用户与企业用户的共用字段*/
+@MappedSuperclass
+public abstract class UserAbstract {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+
+	@OneToOne(targetEntity=BasicUser.class)
+	@JoinColumn(name="user_id")
+	private BasicUser basicUser;
+	
 	private Long province;	//省
 	
 	private Long city;	//市
@@ -38,6 +54,22 @@ public abstract class CustomerAbstract {
 	@Column(name="audit_time")
 	private Date auditTime;	//审核时间
 	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public BasicUser getBasicUser() {
+		return basicUser;
+	}
+
+	public void setBasicUser(BasicUser basicUser) {
+		this.basicUser = basicUser;
+	}
 
 	public Long getProvince() {
 		return province;

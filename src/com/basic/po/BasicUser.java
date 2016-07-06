@@ -27,7 +27,7 @@ public class BasicUser {
 	private String password;
 	
 	@Column(name="role_id")
-	private Integer roleId;	//角色ID
+	private Integer roleId;	//角色ID 1：普通用户 2：企业用户
 	
 	@Column(name="create_by")
 	private Integer createBy;	//创建人。0：表示用户自行注册，非0表示由平台管理人员录入

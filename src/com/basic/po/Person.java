@@ -8,7 +8,7 @@ import javax.persistence.Table;
  * */
 @Entity
 @Table(name="basic_person")
-public class Person extends CustomerAbstract{
+public class Person extends UserAbstract{
 
 	@Column(name="real_name")
 	private String realName;

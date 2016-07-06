@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.basic.dao.EnterpriseDao;
+import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
 import com.common.BaseBiz;
 
@@ -15,9 +16,10 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	private static final String defaultPassword = "123456";
 	
 	public void batchSaveEnterprise(List<String[]> data,Integer userId){
-		List<Enterprise> list=new ArrayList<Enterprise>();
+		List<Enterprise> enterpriseList=new ArrayList<Enterprise>();
 		for(int i=0; i<data.size(); i++){
 			String[] temp = data.get(i);
+			BasicUser user = new BasicUser();
 			Enterprise enterprise=new Enterprise();
 			enterprise.setEnterpriseNumber(temp[0]);
 			enterprise.setEnterpriseName(temp[1]);
@@ -28,9 +30,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 //			enterprise.setTown(temp[6]);
 			enterprise.setDetailAddr(temp[7]);
 			enterprise.setFixPhone(temp[8]);
-			enterprise.setTelephone(temp[9]);
 //			enterprise.setUserName();
-			enterprise.setPassword(defaultPassword);
+//			enterprise.setPassword(defaultPassword);
 //			enterprise.setQq(Long.parseLong(temp[10]));
 //			enterprise.setSaleMarket(Byte.parseByte(temp[11]));
 			enterprise.setBusinessLicenseImg(temp[12]);
@@ -48,11 +49,11 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 			enterprise.setWechat(temp[25]);
 			enterprise.setEmail(temp[26]);
 			//是否有企业logo数据库无对应字段
-			enterprise.setCreateBy(userId);
+//			enterprise.setCreateBy(userId);
 			enterprise.setAuditState((byte)0);
-			list.add(enterprise);
+//			list.add(enterprise);
 		}
-		dao.saveBatch(list);
+//		dao.saveBatch(list);
 	}
 	
 	/**获取优秀企业

@@ -8,7 +8,7 @@ import javax.persistence.Table;
  * */
 @Entity
 @Table(name="basic_enterprise")
-public class Enterprise extends CustomerAbstract{
+public class Enterprise extends UserAbstract{
 	
 	@Column(name="trade_id")
 	private Integer tradeId;	//行业分类，为服饰分类的一级类目

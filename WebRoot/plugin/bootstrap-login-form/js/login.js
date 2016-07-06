@@ -27,7 +27,7 @@ jQuery(document).ready(function() {
         		if(data == 0){
         			$('#errorMsg').fadeIn();
         		}else{
-        			window.location.href="login/index";
+        			window.location.href="backstage/index";
         		}
         	});
     	}

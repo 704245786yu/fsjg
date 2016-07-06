@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="btn btn-success fileinput-button">
 					<i class="glyphicon glyphicon-upload"></i>
 					<span>批量导入</span>
-					<input id="fileupload" type="file" name="file" accept="application/vnd.ms-excel" data-url="enterprise/uploadExcel">
+					<input id="fileupload" type="file" name="file" accept=".XLS,.xlsx" data-url="enterprise/uploadExcel">
 				</span>
 			</div>
 		</div>
