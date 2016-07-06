@@ -10,9 +10,6 @@ import javax.persistence.Table;
 @Table(name="basic_enterprise")
 public class Enterprise extends UserAbstract{
 	
-	@Column(name="trade_id")
-	private Integer tradeId;	//行业分类，为服饰分类的一级类目
-	
 	@Column(name="enterprise_number")
 	private String enterpriseNumber;	//企业编号
 	
@@ -30,8 +27,10 @@ public class Enterprise extends UserAbstract{
 	@Column(name = "organization_code")
 	private String organizationCode;	//组织机构代码
 	
+	private String trade;	//行业分类，为服饰分类的一级类目
+	
 	@Column(name = "process_type")
-	private Byte processType;	//加工类型
+	private String processType;	//加工类型
 	
 	@Column(name = "minimum_staff_amount")
 	private Short minimumStaffAmount;	//最小员工数量
@@ -48,13 +47,12 @@ public class Enterprise extends UserAbstract{
 	@Column(name = "enterprise_age")
 	private Short enterpriseAge;	//经营期限
 	
-	@Column(name = "equipment_desc")
+	@Column(name = "equipment")
 	private String equipmentDesc;	//生产设备描述
 	
 	private Integer yield;	//产值产量
 	
-	@Column(name = "cooperation_customer")
-	private String cooperationCustomer;	//合作客户
+	private String cooperator;	//合作客户
 	
 	@Column(name = "website_url")
 	private String websiteUrl;	//企业网址
@@ -64,14 +62,6 @@ public class Enterprise extends UserAbstract{
 	
 	private String description;	//工厂描述
 
-
-	public Integer getTradeId() {
-		return tradeId;
-	}
-
-	public void setTradeId(Integer tradeId) {
-		this.tradeId = tradeId;
-	}
 
 	public String getEnterpriseNumber() {
 		return enterpriseNumber;
@@ -121,11 +111,19 @@ public class Enterprise extends UserAbstract{
 		this.organizationCode = organizationCode;
 	}
 
-	public Byte getProcessType() {
+	public String getTrade() {
+		return trade;
+	}
+
+	public void setTrade(String trade) {
+		this.trade = trade;
+	}
+
+	public String getProcessType() {
 		return processType;
 	}
 
-	public void setProcessType(Byte processType) {
+	public void setProcessType(String processType) {
 		this.processType = processType;
 	}
 
@@ -185,12 +183,12 @@ public class Enterprise extends UserAbstract{
 		this.yield = yield;
 	}
 
-	public String getCooperationCustomer() {
-		return cooperationCustomer;
+	public String getCooperator() {
+		return cooperator;
 	}
 
-	public void setCooperationCustomer(String cooperationCustomer) {
-		this.cooperationCustomer = cooperationCustomer;
+	public void setCooperator(String cooperator) {
+		this.cooperator = cooperator;
 	}
 
 	public String getWebsiteUrl() {

@@ -1,6 +1,7 @@
 package com.sys.biz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +22,18 @@ public class ConstantDictBiz extends BaseBiz<ConstantDictDao, Integer, ConstantD
 		return dao.findByExample(constantDict);
 	}
 
+	/**根据constantTypeCode常量类型编码获取字典常量键值对*/
+	public HashMap<String,String> getNameValueMap(String constantTypeCode){
+		ConstantDict constantDict = new ConstantDict();
+		constantDict.setConstantTypeCode(constantTypeCode);
+		List<ConstantDict> list = dao.findByExample(constantDict);
+		HashMap<String,String> map = new HashMap<String,String>();
+		for(int i=0; i<list.size(); i++){
+			map.put(list.get(i).getConstantName(), list.get(i).getConstantValue());
+		}
+		return map;
+	}
+	
 	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
 	 * @param offset 偏移量，即记录索引位置
 	 * @param limit 每页记录数

@@ -2,6 +2,7 @@ package com.basic.po;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public abstract class UserAbstract {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	@OneToOne(targetEntity=BasicUser.class)
+	@OneToOne(cascade=CascadeType.ALL,targetEntity=BasicUser.class)
 	@JoinColumn(name="user_id")
 	private BasicUser basicUser;
 	

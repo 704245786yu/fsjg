@@ -32,7 +32,7 @@ public class ConstantDictTest {
 		ConstantDict cd = new ConstantDict();
 		cd.setConstantTypeCode("process_type");
 		cd.setConstantName("清加工");
-		cd.setConstantValue(0);
+		cd.setConstantValue("0");
 		
 	}
 }

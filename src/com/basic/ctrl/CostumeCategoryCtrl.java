@@ -21,14 +21,14 @@ public class CostumeCategoryCtrl extends NestTreeCtrl<CostumeCategoryBiz, Intege
 	@Override
 	public CostumeCategory save(CostumeCategory po, HttpSession httpSession) {
 		User user = (User)httpSession.getAttribute("loginUser");
-//		po.setUpdateBy(user.getId());
+		po.setUpdateBy(user.getId());
 		return super.save(po, httpSession);
 	}
 
 	@Override
 	public CostumeCategory update(CostumeCategory po, HttpSession httpSession) {
 		User user = (User)httpSession.getAttribute("loginUser");
-//		po.setUpdateBy(user.getId());
+		po.setUpdateBy(user.getId());
 		return super.update(po, httpSession);
 	}
 

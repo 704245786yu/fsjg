@@ -22,7 +22,7 @@ public class ConstantDict {
 	private String constantName;
 	
 	@Column(name="constant_value")
-	private Integer constantValue;
+	private String constantValue;
 	
 	@Column(name="description")
 	private String description;
@@ -51,11 +51,11 @@ public class ConstantDict {
 		this.constantName = constantName;
 	}
 
-	public Integer getConstantValue() {
+	public String getConstantValue() {
 		return constantValue;
 	}
 
-	public void setConstantValue(Integer constantValue) {
+	public void setConstantValue(String constantValue) {
 		this.constantValue = constantValue;
 	}
 

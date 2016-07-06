@@ -22,7 +22,7 @@ public class BasicUser {
 	@Column(name="user_name")
 	private String userName;	//用户名，登录平台用。企业用户可为空，个人用户不可为空
 	
-	private String telephone;	//手机号,手机号需唯一,用户可通过手机号登录系统
+	private Long telephone;	//手机号,手机号需唯一,用户可通过手机号登录系统
 	
 	private String password;
 	
@@ -60,11 +60,11 @@ public class BasicUser {
 		this.userName = userName;
 	}
 
-	public String getTelephone() {
+	public Long getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(String telephone) {
+	public void setTelephone(Long telephone) {
 		this.telephone = telephone;
 	}
 
