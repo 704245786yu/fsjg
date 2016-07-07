@@ -51,12 +51,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			data-pagination="true"
 			data-side-pagination="server"
 			data-query-params="getQueryParams"
-			data-page-size="5"
-			data-page-list="[5,10]">
+			data-page-size="10"
+			data-page-list="[10,20]">
 	    <thead>
 	        <tr>
-	            <th data-field="constantName" data-align="center">常量名称</th>
 	            <th data-field="constantTypeCode" data-formatter="constantFormatter" data-align="center">常量类型</th>
+	            <th data-field="constantName" data-align="center">常量名称</th>
 	            <th data-field="constantValue" data-align="center">常量值</th>
 	            <th data-field="description" data-align="center">描述</th>
 	            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>

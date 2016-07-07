@@ -73,9 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="userName" data-align="center">用户名</th>
 		            <th data-field="enterpriseNumber" data-align="center">工厂编号</th>
 		            <th data-field="enterpriseName" data-align="center">工厂名称</th>
-		            <th data-field="auditState" data-align="center">审核状态</th>
-		            <th data-field="processType" data-align="center">加工类型</th>
-		            <th data-field="createTime" data-align="center">注册时间</th>
+		            <th data-field="auditState" data-align="center" data-formatter="auditStateFormatter">审核状态</th>
+		            <th data-field="processType" data-align="center" data-formatter="processTypeFormatter">加工类型</th>
+		            <th data-field="basicUser.createTime" data-align="center">注册时间</th>
 		            <th data-formatter="operFormatterVUD" class="col-sm-2" data-align="center">操作</th>
 		        </tr>
 		    </thead>

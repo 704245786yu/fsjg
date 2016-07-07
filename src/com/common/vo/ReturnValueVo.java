@@ -11,7 +11,6 @@ public class ReturnValueVo {
 	public ReturnValueVo(){}
 	
 	public ReturnValueVo(int status, Object value) {
-		super();
 		this.status = status;
 		this.value = value;
 	}

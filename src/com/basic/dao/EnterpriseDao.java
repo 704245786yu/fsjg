@@ -31,6 +31,12 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		}
 	}
 	
+	/**获取关联的用户ID*/
+	public Integer getUserId(int id){
+		String sql = "select user_id from basic_enterprise where id =:id";
+		return (Integer)super.findByNativeSql(sql, new String[]{"id"}, new Integer[]{id}).get(0);
+	}
+	
 	/**最新入住的企业*/
 	@SuppressWarnings("unchecked")
 	public List<Enterprise> getNewest(){

@@ -11,6 +11,7 @@ import com.basic.biz.EnterpriseBiz;
 import com.basic.dao.EnterpriseDao;
 import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
+import com.util.JacksonJson;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -43,5 +44,10 @@ public class EnterpriseTest {
 	@Test
 	public void cascadeSave(){
 		enterpriseBiz.cascadeSave();
+	}
+	
+	@Test
+	public void getBasicUser(){
+		JacksonJson.printBeanToJson(enterpriseDao.getUserId(5));
 	}
 }

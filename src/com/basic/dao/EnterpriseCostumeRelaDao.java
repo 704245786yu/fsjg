@@ -8,4 +8,8 @@ import com.common.BaseDao;
 @Repository
 public class EnterpriseCostumeRelaDao extends BaseDao<Integer, EnterpriseCostumeRela>{
 
+	public void delByEnterpriseId(int enterpriseId){
+		String hql = "delete EnterpriseCostumeRela where enterpriseId =:enterpriseId";
+		super.executeUpdate(hql, new String[]{"enterpriseId"}, new Integer[]{enterpriseId});
+	}
 }

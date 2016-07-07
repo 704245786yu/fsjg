@@ -17,6 +17,8 @@ public class StringTest {
 	
 	@Test
 	public void test1(){
-		Integer.parseInt("");
+		String a = "几个数字";
+		System.out.println(a.length());
 	}
+	
 }

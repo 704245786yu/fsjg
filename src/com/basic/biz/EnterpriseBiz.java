@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.basic.dao.BasicUserDao;
 import com.basic.dao.EnterpriseCostumeRelaDao;
 import com.basic.dao.EnterpriseDao;
 import com.basic.po.BasicUser;
@@ -27,6 +29,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	private ConstantDictBiz constantDictBiz;
 	@Autowired
 	private EnterpriseCostumeRelaDao enterpriseCostumeRelaDao;
+	@Autowired
+	private BasicUserDao basicUserDao;
 
 	private static final String defaultPassword = "123456";
 	
@@ -68,22 +72,34 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				
 				//创建Enterprise
 				Enterprise enterprise=new Enterprise();
+				//关联工厂的基本用户信息
+				enterprise.setBasicUser(basicUser);
 	//			enterprise.setEnterpriseNumber(temp[0]);
 				//企业名称
-				nameList.add(temp[0]);
-				enterprise.setEnterpriseName(temp[0]);
+				String enterpriseName = temp[0];
+				if(enterpriseName.length() > 0 && enterpriseName.length()<=30){
+					nameList.add(enterpriseName);
+				}else{
+					errorInfo.add("第"+(i+rowOffset)+"行 企业名称未填或超过30个字");
+				}
+				enterprise.setEnterpriseName(enterpriseName);
 				//联系人
 				enterprise.setLinkman(temp[1]);
 				//省，市，区县，镇/乡/街道
 				List<String> subErrorInfo = this.setDistrictCode(i+rowOffset, enterprise, temp[2], temp[3], temp[4], temp[5], provinceMap, cityMap, countyMap, townMap);
 				errorInfo.addAll(subErrorInfo);
 				//详细地址
-				enterprise.setDetailAddr(temp[6]);
+				String detailAddr = temp[6];
+				if(detailAddr.length() < 50){
+					enterprise.setDetailAddr(detailAddr);
+				}else{
+					errorInfo.add("第"+(i+rowOffset)+"行 详细地址超过50个字");
+				}
 				//固定电话
 				enterprise.setFixPhone(temp[7]);
 				//QQ
 				String qqStr = temp[9];
-				if(qqStr != null)
+				if(qqStr.length()!=0)
 					enterprise.setQq(Long.parseLong(qqStr));
 				//销售市场
 	//			enterprise.setSaleMarket(Byte.parseByte(temp[10]));
@@ -111,27 +127,48 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 					enterprise.setCostumeCode(costumeCode);
 				//员工人数
 				String staffNumber = temp[16];
-				if(staffNumber != null)
+				if(staffNumber.length() != 0)
 					enterprise.setStaffNumber(Integer.parseInt(staffNumber));
 				//高速车工人数
 				String highSpeedStaffNumber = temp[17];
-				if(highSpeedStaffNumber != null)
+				if(highSpeedStaffNumber.length() != 0)
 					enterprise.setHighSpeedStaffNumber(Integer.parseInt(highSpeedStaffNumber));
 				//其他加工人数
 				String otherStaffNumber = temp[18];
-				if(otherStaffNumber != null)
+				if(otherStaffNumber.length() != 0)
 					enterprise.setOtherStaffNumber(Integer.parseInt(otherStaffNumber));
 				//经营年限
 				String enterpriseAge = temp[19];
-				if(enterpriseAge != null)
+				if(enterpriseAge.length() != 0)
 					enterprise.setEnterpriseAge(Short.parseShort(enterpriseAge));
-				enterprise.setEquipment(temp[20]);
+				//生产设备
+				String equipment = temp[20];
+				if(equipment.length() > 300){
+					errorInfo.add("第"+(i+rowOffset)+"行 生产设备字数超过300个字");
+				}else{
+					enterprise.setEquipment(equipment);
+				}
+				//产值产量
 				enterprise.setYield(temp[21]);
-				enterprise.setCooperator(temp[22]);
+				//合作客户
+				String cooperator = temp[22];
+				if(equipment.length() > 200){
+					errorInfo.add("第"+(i+rowOffset)+"行 合作客户字数超过200个字");
+				}else{
+					enterprise.setCooperator(cooperator);
+				}
 				enterprise.setWebsiteUrl(temp[23]);
 				enterprise.setWechat(temp[24]);
 				enterprise.setEmail(temp[25]);
-				//是否有企业logo数据库无对应字段
+				//有企业logo
+				//工厂图片
+				//工厂介绍
+				String description = temp[28];
+				if(description.length() > 800){
+					errorInfo.add("第"+(i+rowOffset)+"行 工厂介绍字数超过800个字");
+				}else{
+					enterprise.setCooperator(cooperator);
+				}
 				enterprise.setAuditState((byte)0);
 				
 				enterpriseList.add(enterprise);
@@ -193,7 +230,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	private List<String> setDistrictCode(int rowNum, Enterprise enterprise, String province, String city, String county, String town,
 			HashMap<String,Long> provinceMap, HashMap<Long, HashMap<String,Long>> cityMap, HashMap<Long, HashMap<String,Long>> countyMap, HashMap<Long, HashMap<String,Long>> townMap){
 		List<String> errorInfo = new ArrayList<String>();	//错误信息
-		if(province == null || city == null || county == null){
+		if(province.length()==0 || city.length()==0 || county.length()==0){
 			errorInfo.add("第"+rowNum+"行 省市区县信息填写不完整");
 			return errorInfo;
 		}
@@ -229,7 +266,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		enterprise.setCounty(countyCode);
 		
 		//镇/乡/街道信息可不填
-		if(town == null)
+		if(town.length() == 0)
 			return errorInfo;
 		HashMap<String,Long> subTownMap = townMap.get(countyCode);
 		if(subTownMap == null){
@@ -266,6 +303,16 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		}
 	}
 	
+	/**删除企业信息时同时删除关联的BasicUser、EnterpriseCostumeRela信息*/
+	@Override
+	@Transactional
+	public void deleteById(Integer id) {
+		int userId = dao.getUserId(id);
+		enterpriseCostumeRelaDao.delByEnterpriseId(id);
+		dao.deleteById(id);
+		basicUserDao.deleteById(userId);
+	}
+
 	/**获取优秀企业
 	 * 暂时获取列表中前10个
 	 * */
