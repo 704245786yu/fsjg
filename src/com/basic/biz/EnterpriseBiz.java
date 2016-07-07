@@ -106,7 +106,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				//营业执照
 	//			enterprise.setBusinessLicenseImg(temp[11]);
 				//组织机构代码
-				enterprise.setOrganizationCode(temp[12]);
+				enterprise.setOrgCode(temp[12]);
 				//所属行业
 				String tradeCode = this.getTradeCode(temp[13], tradeMap);
 				if(tradeCode.length() == 0)

@@ -8,144 +8,130 @@
 			<input type="hidden" name="id"/>
 			
 			<div class="form-group">
-				<div class="group">
-					<label for="userName" class="col-sm-1 control-label">用户名 </label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" id="userName" name="userName">
-					</div>
+				<label for="userName" class="col-sm-1 control-label">用户名 </label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="userName" name="userName">
 				</div>
-				<div class="group">
-					<label for="enterpriseNumber" class="col-sm-1 control-label">工厂编号</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" id="enterpriseNumber" name="enterpriseNumber">
-					</div>
+				<label for="enterpriseNumber" class="col-sm-1 control-label">工厂编号</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="enterpriseNumber" name="enterpriseNumber">
 				</div>
-				<div class="group">
-					<label for="enterpriseName" class="col-sm-1 control-label">工厂名称</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" id="enterpriseName" name="enterpriseName">
-					</div>
+				<label for="enterpriseName" class="col-sm-1 control-label">工厂名称</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="enterpriseName" name="enterpriseName">
 				</div>
-			</div>
-			
-			<!-- trade_id 行业分类 -->
-			
-			<div class="form-group">
-				
-			</div>
-			<div class="form-group">
-				<label for="linkman" class="col-sm-3 control-label">联系人</label>
-				<div class="col-sm-9">
+				<label for="linkman" class="col-sm-1 control-label">联系人</label>
+				<div class="col-sm-1">
 					<input type="text" class="form-control" id="linkman" name="linkman">
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="province" class="col-sm-3 control-label">省</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="province" name="person.province">
+			<div id="districtDiv" class="form-group">
+				<label for="province" class="col-sm-1 control-label">省</label>
+				<div class="col-sm-2">
+					<select class="form-control" id="province" name="person.province"></select>
+				</div>
+				<label for="city" class="col-sm-1 control-label">市</label>
+				<div class="col-sm-2">
+					<select class="form-control" id="city" name="person.city"></select>
+				</div>
+				<label for="county" class="col-sm-1 control-label">区县</label>
+				<div class="col-sm-2">
+					<select class="form-control" id="county" name="person.county"></select>
+				</div>
+				<label for="town" class="col-sm-1 control-label">镇/乡/街道</label>
+				<div class="col-sm-2">
+					<select class="form-control" id="town" name="person.town"></select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="city" class="col-sm-3 control-label">市</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="city" name="person.city">
+				<label class="col-sm-1 control-label">详细地址</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" name="detailAddr">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="county" class="col-sm-3 control-label">区县</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="county" name="person.county">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="town" class="col-sm-3 control-label">镇/乡/街道</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="town" name="person.town">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="detailAddr" class="col-sm-3 control-label">详细地址</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="detailAddr" name="detailAddr">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="telephone" class="col-sm-3 control-label">手机号</label>
-				<div class="col-sm-9">
+				<label for="telephone" class="col-sm-1 control-label">电话</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="telephone" name="telephone">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="fixPhone" class="col-sm-3 control-label">固定电话</label>
-				<div class="col-sm-9">
+				<label for="email" class="col-sm-1 control-label">电子邮箱</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="email" name="email">
+				</div>
+				<label for="qq" class="col-sm-1 control-label">QQ</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="qq" name="qq">
+				</div>
+				<label for="fixPhone" class="col-sm-1 control-label">固定电话</label>
+				<div class="col-sm-2">
 					<input type="text" class="form-control" id="fixPhone" name="fixPhone">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="email" class="col-sm-3 control-label">电子邮箱</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="email" name="person.email">
+				<label class="col-sm-1 control-label">微信</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="wechat">
+				</div>
+				<!-- 销售市场、营业执照 -->
+				<label class="col-sm-1 control-label">组织机构代码</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="orgCode">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="qq" class="col-sm-3 control-label">QQ</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="qq" name="person.qq">
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<label for="wechat" class="col-sm-3 control-label">微信</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="wechat" name="person.wechat">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="postalCode" class="col-sm-3 control-label">邮政编码</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="postalCode" name="person.postalCode">
-				</div>
-			</div>
-			
-			<input type="hidden" name="contractor.id"/>
-			<div class="form-group">
-				<label for="auditState" class="col-sm-3 control-label">加工类型</label>
-				<div class="col-sm-9">
-					<select class="form-control" id="processType" name="contractor.processType">
+				<!-- 行业分类 -->
+				<label class="col-sm-1 control-label">加工类型</label>
+				<div class="col-sm-2">
+					<select class="form-control" name="processType">
 						<c:forEach var="constantDict" items="${processTypes}">
 							<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
 						</c:forEach>
 					</select>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="processYear" class="col-sm-3 control-label">加工年限</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="processYear" name="contractor.processYear">
+				<!-- 主营产品 -->
+				<label class="col-sm-1 control-label">经营年限</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="enterpriseAge">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="workerAmount" class="col-sm-3 control-label">工人数量</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="workerAmount" name="contractor.workerAmount">
+				<label class="col-sm-1 control-label">工人数量</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="staffNumber">
+				</div>
+				<label class="col-sm-1 control-label">高速车工人数</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="highSpeedStaffNumber">
+				</div>
+				<label class="col-sm-1 control-label">其他加工人数</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="otherStaffNumber">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="quote" class="col-sm-3 control-label">报价</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="quote" name="contractor.quote">
+				<label class="col-sm-1 control-label">生产设备</label>
+				<div class="col-sm-11">
+					<input type="text" class="form-control" name="equipment">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="equipment" class="col-sm-3 control-label">生产设备</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="equipment" name="contractor.equipment">
+				<label class="col-sm-1 control-label">产值产量</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="yield">
+				</div>
+				<label class="col-sm-1 control-label">合作客户</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" name="cooperator">
+				</div>
+				<label class="col-sm-1 control-label">企业网址</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="websiteUrl">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="processDesc" class="col-sm-3 control-label">加工说明</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="processDesc" name="contractor.processDesc">
+				<label class="col-sm-1 control-label">工厂描述</label>
+				<div class="col-sm-11">
+					<input type="text" class="form-control" name="description">
 				</div>
 			</div>
 			<div class="form-group">

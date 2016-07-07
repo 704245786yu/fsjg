@@ -27,8 +27,8 @@ public class Enterprise extends UserAbstract{
 	@Column(name = "business_license_Img")
 	private String businessLicenseImg;	//营业执照
 	
-	@Column(name = "organization_code")
-	private String organizationCode;	//组织机构代码
+	@Column(name = "org_code")
+	private String orgCode;	//组织机构代码
 	
 	private String trade;	//行业分类，为服饰分类的一级类目
 	
@@ -113,12 +113,12 @@ public class Enterprise extends UserAbstract{
 		this.businessLicenseImg = businessLicenseImg;
 	}
 
-	public String getOrganizationCode() {
-		return organizationCode;
+	public String getOrgCode() {
+		return orgCode;
 	}
 
-	public void setOrganizationCode(String organizationCode) {
-		this.organizationCode = organizationCode;
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}
 
 	public String getTrade() {
