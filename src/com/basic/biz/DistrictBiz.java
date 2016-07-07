@@ -1,6 +1,7 @@
 package com.basic.biz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -141,4 +142,13 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		}
 	}
 	
+	/**根据父节点编码获取地区 名称 编码 键值对*/
+	public HashMap<String,Long> getNameAndCodeMap(Long pCode){
+		List<District> list = this.getNameAndCodeByPcode(pCode);
+		HashMap<String,Long> map = new HashMap<String,Long>();
+		for(int i=0; i<list.size(); i++){
+			map.put(list.get(i).getDistrictName(), list.get(i).getDistrictCode());
+		}
+		return map;
+	}
 }

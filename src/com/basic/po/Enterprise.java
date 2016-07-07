@@ -1,8 +1,11 @@
 package com.basic.po;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**企业信息
  * */
@@ -32,25 +35,32 @@ public class Enterprise extends UserAbstract{
 	@Column(name = "process_type")
 	private String processType;	//加工类型
 	
-	@Column(name = "minimum_staff_amount")
+	@Transient
+	private List<Integer> costumeCode;	//主营产品
+	
+	/*@Column(name = "minimum_staff_amount")
 	private Short minimumStaffAmount;	//最小员工数量
 	
 	@Column(name = "maximum_staff_amount")
 	private Short maximumStaffAmount;	//最大员工数量
+*/	
 	
-	@Column(name = "high_speed_staff_amount")
-	private Short highSpeedStaffAmount;	//高速车工人数
+	@Column(name = "staff_number")
+	private Integer staffNumber;
 	
-	@Column(name = "other_staff_amount")
-	private Short otherStaffAmount;	//其他加工人数
+	@Column(name = "high_speed_staff_number")
+	private Integer highSpeedStaffNumber;	//高速车工人数
+	
+	@Column(name = "other_staff_number")
+	private Integer otherStaffNumber;	//其他加工人数
 	
 	@Column(name = "enterprise_age")
 	private Short enterpriseAge;	//经营期限
 	
 	@Column(name = "equipment")
-	private String equipmentDesc;	//生产设备描述
+	private String equipment;	//生产设备描述
 	
-	private Integer yield;	//产值产量
+	private String yield;	//产值产量
 	
 	private String cooperator;	//合作客户
 	
@@ -126,37 +136,13 @@ public class Enterprise extends UserAbstract{
 	public void setProcessType(String processType) {
 		this.processType = processType;
 	}
-
-	public Short getMinimumStaffAmount() {
-		return minimumStaffAmount;
+	
+	public List<Integer> getCostumeCode() {
+		return costumeCode;
 	}
 
-	public void setMinimumStaffAmount(Short minimumStaffAmount) {
-		this.minimumStaffAmount = minimumStaffAmount;
-	}
-
-	public Short getMaximumStaffAmount() {
-		return maximumStaffAmount;
-	}
-
-	public void setMaximumStaffAmount(Short maximumStaffAmount) {
-		this.maximumStaffAmount = maximumStaffAmount;
-	}
-
-	public Short getHighSpeedStaffAmount() {
-		return highSpeedStaffAmount;
-	}
-
-	public void setHighSpeedStaffAmount(Short highSpeedStaffAmount) {
-		this.highSpeedStaffAmount = highSpeedStaffAmount;
-	}
-
-	public Short getOtherStaffAmount() {
-		return otherStaffAmount;
-	}
-
-	public void setOtherStaffAmount(Short otherStaffAmount) {
-		this.otherStaffAmount = otherStaffAmount;
+	public void setCostumeCode(List<Integer> costumeCode) {
+		this.costumeCode = costumeCode;
 	}
 
 	public Short getEnterpriseAge() {
@@ -167,19 +153,43 @@ public class Enterprise extends UserAbstract{
 		this.enterpriseAge = enterpriseAge;
 	}
 
-	public String getEquipmentDesc() {
-		return equipmentDesc;
+	public Integer getStaffNumber() {
+		return staffNumber;
 	}
 
-	public void setEquipmentDesc(String equipmentDesc) {
-		this.equipmentDesc = equipmentDesc;
+	public void setStaffNumber(Integer staffNumber) {
+		this.staffNumber = staffNumber;
 	}
 
-	public Integer getYield() {
+	public Integer getHighSpeedStaffNumber() {
+		return highSpeedStaffNumber;
+	}
+
+	public void setHighSpeedStaffNumber(Integer highSpeedStaffNumber) {
+		this.highSpeedStaffNumber = highSpeedStaffNumber;
+	}
+
+	public Integer getOtherStaffNumber() {
+		return otherStaffNumber;
+	}
+
+	public void setOtherStaffNumber(Integer otherStaffNumber) {
+		this.otherStaffNumber = otherStaffNumber;
+	}
+
+	public String getEquipment() {
+		return equipment;
+	}
+
+	public void setEquipment(String equipment) {
+		this.equipment = equipment;
+	}
+
+	public String getYield() {
 		return yield;
 	}
 
-	public void setYield(Integer yield) {
+	public void setYield(String yield) {
 		this.yield = yield;
 	}
 
@@ -214,5 +224,5 @@ public class Enterprise extends UserAbstract{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 }

@@ -7,9 +7,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.basic.dao.EnterpriseCostumeRelaDao;
 import com.basic.dao.EnterpriseDao;
 import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
+import com.basic.po.EnterpriseCostumeRela;
 import com.common.BaseBiz;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
@@ -18,9 +20,13 @@ import com.sys.biz.ConstantDictBiz;
 public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	
 	@Autowired
+	private DistrictBiz districtBiz;
+	@Autowired
 	private CostumeCategoryBiz costumeCategoryBiz;
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
+	@Autowired
+	private EnterpriseCostumeRelaDao enterpriseCostumeRelaDao;
 
 	private static final String defaultPassword = "123456";
 	
@@ -29,6 +35,11 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		HashMap<String,Integer> costumeMap = costumeCategoryBiz.getAllNameCodeMap();	//服饰类型
 		HashMap<String,String> processTypeMap = constantDictBiz.getNameValueMap("process_type");	//加工类型
 		
+		HashMap<String,Long> provinceMap = districtBiz.getNameAndCodeMap(null);//省级信息
+		HashMap<Long, HashMap<String,Long>> cityMap = new HashMap<Long, HashMap<String,Long>>();//市级信息
+		HashMap<Long, HashMap<String,Long>> countyMap = new HashMap<Long, HashMap<String,Long>>();//区县信息
+		HashMap<Long, HashMap<String,Long>> townMap = new HashMap<Long, HashMap<String,Long>>();//镇/乡/街道信息
+		
 		List<String> nameList = new ArrayList<String>();	//去重用
 		List<Long> teleList = new ArrayList<Long>();	//去重用
 		List<Enterprise> enterpriseList = new ArrayList<Enterprise>();	//要保存的企业信息
@@ -36,79 +47,110 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		int rowOffset = 3;	//行偏移量
 		
 		for(int i=0; i<data.size(); i++){
-			String[] temp = data.get(i);
-			//创建BasicUser
-			BasicUser basicUser = new BasicUser();
 			try{
-				String teleStr = temp[8];
-				if(teleStr.length() != 11)
-					throw new Exception("telephone length != 11");
-				Long telephone = Long.parseLong(teleStr);
-				basicUser.setTelephone(telephone);
-				basicUser.setPassword(defaultPassword);
-				basicUser.setRoleId(2);
+				String[] temp = data.get(i);
+				//创建BasicUser
+				BasicUser basicUser = new BasicUser();
+				try{
+					String teleStr = temp[8];
+					if(teleStr.length() != 11)
+						throw new Exception("telephone length != 11");
+					Long telephone = Long.parseLong(teleStr);
+					teleList.add(telephone);
+					basicUser.setTelephone(telephone);
+					basicUser.setPassword(defaultPassword);
+					basicUser.setRoleId(2);
+					basicUser.setCreateBy(userId);
+				}catch(Exception e){
+					e.printStackTrace();
+					errorInfo.add("第"+(i+rowOffset)+"行 手机号码非11位数字");
+				}
+				
+				//创建Enterprise
+				Enterprise enterprise=new Enterprise();
+	//			enterprise.setEnterpriseNumber(temp[0]);
+				//企业名称
+				nameList.add(temp[0]);
+				enterprise.setEnterpriseName(temp[0]);
+				//联系人
+				enterprise.setLinkman(temp[1]);
+				//省，市，区县，镇/乡/街道
+				List<String> subErrorInfo = this.setDistrictCode(i+rowOffset, enterprise, temp[2], temp[3], temp[4], temp[5], provinceMap, cityMap, countyMap, townMap);
+				errorInfo.addAll(subErrorInfo);
+				//详细地址
+				enterprise.setDetailAddr(temp[6]);
+				//固定电话
+				enterprise.setFixPhone(temp[7]);
+				//QQ
+				String qqStr = temp[9];
+				if(qqStr != null)
+					enterprise.setQq(Long.parseLong(qqStr));
+				//销售市场
+	//			enterprise.setSaleMarket(Byte.parseByte(temp[10]));
+				//营业执照
+	//			enterprise.setBusinessLicenseImg(temp[11]);
+				//组织机构代码
+				enterprise.setOrganizationCode(temp[12]);
+				//所属行业
+				String tradeCode = this.getTradeCode(temp[13], tradeMap);
+				if(tradeCode.length() == 0)
+					errorInfo.add("第"+(i+rowOffset)+"行 行业分类信息不正确");
+				else
+					enterprise.setTrade(tradeCode);
+				//加工类型
+				String processType = this.getProcessType(temp[14], processTypeMap);
+				if(processType.length() == 0)
+					errorInfo.add("第"+(i+rowOffset)+"行 加工类型信息不正确");
+				else
+					enterprise.setProcessType(processType);
+				//主营产品
+				List<Integer> costumeCode = this.getCostumeCategory(temp[15], costumeMap);
+				if(costumeCode.size() == 0)
+					errorInfo.add("第"+(i+rowOffset)+"行 主营产品信息不正确");
+				else
+					enterprise.setCostumeCode(costumeCode);
+				//员工人数
+				String staffNumber = temp[16];
+				if(staffNumber != null)
+					enterprise.setStaffNumber(Integer.parseInt(staffNumber));
+				//高速车工人数
+				String highSpeedStaffNumber = temp[17];
+				if(highSpeedStaffNumber != null)
+					enterprise.setHighSpeedStaffNumber(Integer.parseInt(highSpeedStaffNumber));
+				//其他加工人数
+				String otherStaffNumber = temp[18];
+				if(otherStaffNumber != null)
+					enterprise.setOtherStaffNumber(Integer.parseInt(otherStaffNumber));
+				//经营年限
+				String enterpriseAge = temp[19];
+				if(enterpriseAge != null)
+					enterprise.setEnterpriseAge(Short.parseShort(enterpriseAge));
+				enterprise.setEquipment(temp[20]);
+				enterprise.setYield(temp[21]);
+				enterprise.setCooperator(temp[22]);
+				enterprise.setWebsiteUrl(temp[23]);
+				enterprise.setWechat(temp[24]);
+				enterprise.setEmail(temp[25]);
+				//是否有企业logo数据库无对应字段
+				enterprise.setAuditState((byte)0);
+				
+				enterpriseList.add(enterprise);
 			}catch(Exception e){
 				e.printStackTrace();
-				errorInfo.add("第"+(i+rowOffset)+"行 手机号码非11位数字");
+				errorInfo.add("第"+(i+rowOffset)+"行 有错误内容");
 			}
-			
-			//创建Enterprise
-			Enterprise enterprise=new Enterprise();
-//			enterprise.setEnterpriseNumber(temp[0]);
-			//企业名称
-			nameList.add(temp[0]);
-			enterprise.setEnterpriseName(temp[0]);
-			//联系人
-			enterprise.setLinkman(temp[1]);
-			//省，市，区县，镇/乡/街道
-//			enterprise.setProvince(temp[2]);
-//			enterprise.setCity(temp[3]);
-//			enterprise.setCountry(temp[4]);
-//			enterprise.setTown(temp[5]);
-			//详细地址
-			enterprise.setDetailAddr(temp[6]);
-			//固定电话
-			enterprise.setFixPhone(temp[7]);
-			//QQ
-			String qqStr = temp[9];
-			if(qqStr != null)
-				enterprise.setQq(Long.parseLong(qqStr));
-			//销售市场
-//			enterprise.setSaleMarket(Byte.parseByte(temp[10]));
-			//营业执照
-//			enterprise.setBusinessLicenseImg(temp[11]);
-			//组织机构代码
-			enterprise.setOrganizationCode(temp[12]);
-			//所属行业
-			String tradeCode = this.getTradeCode(temp[13], tradeMap);
-			if(tradeCode.length() == 0)
-				errorInfo.add("第"+(i+rowOffset)+"行 行业分类信息不正确");
-			else
-				enterprise.setTrade(tradeCode);
-			//加工类型
-			String processType = this.getProcessType(temp[14], processTypeMap);
-			if(processType.length() == 0)
-				errorInfo.add("第"+(i+rowOffset)+"行 加工类型信息不正确");
-			else
-				enterprise.setProcessType(processType);
-			//15 16加工类型 主营产品数据库无对应
-//			enterprise.setStaffAmount(Short.parseShort(temp[17]));
-//			enterprise.setHighSpeedStaffAmount(Short.parseShort(temp[18]));
-//			enterprise.setOtherStaffAmount(Short.parseShort(temp[19]));
-//			enterprise.setEnterpriseAge(Short.parseShort(temp[20]));
-			enterprise.setEquipmentDesc(temp[21]);
-//			enterprise.setYield(Integer.parseInt(temp[22]));
-//			enterprise.setCooperationCustomer(temp[23]);
-			enterprise.setWebsiteUrl(temp[24]);
-			enterprise.setWechat(temp[25]);
-			enterprise.setEmail(temp[26]);
-			//是否有企业logo数据库无对应字段
-//			enterprise.setCreateBy(userId);
-			enterprise.setAuditState((byte)0);
-//			list.add(enterprise);
 		}
-//		dao.saveBatch(list);
-		return null;
+		
+		if(errorInfo.size() != 0)
+			return new ReturnValueVo(ReturnValueVo.ERROR, errorInfo);
+		
+		try{
+			dao.saveBatchEntity(enterpriseList);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "保存数据出错请联系管理员");
+		}
+		return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
 	}
 	
 	/**获取行业类型编码，多个编码用空格分割*/
@@ -131,6 +173,97 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 			processCodeBuf.append(processTypeValue).append(' ');
 		}
 		return processCodeBuf.toString().trim();
+	}
+	
+	/**获取服饰类型编码*/
+	private List<Integer> getCostumeCategory(String costume, HashMap<String,Integer> costumeMap){
+		List<Integer> costumeCodeList = new ArrayList<Integer>();
+		String[] costumeAry = costume.split("，");	//中文逗号分割
+		for(int i=0; i<costumeAry.length; i++){
+			Integer costumeCode = costumeMap.get(costumeAry[i]);
+			if(costumeCode != null)
+				costumeCodeList.add(costumeCode);
+		}
+		return costumeCodeList;
+	}
+	
+	/**设置地区编码信息
+	 * @return errorInfo
+	 * */
+	private List<String> setDistrictCode(int rowNum, Enterprise enterprise, String province, String city, String county, String town,
+			HashMap<String,Long> provinceMap, HashMap<Long, HashMap<String,Long>> cityMap, HashMap<Long, HashMap<String,Long>> countyMap, HashMap<Long, HashMap<String,Long>> townMap){
+		List<String> errorInfo = new ArrayList<String>();	//错误信息
+		if(province == null || city == null || county == null){
+			errorInfo.add("第"+rowNum+"行 省市区县信息填写不完整");
+			return errorInfo;
+		}
+		Long provinceCode = provinceMap.get(province);
+		if(provinceCode == null){
+			errorInfo.add("第"+rowNum+"行 省份信息不正确或无此省份信息");
+			return errorInfo;
+		}
+		enterprise.setProvince(provinceCode);
+		
+		HashMap<String,Long> subCityMap = cityMap.get(provinceCode);
+		if(subCityMap == null){
+			subCityMap = districtBiz.getNameAndCodeMap(provinceCode);
+			cityMap.put(provinceCode, subCityMap);
+		}
+		Long cityCode = subCityMap.get(city);
+		if(cityCode == null){
+			errorInfo.add("第"+rowNum+"行 城市信息不正确或无此城市信息");
+			return errorInfo;
+		}
+		enterprise.setCity(cityCode);
+		
+		HashMap<String,Long> subCountyMap = countyMap.get(cityCode);
+		if(subCountyMap == null){
+			subCountyMap = districtBiz.getNameAndCodeMap(cityCode);
+			countyMap.put(cityCode, subCountyMap);
+		}
+		Long countyCode = subCountyMap.get(county);
+		if(countyCode == null){
+			errorInfo.add("第"+rowNum+"行 区县信息不正确或无此区县信息");
+			return errorInfo;
+		}
+		enterprise.setCounty(countyCode);
+		
+		//镇/乡/街道信息可不填
+		if(town == null)
+			return errorInfo;
+		HashMap<String,Long> subTownMap = townMap.get(countyCode);
+		if(subTownMap == null){
+			subTownMap = districtBiz.getNameAndCodeMap(countyCode);
+			townMap.put(countyCode, subTownMap);
+		}
+		Long townCode = subTownMap.get(town);
+		if(townCode == null){
+			errorInfo.add("第"+rowNum+"行镇/乡/街道信息不正确或无此信息");
+			return errorInfo;
+		}
+		return errorInfo;
+	}
+	
+	public void cascadeSave(){
+		BasicUser basicUser = new BasicUser();
+		basicUser.setTelephone((long)1);
+		basicUser.setPassword("123");
+		basicUser.setRoleId(1);
+		
+		Enterprise enterprise = new Enterprise();
+		enterprise.setEnterpriseName("哈哈哈");
+		enterprise.setBasicUser(basicUser);
+		List<Integer> costumeCode = new ArrayList<Integer>();
+		enterprise.setCostumeCode(costumeCode);
+		dao.save(enterprise);
+		
+		
+		for(int i=0; i<2; i++){
+			EnterpriseCostumeRela rela = new EnterpriseCostumeRela();
+			rela.setEnterpriseId(enterprise.getId());
+			rela.setCostumeCode(i);
+			enterpriseCostumeRelaDao.save(rela);
+		}
 	}
 	
 	/**获取优秀企业

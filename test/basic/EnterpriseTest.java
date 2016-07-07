@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.basic.biz.EnterpriseBiz;
 import com.basic.dao.EnterpriseDao;
 import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
@@ -15,6 +16,8 @@ import com.basic.po.Enterprise;
 @WebAppConfiguration
 @ContextConfiguration("/applicationContext.xml")
 public class EnterpriseTest {
+	@Autowired
+	private EnterpriseBiz enterpriseBiz;
 	
 	@Autowired
 	private EnterpriseDao enterpriseDao;
@@ -35,5 +38,10 @@ public class EnterpriseTest {
 	@Test
 	public void get(){
 		enterpriseDao.findById(1);
+	}
+	
+	@Test
+	public void cascadeSave(){
+		enterpriseBiz.cascadeSave();
 	}
 }

@@ -14,4 +14,9 @@ public class StringTest {
 		String[] strAry = str.split(" ");
 		JacksonJson.printBeanToJson(strAry);
 	}
+	
+	@Test
+	public void test1(){
+		Integer.parseInt("");
+	}
 }
