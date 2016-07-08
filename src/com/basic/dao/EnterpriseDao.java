@@ -31,6 +31,16 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		}
 	}
 	
+	/**检查企业是否已经存在*/
+	public boolean isExsit(String enterpriseName){
+		String hql = "select count(1) from Enterprise where enterpriseName =:enterpriseName";
+		long amount = super.getCount(hql, new String[]{"enterpriseName"}, new String[]{enterpriseName});
+		if(amount > 0)
+			return true;
+		else
+			return false;
+	}
+	
 	/**获取关联的用户ID*/
 	public Integer getUserId(int id){
 		String sql = "select user_id from basic_enterprise where id =:id";

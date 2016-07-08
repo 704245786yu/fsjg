@@ -23,38 +23,43 @@
 <div class="top-banner">
 	<img src="image/logo.png">
 </div>
-<div class="container form-box">
-	<div class="row">
-		<div class="col-sm-8 col-sm-offset-2 form-box-content">
-			<h2>用户登录</h2>
-			<form class="form-group" action="login/loginCheck" method="post">
-				<h4 id="errorMsg" style="display:none;color:red">用户名或密码错误</h4>
-				<div class="form-group form-group-lg">
-					<div class="input-group">
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-user"></span>
-						</span>
-						<input type="text" name="userName" placeholder="用户名" class="form-control" id="userName">
-					</div>
+<div class="background_div">
+	<div class="col-sm-3 col-sm-offset-8 form-box-content">
+		<h3>用户登录</h3>
+		<form class="form-group" action="login/loginCheck" method="post">
+			<h4 id="errorMsg" style="display:none;color:red">用户名或密码错误</h4>
+			<div class="form-group form-group-lg">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-user"></span>
+					</span>
+					<input type="text" name="userName" placeholder="用户名" class="form-control" id="userName">
 				</div>
-				<div class="form-group form-group-lg">
-					<div class="input-group">
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-lock"></span>
-						</span>
-						<input type="password" name="password" placeholder="密码" class="form-control" id="password">
-					</div>
+			</div>
+			<br/>
+			<div class="form-group form-group-lg">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-lock"></span>
+					</span>
+					<input type="password" name="password" placeholder="密码" class="form-control" id="password">
 				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<button type="submit" class="btn btn-primary btn-lg">登 录</button>
-					</div>
-					<div class="col-sm-6">
-						<button type="button" class="btn btn-warning btn-lg">注册</button>
-					</div>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox"> 记住密码
+				</label>
+				<a>注册</a>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<button type="submit" class="btn btn-primary btn-lg">登 录</button>
 				</div>
-			</form>
-		</div>
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-warning btn-lg">注册</button>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
 <script src="plugin/jquery.min.js"></script>

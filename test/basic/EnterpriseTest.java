@@ -50,4 +50,9 @@ public class EnterpriseTest {
 	public void getBasicUser(){
 		JacksonJson.printBeanToJson(enterpriseDao.getUserId(5));
 	}
+	
+	@Test
+	public void isExsit(){
+		JacksonJson.printBeanToJson(enterpriseDao.isExsit("服饰厂1"));
+	}
 }

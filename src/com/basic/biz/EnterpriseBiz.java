@@ -34,6 +34,10 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 
 	private static final String defaultPassword = "123456";
 	
+	public boolean isExsit(String enterpriseName){
+		return dao.isExsit(enterpriseName);
+	}
+	
 	public ReturnValueVo batchSaveEnterprise(List<String[]> data,Integer userId){
 		HashMap<String,Integer> tradeMap = costumeCategoryBiz.getChildCostumeMap(null);	//行业类型为服饰类型的一级分类
 		HashMap<String,Integer> costumeMap = costumeCategoryBiz.getAllNameCodeMap();	//服饰类型
