@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -24,10 +25,15 @@
 	<img src="image/logo.png">
 </div>
 <div class="background_div">
-	<div class="col-sm-3 col-sm-offset-8 form-box-content">
-		<h3>用户登录</h3>
-		<form class="form-group" action="login/loginCheck" method="post">
-			<h4 id="errorMsg" style="display:none;color:red">用户名或密码错误</h4>
+	<div class="col-sm-3 col-sm-offset-8 form-box">
+		<h4>用户登录</h4>
+		<form class="form-group" action="login/login" method="post">
+			<h4 id="signUpStatus" style="color:#008FDE">
+				<c:if test="${param.signUpStatus == 200}">
+					注册成功，请登录
+				</c:if> 
+			</h4>
+			<h4 id="errorMsg" style="color:red">${errorMsg}</h4>
 			<div class="form-group form-group-lg">
 				<div class="input-group">
 					<span class="input-group-addon">
@@ -49,14 +55,11 @@
 				<label>
 					<input type="checkbox"> 记住密码
 				</label>
-				<a>注册</a>
+				<div style="float:right;"><a href="login/showSignUp">注册</a></div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6">
-					<button type="submit" class="btn btn-primary btn-lg">登 录</button>
-				</div>
-				<div class="col-sm-6">
-					<button type="button" class="btn btn-warning btn-lg">注册</button>
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-primary btn-lg">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
 				</div>
 			</div>
 		</form>

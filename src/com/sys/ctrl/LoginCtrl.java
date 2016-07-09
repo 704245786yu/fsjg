@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.basic.biz.BasicUserBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.po.BasicUser;
-import com.common.vo.ReturnValueVo;
 import com.sys.biz.UserBiz;
 import com.sys.po.User;
 
@@ -21,6 +21,7 @@ import com.sys.po.User;
 public class LoginCtrl {
 
 	public static String loginUserKey = "loginUser";
+	public static String loginBasicUser = "loginBasicUser";
 	
 	@Autowired
 	private UserBiz userBiz;
@@ -43,32 +44,74 @@ public class LoginCtrl {
 		}
 	}
 	
+	@RequestMapping(value="showSignUp")
+	public String showSignUp(){
+		return "signUp";
+	}
+	
 	/**注册*/
 	@RequestMapping(value="signUp", method=RequestMethod.POST)
-	@ResponseBody
-	public ReturnValueVo signUp(BasicUser basicUser, String enterpriseName){
-		return basicUserBiz.signUp(basicUser, enterpriseName);
+	public ModelAndView signUp(BasicUser basicUser, String enterpriseName,RedirectAttributes attr){
+		//此处有乱码问题
+//		System.out.println(enterpriseName);
+		String errorMsg = basicUserBiz.signUp(basicUser, enterpriseName);
+		ModelAndView mav = new ModelAndView();
+		if(basicUser == null){
+			mav.setViewName("redirect:showSignUp");
+			mav.addObject("errorMsg", errorMsg);
+		}else{
+			mav.setViewName("redirect:../login.jsp");
+			attr.addAttribute("signUpStatus", 200);
+		}
+		return mav;
 	}
 	
 	/**校验用户名是否存在*/
-	@RequestMapping(value="nameIsExist", method=RequestMethod.POST)
+	@RequestMapping(value="nameIsExist")
 	@ResponseBody
-	public boolean nameIsExist(String userName){
-		return basicUserBiz.nameIsExist(userName);
+	public String nameIsExist(String userName){
+		if(basicUserBiz.nameIsExist(userName)){
+			return  "{\"valid\":false}";
+		}else{
+			return  "{\"valid\":true}";
+		}
 	}
 	
 	/**校验手机号是否存在*/
-	@RequestMapping(value="teleIsExist", method=RequestMethod.POST)
+	@RequestMapping(value="teleIsExist")
 	@ResponseBody
-	public boolean teleIsExist(Long telephone){
-		return basicUserBiz.teleIsExist(telephone);
+	public String teleIsExist(Long telephone){
+		if(basicUserBiz.teleIsExist(telephone)){
+			return  "{\"valid\":false}";
+		}else{
+			return  "{\"valid\":true}";
+		}
 	}
 	
 	/**校验企业名称是否存在*/
-	@RequestMapping(value="enterpriseIsExist", method=RequestMethod.POST)
+	@RequestMapping(value="enterpriseIsExist")
 	@ResponseBody
-	public boolean enterpriseIsExist(String enterpriseName){
-		return enterpriseBiz.isExsit(enterpriseName);
+	public String enterpriseIsExist(String enterpriseName){
+		if(enterpriseBiz.isExsit(enterpriseName)){
+			return  "{\"valid\":false}";
+		}else{
+			return  "{\"valid\":true}";
+		}
+	}
+	
+	@RequestMapping(value="login", method=RequestMethod.POST)
+	public ModelAndView login(String userName, String password, HttpSession session){
+		BasicUser basicUser = basicUserBiz.login(userName, password);
+		ModelAndView mav = new ModelAndView();
+		if(basicUser == null){
+			mav.setViewName("../login");
+			mav.addObject("errorMsg", "用户名或密码错误");
+		}else{
+			session.setAttribute(loginBasicUser, basicUser);
+//			mav.setViewName("../home");//此种方式会导致显示home.jsp页面，刷新时登录表单会重复提交
+			mav.setViewName("redirect:../home.jsp");
+		}
+		return mav;
 	}
 	
 	//退出

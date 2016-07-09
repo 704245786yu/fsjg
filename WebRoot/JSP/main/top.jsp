@@ -6,7 +6,7 @@
 	欢迎来到服饰加工网!
 	<span class="signIn">
 		<a href="login.jsp">[登录]</a>
-		<a href="signUp.jsp">[免费注册]</a>
+		<a href="JSP/signUp.jsp">[免费注册]</a>
 	</span>
 	<div>
 		<span style="color:#00AEE3">欢迎你，游客</span>

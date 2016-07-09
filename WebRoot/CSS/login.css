@@ -15,12 +15,13 @@ body{
 	background-size:cover;
 }
 
-.form-box-content{
+.form-box{
 	margin-top:150px;
-	background-color:white;
+	padding:30px;
+	background-color:#EAFAFE;
 }
 
-.form-box-content form{
+.form-box form{
 	margin-top:40px;
 }
 
@@ -33,4 +34,17 @@ body{
 }
 .form-box button{
 	width:100%;
+	background-color: #008FDE;
+}
+
+.sign_up_container{
+	width:50%;
+	margin-top:30px;
+	padding-bottom:50px;
+	background-color:white;
+}
+
+.sign_up_container button{
+	width:100%;
+	background-color: #008FDE;
 }

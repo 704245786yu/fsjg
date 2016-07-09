@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
     $("input").focus(function(){
     	$(this).removeClass('input-error');
 		$("#errorMsg").fadeOut();
@@ -31,4 +31,4 @@ $(function() {
         	});
     	}
     });
-});
+});*/

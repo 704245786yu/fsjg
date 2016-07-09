@@ -10,7 +10,6 @@ import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
 import com.basic.po.Person;
 import com.common.BaseBiz;
-import com.common.vo.ReturnValueVo;
 
 @Service
 public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
@@ -23,15 +22,15 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 	/**用户注册
 	 * @param enterpriseName可为空
 	 * */
-	public ReturnValueVo signUp(BasicUser basicUser, String enterpriseName){
+	public String signUp(BasicUser basicUser, String enterpriseName){
 		boolean isExsit = dao.isExsit(basicUser.getUserName(), basicUser.getTelephone());
 		if(isExsit){
-			return new ReturnValueVo(ReturnValueVo.ERROR,"用户名或手机号重复");
+			return "用户名或手机号重复";
 		}
 		//企业用户需判断企业名称是否重复
 		if(basicUser.getRoleId() == 2){
 			if(enterpriseDao.isExsit(enterpriseName))
-				return new ReturnValueVo(ReturnValueVo.ERROR,"企业名称重复");
+				return "企业名称重复";
 			Enterprise enterprise = new Enterprise();
 			enterprise.setEnterpriseName(enterpriseName);
 			enterprise.setBasicUser(basicUser);
@@ -41,7 +40,11 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 			person.setBasicUser(basicUser);
 			personDao.save(person);
 		}
-		return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
+		return null;
+	}
+	
+	public BasicUser login(String nameOrTele, String password){
+		return dao.login(nameOrTele, password);
 	}
 	
 	public boolean nameIsExist(String userName){

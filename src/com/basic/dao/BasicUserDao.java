@@ -1,5 +1,9 @@
 package com.basic.dao;
 
+import java.util.List;
+
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.basic.po.BasicUser;
@@ -34,5 +38,26 @@ public class BasicUserDao extends BaseDao<Integer, BasicUser>{
 			return true;
 		else
 			return false;
+	}
+	
+	/**用户登录
+	 * 检查用户名或者手机号码
+	 * */
+	public BasicUser login(String nameOrTele, String password){
+		Criterion c1 = Restrictions.eq("userName", nameOrTele);
+		Criterion c2 = Restrictions.eq("password", password);
+		List<BasicUser> list = super.findByCriteria(c1,c2);
+		if(list.size() == 1)
+			return list.get(0);
+		try {
+			long telephone = Long.parseLong(nameOrTele);
+			c1 = Restrictions.eq("telephone", telephone);
+			list = super.findByCriteria(c1,c2);
+			if(list.size() == 1)
+				return list.get(0);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+		return null;
 	}
 }
