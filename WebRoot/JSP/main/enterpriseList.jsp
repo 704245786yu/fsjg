@@ -23,7 +23,6 @@
 </head>
 
 <body>
-<input type="hidden" name="pageName" value="enterprise">
 <%@ include file="top.jsp" %>
 
 <div class="container-fluid">

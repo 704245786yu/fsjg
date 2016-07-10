@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+.page-header, .page-body{
+	padding:0px 40px;
+}
+
+.page-header .btn-primary{
+	background-color: #4fb3e8
+}
+
+h3.panel-title{
+	color:#008AE6;
+}
+
+.col-md-3 a{
+	width:160px;
+	font-size:14px;
+	color:white;
+	background-color:#FF842F;
+}

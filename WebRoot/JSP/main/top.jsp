@@ -52,4 +52,7 @@
 	</ul>
 </nav>
 
+<!-- 由于上面的nav样式会影响其他页面的布局，通过此div进行影响的隔离 -->
+<div style="height:5px"></div>
+
 <script src="JS/main/top.js"></script>

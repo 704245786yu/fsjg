@@ -39,8 +39,8 @@ nav.topNav{
 	background-image: url("../image/nav-blue.png");
 	/* background-color: #008CE8; */
 }
-nav li a{
-	width:150px;
+nav.topNav li a{
+	width:200px;
 	font-size:18px;
 	text-align:center;
 	color:white;
