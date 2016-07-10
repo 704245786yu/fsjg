@@ -37,13 +37,22 @@ public class EnterpriseTest {
 	}
 	
 	@Test
-	public void get(){
-		enterpriseDao.findById(1);
+	public void update(){
+		BasicUser basicUser = new BasicUser();
+		basicUser.setId(30);
+		basicUser.setTelephone(11111L);
+		basicUser.setPassword("112");
+		basicUser.setRoleId(2);
+		Enterprise enterprise = new Enterprise();
+		enterprise.setId(7);
+		enterprise.setEnterpriseName("泰州");
+		enterprise.setBasicUser(basicUser);
+		enterpriseDao.update(enterprise);
 	}
 	
 	@Test
-	public void cascadeSave(){
-		enterpriseBiz.cascadeSave();
+	public void get(){
+		enterpriseDao.findById(1);
 	}
 	
 	@Test

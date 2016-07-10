@@ -60,7 +60,7 @@ public class MenuTest {
 		menuBiz.save(person);
 		Menu enterprise = getMenu("工厂用户管理","enterprise/backstage",null,root.getId());
 		menuBiz.save(enterprise);
-		Menu personContractor = getMenu("快产专家管理","personContractor",null,root.getId());
+		Menu personContractor = getMenu("快产专家管理","contractor/backstage",null,root.getId());
 		menuBiz.save(personContractor);
 		
 		//系统管理

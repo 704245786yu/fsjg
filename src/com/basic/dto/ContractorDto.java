@@ -1,16 +1,16 @@
 package com.basic.dto;
 
 import com.basic.po.Person;
-import com.basic.po.PersonContractor;
+import com.basic.po.Contractor;
 
-public class PersonContractorDto {
+public class ContractorDto {
 
 	private Person person;
-	private PersonContractor contractor;
+	private Contractor contractor;
 
-	public PersonContractorDto(){}
+	public ContractorDto(){}
 	
-	public PersonContractorDto(Person person, PersonContractor contractor) {
+	public ContractorDto(Person person, Contractor contractor) {
 		this.person = person;
 		this.contractor = contractor;
 	}
@@ -22,11 +22,11 @@ public class PersonContractorDto {
 		this.person = person;
 	}
 
-	public PersonContractor getContractor() {
+	public Contractor getContractor() {
 		return contractor;
 	}
 
-	public void setContractor(PersonContractor contractor) {
+	public void setContractor(Contractor contractor) {
 		this.contractor = contractor;
 	}
 

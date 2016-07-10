@@ -13,7 +13,6 @@ import com.basic.dao.EnterpriseCostumeRelaDao;
 import com.basic.dao.EnterpriseDao;
 import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
-import com.basic.po.EnterpriseCostumeRela;
 import com.common.BaseBiz;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
@@ -194,26 +193,26 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
 	}
 	
-	/**获取行业类型编码，多个编码用空格分割*/
+	/**获取行业类型编码，多个编码用,分割*/
 	private String getTradeCode(String trade, HashMap<String,Integer> tradeMap){
 		StringBuffer tradeCodeBuf = new StringBuffer(); 
 		String[] tradeAry = trade.split("，");	//中文逗号分割
 		for(int i=0; i<tradeAry.length; i++){
 			Integer tradeCode = tradeMap.get(tradeAry[i]);
-			tradeCodeBuf.append(tradeCode).append(' ');
+			tradeCodeBuf.append(tradeCode).append(',');
 		}
-		return tradeCodeBuf.toString().trim();
+		return tradeCodeBuf.toString().substring(0, tradeCodeBuf.length()-1);
 	}
 	
-	/**获取加工类型编码，多个编码用空格分割*/
+	/**获取加工类型编码，多个编码用,分割*/
 	private String getProcessType(String processType, HashMap<String,String> processTypeMap){
 		StringBuffer processCodeBuf = new StringBuffer();
 		String[] processTypeAry = processType.split("，");	//中文逗号分割
 		for(int i=0; i<processTypeAry.length; i++){
 			String processTypeValue = processTypeMap.get(processTypeAry[i]);
-			processCodeBuf.append(processTypeValue).append(' ');
+			processCodeBuf.append(processTypeValue).append(',');
 		}
-		return processCodeBuf.toString().trim();
+		return processCodeBuf.toString().substring(0, processCodeBuf.length()-1);
 	}
 	
 	/**获取服饰类型编码*/
@@ -285,28 +284,19 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return errorInfo;
 	}
 	
-	public void cascadeSave(){
-		BasicUser basicUser = new BasicUser();
-		basicUser.setTelephone((long)1);
-		basicUser.setPassword("123");
-		basicUser.setRoleId(1);
-		
-		Enterprise enterprise = new Enterprise();
-		enterprise.setEnterpriseName("哈哈哈");
-		enterprise.setBasicUser(basicUser);
-		List<Integer> costumeCode = new ArrayList<Integer>();
-		enterprise.setCostumeCode(costumeCode);
-		dao.save(enterprise);
-		
-		
-		for(int i=0; i<2; i++){
-			EnterpriseCostumeRela rela = new EnterpriseCostumeRela();
-			rela.setEnterpriseId(enterprise.getId());
-			rela.setCostumeCode(i);
-			enterpriseCostumeRelaDao.save(rela);
-		}
+	/**更新先更新基本用户信息，后更新企业信息*/
+	@Override
+	@Transactional
+	public void update(Enterprise enterprise) {
+		BasicUser tempBasicUser = enterprise.getBasicUser();
+		BasicUser basicUser = basicUserDao.findById(tempBasicUser.getId());
+		basicUser.setUserName(tempBasicUser.getUserName());
+		basicUser.setTelephone(tempBasicUser.getTelephone());
+		basicUser.setUpdateBy(tempBasicUser.getUpdateBy());
+		basicUserDao.update(basicUser);
+		dao.update(enterprise);
 	}
-	
+
 	/**删除企业信息时同时删除关联的BasicUser、EnterpriseCostumeRela信息*/
 	@Override
 	@Transactional
@@ -317,6 +307,11 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		basicUserDao.deleteById(userId);
 	}
 
+	/**获取加工企业的主营产品类型*/
+	public List<Integer> getCostumeCode(int enterpriseId){
+		return enterpriseCostumeRelaDao.getCostumeCode(enterpriseId);
+	}
+	
 	/**获取优秀企业
 	 * 暂时获取列表中前10个
 	 * */

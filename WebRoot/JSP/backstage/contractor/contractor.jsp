@@ -55,13 +55,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="btn btn-success fileinput-button">
 					<i class="glyphicon glyphicon-upload"></i>
 					<span>批量导入</span>
-					<input id="fileupload" type="file" name="file" data-url="personContractor/uploadExcel">
+					<input id="fileupload" type="file" name="file" data-url="contractor/uploadExcel">
 				</span>
 			</div>
 		</div><!-- .row -->
 	
 		<!-- 数据表格 -->
-		<table id="dg" data-toggle="table" data-url="personContractor/findByPageAndParams" data-unique-id="id"
+		<table id="dg" data-toggle="table" data-url="contractor/findByPageAndParams" data-unique-id="id"
 				data-pagination="true"
 				data-side-pagination="server"
 				data-query-params="getQueryParams"
@@ -220,9 +220,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/backstage/contractor/personContractor.js"></script>
+<script src="JS/backstage/contractor/contractor.js"></script>
 
-<%@ include file="editPersonContractor.jsp" %>
+<%@ include file="editContractor.jsp" %>
 
 </body>
 </html>

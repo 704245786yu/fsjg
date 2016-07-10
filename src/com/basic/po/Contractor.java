@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**个人承包商，快产专家
  * */
 @Entity
-@Table(name="basic_person_contractor")
-public class PersonContractor {
+@Table(name="basic_contractor")
+public class Contractor {
 
 	@Id
 	private Integer id;	//该主键从Person表获得

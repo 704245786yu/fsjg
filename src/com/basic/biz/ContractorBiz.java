@@ -8,17 +8,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.basic.dao.PersonContractorDao;
+import com.basic.dao.ContractorDao;
 import com.basic.dao.PersonDao;
-import com.basic.dto.PersonContractorDto;
+import com.basic.dto.ContractorDto;
 import com.basic.po.Person;
-import com.basic.po.PersonContractor;
+import com.basic.po.Contractor;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
 import com.util.NumberTransform;
 
 @Service
-public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, PersonContractor> {
+public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 
 	@Autowired
 	private PersonDao personDao;
@@ -26,11 +26,11 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 	private static final String defaultPassword = "123456";
 	
 	/**批量保存快产专家信息
-	 * 快产专家拥有个人Person的所有字段，先保存Person后保存PersonContractor
+	 * 快产专家拥有个人Person的所有字段，先保存Person后保存contractor
 	 * */
-	public void batchSavePersonContractor(List<String[]> data,Integer userId){
+	public void batchSaveContractor(List<String[]> data,Integer userId){
 		List<Person> personList = new ArrayList<Person>();	//个人信息
-		List<PersonContractor> contractorList = new ArrayList<PersonContractor>();	//快产专家（个人承包商）信息
+		List<Contractor> contractorList = new ArrayList<Contractor>();	//快产专家（个人承包商）信息
 		for(int i=0; i<data.size(); i++){
 			String[] temp = data.get(i);
 			Person person = new Person();
@@ -58,7 +58,7 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 			person.setIdCard(temp[20]);
 			personList.add(person);
 			
-			PersonContractor contractor = new PersonContractor();
+			Contractor contractor = new Contractor();
 //			contractor.setProcessType(temp[11]);
 //			contractor temp[12] 主营产品
 			contractor.setWorkerAmount(NumberTransform.getShort(temp[13]));
@@ -71,18 +71,18 @@ public class PersonContractorBiz extends BaseBiz<PersonContractorDao, Integer, P
 	}
 	
 	/**根据ID获取快产专家DTO，快产专家信息同时包括Person信息和自身信息*/
-	public PersonContractorDto getById(int id){
+	public ContractorDto getById(int id){
 		Person person = personDao.findById(id);
 //		person.setPassword(null);	//不允许返回password
-		PersonContractor personContractor = dao.findById(id);
-		PersonContractorDto dto = new PersonContractorDto(person, personContractor);
+		Contractor contractor = dao.findById(id);
+		ContractorDto dto = new ContractorDto(person, contractor);
 		return dto;
 	}
 	
 	/**分页查询
 	 * @param offset 偏移量，即记录索引位置
 	 * @param limit 每页需要显示的记录数
-	 * @return 返回PersonContractor的部分属性，以及Person的realName属性
+	 * @return 返回contractor的部分属性，以及Person的realName属性
 	 * */
 	public BootTablePageDto<Map<String,Object>> findByPageAndParams(int offset, int limit){
 		BootTablePageDto<Map<String,Object>> bt = new BootTablePageDto<Map<String,Object>>();

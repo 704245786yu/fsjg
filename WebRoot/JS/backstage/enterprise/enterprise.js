@@ -3,7 +3,6 @@ var g_auditState = {0:'待审核',1:'未通过',2:'已通过'};
 var g_processType = {1:'清加工',2:'经销',3:'来料加工',4:'自营出口',5:'其他'};
 
 $(function(){
-	
 	//初始化g_processType，供table的processType格式化显示用
 	var processTypes = $('#processType option');
 	$.each(processTypes, function(i,n){
@@ -20,6 +19,8 @@ $(function(){
 			cancelLabel: '取消'
 		}
 	});
+	//启用Tooltips工具提示
+	$("[data-toggle='tooltip']").tooltip();
 });
 
 function getQueryParams(params){
@@ -37,7 +38,7 @@ function auditStateFormatter(value,row,index){
 //加工类型
 function processTypeFormatter(value,row,index){
 	var str = '';
-	var processAry = value.split(' ');
+	var processAry = value.split(',');
 	for(var i=0; i<processAry.length; i++){
 		str += g_processType[processAry[i]]+' ';
 	}

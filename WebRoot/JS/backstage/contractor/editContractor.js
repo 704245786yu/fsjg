@@ -189,16 +189,16 @@ function showForm(){
 
 //新增，该方法由主页面的add按钮触发
 function add(){
-	$('#ff').attr('action','personContractor/saveData');
+	$('#ff').attr('action','contractor/saveData');
 	showForm();
 }
 
 //新增，该方法由主页面的add按钮触发
 function modify(id){
-	$.get('personContractor/getById/'+id, function(data){
+	$.get('contractor/getById/'+id, function(data){
 		$("#ff").fill(data.person);
 		$("#ff").fill(data.contractor);
-		$('#ff').attr('action','personContractor/update');
+		$('#ff').attr('action','contractor/update');
 		showForm();
 	});
 }

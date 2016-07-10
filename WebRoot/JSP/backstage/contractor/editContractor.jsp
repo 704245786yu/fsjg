@@ -144,4 +144,4 @@
 <script src="plugin/jquery.form.min.js"></script>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.formFill.js"></script>
-<script src="JS/backstage/contractor/editPersonContractor.js"></script>
+<script src="JS/backstage/contractor/editContractor.js"></script>

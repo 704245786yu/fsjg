@@ -1,7 +1,9 @@
 package com.basic.ctrl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -39,7 +41,7 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
 		//String bb=file.getName();//file
 		ReturnValueVo returnValue = new ReturnValueVo();
 		try{
-			String fileName=file.getOriginalFilename();//江苏省-320000.xls 获取省编号已经名称
+			String fileName=file.getOriginalFilename();//江苏省-320000.xls 获取省编号以及名称
 		    String[] tempStrings=fileName.split("\\.");
 		    String provinceNameCode=tempStrings[0];
 		    String[] tempStrings2=provinceNameCode.split("-");
@@ -72,5 +74,20 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
 	@ResponseBody
 	public List<District> getByParent(Long pCode){
 		return biz.getNameAndCodeByPcode(pCode);
+	}
+	
+	/**获取省市级联信息
+	 * */
+	@RequestMapping("getCascade")
+	@ResponseBody
+	public Map<String, List<District>> getCascade(long province, long city, long county){
+		List<District> cityList = biz.getNameAndCodeByPcode(province);
+		List<District> countyList = biz.getNameAndCodeByPcode(city);
+		List<District> townList = biz.getNameAndCodeByPcode(county);
+		Map<String, List<District>> map = new HashMap<String, List<District>>();
+		map.put("cityList", cityList);
+		map.put("countyList", countyList);
+		map.put("townList", townList);
+		return map;
 	}
 }
