@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
-body > div.row{
-	margin:0 30px 10px 35px;
+.main-body > div.row{
+	margin-bottom:10px;
 }
 
 img{
@@ -8,12 +8,13 @@ img{
 }
 
 ul.category-search{
+	width:200px;
 	background-color:#F8F8F7;
 }
 
-ul.category-search li{
+/* ul.category-search li{
 	text-align: center;
-}
+} */
 
 #carousel-big-ad img{
 	height:280px;

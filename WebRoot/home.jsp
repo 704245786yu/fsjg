@@ -25,6 +25,7 @@
 <input type="hidden" name="pageName" value="home">
 <%@ include file="JSP/main/top.jsp" %>
 
+<div class="main-body" style="width:1190px; margin:0 auto;">
 <div id="row1" class="row">
 	<!-- 左边栏 -->
 	<div class="col-md-2">
@@ -72,7 +73,7 @@
 		</div>
 	</div>
 	<!-- 右边栏 -->
-	<div class="col-md-2">
+	<div class="col-md-2" style="padding:0px;">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="media">
@@ -89,10 +90,10 @@
 					<a class="btn btn-default btn-lg" href="JSP/signUp.jsp" style="width:47%"><i class="fa fa-pencil"></i>注册</a>
 				</div>
 				<h5>公告</h5>
-				<p>[公告]张勇:B2B的春天正在到来</p>
-				<p>[公告]进口海外尖货频道上线</p>
-				<p>[公告]168B开启拳王诚心通时代</p>
-				
+				<p>[公告]B2B的春天正在到来</p>
+				<p>[公告]海外尖货频道上线</p>
+				<p>[公告]海外尖货频道上线</p>
+				<p>[公告]开启拳王诚心通时代</p>
 				<img src="image/ad/home_small_ad.png" width="100%">
 				<img src="image/ad/home_small_ad.png" width="100%">
 			</div>
@@ -140,7 +141,7 @@
 		</div>
 	</div>
 </div>
-
+</div>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/main/home.js"></script>
 </body>

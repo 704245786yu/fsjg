@@ -11,45 +11,65 @@
 	<div>
 		<span style="color:#00AEE3">欢迎你，游客</span>
 		<span>我的关注</span>
-		<span><span class="glyphicon glyphicon-earphone"></span> <b>400-888888</b></span>
+		<span><span class="glyphicon glyphicon-earphone"></span> <b>400-168-1978</b></span>
 	</div>
 </div>
 
 <!-- banner -->
-<div class="row banner">
-	<div class="col-md-3">
-		<img src="image/logo.png">
-	</div>
-	<div class="col-md-8 col-md-offset-1 searchBox">
-		<ul class="nav nav-pills">
-		  <li class="active"><a href="#">订单</a></li>
-		  <li><a href="#">工厂</a></li>
-		  <li><a href="#">样品</a></li>
-		</ul>
-		<div class="row">
-			<div class="col-md-8">
-				<div class="input-group">
-					<input type="text" class="form-control">
-					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" style="width:100px">搜索</button>
-					</span>
+<div class="banner">
+	<div class="row">
+		<div class="col-md-3">
+			<img src="image/logo.png">
+		</div>
+		<div class="col-md-8 col-md-offset-1 searchBox">
+			<!-- <ul class="nav nav-pills">
+			  <li class="active"><a href="#">订单</a></li>
+			  <li><a href="#">工厂</a></li>
+			  <li><a href="#">样品</a></li>
+			</ul>
+			<div class="row">
+				<div class="col-md-8">
+					<div class="input-group">
+						<input type="text" class="form-control">
+						<span class="input-group-btn">
+							<button class="btn btn-primary" type="button" style="width:100px">搜索</button>
+						</span>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-3">
-				<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 发布订单</button>
-			</div>
+				<div class="col-md-3">
+					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 发布订单</button>
+				</div>
+			</div> -->
+			<div class="jq22-search-form">
+        <div id="search-bd" class="search-bd">
+            <ul>
+                <li class="selected">找商品</li>
+                <li>找商家</li>
+            </ul>
+        </div>
+        <div id="search-hd" class="search-hd">
+            <div class="search-bg"></div>
+            <input type="text" id="s1" class="search-input">
+            <input type="text" id="s2" class="search-input">
+            <span class="s1 pholder">食品酒水半价抢疯</span>
+            <span class="s2 pholder">搜商家名称</span>
+            <button id="submit" class="btn-search" value="搜索">搜索</button>
+        </div>
+    </div>
 		</div>
 	</div>
 </div>
 
 <nav class="topNav">
-	<ul class="nav navbar-nav" >
-		<li name="li-home"><a href="home.jsp">首页</a></li>
-		<li name="li-enterprise"><a href="JSP/main/enterprise.jsp">加工工厂</a></li>
-		<li><a href="#">加工订单</a></li>
-		<li><a href="#">快产专家</a></li>
-		<li><a href="#">服饰样品</a></li>
-	</ul>
+	<div style="width:1190px;margin:0 auto;">
+		<ul class="nav navbar-nav" >
+			<li name="li-home"><a href="home.jsp">首页</a></li>
+			<li name="li-enterprise"><a href="JSP/main/enterprise.jsp">加工工厂</a></li>
+			<li><a href="#">加工订单</a></li>
+			<li><a href="#">快产专家</a></li>
+			<li><a href="#">服饰样品</a></li>
+		</ul>
+	</div>
 </nav>
 
 <!-- 由于上面的nav样式会影响其他页面的布局，通过此div进行影响的隔离 -->
