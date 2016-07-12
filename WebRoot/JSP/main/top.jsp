@@ -18,10 +18,31 @@
 <!-- banner -->
 <div class="banner">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3" style="width:275px;">
 			<img src="image/logo.png">
 		</div>
-		<div class="col-md-8 col-md-offset-1 searchBox">
+		<div class="col-md-6 col-md-offset-1 searchBox">
+			<form id="globalSearchForm" class="jq22-search-form">
+				<div id="search-bd" class="search-bd">
+				    <ul>
+				        <li class="selected">订单</li>
+				        <li>工厂</li>
+				        <li>样品</li>
+				    </ul>
+				</div>
+		        <div id="search-hd" class="search-hd">
+		            <div class="search-bg"></div>
+		            <input type="text" id="s1" name="keyword" class="search-input">
+		            <input type="text" id="s2" class="search-input">
+		            <input type="text" id="s3" class="search-input">
+		            <!-- <span class="s1 pholder">食品酒水半价抢疯</span>
+		            <span class="s2 pholder">搜商家名称</span> -->
+		            <button id="submit" class="btn-search" value="搜索">搜索</button>
+		        </div>
+			</form>
+			</div>
+			<div class="col-md-1" style="padding-top:26px;">
+				<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 发布订单</button>
 			<!-- <ul class="nav nav-pills">
 			  <li class="active"><a href="#">订单</a></li>
 			  <li><a href="#">工厂</a></li>
@@ -40,22 +61,6 @@
 					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 发布订单</button>
 				</div>
 			</div> -->
-			<div class="jq22-search-form">
-        <div id="search-bd" class="search-bd">
-            <ul>
-                <li class="selected">找商品</li>
-                <li>找商家</li>
-            </ul>
-        </div>
-        <div id="search-hd" class="search-hd">
-            <div class="search-bg"></div>
-            <input type="text" id="s1" class="search-input">
-            <input type="text" id="s2" class="search-input">
-            <span class="s1 pholder">食品酒水半价抢疯</span>
-            <span class="s2 pholder">搜商家名称</span>
-            <button id="submit" class="btn-search" value="搜索">搜索</button>
-        </div>
-    </div>
 		</div>
 	</div>
 </div>

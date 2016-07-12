@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -101,5 +102,11 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@ResponseBody
 	public List<Enterprise> getNewAuth(){
 		return biz.getNewAuth();
+	}
+	
+	/**查找工厂*/
+	@RequestMapping("search")
+	public String search(String keyword){
+		return "main/enterpriseList";
 	}
 }

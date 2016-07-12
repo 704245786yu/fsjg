@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+.search-panel td{
+	vertical-align:top;
+	padding-bottom:10px;
+	color:grey;
+}
+
+.search-panel td b{
+	color:black;
+}

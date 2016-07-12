@@ -23,3 +23,16 @@ $(function(){
         $('#search-hd .search-input').val('');
     });
 });
+
+$('#globalSearchForm').submit(function(e){
+	var ary = ['indent', 'enterprise', 'sample'];
+	var $form = $(e.target);
+	var $inputs = $form.find('input');
+	for(var i=0; i<$inputs.length; i++){
+		var $input = $($inputs[i]);
+		if($input.css('display') != 'none'){
+			var action = ary[i]+'/search'; 
+			$form.attr('action',action);
+		}
+	}
+});
