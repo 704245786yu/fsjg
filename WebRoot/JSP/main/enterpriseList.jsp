@@ -63,7 +63,7 @@
 					</tr>
 					<tr>
 						<td><b>加工类型：</b></td>
-						<td>全部 梭织服装</td>
+						<td><span class="label label-info">Info</span> 梭织服装</td>
 					</tr>
 				</table>
 			</div>
