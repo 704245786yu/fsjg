@@ -37,26 +37,29 @@
 			<div class="panel-body">
 				<table>
 					<tr>
-						<td ><b>产品类别：</b></td>
+						<td><b>产品类别：</b></td>
 						<td style="width:806px;">
-							<p>全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装全部 梭织服装</p>
+							<p id="costumeCategory" style="float:left;width:90%;height:50px;line-height:25px;overflow:hidden;overflow-x:hidden">
+								<a class="label label-info" href="0">全部</a>
+							</p>
+							<a id="showMoreToggle" type="button" class="btn btn-default btn-xs" style="float:right;color:#337AB7;">更多<span class="glyphicon glyphicon-chevron-down"></span></a>
 						</td>
 					</tr>
 					<tr>
 						<td><b>所在地区：</b></td>
 						<td>
-							<div class="row">
+							<div id="districtContainer" class="row">
 								<div class="col-sm-3">
 									<select class="form-control" id="province" name="province"></select>
 								</div>
 								<div class="col-sm-3">
-									<select class="form-control" id="province" name="province"></select>
+									<select class="form-control" id="city" name="city"></select>
 								</div>
 								<div class="col-sm-3">
-									<select class="form-control" id="province" name="province"></select>
+									<select class="form-control" id="county" name="county"></select>
 								</div>
 								<div class="col-sm-3">
-									<select class="form-control" id="province" name="province"></select>
+									<select class="form-control" id="town" name="town"></select>
 								</div>
 							</div>
 						</td>
@@ -69,7 +72,7 @@
 							<a href="2">经销</a>
 							<a href="3">来料加工</a>
 							<a href="4">自营出口</a>
-							<a href="5">其他</a>
+							<a href="#">其他</a>
 						</td>
 					</tr>
 					<tr>
@@ -79,30 +82,35 @@
 							<a href="1">50人以下</a>
 							<a href="2">50-100人</a>
 							<a href="3">100-200人</a>
-							<a href="4">自营出口</a>
-							<a href="5">其他</a>
+							<a href="4">200-500人</a>
+							<a href="5">500-1000人</a>
+							<a href="5">1000人以上</a>
 						</td>
 					</tr>
 				</table>
 			</div>
-		</div>
+		</div><!-- panel -->
+		
+		<!-- 广告 -->
+		<img src="image/ad/ad.png">
+		
+		<!-- 工厂列表 -->
+		<table class="table table-bordered">
+			
+		</table>
 	</td>
-	<td style="width:274px;background:red">
-	sdsf
+	
+	<!-- 右边栏 -->
+	<td style="width:274px;vertical-align:top;padding-left:10px;">
+		<ul class="list-group">
+			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
+			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
+		</ul>
 	</td>
 </tr>
 </table>
-	<!-- <div class="row">
-		主体
-		<div class="col-md-9">
-		</div>主体
-		
-		右边栏
-		<div class="col-md-3">
-		</div>右边栏
-		
-	</div>row -->
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="JS/util/districtCascade.js"></script>
 <script src="JS/main/enterpriseList.js"></script>
 </body>
 </html>
