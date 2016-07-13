@@ -8,3 +8,8 @@
 .search-panel td b{
 	color:black;
 }
+
+.search-panel a{
+	margin-right:15px;
+	font-size: 14px;
+}

@@ -63,7 +63,25 @@
 					</tr>
 					<tr>
 						<td><b>加工类型：</b></td>
-						<td><span class="label label-info">Info</span> 梭织服装</td>
+						<td>
+							<a class="label label-info" href="0">全部</a>
+							<a href="1">清加工</a>
+							<a href="2">经销</a>
+							<a href="3">来料加工</a>
+							<a href="4">自营出口</a>
+							<a href="5">其他</a>
+						</td>
+					</tr>
+					<tr>
+						<td><b>员工数量：</b></td>
+						<td>
+							<a class="label label-info" href="0">全部</a>
+							<a href="1">50人以下</a>
+							<a href="2">50-100人</a>
+							<a href="3">100-200人</a>
+							<a href="4">自营出口</a>
+							<a href="5">其他</a>
+						</td>
 					</tr>
 				</table>
 			</div>
