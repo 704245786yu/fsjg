@@ -1,4 +1,8 @@
 @CHARSET "UTF-8";
+body > table td{
+	
+}
+
 .search-panel td{
 	vertical-align:top;
 	padding-bottom:10px;

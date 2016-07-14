@@ -30,9 +30,9 @@
     </div>
 	</nav> -->
 	
-<table style="width:1190px;margin:0 auto;">
+<table style="width:1190px;margin:0 auto;bakcground-color:#FBF8F9;">
 <tr>
-	<td style="width:906px;">
+	<td style="width:906px;background-color:#FBF8F9;">
 		<div class="panel panel-default search-panel">
 			<div class="panel-body">
 				<table>
@@ -96,26 +96,35 @@
 		
 		<!-- 工厂列表 -->
 		<table class="table table-bordered" style="margin-top:20px;">
-			<tr>
-				<td rowspan="3">
-					QQ在线交流
+			<tr height="45px">
+				<td rowspan="3" style="width:180px;background-color:#F8F8F8;text-align:center;">
+					<img width="120px" height="120px" style="margin-bottom:10px" src="image/enterprise-icon.png">
+					<button type="button" class="btn btn-info">QQ在线交流</button>
 				</td>
-				<td>工厂信息：</td>
-				<td>台州市威凯顿服饰加工厂</td>
+				<td style="width:90px;text-align:center;background-color:#E5E5E5">工厂信息：</td>
+				<td style="background-color:white;">
+					<span style="font-size:16px;color:#59BBE7;">台州市威凯顿服饰加工厂</span>
+				</td>
 			</tr>
 			<tr>
-				<td>工厂介绍：</td>
-				<td>台州市凯顿服饰有限公司是媳妇、衬衫、职业装、</td>
+				<td style="text-align:center;background-color:#E5E5E5">工厂介绍：</td>
+				<td style="background-color:white;">
+					<span>台州市凯顿服饰有限公司是媳妇、衬衫、职业装、</span>
+					<a href="#" style="color:#59BBE7">更多详情</a>
+				</td>
 			</tr>
-			<tr>
-				<td>所在地区：</td>
-				<td>浙江省 台州市 温岭区 乐桥镇</td>
+			<tr height="40px">
+				<td style="text-align:center;background-color:white;">所在地区：</td>
+				<td style="background-color:white;">
+					<span>浙江省 台州市 温岭区 乐桥镇</span>
+					<span style="margin-left:180px;color:red;">主营产品:</span>
+				</td>
 			</tr>
 		</table>
 	</td>
 	
 	<!-- 右边栏 -->
-	<td style="width:274px;vertical-align:top;padding-left:10px;">
+	<td style="width:274px;vertical-align:top;padding-left:10px;background-color:#FBF8F9">
 		<ul class="list-group">
 			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
 			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
