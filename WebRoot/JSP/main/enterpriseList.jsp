@@ -72,7 +72,7 @@
 							<a href="2">经销</a>
 							<a href="3">来料加工</a>
 							<a href="4">自营出口</a>
-							<a href="#">其他</a>
+							<a href="5">其他</a>
 						</td>
 					</tr>
 					<tr>
@@ -84,7 +84,7 @@
 							<a href="3">100-200人</a>
 							<a href="4">200-500人</a>
 							<a href="5">500-1000人</a>
-							<a href="5">1000人以上</a>
+							<a href="6">1000人以上</a>
 						</td>
 					</tr>
 				</table>
@@ -95,8 +95,22 @@
 		<img src="image/ad/ad.png">
 		
 		<!-- 工厂列表 -->
-		<table class="table table-bordered">
-			
+		<table class="table table-bordered" style="margin-top:20px;">
+			<tr>
+				<td rowspan="3">
+					QQ在线交流
+				</td>
+				<td>工厂信息：</td>
+				<td>台州市威凯顿服饰加工厂</td>
+			</tr>
+			<tr>
+				<td>工厂介绍：</td>
+				<td>台州市凯顿服饰有限公司是媳妇、衬衫、职业装、</td>
+			</tr>
+			<tr>
+				<td>所在地区：</td>
+				<td>浙江省 台州市 温岭区 乐桥镇</td>
+			</tr>
 		</table>
 	</td>
 	
