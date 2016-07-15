@@ -328,4 +328,9 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	public List<Enterprise> getNewAuth(){
 		return dao.getNewest();
 	}
+	
+	/**模糊匹配企业名称、加工类型、主营产品、工厂描述*/
+	public void search(String keyword){
+		
+	}
 }
