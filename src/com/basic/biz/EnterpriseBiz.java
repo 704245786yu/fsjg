@@ -12,10 +12,13 @@ import com.basic.dao.BasicUserDao;
 import com.basic.dao.EnterpriseCostumeRelaDao;
 import com.basic.dao.EnterpriseDao;
 import com.basic.po.BasicUser;
+import com.basic.po.CostumeCategory;
 import com.basic.po.Enterprise;
 import com.common.BaseBiz;
+import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
+import com.sys.po.ConstantDict;
 
 @Service
 public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
@@ -329,8 +332,17 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return dao.getNewest();
 	}
 	
-	/**模糊匹配企业名称、加工类型、主营产品、工厂描述*/
-	public void search(String keyword){
-		
+	/**模糊匹配企业名称、加工类型、主营产品、工厂描述
+	 * @return 企业logo、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品
+	 * */
+	public BootTablePageDto<Enterprise> search(String keyword){
+		//为简化查询，不匹配多个加工类型
+		String processType = null;
+		List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
+		if(processTypes.size() != 0){
+			processType = processTypes.get(0).getConstantValue();
+		}
+		List<Integer> costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
+		return dao.search(keyword, processType, costumeCategoryCodes);
 	}
 }

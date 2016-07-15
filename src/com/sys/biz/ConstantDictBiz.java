@@ -34,6 +34,15 @@ public class ConstantDictBiz extends BaseBiz<ConstantDictDao, Integer, ConstantD
 		return map;
 	}
 	
+	/**@param constantTypeCode 常量编码，精确匹配
+	 * @param constantName 模糊匹配
+	 * */
+	@SuppressWarnings("unchecked")
+	public List<ConstantDict> getByCodeAndConstantName(String constantTypeCode, String constantName){
+		String hql = "from ConstantDict where constantTypeCode =:constantTypeCode and constantName like :constantName";
+		return (List<ConstantDict>)dao.find(hql, new String[]{"constantTypeCode","constantName"}, new String[]{constantTypeCode, "%"+constantName+"%"});
+	}
+	
 	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
 	 * @param offset 偏移量，即记录索引位置
 	 * @param limit 每页记录数

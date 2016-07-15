@@ -29,6 +29,13 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 //		return dao.getDescendantOrgMap(id);
 //	}
 	
+	/**模糊匹配查询服饰类型编码*/
+	@SuppressWarnings("unchecked")
+	public List<Integer> getCodeByCategoryName(String categoryName){
+		String hql = "select categoryCode from CostumeCategory where categoryName like :categoryName";
+		return (List<Integer>)dao.find(hql, new String[]{"categoryName"}, new String[]{"%"+categoryName+"%"});
+	}
+	
 	/**获取服饰类型 名称、编码 键值对*/
 	public HashMap<String,Integer> getAllNameCodeMap(){
 		List<CostumeCategory> list = super.getAll();

@@ -449,6 +449,29 @@ public class BaseDao<ID extends Serializable, T> {
 	
 	/**根据本地SQL执行查询，并返回需要封装成的Bean类型
 	 * @param scalars Object[0] SQL语句中的列别名 Object[1] hibernate Type类型
+	 * @param offset 偏移量，即记录索引位置
+	 * @param limit 每页记录数
+	 * */
+	public List<T> findByNativeSql(String sql, String[] propertyNames, Object[] values, List<Object[]> scalars, int offset, int limit){
+		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(sql);
+		for(int i=0; i<propertyNames.length; i++){
+			if(values[i] instanceof Object[])
+				sqlQuery.setParameterList(propertyNames[i], (Object[])values[i]);
+			else if(values[i] instanceof Collection)
+				sqlQuery.setParameterList(propertyNames[i], (Collection<?>)values[i]);
+			else
+				sqlQuery.setParameter(propertyNames[i], values[i]);
+		}
+		for(Object[] scalar : scalars){
+			sqlQuery.addScalar((String)scalar[0],(org.hibernate.type.Type)scalar[1]);
+		}
+		return sqlQuery.setFirstResult(offset)
+				.setMaxResults(limit)
+				.setResultTransformer(Transformers.aliasToBean(persistentClass)).list();
+	}
+	
+	/**根据本地SQL执行查询，并返回需要封装成的Bean类型
+	 * @param scalars Object[0] SQL语句中的列别名 Object[1] hibernate Type类型
 	 * */
 	public List<?> findByNativeSql(String sql, String[] propertyNames, List<?> values, List<Object[]> scalars, Class<?> clazz){
 		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(sql);
