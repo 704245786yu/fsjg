@@ -64,4 +64,9 @@ public class EnterpriseTest {
 	public void isExsit(){
 		JacksonJson.printBeanToJson(enterpriseDao.isExsit("服饰厂1"));
 	}
+	
+	@Test
+	public void search(){
+		JacksonJson.printBeanToJson(enterpriseBiz.search("宁波"));
+	}
 }

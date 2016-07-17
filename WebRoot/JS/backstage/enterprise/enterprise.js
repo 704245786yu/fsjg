@@ -74,7 +74,7 @@ $('#fileupload').fileupload({
 		if(status == 200){	//跳转到最后一页，以展示最新数据
 			var opt = $('#dg').bootstrapTable('getOptions');
 			var pageNumber = opt.pageNumber;
-			console.log(pageNumber);
+//			console.log(pageNumber);
 //  		var totalRows = opt.totalRows;
 //  		var tzPageNumber = Math.ceil(totalRows/pageSize);
 			$('#dg').bootstrapTable('selectPage',pageNumber);

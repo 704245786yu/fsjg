@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -66,13 +67,11 @@
 					</tr>
 					<tr>
 						<td><b>加工类型：</b></td>
-						<td>
+						<td id="processType">
 							<a class="label label-info" href="0">全部</a>
-							<a href="1">清加工</a>
-							<a href="2">经销</a>
-							<a href="3">来料加工</a>
-							<a href="4">自营出口</a>
-							<a href="5">其他</a>
+							<c:forEach var="processType" items="${processTypes}">
+								<a href="${processType.constantValue}">${processType.constantName}</a>
+							</c:forEach>
 						</td>
 					</tr>
 					<tr>
@@ -93,34 +92,56 @@
 		
 		<!-- 广告 -->
 		<img src="image/ad/ad.png">
+		<span style="display:none;" id="districts">
+			{<c:forEach var="district" items="${districts}">"${district.districtCode}":"${district.districtName}",</c:forEach>}
+		</span>
+		<span style="display:none;" id="costumeCategoryMap">${costumeCategoryMap}</span>
 		
-		<!-- 工厂列表 -->
-		<table class="table table-bordered" style="margin-top:20px;">
-			<tr height="45px">
-				<td rowspan="3" style="width:180px;background-color:#F8F8F8;text-align:center;">
-					<img width="120px" height="120px" style="margin-bottom:10px" src="image/enterprise-icon.png">
-					<button type="button" class="btn btn-info">QQ在线交流</button>
-				</td>
-				<td style="width:90px;text-align:center;background-color:#E5E5E5">工厂信息：</td>
-				<td style="background-color:white;">
-					<span style="font-size:16px;color:#59BBE7;">台州市威凯顿服饰加工厂</span>
-				</td>
-			</tr>
-			<tr>
-				<td style="text-align:center;background-color:#E5E5E5">工厂介绍：</td>
-				<td style="background-color:white;">
-					<span>台州市凯顿服饰有限公司是媳妇、衬衫、职业装、</span>
-					<a href="#" style="color:#59BBE7">更多详情</a>
-				</td>
-			</tr>
-			<tr height="40px">
-				<td style="text-align:center;background-color:white;">所在地区：</td>
-				<td style="background-color:white;">
-					<span>浙江省 台州市 温岭区 乐桥镇</span>
-					<span style="margin-left:180px;color:red;">主营产品:</span>
-				</td>
-			</tr>
-		</table>
+		<div id="enterpriseListDiv">
+			<c:forEach var="enterprise" items="${result.rows}">
+				<!-- 工厂列表 -->
+				<table class="table table-bordered" style="margin-top:20px;">
+					<tr height="45px">
+						<td rowspan="3" style="width:180px;background-color:#F8F8F8;text-align:center;">
+							<img width="120px" height="120px" style="margin-bottom:10px" src="image/enterprise-icon.png">
+							<button type="button" class="btn btn-info">QQ在线交流</button>
+						</td>
+						<td style="width:90px;text-align:center;background-color:#E5E5E5">工厂信息：</td>
+						<td style="background-color:white;">
+							<div style="font-size:16px;float:left;">
+								<a href="enterprise/showDetail/${enterprise.id}" style="color:#59BBE7;">${enterprise.enterpriseName}</a>
+							</div>
+							<div style="float:right;">员工人数：${enterprise.staffNumber}人</div>
+							<div style="float:right;margin-right:40px;">
+								加工类型：
+								<span name="processType">${enterprise.processType}</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:center;background-color:#E5E5E5">工厂介绍：</td>
+						<td style="background-color:white;">
+							<span>${enterprise.description}</span>
+							<a href="#" style="color:#59BBE7">更多详情</a>
+						</td>
+					</tr>
+					<tr height="40px">
+						<td style="text-align:center;background-color:white;">所在地区：</td>
+						<td style="background-color:white;">
+							<span name="disctrict">[${enterprise.province},${enterprise.city}]</span>
+							<span style="margin-left:180px;color:red;">
+								主营产品:
+								<span name="costumeName">${enterprise.costumeCode}</span>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="background-color:#D9D9D9;padding:1px;">
+						</td>
+					</tr>
+				</table>
+			</c:forEach>
+		</div>
 	</td>
 	
 	<!-- 右边栏 -->

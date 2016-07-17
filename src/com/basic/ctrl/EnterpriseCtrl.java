@@ -1,6 +1,7 @@
 package com.basic.ctrl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,16 +9,21 @@ import javax.servlet.http.HttpSession;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.basic.biz.CostumeCategoryBiz;
+import com.basic.biz.DistrictBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.po.BasicUser;
+import com.basic.po.District;
 import com.basic.po.Enterprise;
 import com.common.BaseCtrl;
+import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.UserCtrl;
@@ -31,6 +37,10 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
+	@Autowired
+	private CostumeCategoryBiz costumeCategoryBiz;
+	@Autowired
+	private DistrictBiz districtBiz;
 	
 	public EnterpriseCtrl(){
 		defaultPage = "backstage/enterprise/enterprise";
@@ -59,7 +69,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 				return new ReturnValueVo(ReturnValueVo.ERROR,errorInfo);
 			}
 			User loginUser = UserCtrl.getLoginUser(session);
-		    return biz.batchSaveEnterprise(data.subList(2, data.size()),loginUser.getId());
+		    return biz.batchSaveEnterprise(data.subList(3, data.size()),loginUser.getId());
 		}catch(Exception e){
 			e.printStackTrace();
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION,"读取文件发生错误，请与管理员联系");
@@ -105,7 +115,26 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	
 	/**查找工厂*/
 	@RequestMapping("search")
-	public String search(String keyword){
-		return "main/enterpriseList";
+	public ModelAndView search(String enterpriseKeyword){
+		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
+		List<District> districts =	districtBiz.getProvinceAndCity();
+		BootTablePageDto<Enterprise> result = biz.search(enterpriseKeyword);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
+		mav.addObject("costumeCategoryMap", costumeCategoryMap);
+		mav.addObject("processTypes", processTypes);
+		mav.addObject("districts", districts);
+		mav.setViewName("main/enterpriseList");
+		return mav;
+	}
+	
+	@RequestMapping("showDetail/{id}")
+	public ModelAndView showDetail(@PathVariable int id){
+		Enterprise e = biz.getById(id);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("enterprise", e);
+		mav.setViewName("main/enterpriseDetail");
+		return mav;
 	}
 }

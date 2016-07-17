@@ -27,7 +27,13 @@ public class CostumeCategory extends NestTreePO {
 	@Column(name="update_time")
 	private Date updateTime;
 
-	
+	public CostumeCategory() {}
+
+	public CostumeCategory(String categoryName, Integer categoryCode) {
+		this.categoryName = categoryName;
+		this.categoryCode = categoryCode;
+	}
+
 	public String getCategoryName() {
 		return categoryName;
 	}

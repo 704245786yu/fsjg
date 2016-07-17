@@ -34,7 +34,7 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 			Enterprise enterprise = new Enterprise();
 			enterprise.setEnterpriseName(enterpriseName);
 			enterprise.setBasicUser(basicUser);
-			enterpriseDao.save(enterprise);
+			enterpriseDao.persist(enterprise);
 		}else if(basicUser.getRoleId() == 1){
 			Person person = new Person();
 			person.setBasicUser(basicUser);

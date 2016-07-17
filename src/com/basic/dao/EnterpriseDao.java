@@ -1,5 +1,6 @@
 package com.basic.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 	public void saveBatchEntity(List<Enterprise> enterpriseList){
 		for(int i=0; i<enterpriseList.size(); i++){
 			Enterprise enterprise = enterpriseList.get(i);
-			super.save(enterprise);
+			super.persist(enterprise);
 			int id = enterprise.getId();
 			List<Integer> costumeCode = enterprise.getCostumeCode();
 			for(int j=0; j<costumeCode.size(); j++){
@@ -63,22 +64,41 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 	 * @return id、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品、QQ、企业logo
 	 * */
 	public BootTablePageDto<Enterprise> search(String keyword, String processType, List<Integer> costumeCategoryCodes){
+//		System.out.println(keyword);
+//		System.out.println(processType);
+//		JacksonJson.printBeanToJson(costumeCategoryCodes);
 		StringBuffer countSql = new StringBuffer("select count(1)");
 		StringBuffer subSql = new StringBuffer(" from basic_enterprise where enterprise_name like :keyword or description like :keyword");
-		if(processType != null)
+		List<String> params = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		params.add("keyword");
+		values.add("%"+keyword+"%");
+		if(processType != null){
 			subSql.append(" or process_type like :processType");
-		if(costumeCategoryCodes.size() != 0)
+			params.add("processType");
+			values.add("%"+processType+"%");
+		}
+		if(costumeCategoryCodes.size() != 0){
 			subSql.append(" or id in (select enterprise_id from basic_enterprise_costume where costume_code in (:costumeCategoryCodes))");
+			params.add("costumeCategoryCodes");
+			values.add(costumeCategoryCodes);
+		}
 		countSql.append(subSql);
-		Long total = (Long)super.findByNativeSql(countSql.toString(), new String[]{"keyword", "processType", "costumeCategoryCodes"}, new Object[]{"%"+keyword+"%", "%"+processType+"%", costumeCategoryCodes}).get(0);
+		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
+		long total = bigInt.longValue();
 		
 		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, description, province, city, county");
 		sql.append(subSql);
 		List<Object[]> scalars = new ArrayList<Object[]>();
+		scalars.add(new Object[]{"id",StandardBasicTypes.INTEGER});
 		scalars.add(new Object[]{"enterpriseName",StandardBasicTypes.STRING});
 		scalars.add(new Object[]{"processType",StandardBasicTypes.STRING});
 		scalars.add(new Object[]{"staffNumber",StandardBasicTypes.INTEGER});
-		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), new String[]{"keyword", "processType", "costumeCategoryCodes"}, new Object[]{"%"+keyword+"%", "%"+processType+"%", costumeCategoryCodes}, scalars, 0, 10);
+		scalars.add(new Object[]{"description",StandardBasicTypes.STRING});
+		scalars.add(new Object[]{"province",StandardBasicTypes.LONG});
+		scalars.add(new Object[]{"city",StandardBasicTypes.LONG});
+		scalars.add(new Object[]{"county",StandardBasicTypes.LONG});
+		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 10);
 		return new BootTablePageDto<Enterprise>(total, enterprises);
 	}
 }

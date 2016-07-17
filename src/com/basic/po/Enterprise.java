@@ -22,7 +22,7 @@ public class Enterprise extends UserAbstract{
 	private String linkman;
 	
 	@Column(name = "sale_market")
-	private Byte saleMarket;	//销售市场
+	private Byte saleMarket;	//销售市场 1、内销 2、外销
 	
 	@Column(name = "business_license_Img")
 	private String businessLicenseImg;	//营业执照

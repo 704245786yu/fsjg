@@ -33,8 +33,8 @@
 		        <div id="search-hd" class="search-hd">
 		            <div class="search-bg"></div>
 		            <input type="text" id="s1" name="keyword" class="search-input">
-		            <input type="text" id="s2" class="search-input">
-		            <input type="text" id="s3" class="search-input">
+		            <input type="text" id="s2" name="enterpriseKeyword" class="search-input">
+		            <input type="text" id="s3" name="keyword" class="search-input">
 		            <!-- <span class="s1 pholder">食品酒水半价抢疯</span>
 		            <span class="s2 pholder">搜商家名称</span> -->
 		            <button id="submit" class="btn-search" value="搜索">搜索</button>

@@ -12,7 +12,6 @@ import com.basic.dao.BasicUserDao;
 import com.basic.dao.EnterpriseCostumeRelaDao;
 import com.basic.dao.EnterpriseDao;
 import com.basic.po.BasicUser;
-import com.basic.po.CostumeCategory;
 import com.basic.po.Enterprise;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
@@ -54,7 +53,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		List<Long> teleList = new ArrayList<Long>();	//去重用
 		List<Enterprise> enterpriseList = new ArrayList<Enterprise>();	//要保存的企业信息
 		List<String> errorInfo = new ArrayList<String>();	//错误信息
-		int rowOffset = 3;	//行偏移量
+		int rowOffset = 4;	//行偏移量
 		
 		for(int i=0; i<data.size(); i++){
 			try{
@@ -173,7 +172,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				if(description.length() > 800){
 					errorInfo.add("第"+(i+rowOffset)+"行 工厂介绍字数超过800个字");
 				}else{
-					enterprise.setCooperator(cooperator);
+					enterprise.setDescription(description);
 				}
 				enterprise.setAuditState((byte)0);
 				
@@ -343,6 +342,20 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 			processType = processTypes.get(0).getConstantValue();
 		}
 		List<Integer> costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
-		return dao.search(keyword, processType, costumeCategoryCodes);
+		BootTablePageDto<Enterprise> result = dao.search(keyword, processType, costumeCategoryCodes);
+		List<Enterprise> enterprises = result.getRows();
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(costumeCode);
+		}
+		return result; 
+	}
+	
+	public Enterprise getById(int id){
+		Enterprise e = dao.findById(id);
+		List<Integer> list = enterpriseCostumeRelaDao.getCostumeCode(id);
+		e.setCostumeCode(list);
+		return e;
 	}
 }

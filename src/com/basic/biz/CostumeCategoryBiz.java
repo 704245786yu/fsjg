@@ -45,4 +45,14 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 		}
 		return map;
 	}
+	
+	/**获取服饰类型编码和类型名称*/
+	public HashMap<Integer,String> getAllCodeNameMap(){
+		List<CostumeCategory> list = super.getAll();
+		HashMap<Integer,String> map = new HashMap<Integer,String>();
+		for(int i=1; i<list.size(); i++){
+			map.put(list.get(i).getCategoryCode(), list.get(i).getCategoryName());
+		}
+		return map;
+	}
 }

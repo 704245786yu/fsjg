@@ -151,4 +151,16 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		}
 		return map;
 	}
+	
+	public List<District> getProvinceAndCity(){
+		List<District> district = new ArrayList<District>();
+		String hql = "select new District(districtCode, districtName) from District where pCode is null";
+		List<District> province = dao.find(hql);
+		hql ="select new District(districtCode, districtName) from District"
+				+ " where pCode in (select districtCode from District where pCode is null)";
+		List<District> city = dao.find(hql);
+		district.addAll(province);
+		district.addAll(city);
+		return district;
+	}
 }
