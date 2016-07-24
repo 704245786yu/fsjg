@@ -28,7 +28,7 @@
 <div class="main-body" style="width:1190px; margin:0 auto;">
 <div id="row1" class="row">
 	<!-- 左边栏 -->
-	<div class="col-md-2">
+	<div class="col-md-2 mallCategory" style="position:relative;">
 		<ul class="nav nav-pills nav-stacked category-search">
 			<li><a href="#">梭织服装</a></li>
 			<li><a href="#">针织服装</a></li>
@@ -41,6 +41,19 @@
 			<li><a href="#">面料/皮革/纱线</a></li>
 			<li><a href="#">纺织辅料</a></li>
 		</ul>
+		
+		<div class="cat-subcategory">
+			<div id="category_101"></div>
+			<div id="category_102"></div>
+			<div id="category_103"></div>
+			<div id="category_104"></div>
+			<div id="category_105"></div>
+			<div id="category_2"></div>
+			<div id="category_3"></div>
+			<div id="category_4"></div>
+			<div id="category_5"></div>
+			<div id="category_6"></div>
+		</div>
 	</div>
 	<!-- 中间栏 -->
 	<div class="col-md-8">

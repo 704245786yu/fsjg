@@ -36,3 +36,19 @@ ul.category-search{
 #row2 .col-md-8 img{
 	height:100px;
 }
+
+.cat-subcategory{
+	position:absolute;
+	left:215px;
+	padding:10px 20px;
+	z-index:10;
+	width:457px;
+	border:2px solid #EFEEEC;
+	border-left:0px;
+	background:#fff;
+	display:none;
+}
+
+.cat-subcategory a{
+	margin-right:20px;
+}
