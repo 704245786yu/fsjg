@@ -32,7 +32,7 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 	/**模糊匹配查询服饰类型编码*/
 	@SuppressWarnings("unchecked")
 	public List<Integer> getCodeByCategoryName(String categoryName){
-		String hql = "select categoryCode from CostumeCategory where categoryName like :categoryName";
+		String hql = "select categoryCode from CostumeCategory where categoryName like :categoryName and categoryCode is not null";
 		return (List<Integer>)dao.find(hql, new String[]{"categoryName"}, new String[]{"%"+categoryName+"%"});
 	}
 	

@@ -20,7 +20,7 @@ import com.sys.po.User;
 @RequestMapping("login")
 public class LoginCtrl {
 
-	public static String loginUserKey = "loginUser";
+	public static String loginMngUser = "loginMngUser";
 	public static String loginBasicUser = "loginBasicUser";
 	
 	@Autowired
@@ -37,7 +37,7 @@ public class LoginCtrl {
 	public Integer loginCheck(String userName, String password, HttpSession session){
 		User user = userBiz.loginCheck(userName, password);
 		if(user != null){
-			session.setAttribute(loginUserKey, user);
+			session.setAttribute(loginMngUser, user);
 			return 1;
 		}else{
 			return 0;
@@ -117,7 +117,7 @@ public class LoginCtrl {
 	//退出
 	@RequestMapping("logout")
 	public ModelAndView logout(HttpSession session){
-		session.removeAttribute(loginUserKey);
+		session.removeAttribute(loginMngUser);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:../login.jsp");
 		return mav;

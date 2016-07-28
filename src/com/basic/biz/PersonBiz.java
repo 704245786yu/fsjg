@@ -48,6 +48,11 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 		dao.saveBatch(list);
 	}
 	
+	/**根据BasicUserId获取Person信息*/
+	public Person getByBasicUserId(int userId){
+		return null;
+	}
+	
 	/**分页获取所有数据
 	 * */
 //	public List<Person> getAllByPage(int pageNo, int pageSize){

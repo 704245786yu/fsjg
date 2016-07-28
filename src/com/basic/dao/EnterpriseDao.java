@@ -79,7 +79,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 			values.add("%"+processType+"%");
 		}
 		if(costumeCategoryCodes.size() != 0){
-			subSql.append(" or id in (select enterprise_id from basic_enterprise_costume where costume_code in (:costumeCategoryCodes))");
+			subSql.append(" or id in (select distinct enterprise_id from basic_enterprise_costume_rela where costume_code in (:costumeCategoryCodes))");
 			params.add("costumeCategoryCodes");
 			values.add(costumeCategoryCodes);
 		}

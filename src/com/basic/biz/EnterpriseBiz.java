@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -357,6 +358,12 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		List<Integer> list = enterpriseCostumeRelaDao.getCostumeCode(id);
 		e.setCostumeCode(list);
 		return e;
+	}
+	
+	public Enterprise getByBasicUserId(int userId){
+//		Restrictions.eq("", value)
+//		dao.findByCriteria(criterion)
+		return null;
 	}
 	
 	public BootTablePageDto<Enterprise> getByCostumeCode(int costumeCode){

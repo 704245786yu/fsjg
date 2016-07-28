@@ -32,7 +32,7 @@ public class UserCtrl extends BaseCtrl<UserBiz, Integer, User> {
 
 	/**获取当前登录用户*/
 	public static User getLoginUser(HttpSession session){
-		return (User)session.getAttribute(LoginCtrl.loginUserKey);
+		return (User)session.getAttribute(LoginCtrl.loginMngUser);
 	}
 	
 	/**显示默认的页面*/

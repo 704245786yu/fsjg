@@ -1,15 +1,23 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/top.css" rel="stylesheet">
 <div class="top">
 	欢迎来到服饰加工网!
 	<span class="signIn">
-		<a href="login.jsp">[登录]</a>
-		<a href="JSP/signUp.jsp">[免费注册]</a>
+		<c:if test="${loginBasicUser == null}">
+			<a href="login.jsp">[登录]</a>
+			<a href="JSP/signUp.jsp">[免费注册]</a>
+		</c:if>
 	</span>
 	<div>
-		<span style="color:#00AEE3">欢迎你，游客</span>
+		<c:if test="${loginBasicUser == null}">
+			<span style="color:#00AEE3">欢迎你,游客</span>
+		</c:if>
+		<c:if test="${loginBasicUser != null}">
+			<a href="basicUser/showMineInfo">我的服饰网</a>
+		</c:if>
 		<span>我的关注</span>
 		<span><span class="glyphicon glyphicon-earphone"></span> <b>400-168-1978</b></span>
 	</div>

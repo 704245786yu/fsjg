@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.basic.biz.BasicUserBiz;
+import com.basic.biz.EnterpriseBiz;
+import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
@@ -18,9 +21,15 @@ import com.sys.ctrl.LoginCtrl;
 @RequestMapping("basicUser")
 public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 	
+	@Autowired
+	private PersonBiz personBiz;
+	
+	@Autowired
+	private EnterpriseBiz enterpriseBiz;
+	
 	/**获取当前登录用户*/
 	public static BasicUser getLoginUser(HttpSession session){
-		return (BasicUser)session.getAttribute(LoginCtrl.loginUserKey);
+		return (BasicUser)session.getAttribute(LoginCtrl.loginBasicUser);
 	}
 	
 	/**密码验证
@@ -34,14 +43,25 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 	/**修改密码
 	 * @return success：修改成功
 	 * */
-	@RequestMapping("modifyPwd")
-	@ResponseBody
+//	@RequestMapping("modifyPwd")
+//	@ResponseBody
 	/*public String modifyPwd(Integer id, String password, HttpSession session){
 		User loginUser = BasicUserCtrl.getLoginUser(session);
 		int updateBy = loginUser.getId();
 		biz.modifyPwd(id, password, updateBy);
 		return "success";
 	}*/
+	
+	/**显示个人中心*/
+	@RequestMapping("showMineInfo")
+	public ModelAndView showMineInfo(HttpSession session){
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		BasicUser userInfo = null;
+		if(basicUser.getRoleId() == 1)
+			personBiz.getByBasicUserId(userInfo.getId());
+		ModelAndView mav = new ModelAndView("main/mineInfo");
+		return mav;
+	}
 	
 	@Override
 	public List<BasicUser> getAll(){
