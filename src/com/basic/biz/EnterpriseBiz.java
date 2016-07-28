@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -360,10 +361,11 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return e;
 	}
 	
+	/**根据BasicUser的id查询对应的企业信息*/
 	public Enterprise getByBasicUserId(int userId){
-//		Restrictions.eq("", value)
-//		dao.findByCriteria(criterion)
-		return null;
+		Criterion c = Restrictions.eq("basicUser.id", userId);
+		List<Enterprise> e = dao.findByCriteria(c);
+		return e.get(0);
 	}
 	
 	public BootTablePageDto<Enterprise> getByCostumeCode(int costumeCode){

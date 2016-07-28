@@ -25,6 +25,7 @@
 
 <%@ include file="top.jsp" %>
 个人中心
+电话号码：${userInfo.basicUser.telephone}
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

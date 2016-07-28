@@ -13,6 +13,7 @@ import com.basic.biz.BasicUserBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
+import com.basic.po.UserAbstract;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.sys.ctrl.LoginCtrl;
@@ -56,10 +57,14 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 	@RequestMapping("showMineInfo")
 	public ModelAndView showMineInfo(HttpSession session){
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
-		BasicUser userInfo = null;
-		if(basicUser.getRoleId() == 1)
-			personBiz.getByBasicUserId(userInfo.getId());
+		UserAbstract userAbstract = null;
+		int roleId = basicUser.getRoleId();
+		if(roleId == 1)
+			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
+		else if(roleId == 2)
+			userAbstract = enterpriseBiz.getByBasicUserId(basicUser.getId());
 		ModelAndView mav = new ModelAndView("main/mineInfo");
+		mav.addObject("userInfo", userAbstract);
 		return mav;
 	}
 	

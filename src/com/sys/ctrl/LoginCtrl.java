@@ -20,8 +20,8 @@ import com.sys.po.User;
 @RequestMapping("login")
 public class LoginCtrl {
 
-	public static String loginMngUser = "loginMngUser";
-	public static String loginBasicUser = "loginBasicUser";
+	public static final String loginMngUser = "loginMngUser";
+	public static final String loginBasicUser = "loginBasicUser";
 	
 	@Autowired
 	private UserBiz userBiz;
@@ -115,9 +115,18 @@ public class LoginCtrl {
 	}
 	
 	//退出
+	@RequestMapping("mngLogout")
+	public ModelAndView mngLogout(HttpSession session){
+		session.removeAttribute(loginMngUser);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:../login.jsp");
+		return mav;
+	}
+	
 	@RequestMapping("logout")
 	public ModelAndView logout(HttpSession session){
-		session.removeAttribute(loginMngUser);
+		session.removeAttribute(loginBasicUser);
+		session.invalidate();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:../login.jsp");
 		return mav;
