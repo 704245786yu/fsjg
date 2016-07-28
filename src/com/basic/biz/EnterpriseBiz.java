@@ -358,4 +358,15 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		e.setCostumeCode(list);
 		return e;
 	}
+	
+	public BootTablePageDto<Enterprise> getByCostumeCode(int costumeCode){
+		BootTablePageDto<Enterprise> dto = dao.getByCostumeCode(costumeCode);
+		List<Enterprise> enterprises = dto.getRows();
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> costumeCodes = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(costumeCodes);
+		}
+		return dto;
+	}
 }

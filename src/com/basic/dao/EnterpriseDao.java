@@ -101,4 +101,15 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 10);
 		return new BootTablePageDto<Enterprise>(total, enterprises);
 	}
+	
+	/**根据服饰类型编码获取关联的企业*/
+	@SuppressWarnings("unchecked")
+	public BootTablePageDto<Enterprise> getByCostumeCode(int costumeCode){
+		String hql = "select count(distinct enterpriseId) from EnterpriseCostumeRela where costumeCode =:costumeCode)";
+		Long total = (Long)super.find(hql, new String[]{"costumeCode"}, new Integer[]{costumeCode}).get(0);
+		
+		hql = "from Enterprise where id in (select distinct enterpriseId from EnterpriseCostumeRela where costumeCode =:costumeCode)";
+		List<Enterprise> list = (List<Enterprise>)super.findByPage(hql, 0, 10, new String[]{"costumeCode"}, new Integer[]{costumeCode});
+		return new BootTablePageDto<Enterprise>(total, list);
+	}
 }

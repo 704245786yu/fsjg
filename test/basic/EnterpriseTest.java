@@ -69,4 +69,9 @@ public class EnterpriseTest {
 	public void search(){
 		JacksonJson.printBeanToJson(enterpriseBiz.search("宁波"));
 	}
+	
+	@Test
+	public void getByCostumeCode(){
+		enterpriseDao.getByCostumeCode(10108);
+	}
 }

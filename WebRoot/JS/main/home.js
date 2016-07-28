@@ -37,7 +37,7 @@ function getCategory(){
 			}
 			
 			if(categoryDivId !=null){
-				var $a = $('<a>').attr('href',temp.categoryCode).html(temp.categoryName);
+				var $a = $('<a>').attr('href','enterprise/showList/'+temp.categoryCode).html(temp.categoryName);
 				$('#category_'+categoryDivId).append($a);
 			}
 		}

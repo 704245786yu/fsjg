@@ -137,4 +137,18 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		mav.setViewName("main/enterpriseDetail");
 		return mav;
 	}
+	
+	@RequestMapping("showList/{costumeCode}")
+	public ModelAndView showList(@PathVariable int costumeCode){
+		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
+		List<District> districts =	districtBiz.getProvinceAndCity();
+		ModelAndView mav = new ModelAndView("main/enterpriseList");
+		mav.addObject("costumeCategoryMap", costumeCategoryMap);
+		mav.addObject("processTypes", processTypes);
+		mav.addObject("districts", districts);
+		BootTablePageDto<Enterprise> result = biz.getByCostumeCode(costumeCode);
+		mav.addObject("result", result);
+		return mav;
+	}
 }
