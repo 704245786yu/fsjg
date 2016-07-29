@@ -43,13 +43,23 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	private DistrictBiz districtBiz;
 	
 	public EnterpriseCtrl(){
-		defaultPage = "backstage/enterprise/enterprise";
+		defaultPage = "main/enterprise";
 	}
 	
 	public ModelAndView showDefaultPage(HttpSession session){
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(defaultPage);
+		mav.addObject("processTypes", processTypes);
+		return mav;
+	}
+	
+	/**显示后台管理页面*/
+	@RequestMapping("showManage")
+	public ModelAndView showManage(){
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("backstage/enterprise/enterprise");
 		mav.addObject("processTypes", processTypes);
 		return mav;
 	}

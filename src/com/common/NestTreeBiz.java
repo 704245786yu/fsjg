@@ -42,6 +42,12 @@ public abstract class NestTreeBiz < DAO extends NestTreeDao<ID, PO>, ID extends 
 		return dao.getChild(id);
 	}
 	
+	/**获取节点信息，包括后代节点，以及每个节点的层次信息，结果按左值排序
+	 * */
+	public List<PO> getNodeWithDescendant(ID id){
+		return dao.getNodeWithDescendant(id);
+	}
+	
 	/**获取所有后代节点的ID
 	 * @param id 父节点Id
 	 * @return List<ID>

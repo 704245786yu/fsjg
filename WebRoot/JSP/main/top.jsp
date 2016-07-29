@@ -52,24 +52,6 @@
 			</div>
 			<div class="col-md-1" style="padding-top:26px;">
 				<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 发布订单</button>
-			<!-- <ul class="nav nav-pills">
-			  <li class="active"><a href="#">订单</a></li>
-			  <li><a href="#">工厂</a></li>
-			  <li><a href="#">样品</a></li>
-			</ul>
-			<div class="row">
-				<div class="col-md-8">
-					<div class="input-group">
-						<input type="text" class="form-control">
-						<span class="input-group-btn">
-							<button class="btn btn-primary" type="button" style="width:100px">搜索</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 发布订单</button>
-				</div>
-			</div> -->
 		</div>
 	</div>
 </div>
@@ -78,7 +60,7 @@
 	<div style="width:1190px;margin:0 auto;">
 		<ul class="nav navbar-nav" >
 			<li name="li-home"><a href="home.jsp">首页</a></li>
-			<li name="li-enterprise"><a href="JSP/main/enterprise.jsp">加工工厂</a></li>
+			<li name="li-enterprise"><a href="enterprise">加工工厂</a></li>
 			<li><a href="#">加工订单</a></li>
 			<li><a href="#">快产专家</a></li>
 			<li><a href="#">服饰样品</a></li>

@@ -6,7 +6,7 @@ function TreeUtil(){
 }
 
 //邻接数据转换为嵌套树
-BsFormTableExtend.prototype.adjTransToNest = function(data){
+TreeUtil.prototype.adjTransToNest = function(data){
 	//将数据转换为treegrid支持的数据
 	var ary = new Array();
 	ary.push(data[0]);	
