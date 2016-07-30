@@ -43,7 +43,7 @@
 					<li><a href="enterprise/showList/5">面料/皮革/纱线</a></li>
 					<li><a href="enterprise/showList/6">纺织辅料</a></li>
 				</ul>
-				
+				<!-- 子菜单 -->
 				<div class="cat-subcategory">
 					<div id="category_101"></div>
 					<div id="category_102"></div>
@@ -119,6 +119,61 @@
 </table>
 
 <table id="table2">
+	<tr>
+		<td style="width:595px;padding-right:3px">
+			<!-- 实力工厂 -->
+			<div class="panel panel-default">
+				<div class="panel-heading"><span>实力工厂</span></div>
+				<div class="panel-body">
+					<div class="col-md-4 ad">
+						<img src="image/ad/front_ad.png">
+					</div>
+					<div class="col-md-8">
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">sdfdfs</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">adsasa</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
+					</div>
+				</div>
+			</div>
+		</td>
+		<td style="width:595px;padding-left:3px">
+			<!-- 认证工厂 -->
+			<div class="panel panel-default">
+				<div class="panel-heading"><span>认证工厂</span></div>
+				<div class="panel-body">
+					<div class="col-md-4 ad">
+						<img src="image/ad/front_ad2.png">
+					</div>
+					<div class="col-md-8">
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">sdfdfs</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">adsasa</div>
+						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<!-- 中间广告 -->
+<table>
+	<tr>
+		<td style="width:595px;padding-right:3px">
+			<img width="100%" src="image/ad/home_mid_ad1.png"/>
+		</td>
+		<td style="width:595px;padding-left:3px">
+			<img width="100%" src="image/ad/home_mid_ad2.png"/>
+		</td>
+	</tr>
+</table>
+
+<table>
 	<tr>
 		<td style="width:595px;padding-right:3px">
 			<!-- 实力工厂 -->

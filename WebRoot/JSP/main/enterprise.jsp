@@ -40,7 +40,7 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label">产品类别</label>
 									<div class="col-md-8">
-										<button type="button" class="btn btn-default" data-toggle="modal" data-target="#costumeCategoryModal" style="width:100%;background: url('image/select-btn.png') no-repeat 90%;">选择产品类别</button>
+										<button id="costumeBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#costumeCategoryModal" style="width:100%;overflow:hidden;background: url('image/select-btn.png') no-repeat 90%;">选择产品类别</button>
 									</div>
 								</div>
 								<div class="form-group">
@@ -262,25 +262,25 @@
 					<div class="tab-pane" id="costume_6"></div>
 				</div>
 				
-				<table id="template" style="display:none;">
+				<table id="template" class="table" style="display:none;">
 					<tr style="display:none;">
 						<!-- 二级类目 -->
-						<td style="width:130px;display:none;">
-							<label style="display:none;cursor:pointer;margin-right:10px;">
-								<input type="checkbox"> <span style="font-weight:normal;"></span>
+						<td style="width:100px;vertical-align:top;display:none;">
+							<label style="cursor:pointer;">
+								<input type="checkbox" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
 							</label>
 						</td>
 						<!-- 三级类目 -->
 						<td>
-							<label style="display:none;cursor:pointer;margin-right:10px;">
-								<input type="checkbox"> <span style="font-weight:normal;"></span>
+							<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
+								<input type="checkbox" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
 							</label>
 						</td>
 					</tr>
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkCostume()">确定</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 			</div>
 		</div>
