@@ -79,9 +79,9 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 			//行业分类
 			String trade = e.getTrade();
 			String[] trades = trade.split(",");
-			Integer[] codes = new Integer[trades.length];
+			List<Integer> codes = new ArrayList<Integer>();
 			for(int i=0; i<trades.length; i++)
-				codes[i] = Integer.valueOf(trades[i]);
+				codes.add(Integer.valueOf(trades[i]));
 			List<String> tradeNames = costumeCategoryBiz.getNameByCode(codes);
 			mav.addObject("tradeNames", tradeNames);
 			//加工类型
@@ -89,7 +89,7 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 			mav.addObject("processTypes", processTypes);
 			//主营产品
 			List<Integer> costumeCodes = e.getCostumeCode();
-			List<String> costumeNames = costumeCategoryBiz.getNameByCode((Integer[])costumeCodes.toArray());
+			List<String> costumeNames = costumeCategoryBiz.getNameByCode(costumeCodes);
 			mav.addObject("costumeNames", costumeNames);
 		}
 		List<Long> districtCodes = new ArrayList<Long>();
