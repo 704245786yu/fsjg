@@ -163,4 +163,11 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 		district.addAll(city);
 		return district;
 	}
+	
+	/**根据编码获取地区名字*/
+	@SuppressWarnings("unchecked")
+	public List<String> getNameByCode(List<Long> codes){
+		String hql = "select districtName from District where districtCode in (:codes)";
+		return (List<String>)dao.find(hql, new String[]{"codes"}, new Object[]{codes});
+	}
 }

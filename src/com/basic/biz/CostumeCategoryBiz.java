@@ -55,4 +55,9 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 		}
 		return map;
 	}
+	
+	/**根据服饰类型编码获取名称*/
+	public List<String> getNameByCode(Integer[] codes){
+		return dao.getNameByCode(codes);
+	}
 }

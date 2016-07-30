@@ -1,5 +1,7 @@
 package com.basic.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.basic.po.CostumeCategory;
@@ -22,4 +24,10 @@ public class CostumeCategoryDao extends NestTreeDao<Integer, CostumeCategory> {
 		return map;
 	}*/
 	
+	/**根据服饰类型编码获取名称*/
+	@SuppressWarnings("unchecked")
+	public List<String> getNameByCode(Integer[] codes){
+		String hql = "select categoryName from CostumeCategory where categoryCode in (:codes)";
+		return (List<String>)super.find(hql, new String[]{"codes"}, new Object[]{codes});
+	}
 }
