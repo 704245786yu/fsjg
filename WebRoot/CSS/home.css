@@ -48,3 +48,42 @@ ul.category-search{
 #table2 .col-md-8 img{
 	height:100px;
 }
+
+/*服饰类型列表*/
+.costumeList{
+	/* height:290px; */
+}
+
+.costumeList > tr > td{
+	width:595px;
+}
+
+.costumeList .td1{
+	padding-right:3px;
+}
+
+.costumeList .td2{
+	padding-left:3px;
+}
+
+.costumeList .table tr:first-child > td:first-child{
+	width:205px;padding:0;
+}
+
+.costumeList .table tr:first-child > td:first-child + td{
+	height:85px;
+}
+
+.costumeList .table tr:first-child + tr > td:first-child{
+	width:240px;
+}
+
+.costumeList .table p{
+	padding:4px 0px;
+}
+
+.costumeList .table a{
+	margin-right:5px;
+	color:black;
+	cursor:pointer;
+}

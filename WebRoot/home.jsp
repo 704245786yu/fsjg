@@ -162,7 +162,7 @@
 </table>
 
 <!-- 中间广告 -->
-<table>
+<table style="margin-bottom:20px;">
 	<tr>
 		<td style="width:595px;padding-right:3px">
 			<img width="100%" src="image/ad/home_mid_ad1.png"/>
@@ -173,48 +173,226 @@
 	</tr>
 </table>
 
-<table>
+<!-- 服饰列表 -->
+<table class="costumeList">
 	<tr>
-		<td style="width:595px;padding-right:3px">
-			<!-- 实力工厂 -->
-			<div class="panel panel-default">
-				<div class="panel-heading"><span>实力工厂</span></div>
-				<div class="panel-body">
-					<div class="col-md-4 ad">
-						<img src="image/ad/front_ad.png">
-					</div>
-					<div class="col-md-8">
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">sdfdfs</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">adsasa</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
-					</div>
-				</div>
-			</div>
+		<td class="td1">
+			<table class="table table-bordered">
+				<tr>
+					<td rowspan="2">
+						<img src="image/ad/home_costume_ad1.png"/>
+					</td>
+					<td colspan="2"><h3>服装</h3></td>
+				</tr>
+				<tr>
+					<td>
+						<p>
+							<a>梭织服装</a> <a>硬领衬衫</a> <a>标准西服西裤</a>
+						</p>
+						<p>
+							<a>婚礼服饰</a> <a>工作服/制服/校服</a>
+						</p>
+						<p>
+							<a>休闲裤</a> <a>夹克风衣</a> <a>休闲衬衫</a>
+						</p>
+						<p>
+							<a>针织服装</a> <a>内衣内裤</a> <a>泳装</a>
+						</p>
+						<p>
+							<a>针织婴童装</a> <a>针织运动/户外服</a>
+						</p>
+					</td>
+					<td>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+					</td>
+				</tr>
+			</table>
 		</td>
-		<td style="width:595px;padding-left:3px">
-			<!-- 认证工厂 -->
-			<div class="panel panel-default">
-				<div class="panel-heading"><span>认证工厂</span></div>
-				<div class="panel-body">
-					<div class="col-md-4 ad">
-						<img src="image/ad/front_ad2.png">
-					</div>
-					<div class="col-md-8">
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">sdfdfs</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">adsasa</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
-					</div>
-				</div>
-			</div>
+		<td class="td2">
+			<table class="table table-bordered">
+				<tr>
+					<td rowspan="2">
+						<img src="image/ad/home_costume_ad2.png"/>
+					</td>
+					<td colspan="2"><h3>服饰</h3></td>
+				</tr>
+				<tr>
+					<td>
+						<p>
+							<a>帽子</a> <a>领带</a> <a>围巾类</a>
+						</p>
+						<p>
+							<a>手套</a> <a>袜子</a> <a>鞋类</a>
+						</p>
+						<p>
+							<a>皮带腰带</a> <a>箱包/皮具</a> <a>其它服饰</a>
+						</p>
+						<p>
+							<a>帽子</a> <a>领带</a> <a>围巾类</a>
+						</p>
+						<p>
+							<a>手套</a> <a>袜子</a> <a>鞋类</a>
+						</p>
+					</td>
+					<td>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+					</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 </table>
+
+<table class="costumeList">
+	<tr>
+		<td class="td1">
+			<table class="table table-bordered">
+				<tr>
+					<td rowspan="2">
+						<img src="image/ad/home_costume_ad3.png"/>
+					</td>
+					<td colspan="2"><h3>家纺</h3></td>
+				</tr>
+				<tr>
+					<td>
+						<p>
+							<a>装饰布艺</a> <a>床上用品</a> <a>毛巾</a>
+						</p>
+						<p>
+							<a>地毯/垫</a> <a>宠物纺织用品</a> <a>其它家纺</a>
+						</p>
+						<p>
+							<a>装饰布艺</a> <a>床上用品</a> <a>毛巾</a>
+						</p>
+						<p>
+							<a>地毯/垫</a> <a>宠物纺织用品</a> <a>其它家纺</a>
+						</p>
+						<p>
+							<a>装饰布艺</a> <a>床上用品</a> <a>毛巾</a>
+						</p>
+					</td>
+					<td>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td class="td2">
+			<table class="table table-bordered">
+				<tr>
+					<td rowspan="2">
+						<img src="image/ad/home_costume_ad4.png"/>
+					</td>
+					<td colspan="2"><h3>纺织消费品</h3></td>
+				</tr>
+				<tr>
+					<td>
+						<p>
+							<a>纺织类玩具</a> <a>户外用品</a>
+						</p>
+						<p>
+							<a>其它纺织消费品</a> <a>梭织面料</a>
+						</p>
+						<p>
+							<a>纺织类玩具</a> <a>户外用品</a>
+						</p>
+						<p>
+							<a>其它纺织消费品</a> <a>梭织面料</a>
+						</p>
+						<p>
+							<a>纺织类玩具</a> <a>户外用品</a>
+						</p>
+					</td>
+					<td>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<table class="costumeList">
+	<tr>
+		<td class="td1">
+			<table class="table table-bordered">
+				<tr>
+					<td rowspan="2">
+						<img src="image/ad/home_costume_ad5.png"/>
+					</td>
+					<td colspan="2"><h3>面料/皮革/纱线</h3></td>
+				</tr>
+				<tr>
+					<td>
+						<p>
+							<a>针织面料</a> <a>无纺布</a> <a>皮革皮具</a>
+						</p>
+						<p>
+							<a>纺织纱线</a> <a>针织面料</a> <a>无纺布</a>
+						</p>
+						<p>
+							<a>皮革皮草</a> <a>无纺布</a> <a>皮革皮草</a>
+						</p>
+						<p>
+							<a>纺织纱线</a> <a>针织面料</a> <a>无纺布</a>
+						</p>
+						<p>
+							<a>皮革皮草</a> <a>无纺布</a> <a>皮革皮草</a>
+						</p>
+					</td>
+					<td>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td class="td2">
+			<table class="table table-bordered">
+				<tr>
+					<td rowspan="2">
+						<img src="image/ad/home_costume_ad5.png"/>
+					</td>
+					<td colspan="2"><h3>纺织辅料</h3></td>
+				</tr>
+				<tr>
+					<td>
+						<p>
+							<a>拉链类</a> <a>钮扣类</a> <a>线类</a>
+						</p>
+						<p>
+							<a>花边类</a> <a>绳带类</a> <a>衬料/衬垫</a>
+						</p>
+						<p>
+							<a>包装材料类</a> <a>衣架模特</a> <a>饰件类</a>
+						</p>
+						<p>
+							<a>内衣配件</a> <a>其他辅料</a> <a>线类</a>
+						</p>
+						<p>
+							<a>拉链类</a> <a>钮扣类</a> <a>线类</a>
+						</p>
+					</td>
+					<td>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+						<img src="image/ad/home_ad_small.png"/>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
 </div>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/main/home.js"></script>
