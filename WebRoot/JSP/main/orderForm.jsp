@@ -90,26 +90,146 @@
 				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-user"></span> 个人发布的订单</h3>
 			</div>
 			<div class="panel-body">
-					
+				<table id="personOrder" class="table">
+					<tr>
+						<th>产品类别</th> <th>订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5;">上衣</td>
+						<td>经销单</td>
+						<td>10000件</td>
+						<td>山东济南</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+					<tr>
+						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+						<td style="color:#008EE5">婴儿马甲背心</td>
+						<td>经销单</td>
+						<td>500件</td>
+						<td>广东广州</td>
+						<td>2016-04-24</td>
+					</tr>
+				</table>
 			</div><!-- panel-body -->
 		</div>
-		<!-- 招商热线 -->
-		<div style="height:110px">
-			<div style="width:595px;float:left;">
-				<img style="width:100%;height:110px"src="image/ad/enterprise-logo.png">
-			</div>
-			<div style="width:295px;float:right;">
-				<img style="width:100%;height:110px"src="image/ad/enterprise-logo.png">
-			</div>
-		</div>
-		<!-- 热门区域加工厂 -->
+		<!-- 工厂外放的订单 -->
 		<div class="row" style="margin-top:20px;">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-map-marker"></span> 热门区域加工厂</h3>
+						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-globe"></span> 工厂外放的订单</h3>
 					</div>
 					<div class="panel-body">
+						<table id="enterpriseOrder" class="table">
+							<tr>
+								<th>产品类别</th> <th>订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
+							</tr>
+							<tr>
+								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+								<td style="color:#008EE5;">上衣</td>
+								<td>经销单</td>
+								<td>10000件</td>
+								<td>山东济南</td>
+								<td>2016-04-24</td>
+							</tr>
+							<tr>
+								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+								<td style="color:#008EE5">婴儿马甲背心</td>
+								<td>经销单</td>
+								<td>500件</td>
+								<td>广东广州</td>
+								<td>2016-04-24</td>
+							</tr>
+							<tr>
+								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+								<td style="color:#008EE5">婴儿马甲背心</td>
+								<td>经销单</td>
+								<td>500件</td>
+								<td>广东广州</td>
+								<td>2016-04-24</td>
+							</tr>
+							<tr>
+								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+								<td style="color:#008EE5">婴儿马甲背心</td>
+								<td>经销单</td>
+								<td>500件</td>
+								<td>广东广州</td>
+								<td>2016-04-24</td>
+							</tr>
+							<tr>
+								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
+								<td style="color:#008EE5">婴儿马甲背心</td>
+								<td>经销单</td>
+								<td>500件</td>
+								<td>广东广州</td>
+								<td>2016-04-24</td>
+							</tr>
+						</table>
 					</div><!-- panel-body -->
 				</div><!-- panel -->
 			</div>

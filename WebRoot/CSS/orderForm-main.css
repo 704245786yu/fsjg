@@ -11,6 +11,11 @@
 .panel-tip1 .panel-body p{
 	padding-left:2em;/*缩进两个字体*/
 }
+
+#personOrder th,#personOrder td,#enterpriseOrder th,#enterpriseOrder td{
+	border:0px;
+}
+
 .media-heading{
 	color:#4cb6ed;
 }
