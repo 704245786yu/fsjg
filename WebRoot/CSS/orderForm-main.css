@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+/*如何得到高质量的订单*/
+.panel-tip1 .panel-body{
+	padding:10px;
+}
+
+.panel-tip1 .panel-body h4{
+	margin:0px 0px 5px 0px;
+	color:#008FE6;
+}
+.panel-tip1 .panel-body p{
+	padding-left:2em;/*缩进两个字体*/
+}
+.media-heading{
+	color:#4cb6ed;
+}

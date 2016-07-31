@@ -8,7 +8,7 @@
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服务加工网-加工工厂</title>
+<title>中国服务加工网-加工订单</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -17,22 +17,22 @@
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/common/default.css" rel="stylesheet">
-<link href="CSS/enterprise-main.css" rel="stylesheet">
+<link href="CSS/orderForm-main.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
 </head>
 
 <body>
-<input type="hidden" name="pageName" value="enterprise">
 <%@ include file="top.jsp" %>
+<input type="hidden" name="pageName" value="orderForm">
 
 <div style="width:1190px; margin:0 auto;">
 	<!-- 左边栏(主体) -->
 	<div style="width:900px;float:left;">
-		<!-- 工厂搜索 -->
+		<!-- 订单搜索 -->
 		<div style="width:370px;float:left;">
 			<div class="panel panel-default" style="height:260px">
-				<div class="panel-heading">工厂搜索</div>
+				<div class="panel-heading">订单搜索</div>
 				<div class="panel-body">
 					<form class="form-horizontal">
 						<div class="form-group">
@@ -64,54 +64,33 @@
 				</div>
 			</div>
 		</div>
-		<!-- 实力工厂 -->
+
 		<div style="width:520px;float:right;">
-			<div class="panel panel-default panel-ad1" style="height:260px">
-				<div class="panel-heading">实力工厂</div>
+			<div class="panel panel-default panel-tip1" style="height:260px">
+				<div class="panel-heading">
+					 <h3 class="panel-title cus-panel-title">如何得到高质量的订单?</h3>
+				</div>
 				<div class="panel-body">
-					<table>
-						<tr>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-						</tr>
-						<tr>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-						</tr>
-					</table>
+					<h4>1、完善企业信息，展示实力</h4>
+					<p>尽可能多地上传企业张数和产品图片及时更新生产加工当期，表明接单状态进行实名认证，获得靠前的排名</p>
+					<h4>2、找订单、申请报价</h4>
+					<p>找和本厂生产能力匹配的订单申请提交申请前，确认符合发单方的要求并填写申请理由，表达接单诚意</p>
+					<h4>3、耐心与客户沟通</h4>
+					<p>客户主动找到你，并发送订单报价申请报价被客户接受后请及时回复</p>
 				</div>
 			</div>
 		</div>
+		
 		<!-- 广告位 -->
 		<img style="width:100%;"src="image/ad/ad.png">
 		
-		<!-- 接单工厂 -->
+		<!-- 个人发布的订单 -->
 		<div class="panel panel-default" style="margin-top:20px;">
 			<div class="panel-heading">
-				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-globe"></span> 接单工厂</h3>
+				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-user"></span> 个人发布的订单</h3>
 			</div>
 			<div class="panel-body">
-				<div id="enterpriseList" class="row">
-					<div class="enterprise" style="width:449px;padding:0 15px;float:left;display:none;">
-						<div class="panel panel-default">
-							<div class="panel-body">
-						    	<div class="media">
-									<div class="media-left">
-										<img class="media-object" src="image/enterprise-icon.png">
-									</div>
-									<div class="media-body">
-										<h4 class="media-heading">工厂名称</h4>
-										<p class="list-group-item-text">员工人数</p>
-										<p class="list-group-item-text">加工类型</p>
-										<p class="list-group-item-text">主营产品</p>
-									</div>
-								</div>
-							</div><!-- panel-body -->
-						</div><!-- panel -->
-					</div><!-- col-md -->
-				</div><!-- row -->
+					
 			</div><!-- panel-body -->
 		</div>
 		<!-- 招商热线 -->
@@ -140,28 +119,13 @@
 	<!-- 右边栏 -->
 	<div style="width:280px;float:right;">
 		<!-- 如何找到合适的工厂 -->
+		<img style="margin-bottom:10px;" src="image/ad/orderForm/publish_order.png"/>
+		<!-- 最新接到报价的订单 -->
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						 <h3 class="panel-title cus-panel-title">如何找到合适的工厂?</h3>
-					</div>
-					<div class="panel-body">
-						<p>1.从产品类别，发单地区进行初步筛选服装工厂</p>
-						<p>2.利用高级搜索中的员工总数条件缩小范围</p>
-						<p>3.优先查看资质认证，实名认证的企业</p>
-						<p>4.价格比较敏感的订单可以考虑有当期愿意以优惠价格成交工厂</p>
-						<p>5.通过QQ在线进行交流，获取价格</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 最新入住的工厂 -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新入住的工厂</h3>
+						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新接到报价的订单</h3>
 					</div>
 					<div class="panel-body" style="padding:0px;">
 						<ul id="newEnterpriseList" class="list-group">
@@ -199,25 +163,6 @@
 								<p>我们公司是一家服装贸易公司，有几家固定合作的服装加工厂，但是现在单子不稳定，工厂也不稳定，所以一有急单或者是工厂忙的时候，单子就很难发出去。这次就是</p>
 							</div>
 						</div>
-					</div><!-- panel-body -->
-				</div><!-- panel -->
-			</div><!-- col-md -->
-		</div><!-- row -->
-		<!-- 最新认证加工厂 -->
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新认证加工厂</h3>
-					</div>
-					<div class="panel-body" style="padding:0px;">
-						<ul id="newAuthEnterpriseList" class="list-group">
-							<li class="list-group-item enterprise" style="display:none;">
-								<h4 class="media-heading">工厂名称</h4>
-								<p class="list-group-item-text">主营产品：休闲服饰、女式连衣服</p>
-								<h4><span class="label" style="background-color:#ff6717">已通过资质认证</span></h4>
-							</li>
-						</ul>
 					</div><!-- panel-body -->
 				</div><!-- panel -->
 			</div><!-- col-md -->
@@ -280,7 +225,7 @@
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>
-<script src="JS/main/enterprise.js"></script>
+<script src="JS/main/orderForm.js"></script>
 </body>
 </html>
 

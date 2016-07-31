@@ -146,18 +146,3 @@ function getNewest(){
 		}
 	});
 }
-
-//最新认证加工厂
-function getNewAuth(){
-	var $enterpriseList = $('#newAuthEnterpriseList');
-	var $enterprise = $enterpriseList.children('.enterprise');
-	$.get('enterprise/getNewAuth',function(data){
-		for(var i=0; i<data.length; i++){
-			var enterprise = data[i];
-			var $new = $enterprise.clone().css('display','block');
-			var $head = $new.find('.media-heading').text(enterprise.enterpriseName);
-//			$head.next().text('主营产品：');
-			$enterpriseList.append($new);
-		}
-	});
-}
