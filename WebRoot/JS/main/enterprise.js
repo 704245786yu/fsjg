@@ -7,6 +7,7 @@ $(function(){
 	getNewAuth();
 });
 
+//初始化服饰类别选择弹框
 function initCostumeCategory(){
 	var $tableTemplate = $('#template').clone();
 	$tableTemplate.css('display','table');
@@ -108,6 +109,11 @@ function checkCostume(){
 	if(str=='')
 		str = '选择产品类别';
 	$('#costumeBtn').html(str);
+}
+
+//确定选择地区
+function checkDistrict(){
+	
 }
 
 //获取优秀工厂(接单工厂)
