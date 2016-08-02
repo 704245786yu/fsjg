@@ -44,9 +44,7 @@
 						<div class="form-group">
 							<label class="col-md-3 control-label">发单地区</label>
 							<div class="col-md-9">
-								<select class="form-control">
-									<option>请选择发单地区</option>
-								</select>
+								<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal" style="width:100%;overflow:hidden;background: url('image/select-btn.png') no-repeat 90%;">选择发单地区</button>
 							</div>
 						</div>
 						<div class="form-group">
@@ -272,6 +270,25 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkCostume()">确定</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 选择地区模态框 -->
+<div class="modal fade" id="districtModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+				<h5 class="modal-title" id="myModalLabel">选择地区</h5>
+			</div>
+			<div class="modal-body">
+			sdfsdf
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkDistrict()">确定</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 			</div>
 		</div>
