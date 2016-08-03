@@ -284,8 +284,19 @@
 				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
 				<h5 class="modal-title" id="myModalLabel">选择地区</h5>
 			</div>
-			<div class="modal-body">
-			sdfsdf
+			<div id="districtContainer" class="modal-body">
+				<div class="col-sm-3">
+					<select class="form-control" id="province" name="province"></select>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="city" name="city"></select>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="county" name="county"></select>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="town" name="town"></select>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkDistrict()">确定</button>
@@ -297,6 +308,7 @@
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>
+<script src="JS/util/districtCascade.js"></script>
 <script src="JS/main/enterprise.js"></script>
 </body>
 </html>
