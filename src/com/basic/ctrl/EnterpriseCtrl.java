@@ -1,5 +1,6 @@
 package com.basic.ctrl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -126,10 +128,11 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	/**查找工厂*/
 	@RequestMapping("search")
 	public ModelAndView search(String enterpriseKeyword){
+		BootTablePageDto<Enterprise> result = biz.search(enterpriseKeyword);
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		List<District> districts =	districtBiz.getProvinceAndCity();
-		BootTablePageDto<Enterprise> result = biz.search(enterpriseKeyword);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", result);
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
@@ -137,6 +140,17 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		mav.addObject("districts", districts);
 		mav.setViewName("main/enterpriseList");
 		return mav;
+	}
+	
+	@RequestMapping(value="search2",method=RequestMethod.POST)
+	public ModelAndView search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
+		try {
+			keyword = new String(keyword.getBytes("iso8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		keyword = keyword.trim();
+		return null;
 	}
 	
 	@RequestMapping("showDetail/{id}")

@@ -354,6 +354,27 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return result; 
 	}
 	
+	/***/
+	public BootTablePageDto<Enterprise> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
+		//为简化查询，不匹配多个加工类型
+		String processType = null;
+		if(keyword.length() > 0){
+			List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
+			if(processTypes.size() != 0){
+				processType = processTypes.get(0).getConstantValue();
+			}
+		}
+		/*BootTablePageDto<Enterprise> result = dao.search(keyword, processType, costumeCode);
+		List<Enterprise> enterprises = result.getRows();
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(costumeCode);
+		}
+		return result; */
+		return null;
+	}
+	
 	public Enterprise getById(int id){
 		Enterprise e = dao.findById(id);
 		List<Integer> list = enterpriseCostumeRelaDao.getCostumeCode(id);

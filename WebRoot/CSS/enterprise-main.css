@@ -1,4 +1,23 @@
 @CHARSET "UTF-8";
+/*工厂搜索*/
+.form-horizontal > table td{
+	padding-bottom:15px;
+}
+
+.form-horizontal > table button.btn-default{
+	width:inherit;
+	overflow:hidden;
+	background: url('../image/select-btn.png') no-repeat 90%;
+}
+
+.form-horizontal > table td:first-child{
+	width:65px;
+}
+
+.form-horizontal > table td:first-child + td{
+	width:273px;
+}
+
 /*实力工厂*/
 .panel-ad1 .panel-body{
 	padding:15px 0;

@@ -34,34 +34,114 @@
 			<div class="panel panel-default" style="height:260px">
 				<div class="panel-heading">工厂搜索</div>
 				<div class="panel-body">
-					<form class="form-horizontal">
-						<div class="form-group">
-							<label class="col-md-3 control-label">产品类别</label>
-							<div class="col-md-9">
-								<button id="costumeBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#costumeCategoryModal" style="width:100%;overflow:hidden;background: url('image/select-btn.png') no-repeat 90%;">选择产品类别</button>
+					<form class="form-horizontal" action="enterprise/search2" method="post">
+						<table>
+							<tr>
+								<td style="width:65px"><label>产品类别</label></td>
+								<td><button id="costumeBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#costumeCategoryModal">选择产品类别</button></td>
+							</tr>
+							<tr>
+								<td><label>发单地区</label></td>
+								<td><button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择发单地区</button></td>
+							</tr>
+							<tr>
+								<td><label>关 键 字</label></td>
+								<td><input type="text" name="keyword" class="form-control" placeholder="请输入关键字"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><button type="submit" class="form-control btn btn-primary">搜索</button></td>
+							</tr>
+						</table>
+						
+						<!-- 选择服饰类别模态框 -->
+						<div class="modal fade" id="costumeCategoryModal" tabindex="-1">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										<h5 class="modal-title" id="myModalLabel">选择服饰类别</h5>
+									</div>
+									<div class="modal-body">
+										<ul class="nav nav-tabs">
+											<li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
+											<li><a href="#costume_2" data-toggle="tab">服饰</a></li>
+											<li><a href="#costume_3" data-toggle="tab">家纺</a></li>
+											<li><a href="#costume_4" data-toggle="tab">纺织消费品</a></li>
+											<li><a href="#costume_5" data-toggle="tab">面料/皮革/纱线</a></li>
+											<li><a href="#costume_6" data-toggle="tab">纺织辅料</a></li>
+										</ul>
+										<div class="tab-content">
+											<div class="tab-pane active" id="costume_1">
+												
+											</div>
+											<div class="tab-pane" id="costume_2"></div>
+											<div class="tab-pane" id="costume_3"></div>
+											<div class="tab-pane" id="costume_4"></div>
+											<div class="tab-pane" id="costume_5"></div>
+											<div class="tab-pane" id="costume_6"></div>
+										</div>
+										
+										<table id="template" class="table" style="display:none;">
+											<tr style="display:none;">
+												<!-- 二级类目 -->
+												<td style="width:100px;vertical-align:top;display:none;">
+													<label style="cursor:pointer;">
+														<input type="checkbox" name="costumeCode" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
+													</label>
+												</td>
+												<!-- 三级类目 -->
+												<td>
+													<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
+														<input type="checkbox" name="costumeCode" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
+													</label>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkCostume()">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label">发单地区</label>
-							<div class="col-md-9">
-								<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal" style="width:100%;overflow:hidden;background: url('image/select-btn.png') no-repeat 90%;">选择发单地区</button>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label">关 键 字</label>
-							<div class="col-md-9">
-								<input type="text" class="form-control" placeholder="请输入关键字">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-12">
-								<button type="submit" class="form-control btn btn-primary">搜索</button>
+						
+						<!-- 选择地区模态框 -->
+						<div class="modal fade" id="districtModal" tabindex="-1">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										<h5 class="modal-title" id="myModalLabel">选择地区</h5>
+									</div>
+									<div id="districtContainer" class="modal-body">
+										<div class="row">
+											<div class="col-sm-3">
+												<select class="form-control" id="province" name="province"></select>
+											</div>
+											<div class="col-sm-3">
+												<select class="form-control" id="city" name="city"></select>
+											</div>
+											<div class="col-sm-3">
+												<select class="form-control" id="county" name="county"></select>
+											</div>
+											<div class="col-sm-3">
+												<select class="form-control" id="town" name="town"></select>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkDistrict()">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+		
 		<!-- 实力工厂 -->
 		<div style="width:520px;float:right;">
 			<div class="panel panel-default panel-ad1" style="height:260px">
@@ -223,88 +303,9 @@
 	</div><!-- 右边栏 -->
 </div>
 
-<!-- 选择服饰类别模态框 -->
-<div class="modal fade" id="costumeCategoryModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h5 class="modal-title" id="myModalLabel">选择服饰类别</h5>
-			</div>
-			<div class="modal-body">
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
-					<li><a href="#costume_2" data-toggle="tab">服饰</a></li>
-					<li><a href="#costume_3" data-toggle="tab">家纺</a></li>
-					<li><a href="#costume_4" data-toggle="tab">纺织消费品</a></li>
-					<li><a href="#costume_5" data-toggle="tab">面料/皮革/纱线</a></li>
-					<li><a href="#costume_6" data-toggle="tab">纺织辅料</a></li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="costume_1">
-						
-					</div>
-					<div class="tab-pane" id="costume_2"></div>
-					<div class="tab-pane" id="costume_3"></div>
-					<div class="tab-pane" id="costume_4"></div>
-					<div class="tab-pane" id="costume_5"></div>
-					<div class="tab-pane" id="costume_6"></div>
-				</div>
-				
-				<table id="template" class="table" style="display:none;">
-					<tr style="display:none;">
-						<!-- 二级类目 -->
-						<td style="width:100px;vertical-align:top;display:none;">
-							<label style="cursor:pointer;">
-								<input type="checkbox" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
-							</label>
-						</td>
-						<!-- 三级类目 -->
-						<td>
-							<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
-								<input type="checkbox" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
-							</label>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkCostume()">确定</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-			</div>
-		</div>
-	</div>
-</div>
 
-<!-- 选择地区模态框 -->
-<div class="modal fade" id="districtModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h5 class="modal-title" id="myModalLabel">选择地区</h5>
-			</div>
-			<div id="districtContainer" class="modal-body">
-				<div class="col-sm-3">
-					<select class="form-control" id="province" name="province"></select>
-				</div>
-				<div class="col-sm-3">
-					<select class="form-control" id="city" name="city"></select>
-				</div>
-				<div class="col-sm-3">
-					<select class="form-control" id="county" name="county"></select>
-				</div>
-				<div class="col-sm-3">
-					<select class="form-control" id="town" name="town"></select>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkDistrict()">确定</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-			</div>
-		</div>
-	</div>
-</div>
+
+
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>

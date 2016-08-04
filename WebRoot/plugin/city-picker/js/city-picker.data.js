@@ -4060,7 +4060,5 @@
     if (typeof window !== 'undefined') {
         window.ChineseDistricts = ChineseDistricts;
     }
-
     return ChineseDistricts;
-
 });

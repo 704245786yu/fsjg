@@ -17,6 +17,7 @@ function initCostumeCategory(){
 	//三级类目的checkbox
 	var $td2 = $($tds[1]);
 	var $checkbox2 = $td2.find('label').clone();
+	$td2.find('label').remove();	//去除隐藏的checkbox，防止表单提交的时候此类checkbox产生空值
 	$checkbox2.css('display','block');
 	
 	$.get('costumeCategory/getAllHierarchy',function(data){
@@ -115,6 +116,10 @@ function checkCostume(){
 function checkDistrict(){
 	
 }
+
+$('form').submit(function(){
+	$('form :checked').prop('disabled',false);
+});
 
 //获取优秀工厂(接单工厂)
 function getExcellent(){
