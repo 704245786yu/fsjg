@@ -105,26 +105,23 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 	/**模糊匹配企业名称、加工类型、工厂描述
 	 * @return id、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品、QQ、企业logo
 	 * */
-	public BootTablePageDto<Enterprise> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode){
-//		System.out.println(keyword);
-//		System.out.println(processType);
-//		JacksonJson.printBeanToJson(costumeCategoryCodes);
+	public BootTablePageDto<Enterprise> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode,String processType,String keyword){
 		StringBuffer countSql = new StringBuffer("select count(1)");
 		StringBuffer subSql = new StringBuffer(" from basic_enterprise where enterprise_name like :keyword or description like :keyword");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
 		params.add("keyword");
-		/*values.add("%"+keyword+"%");
+		values.add("%"+keyword+"%");
 		if(processType != null){
 			subSql.append(" or process_type like :processType");
 			params.add("processType");
 			values.add("%"+processType+"%");
 		}
-		if(costumeCategoryCodes.size() != 0){
-			subSql.append(" or id in (select distinct enterprise_id from basic_enterprise_costume_rela where costume_code in (:costumeCategoryCodes))");
-			params.add("costumeCategoryCodes");
-			values.add(costumeCategoryCodes);
-		}*/
+		if(costumeCode.length != 0){
+			subSql.append(" or id in (select distinct enterprise_id from basic_enterprise_costume_rela where costume_code in (:costumeCode))");
+			params.add("costumeCode");
+			values.add(costumeCode);
+		}
 		countSql.append(subSql);
 		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
 		long total = bigInt.longValue();
