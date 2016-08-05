@@ -320,7 +320,13 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	 * 暂时获取列表中前10个
 	 * */
 	public List<Enterprise> getExcellent(){
-		return dao.getAllByPage(0, 10);
+		List<Enterprise> enterprises = dao.getAllByPage(0, 10);
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(costumeCode);
+		}
+		return enterprises;
 	}
 	
 	/**最新入住的企业*/
@@ -354,7 +360,10 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return result; 
 	}
 	
-	/***/
+	/**模糊匹配企业名称、加工类型、工厂描述
+	 * 精确匹配省市区县乡镇、服饰类型
+	 * @return 企业logo、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品
+	 * */
 	public BootTablePageDto<Enterprise> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
 		//为简化查询，不匹配多个加工类型
 		String processType = null;
@@ -364,15 +373,14 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				processType = processTypes.get(0).getConstantValue();
 			}
 		}
-		/*BootTablePageDto<Enterprise> result = dao.search(keyword, processType, costumeCode);
+		BootTablePageDto<Enterprise> result = dao.search2(province,city,county,town,costumeCode,processType,keyword);
 		List<Enterprise> enterprises = result.getRows();
 		for(int i=0; i<enterprises.size(); i++){
 			Enterprise e = enterprises.get(i);
-			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
-			e.setCostumeCode(costumeCode);
+			List<Integer> list = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(list);
 		}
-		return result; */
-		return null;
+		return result;
 	}
 	
 	public Enterprise getById(int id){

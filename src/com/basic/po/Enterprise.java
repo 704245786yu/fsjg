@@ -46,7 +46,7 @@ public class Enterprise extends UserAbstract{
 */	
 	
 	@Column(name = "staff_number")
-	private Integer staffNumber;
+	private Integer staffNumber;	//员工人数
 	
 	@Column(name = "high_speed_staff_number")
 	private Integer highSpeedStaffNumber;	//高速车工人数

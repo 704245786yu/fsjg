@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -180,7 +181,7 @@
 										<img class="media-object" src="image/enterprise-icon.png">
 									</div>
 									<div class="media-body">
-										<h4 class="media-heading">工厂名称</h4>
+										<h4 class="media-heading"><a>工厂名称</a></h4>
 										<p class="list-group-item-text">员工人数</p>
 										<p class="list-group-item-text">加工类型</p>
 										<p class="list-group-item-text">主营产品</p>
@@ -303,9 +304,8 @@
 	</div><!-- 右边栏 -->
 </div>
 
-
-
-
+<input type="hidden" id="hiddenCostumeCategory" value={<c:forEach var="costumeCategory" items="${costumeCategoryMap}">"${costumeCategory.key}":"${costumeCategory.value}",</c:forEach>}>
+<input type="hidden" id="hiddenProcessType" value={<c:forEach var="processType" items="${processTypes}">"${processType.constantValue}":"${processType.constantName}",</c:forEach>}>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>

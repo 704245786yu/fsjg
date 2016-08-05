@@ -50,9 +50,11 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	
 	public ModelAndView showDefaultPage(HttpSession session){
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
+		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(defaultPage);
 		mav.addObject("processTypes", processTypes);
+		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		return mav;
 	}
 	
@@ -150,7 +152,18 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			e.printStackTrace();
 		}
 		keyword = keyword.trim();
-		return null;
+		BootTablePageDto<Enterprise> result = biz.search2(province,city,county,town,costumeCode,keyword);
+		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
+		List<District> districts =	districtBiz.getProvinceAndCity();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
+		mav.addObject("costumeCategoryMap", costumeCategoryMap);
+		mav.addObject("processTypes", processTypes);
+		mav.addObject("districts", districts);
+		mav.setViewName("main/enterpriseList");
+		return mav;
 	}
 	
 	@RequestMapping("showDetail/{id}")

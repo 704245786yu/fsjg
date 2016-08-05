@@ -1,11 +1,22 @@
-var g_processType = {1:'清加工',2:'经销',3:'自营出口',4:'其他'};
+var g_processType = null;	//加工类型
+var g_costumeCategory = null;	//服饰类型
 
 $(function(){
+	init();
 	initCostumeCategory();
 	getExcellent();
 	getNewest();
 	getNewAuth();
 });
+
+function init(){
+	var str = $('#hiddenProcessType').val();
+	str = str.replace(/,}/,'}');
+	g_processType = $.parseJSON(str);
+	str = $('#hiddenCostumeCategory').val();
+	str = str.replace(/,}/,'}');
+	g_costumeCategory = $.parseJSON(str);
+}
 
 //初始化服饰类别选择弹框
 function initCostumeCategory(){
@@ -114,7 +125,15 @@ function checkCostume(){
 
 //确定选择地区
 function checkDistrict(){
-	
+	var $select = $('#districtContainer :selected');
+	var str = '';
+	for(var i=0; i<$select.length; i++){
+		if($($select[i]).val() != '')
+			str += $($select[i]).text()+' ';
+	}
+	if(str == '')
+		str = '选择发单地区';
+	$('#districtBtn').html(str);
 }
 
 $('form').submit(function(){
@@ -129,15 +148,22 @@ function getExcellent(){
 		for(var i=0; i<data.length; i++){
 			var enterprise = data[i];
 			var $new = $enterprise.clone().css('display','block');
-			var $head = $new.find('.media-heading').text(enterprise.enterpriseName);
-			var workNumber = null;
-			if(enterprise.minimumStaffAmount == enterprise.maximumStaffAmount)
-				workNumber = enterprise.minimumStaffAmount;
-			else
-				workNumber = enterprise.minimumStaffAmount + '~' + enterprise.maximumStaffAmount;
-			var $list1 = $head.next().text('员工人数：'+workNumber+'人');
-			var $list2 = $list1.next().text('加工类型：'+g_processType[enterprise.processType]);
-			$list2.next().text('主营产品：');
+			var $head = $new.find('.media-heading > a').text(enterprise.enterpriseName).attr('href','enterprise/showDetail/'+enterprise.id);
+			var $list1 = $head.next().text('员工人数：'+enterprise.staffNumber+'人');
+			//加工类型
+			var processTypeAry = enterprise.processType.split(',');
+			var processType = '';
+			for(var j=0; j<processTypeAry.length; j++){
+				processType += g_processType[processTypeAry[j]]+' ';
+			}
+			var $list2 = $list1.next().text('加工类型：'+processType);
+			//主营产品
+			var costumeCodes = enterprise.costumeCode;
+			var costumeStr = '';
+			for(j=0; j<costumeCodes.length; j++){
+				costumeStr += g_costumeCategory[costumeCodes[j]]+' ';
+			}
+			$list2.next().text('主营产品：'+costumeStr);
 			$enterpriseList.append($new);
 		}
 	});

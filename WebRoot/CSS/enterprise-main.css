@@ -37,3 +37,8 @@
 .media-heading{
 	color:#4cb6ed;
 }
+
+/*接单工厂*/
+#enterpriseList h4 a{
+	text-decoration:none;
+}
