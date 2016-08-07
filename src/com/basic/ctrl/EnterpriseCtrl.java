@@ -179,7 +179,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	public ModelAndView showList(@PathVariable int costumeCode){
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-		List<District> districts =	districtBiz.getProvinceAndCity();
+		List<District> districts = districtBiz.getProvinceAndCity();
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		mav.addObject("processTypes", processTypes);

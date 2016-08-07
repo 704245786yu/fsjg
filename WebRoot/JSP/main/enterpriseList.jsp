@@ -41,7 +41,7 @@
 						<td><b>产品类别：</b></td>
 						<td style="width:806px;">
 							<p id="costumeCategory" style="float:left;width:90%;height:50px;line-height:25px;overflow:hidden;overflow-x:hidden">
-								<a class="label label-info" href="0">全部</a>
+								<a class="label label-info" href="0" onclick="return query(this)">全部</a>
 							</p>
 							<a id="showMoreToggle" type="button" class="btn btn-default btn-xs" style="float:right;color:#337AB7;">更多<span class="glyphicon glyphicon-chevron-down"></span></a>
 						</td>
@@ -49,18 +49,36 @@
 					<tr>
 						<td><b>所在地区：</b></td>
 						<td>
-							<div id="districtContainer" class="row">
-								<div class="col-sm-3">
-									<select class="form-control" id="province" name="province"></select>
-								</div>
-								<div class="col-sm-3">
-									<select class="form-control" id="city" name="city"></select>
-								</div>
-								<div class="col-sm-3">
-									<select class="form-control" id="county" name="county"></select>
-								</div>
-								<div class="col-sm-3">
-									<select class="form-control" id="town" name="town"></select>
+							<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择发单地区</button>
+							<!-- 选择地区模态框 -->
+							<div class="modal fade" id="districtModal" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+											<h5 class="modal-title" id="myModalLabel">选择地区</h5>
+										</div>
+										<div id="districtContainer" class="modal-body">
+											<div class="row">
+												<div class="col-sm-3">
+													<select class="form-control" id="province" name="province"></select>
+												</div>
+												<div class="col-sm-3">
+													<select class="form-control" id="city" name="city"></select>
+												</div>
+												<div class="col-sm-3">
+													<select class="form-control" id="county" name="county"></select>
+												</div>
+												<div class="col-sm-3">
+													<select class="form-control" id="town" name="town"></select>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkDistrict()">确定</button>
+											<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</td>
@@ -68,22 +86,22 @@
 					<tr>
 						<td><b>加工类型：</b></td>
 						<td id="processType">
-							<a class="label label-info" href="0">全部</a>
+							<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
 							<c:forEach var="processType" items="${processTypes}">
-								<a href="${processType.constantValue}">${processType.constantName}</a>
+								<a href="${processType.constantValue}" onclick="return aClick(this)">${processType.constantName}</a>
 							</c:forEach>
 						</td>
 					</tr>
 					<tr>
 						<td><b>员工数量：</b></td>
-						<td>
-							<a class="label label-info" href="0">全部</a>
-							<a href="1">50人以下</a>
-							<a href="2">50-100人</a>
-							<a href="3">100-200人</a>
-							<a href="4">200-500人</a>
-							<a href="5">500-1000人</a>
-							<a href="6">1000人以上</a>
+						<td id="staffNumber">
+							<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
+							<a href="1" onclick="return aClick(this)">50人以下</a>
+							<a href="2" onclick="return aClick(this)">50-100人</a>
+							<a href="3" onclick="return aClick(this)">100-200人</a>
+							<a href="4" onclick="return aClick(this)">200-500人</a>
+							<a href="5" onclick="return aClick(this)">500-1000人</a>
+							<a href="6" onclick="return aClick(this)">1000人以上</a>
 						</td>
 					</tr>
 				</table>

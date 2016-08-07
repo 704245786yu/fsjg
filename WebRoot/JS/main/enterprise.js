@@ -178,7 +178,12 @@ function getNewest(){
 			var enterprise = data[i];
 			var $new = $enterprise.clone().css('display','block');
 			var $head = $new.find('.media-heading').text(enterprise.enterpriseName);
-			$head.next().text('主营产品：');
+			var costumeCodes = enterprise.costumeCode;
+			var costumeStr = '';
+			for(j=0; j<costumeCodes.length; j++){
+				costumeStr += g_costumeCategory[costumeCodes[j]]+' ';
+			}
+			$head.next().text('主营产品：'+costumeStr);
 			$enterpriseList.append($new);
 		}
 	});
@@ -193,7 +198,12 @@ function getNewAuth(){
 			var enterprise = data[i];
 			var $new = $enterprise.clone().css('display','block');
 			var $head = $new.find('.media-heading').text(enterprise.enterpriseName);
-//			$head.next().text('主营产品：');
+			var costumeCodes = enterprise.costumeCode;
+			var costumeStr = '';
+			for(j=0; j<costumeCodes.length; j++){
+				costumeStr += g_costumeCategory[costumeCodes[j]]+' ';
+			}
+			$head.next().text('主营产品：'+costumeStr);
 			$enterpriseList.append($new);
 		}
 	});

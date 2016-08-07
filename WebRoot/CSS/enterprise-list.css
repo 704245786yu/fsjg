@@ -1,6 +1,8 @@
 @CHARSET "UTF-8";
-body > table td{
-	
+#districtBtn{
+	width:320px;
+	overflow:hidden;
+	background: url('../image/select-btn.png') no-repeat 90%;
 }
 
 .search-panel td{

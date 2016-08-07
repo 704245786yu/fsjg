@@ -7,7 +7,6 @@ $(function(){
 	initProcessType();
 	initDistrict();
 	initEnterpriseList()
-//	getCostumeCategory();
 });
 
 function initCostumeCategoryObj(){
@@ -21,11 +20,50 @@ function initCostumeCategoryObj(){
 	var index=0;
 	$.each(g_costumeCategory,function(i,n){
 		if(index<21)
-			$('<a>').html(n).attr('href',i).appendTo($costumeCategory);
+			$('<a onclick="return aClick(this)">').html(n).attr('href',i).appendTo($costumeCategory);
 		else
-			$('<a class="excessA">').html(n).attr('href',i).css('display','none').appendTo($costumeCategory);
+			$('<a class="excessA" onclick="return aClick(this)">').html(n).attr('href',i).css('display','none').appendTo($costumeCategory);
 		index++;
 	});
+}
+
+function aClick(a){
+	var $a = $(a)
+	$a.parent().find('a.label').removeClass('label label-info');
+	$a.addClass('label label-info');
+	return false;
+}
+
+//确定选择地区
+function checkDistrict(){
+	var $select = $('#districtContainer :selected');
+	var str = '';
+	for(var i=0; i<$select.length; i++){
+		if($($select[i]).val() != '')
+			str += $($select[i]).text()+' ';
+	}
+	if(str == '')
+		str = '选择发单地区';
+	$('#districtBtn').html(str);
+}
+
+//工厂查询
+function query(){
+	var costumeCode = $('#costumeCategory a.label').attr('href');
+	costumeCode = costumeCode == 0 ? null : costumeCode;
+	var $district = $('#districtContainer');
+	var province = $district.find('#province').val();
+	var city = $district.find('#city').val();
+	var county = $district.find('#county').val();
+	var town = $district.find('#town').val();
+	var processType = $('#processType a.label').attr('href');
+	processType = processType == 0 ? null : processType;
+	var staffNumber = $('#staffNumber a.label').attr('href');
+	staffNumber = staffNumber == 0 ? null : staffNumber;
+	$.get('',{'costumeCode':costumeCode, 'province':province, 'city'},function(data){
+		
+	});
+	return false;
 }
 
 //加工类型
@@ -46,18 +84,6 @@ function initDistrict(){
 	str = str.replace(/,}/,'}');
 	g_district = $.parseJSON(str);
 }
-
-/*function getCostumeCategory(){
-	$.get('costumeCategory/getAll',function(data){
-		var $costumeCategory = $('#costumeCategory');
-		for(var i=1; i<=16; i++){	//下标0是服饰类型的根
-			$('<a>').html(data[i].categoryName).attr('href',data[i].categoryCode).appendTo($costumeCategory);
-		}
-		for(var i=17; i<data.length; i++){
-			$('<a class="excessA">').html(data[i].categoryName).attr('href',data[i].categoryCode).css('display','none').appendTo($costumeCategory);
-		}
-	});
-}*/
 
 function initEnterpriseList(){
 	var $tables = $('#enterpriseListDiv table');

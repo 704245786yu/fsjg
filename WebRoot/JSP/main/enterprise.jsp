@@ -293,7 +293,7 @@
 						<ul id="newAuthEnterpriseList" class="list-group">
 							<li class="list-group-item enterprise" style="display:none;">
 								<h4 class="media-heading">工厂名称</h4>
-								<p class="list-group-item-text">主营产品：休闲服饰、女式连衣服</p>
+								<p class="list-group-item-text"></p>
 								<h4><span class="label" style="background-color:#ff6717">已通过资质认证</span></h4>
 							</li>
 						</ul>

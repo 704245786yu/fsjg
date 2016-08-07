@@ -331,12 +331,24 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	
 	/**最新入住的企业*/
 	public List<Enterprise> getNewest(){
-		return dao.getNewest();
+		List<Enterprise> enterprises = dao.getNewest();
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(costumeCode);
+		}
+		return enterprises;
 	}
 	
 	/**最新认证加工厂*/
 	public List<Enterprise> getNewAuth(){
-		return dao.getNewest();
+		List<Enterprise> enterprises = dao.getNewest();
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(costumeCode);
+		}
+		return enterprises;
 	}
 	
 	/**模糊匹配企业名称、加工类型、主营产品、工厂描述
