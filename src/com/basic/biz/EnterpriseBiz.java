@@ -300,7 +300,6 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		basicUserDao.update(basicUser);
 		dao.update(enterprise);
 	}
-
 	/**删除企业信息时同时删除关联的BasicUser、EnterpriseCostumeRela信息*/
 	@Override
 	@Transactional
@@ -421,4 +420,5 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		}
 		return dto;
 	}
+	
 }

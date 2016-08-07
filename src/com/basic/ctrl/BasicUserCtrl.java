@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.basic.biz.BasicUserBiz;
@@ -67,13 +68,16 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 	/**显示个人中心*/
 	@RequestMapping("showMineInfo")
 	public ModelAndView showMineInfo(HttpSession session){
-		ModelAndView mav = new ModelAndView("main/mineInfo");
+		ModelAndView mav = null;
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
 		UserAbstract userAbstract = null;
 		int roleId = basicUser.getRoleId();
-		if(roleId == 1)
+		if(roleId == 1){
+			mav = new ModelAndView("main/mineInfoPerson");
 			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
+		}
 		else if(roleId == 2){
+			mav = new ModelAndView("main/mineInfo");
 			Enterprise e = enterpriseBiz.getByBasicUserId(basicUser.getId());
 			userAbstract = e;
 			//行业分类
@@ -104,7 +108,28 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		mav.addObject("userInfo", userAbstract);
 		return mav;
 	}
-	
+	/**
+	 * 企业个人中心信息修改
+	 * @param userAbstract
+	 * @return
+	 */
+	@RequestMapping(value="editEnterpriseInfo", method=RequestMethod.POST)
+	public ModelAndView editEnterpriseInfo(String id,String employeeCount,String detailAddr,String qq,String wechat,String fix_phone,String orgCode,String enterpriseAge){
+		BasicUser basicUser=new BasicUser();
+		basicUser.setId(Integer.parseInt(id));
+		Enterprise enterprise=new Enterprise();
+		enterprise.setStaffNumber(Integer.parseInt(employeeCount));
+		enterprise.setDetailAddr(detailAddr);
+		enterprise.setQq(Long.parseLong(qq));
+		enterprise.setWechat(wechat);
+		enterprise.setFixPhone(fix_phone);
+		enterprise.setOrgCode(orgCode);
+		enterprise.setEnterpriseAge(Short.parseShort(enterpriseAge));
+		enterprise.setBasicUser(basicUser);
+		enterpriseBiz.update(enterprise);
+		ModelAndView mav = new ModelAndView("main/mineInfo");
+		return mav;
+	}
 	@Override
 	public List<BasicUser> getAll(){
 		return null;
