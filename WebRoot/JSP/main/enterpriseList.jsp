@@ -41,7 +41,7 @@
 						<td><b>产品类别：</b></td>
 						<td style="width:806px;">
 							<p id="costumeCategory" style="float:left;width:90%;height:50px;line-height:25px;overflow:hidden;overflow-x:hidden">
-								<a class="label label-info" href="0" onclick="return query(this)">全部</a>
+								<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
 							</p>
 							<a id="showMoreToggle" type="button" class="btn btn-default btn-xs" style="float:right;color:#337AB7;">更多<span class="glyphicon glyphicon-chevron-down"></span></a>
 						</td>
@@ -160,6 +160,46 @@
 				</table>
 			</c:forEach>
 		</div>
+		<table class="table table-bordered template" style="margin-top:20px;display:none;">
+			<tr height="45px">
+				<td rowspan="3" style="width:180px;background-color:#F8F8F8;text-align:center;">
+					<img width="120px" height="120px" style="margin-bottom:10px" src="image/enterprise-icon.png">
+					<button type="button" class="btn btn-info">QQ在线交流</button>
+				</td>
+				<td style="width:90px;text-align:center;background-color:#E5E5E5">工厂信息：</td>
+				<td class="title" style="background-color:white;">
+					<div style="font-size:16px;float:left;">
+						<a href="enterprise/showDetail/" style="color:#59BBE7;">${enterprise.enterpriseName}</a>
+					</div>
+					<div class="staffNumber" style="float:right;">员工人数：${enterprise.staffNumber}人</div>
+					<div style="float:right;margin-right:40px;">
+						加工类型：
+						<span name="processType">${enterprise.processType}</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:center;background-color:#E5E5E5">工厂介绍：</td>
+				<td style="background-color:white;">
+					<span name="description">${enterprise.description}</span>
+					<a href="#" style="color:#59BBE7">更多详情</a>
+				</td>
+			</tr>
+			<tr height="40px">
+				<td style="text-align:center;background-color:white;">所在地区：</td>
+				<td style="background-color:white;">
+					<span name="disctrict">[${enterprise.province},${enterprise.city}]</span>
+					<span style="margin-left:180px;color:red;">
+						主营产品:
+						<span name="costumeName">${enterprise.costumeCode}</span>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="background-color:#D9D9D9;padding:1px;">
+				</td>
+			</tr>
+		</table>
 	</td>
 	
 	<!-- 右边栏 -->

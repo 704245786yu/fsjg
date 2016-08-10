@@ -166,6 +166,12 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return mav;
 	}
 	
+	@RequestMapping(value="search3")
+	@ResponseBody
+	public BootTablePageDto<Enterprise> search3(Integer costumeCode, Long province, Long city, Long county, Long town, Integer processType, Integer staffNumber){
+		return biz.search3(costumeCode, province, city, county, town, processType, staffNumber);
+	}
+	
 	@RequestMapping("showDetail/{id}")
 	public ModelAndView showDetail(@PathVariable int id){
 		Enterprise e = biz.getById(id);

@@ -394,6 +394,17 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return result;
 	}
 	
+	public BootTablePageDto<Enterprise> search3(Integer costumeCode, Long province, Long city, Long county, Long town, Integer processType, Integer staffNumber){
+		BootTablePageDto<Enterprise> result = dao.search3(costumeCode, province, city, county, town, processType, staffNumber);
+		List<Enterprise> enterprises = result.getRows();
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> list = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(list);
+		}
+		return result;
+	}
+	
 	public Enterprise getById(int id){
 		Enterprise e = dao.findById(id);
 		List<Integer> list = enterpriseCostumeRelaDao.getCostumeCode(id);

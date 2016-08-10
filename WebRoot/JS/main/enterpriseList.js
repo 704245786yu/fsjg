@@ -31,6 +31,7 @@ function aClick(a){
 	var $a = $(a)
 	$a.parent().find('a.label').removeClass('label label-info');
 	$a.addClass('label label-info');
+	query();
 	return false;
 }
 
@@ -45,6 +46,7 @@ function checkDistrict(){
 	if(str == '')
 		str = '选择发单地区';
 	$('#districtBtn').html(str);
+	query();
 }
 
 //工厂查询
@@ -60,10 +62,50 @@ function query(){
 	processType = processType == 0 ? null : processType;
 	var staffNumber = $('#staffNumber a.label').attr('href');
 	staffNumber = staffNumber == 0 ? null : staffNumber;
-	$.get('',{'costumeCode':costumeCode, 'province':province, 'city'},function(data){
-		
-	});
-	return false;
+	var $div = $('#enterpriseListDiv');
+	$div.empty();
+	$.get('enterprise/search3',
+		{'costumeCode':costumeCode, 'province':province, 'city':city, 'county':county, 'town':town, 'processType':processType, 'staffNumber':staffNumber},
+		function(data){
+			var rows = data.rows;
+			var $template = $('.template').clone().css('display','table');
+			for(var i=0; i<rows.length; i++){
+				var enterprise = rows[i];
+				var $table = $template.clone();
+				var $titleA = $table.find('.title a');
+				$titleA.attr('href',$titleA.attr('href')+enterprise.id).html(enterprise.enterpriseName);
+				//加工类型
+				var $span = $table.find('span[name="processType"]');
+				var processType = $.parseJSON('['+enterprise.processType+']');
+				var str = "";
+				for(var j=0; j<processType.length; j++){
+					str += g_processType[processType[j]]+' ';
+				}
+				$span.html(str);
+				//员工人数
+				$table.find('.staffNumber').html('员工人数：'+enterprise.staffNumber);
+				//工厂介绍
+				$table.find('span[name="description"]').html(enterprise.description);
+				//所在地区
+				$span = $table.find('span[name="disctrict"]');
+				var disctricts = $.parseJSON('['+enterprise.province+','+enterprise.city+']');
+				str = "";
+				for(var j=0; j<disctricts.length; j++){
+					str += g_district[disctricts[j]]+' ';
+				}
+				$span.html(str);
+				//主营产品
+				$span = $table.find('span[name="costumeName"]');
+				var costumeCategoryAry = enterprise.costumeCode;
+				var costumeStr = "";
+				for(var j=0; j<costumeCategoryAry.length; j++){
+					costumeStr += g_costumeCategory[costumeCategoryAry[j]]+' ';
+				}
+				$span.html(costumeStr);
+				$div.append($table);
+			}
+		}
+	);
 }
 
 //加工类型
