@@ -51,7 +51,7 @@
 			</form>
 			</div>
 			<div class="col-md-1" style="padding-top:26px;">
-				<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 发布订单</button>
+				<a href="indent/showRelease" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span> 发布订单</a>
 		</div>
 	</div>
 </div>

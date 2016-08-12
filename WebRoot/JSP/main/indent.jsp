@@ -17,7 +17,7 @@
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/common/default.css" rel="stylesheet">
-<link href="CSS/orderForm-main.css" rel="stylesheet">
+<link href="CSS/indent-main.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
 </head>
@@ -345,7 +345,7 @@
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>
-<script src="JS/main/orderForm.js"></script>
+<script src="JS/main/indent.js"></script>
 </body>
 </html>
 

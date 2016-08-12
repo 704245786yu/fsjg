@@ -9,12 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.basic.biz.IndentBiz;
+import com.basic.po.Indent;
+import com.common.BaseCtrl;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
 
 @Controller
-@RequestMapping("orderForm")
-public class OrderFormCtrl {
+@RequestMapping("indent")
+public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
@@ -27,8 +30,16 @@ public class OrderFormCtrl {
 	public ModelAndView showDefaultPage(HttpSession session){
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main/orderForm");
+		mav.setViewName("main/indent");
 		mav.addObject("processTypes", processTypes);
+		return mav;
+	}
+	
+	/**显示发布订单页面*/
+	@RequestMapping("showRelease")
+	public ModelAndView showRelease(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main/indentRelease");
 		return mav;
 	}
 }
