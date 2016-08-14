@@ -26,7 +26,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 //		
 //	}
 	
-	@RequestMapping
+	@Override
 	public ModelAndView showDefaultPage(HttpSession session){
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		ModelAndView mav = new ModelAndView();
@@ -38,8 +38,10 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	/**显示发布订单页面*/
 	@RequestMapping("showRelease")
 	public ModelAndView showRelease(){
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main/indentRelease");
+		mav.addObject("processTypes", processTypes);
 		return mav;
 	}
 }

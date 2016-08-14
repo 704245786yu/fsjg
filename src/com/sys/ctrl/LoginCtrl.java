@@ -30,19 +30,7 @@ public class LoginCtrl {
 	@Autowired
 	private EnterpriseBiz enterpriseBiz;
 	
-	/**登录检测
-	 * */
-	@RequestMapping(value="loginCheck", method=RequestMethod.POST)
-	@ResponseBody
-	public Integer loginCheck(String userName, String password, HttpSession session){
-		User user = userBiz.loginCheck(userName, password);
-		if(user != null){
-			session.setAttribute(loginMngUser, user);
-			return 1;
-		}else{
-			return 0;
-		}
-	}
+
 	
 	@RequestMapping(value="showSignUp")
 	public String showSignUp(){
@@ -99,6 +87,7 @@ public class LoginCtrl {
 		}
 	}
 	
+	//普通用户登录
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public ModelAndView login(String userName, String password, HttpSession session){
 		BasicUser basicUser = basicUserBiz.login(userName, password);
@@ -114,7 +103,36 @@ public class LoginCtrl {
 		return mav;
 	}
 	
-	//退出
+	/**普通用户异步登录,弹出式登录表单用
+	 * */
+	@RequestMapping(value="asyLogin", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean asyLogin(String userName, String password, HttpSession session){
+		BasicUser basicUser = basicUserBiz.login(userName, password);
+		if(basicUser == null){
+			return false;
+		}else{
+			session.setAttribute(loginBasicUser, basicUser);
+			return true;
+		}
+	}
+	
+	
+	/**管理员登录检测
+	 * */
+	@RequestMapping(value="loginCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public Integer loginCheck(String userName, String password, HttpSession session){
+		User user = userBiz.loginCheck(userName, password);
+		if(user != null){
+			session.setAttribute(loginMngUser, user);
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+	
+	//后台管理退出
 	@RequestMapping("mngLogout")
 	public ModelAndView mngLogout(HttpSession session){
 		session.removeAttribute(loginMngUser);
@@ -123,6 +141,7 @@ public class LoginCtrl {
 		return mav;
 	}
 	
+	//普通用户退出
 	@RequestMapping("logout")
 	public ModelAndView logout(HttpSession session){
 		session.removeAttribute(loginBasicUser);

@@ -22,7 +22,9 @@
 <body>
 <!-- Top content -->
 <div class="top-banner">
-	<img src="image/logo.png">
+	<a href="">
+		<img src="image/logo.png">
+	</a>
 </div>
 <div class="background_div">
 	<div class="col-sm-3 col-sm-offset-8 form-box">
