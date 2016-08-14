@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
 import com.basic.dao.PersonDao;
@@ -50,7 +52,9 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 	
 	/**根据BasicUserId获取Person信息*/
 	public Person getByBasicUserId(int userId){
-		return null;
+		Criterion c = Restrictions.eq("basicUser.id", userId);
+		Person p=dao.findByCriteria(c).get(0);
+		return p;
 	}
 	
 	/**分页获取所有数据

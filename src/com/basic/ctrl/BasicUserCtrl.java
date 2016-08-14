@@ -18,6 +18,7 @@ import com.basic.biz.EnterpriseBiz;
 import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
+import com.basic.po.Person;
 import com.basic.po.UserAbstract;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
@@ -75,6 +76,7 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		if(roleId == 1){
 			mav = new ModelAndView("main/mineInfoPerson");
 			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
+			
 		}
 		else if(roleId == 2){
 			mav = new ModelAndView("main/mineInfo");
@@ -128,6 +130,23 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		enterprise.setBasicUser(basicUser);
 		enterpriseBiz.update(enterprise);
 		ModelAndView mav = new ModelAndView("main/mineInfo");
+		return mav;
+	}
+	/**
+	 * 个人用户个人中心信息修改
+	 * @return
+	 */
+	@RequestMapping(value="editPersonInfo", method=RequestMethod.POST)
+	public ModelAndView editPersonInfo(String id,String qq,String wechat,String postalCode,String detailAddr,String fixPhone){
+		Person person=new Person();
+		person.setId(Integer.parseInt(id));
+		person.setFixPhone(fixPhone);
+		person.setPostalCode(postalCode);
+		person.setQq(Long.parseLong(qq));
+		person.setWechat(wechat);
+		person.setDetailAddr(detailAddr);
+		personBiz.update(person);
+		ModelAndView mav = new ModelAndView("main/mineInfoPerson");
 		return mav;
 	}
 	@Override

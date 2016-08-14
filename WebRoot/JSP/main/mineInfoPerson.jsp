@@ -39,22 +39,13 @@
 			<table width=800 height=80 style="font-size:15px" cellspacing="42"
 				cellpadding="0">
 				<tr>
-					<td>姓名：<c:forEach var="name" items="${userInfo}">
-							<c:out value="${userInfo.realName}" />
-						</c:forEach></td>
-					<td>加工类型：<c:forEach var="processType" items="${processTypes}">
-							<c:out value="${processType.constantName}" />
-						</c:forEach></td>
-					<td>主营产品：<c:forEach var="costumeName" items="${costumeNames}">
-							<c:out value="${costumeName}" />
-						</c:forEach></td>
+					<td><label>帐号名称：</label>${userInfo.basicUser.userName }</td>
+					<td><label>姓名：</label>${userInfo.realName }</td>
+					<td><label>电子邮箱：</label>${userInfo.email }</td>
 				</tr>
 				<tr>
-					<td>省市区：<c:forEach var="districtName" items="${districtNames}">
-							<c:out value="${districtName}" />
-						</c:forEach></td>
-					<td>详细地址：${userInfo.detailAddr }</td>
-					<td>联系人：${userInfo.linkman }</td>
+					<td><label>手机号码：</label>${userInfo.basicUser.telephone }</td>
+					<td colspan="2"><label>身份证号：</label>${userInfo.idCard }&nbsp;&nbsp;<button type="submit" class="btn btn-primary ">上传身份证照片</button></td>
 				</tr>
 				<%-- <tr>
 					<td>QQ：${userInfo.qq }</td>
@@ -63,8 +54,7 @@
 				</tr> --%>
 			</table>
 			<p style="line-height:70px">
-				<span><img style="margin:0;padding:0"
-					src="image/enterpriseDetail/qualification_tg.png">资质认证</span><span><img
+				<span><img
 					style="margin:0;padding:0"
 					src="image/enterpriseDetail/email_tg.png">邮箱认证</span><span><img
 					style="margin:0;padding:0"
@@ -94,109 +84,53 @@
 		</div>
 
 		<div class="right_info">
+		<form class="form-inline" role="form" action="basicUser/editPersonInfo" method="post" accept-charset="utf-8">
 			<div class="title" style="border-bottom:1px solid #cccccc">
 				<p style="line-height:40px">
 					<span style="font-size:20px;font-weight:bold;padding-left:20px;">详细信息</span><span
 						style="padding-left:700px">&nbsp;</span>
+						<input type="hidden" value=${userInfo.basicUser.id } name="id" class="form-control" id="myid">
 					<button type="submit" class="btn btn-primary ">保存修改</button>
 					<button type="submit" class="btn btn-primary">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
 				</p>
 			</div>
 
-			<form class="form-inline" role="form">
 				<div class="form-group" style="margin-left:50px;margin-top:10px">
-					<table width=650 height=400>
+					<table width=650 height=300>						
 						<tr>
-							<td><label for="name">工厂类别：</label><input type="text"
-								name=tradeName
-								placeholder=<c:forEach var="tradeName" items="${tradeNames}">
-							<c:out value="${tradeName}" />
-						</c:forEach>
-								class="form-control" id="tradeName"></td>
-							<td><label for="name">主营产品：</label><input type="text"
-								name=costumeName
-								placeholder=<c:forEach var="costumeName" items="${costumeNames}">
-							<c:out value="${costumeName}" />
-						</c:forEach>
-								class="form-control" id="costumeName"></td>
+							<td><label for="name">QQ号码：</label>
+							<input type="text"
+								name=qq value=${userInfo.qq }
+								class="form-control" id="qq">
+							</td>
+							<td><label for="name">固定电话：</label><input type="text"
+								name=fixPhone value=${userInfo.fixPhone }
+								class="form-control" id=fixPhone></td>
 						</tr>
 						<tr>
-							<td><label for="name">加工类型：</label><input type="text"
-								name=processType
-								placeholder=<c:forEach var="processType" items="${processTypes}">
-							<c:out value="${processType.constantName}" />
-						</c:forEach>
-								class="form-control" id="processType"></td>
-							<td><label for="name">企业优势：</label><input type="text"
-								name=enterpriseYs
-								class="form-control" id="enterpriseYs"></td>
-						</tr>
-						<tr>
-							<td><label for="name">员工人数：</label><input type="text"
-								name=employeeCount placeholder=${userInfo.staffNumber }
-								class="form-control" id="employeeCount"></td>
+							<td><label for="name">微信号码：</label><input type="text"
+								name=wechat value=${userInfo.wechat }
+								class="form-control" id="wechat"></td>
 							<td><label for="name">所在地区：</label>
 							<input type="text"
-								name=district placeholder=<c:forEach var="districtName" items="${districtNames}">
+								name=district value=<c:forEach var="districtName" items="${districtNames}">
 							<c:out value="${districtName}" />
 						</c:forEach>
 								class="form-control" id="district"></td>
 						</tr>
 						<tr>
-							<td><label for="name">传真信息：</label>
-							<input type="text"
-								name=fix_phone placeholder=""
-								class="form-control" id="fix_phone"></td>
+							<td><label for="name">邮政编码：</label><input type="text"
+								name=postalCode value=${userInfo.postalCode }
+								class="form-control" id=postalCode></td>
 							<td><label for="name">详细地址：</label>
 							<input type="text"
-								name=detailAddr placeholder=${userInfo.detailAddr }
-								class="form-control" id=detailAddr></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><label for="name">QQ号码：</label>
-							<input type="text"
-								name=qq placeholder=${userInfo.qq }
-								class="form-control" id="qq">
-							</td>
-							<td><label for="name">固定电话：</label></td>
-						</tr>
-						<tr>
-							<td><label for="name">微信号码：</label><input type="text"
-								name=wechat placeholder=${userInfo.wechat }
-								class="form-control" id="wechat"></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><label for="name">营业执照：</label><button type="submit" class="btn btn-primary ">浏&nbsp;&nbsp;&nbsp;览</button>
-							</td>
-							<td><label for="name">组织机构代码：</label><input type="text"
-								name=orgCode placeholder=${userInfo.orgCode }
-								class="form-control" id="orgCode"></td>
-						</tr>
-						<tr>
-							<td><label for="name">企业LOGO：</label>
-							<button type="submit" class="btn btn-primary ">上&nbsp;&nbsp;&nbsp;传</button>
-							</td>
-							<td><label for="name">成立时间：</label><input type="text"
-								name=enterpriseAge placeholder=${userInfo.enterpriseAge }
-								class="form-control" id="enterpriseAge">年</td>
-						</tr>
+								name=detailAddr value=${userInfo.detailAddr }
+								class="form-control" id=detailAddr></td>							
+						</tr>						
 					</table>
 				</div>
 			</form>
-
-
-
-
-
-
-
-
 		</div>
-
-
-
 		<div class="right_order" style="display:none">
 			<table>
 				<tr>

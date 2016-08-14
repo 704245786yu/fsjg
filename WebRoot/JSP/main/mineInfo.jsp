@@ -40,7 +40,7 @@
 				cellpadding="0">
 				<tr>
 					<td><label>帐号名称：</label>${userInfo.basicUser.userName }</td>
-					<td><label>联系人：</label>${userInfo.linkman }</td>
+					<td><label>姓名：</label>${userInfo.linkman }</td>
 					<td><label>电子邮箱：</label>${userInfo.email }</td>
 				</tr>
 				<tr>
