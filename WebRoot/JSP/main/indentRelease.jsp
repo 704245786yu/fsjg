@@ -142,6 +142,9 @@
 					<input id="fileupload" type="file" accept="application/vnd.ms-excel" name="file" data-url="district/uploadExcel">
 				</span>
 			</p>
+			<p style="width:70%;">
+				<script id="editor" name="content" type="text/plain"></script>
+			</p>
 		</li>
 		<li class="list-group-item">
 			<h4>发布设置</h4>
@@ -299,6 +302,9 @@
 <script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+<script src="plugin/UEditor/ueditor.config.js" type="text/javascript"></script>
+<script src="plugin/UEditor/ueditor.all.js" type="text/javascript"></script>
+<script src="plugin/UEditor/lang/zh-cn/zh-cn.js" type="text/javascript"></script>
 <script src="JS/util/treeUtil.js"></script>
 <script src="JS/util/districtCascade.js"></script>
 <script src="JS/main/indentRelease.js"></script>

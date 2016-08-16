@@ -26,11 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <h2 class="lead">Basic Plus version</h2>
     <br>
     <!-- The fileinput-button span is used to style the file input field as button -->
-    <form method="post" action="personContractor/uploadExcel" enctype="multipart/form-data">
+    <form method="post" action="indent/release" enctype="multipart/form-data">
 		<span class="btn btn-success fileinput-button">
 			<i class="glyphicon glyphicon-plus"></i>
 			<span>Add files...</span>
-	    	<input id="fileupload" type="file" name="file"/>
+	    	<input id="fileupload" type="file" name="files"/>
 	    </span>
     <button type="submit">提交</button>
     </form>

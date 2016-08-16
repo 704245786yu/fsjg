@@ -1,6 +1,50 @@
 $(function(){
 	initCostumeCategory();
+	initUEditor();
 });
+
+function initUEditor(){
+	var ue = UE.getEditor('editor', {
+	    autoFloatEnabled: true,
+	    toolbars: [
+		    [
+		        'undo', //撤销
+		        'redo', //重做
+		        'bold', //加粗
+		        'italic', //斜体
+		        'underline', //下划线
+		        'subscript', //下标
+		        'superscript', //上标
+		        'formatmatch', //格式刷
+		        'pasteplain', //纯文本粘贴模式
+		        'preview', //预览
+		        'horizontal', //分隔线
+		        'removeformat', //清除格式
+		        'unlink', //取消链接
+		        'cleardoc', //清空文档
+		        ],
+		        [
+		        'fontfamily', //字体
+		        'fontsize', //字号
+		        'paragraph', //段落格式
+		        'link', //超链接
+		        'searchreplace', //查询替换
+		        'justifyleft', //居左对齐
+		        'justifyright', //居右对齐
+		        'justifycenter', //居中对齐
+		        'justifyjustify', //两端对齐
+		        'forecolor', //字体颜色
+		        'backcolor', //背景色
+		        'insertorderedlist', //有序列表
+		        'insertunorderedlist', //无序列表
+		        'rowspacingtop', //段前距
+		        'rowspacingbottom', //段后距
+		        'lineheight', //行间距
+		        'edittip ' //编辑提示
+		    ]
+		]
+	});
+}
 
 function initCostumeCategory(){
 	var $tableTemplate = $('#template').clone();
