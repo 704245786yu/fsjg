@@ -27,6 +27,7 @@
 <body>
 <%@ include file="top.jsp" %>
 <div style="width:1190px; margin:0 auto;">
+	<form action="indent/release" enctype="multipart/form-data" method="post">
 	<table class="title" style="height:78px;">
 		<tr>
 			<td style="width:365px;text-align:left;padding-left:15px;font-size:24px;color:white;background-color:#00B5FF;">
@@ -76,6 +77,58 @@
 					<td>产品类别：</td>
 					<td>
 						<button id="costumeBtn" type="button" class="btn btn-default btn-select" data-toggle="modal" data-target="#costumeCategoryModal">选择产品类别</button>
+						<!-- 选择服饰类别模态框 -->
+						<div class="modal fade" id="costumeCategoryModal" tabindex="-1">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										<h5 class="modal-title" id="myModalLabel">选择服饰类别</h5>
+									</div>
+									<div class="modal-body">
+										<ul class="nav nav-tabs">
+											<li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
+											<li><a href="#costume_2" data-toggle="tab">服饰</a></li>
+											<li><a href="#costume_3" data-toggle="tab">家纺</a></li>
+											<li><a href="#costume_4" data-toggle="tab">纺织消费品</a></li>
+											<li><a href="#costume_5" data-toggle="tab">面料/皮革/纱线</a></li>
+											<li><a href="#costume_6" data-toggle="tab">纺织辅料</a></li>
+										</ul>
+										<div class="tab-content">
+											<div class="tab-pane active" id="costume_1">
+												
+											</div>
+											<div class="tab-pane" id="costume_2"></div>
+											<div class="tab-pane" id="costume_3"></div>
+											<div class="tab-pane" id="costume_4"></div>
+											<div class="tab-pane" id="costume_5"></div>
+											<div class="tab-pane" id="costume_6"></div>
+										</div>
+										
+										<table id="template" class="table" style="display:none;">
+											<tr style="display:none;">
+												<!-- 二级类目 -->
+												<td style="width:100px;vertical-align:top;display:none;">
+													<label style="cursor:pointer;">
+														<input type="checkbox" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
+													</label>
+												</td>
+												<!-- 三级类目 -->
+												<td>
+													<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
+														<input type="checkbox" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
+													</label>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkCostume()">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -133,14 +186,15 @@
 			<h4>详细说明</h4>
 			<p>请提供详细的订单资料，确保工厂准确报价；资料越详细，排序越靠前，报价的工厂也越多！</p>
 			<p>
-				<span class="btn btn-info fileinput-button" style="font-size:20px;background-color:#00A1E8;">
+				<span id="fileUploadImg" class="btn btn-info fileinput-button" style="font-size:20px;background-color:#00A1E8;">
 					<span>上传款图</span>
-					<input id="fileupload" type="file" accept="application/vnd.ms-excel" name="file" data-url="district/uploadExcel">
+					<input id="fileupload" type="file"  name="files" >
 				</span>
 				<span class="btn btn-info fileinput-button" style="font-size:20px;background-color:#00A1E8;">
 					<span>上传附件</span>
-					<input id="fileupload" type="file" accept="application/vnd.ms-excel" name="file" data-url="district/uploadExcel">
+					<input id="fileupload" type="file" accept="application/vnd.ms-excel" name="file" data-url="indent/uploadFile">
 				</span>
+				<div id="files"></div>
 			</p>
 			<p style="width:70%;">
 				<script id="editor" name="content" type="text/plain"></script>
@@ -235,64 +289,14 @@
 			</table>
 		</li>
 		<li class="list-group-item" style="padding:30px 0 50px 70px;">
-			<button type="button" class="btn btn-info" style="width:340px;height:40px;font-size:20px;background-color:#00A1E8;">确认发布</button>
+			<button type="submit" class="btn btn-info" style="width:340px;height:40px;font-size:20px;background-color:#00A1E8;">确认发布</button>
 			<button type="button" class="btn btn-warning" style="width:180px;height:40px;font-size:20px;background-color:#FF7623;">取消</button>
 		</li>
 	</ul>
+	</form>
 </div>
 
-<!-- 选择服饰类别模态框 -->
-<div class="modal fade" id="costumeCategoryModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h5 class="modal-title" id="myModalLabel">选择服饰类别</h5>
-			</div>
-			<div class="modal-body">
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
-					<li><a href="#costume_2" data-toggle="tab">服饰</a></li>
-					<li><a href="#costume_3" data-toggle="tab">家纺</a></li>
-					<li><a href="#costume_4" data-toggle="tab">纺织消费品</a></li>
-					<li><a href="#costume_5" data-toggle="tab">面料/皮革/纱线</a></li>
-					<li><a href="#costume_6" data-toggle="tab">纺织辅料</a></li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="costume_1">
-						
-					</div>
-					<div class="tab-pane" id="costume_2"></div>
-					<div class="tab-pane" id="costume_3"></div>
-					<div class="tab-pane" id="costume_4"></div>
-					<div class="tab-pane" id="costume_5"></div>
-					<div class="tab-pane" id="costume_6"></div>
-				</div>
-				
-				<table id="template" class="table" style="display:none;">
-					<tr style="display:none;">
-						<!-- 二级类目 -->
-						<td style="width:100px;vertical-align:top;display:none;">
-							<label style="cursor:pointer;">
-								<input type="checkbox" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
-							</label>
-						</td>
-						<!-- 三级类目 -->
-						<td>
-							<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
-								<input type="checkbox" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
-							</label>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkCostume()">确定</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-			</div>
-		</div>
-	</div>
-</div>
+
 
 <c:if test="${loginBasicUser==null}">
 	<%@include file="loginModal.jsp"%>

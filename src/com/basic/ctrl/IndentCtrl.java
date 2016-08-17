@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,10 +26,6 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
-	
-//	public OrderFormCtrl(){
-//		
-//	}
 	
 	@Override
 	public ModelAndView showDefaultPage(HttpSession session){
@@ -49,6 +46,30 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return mav;
 	}
 	
+	/**发布订单前，上传文件用*/
+	@RequestMapping("uploadFile")
+	@ResponseBody
+	public String uploadFile(@RequestParam("files")MultipartFile[] files){
+		for(int i=0; i<files.length; i++){
+			MultipartFile file = files[i];
+			if(!file.isEmpty()){
+				try {
+					String fieldName = file.getName();//获取表单中文件组件的名字
+					String fileName = file.getOriginalFilename();//获取上传文件的原名
+					long size = file.getSize();//获取文件的字节大小，单位为byte
+					System.out.println("fieldName:"+fieldName+"||fileName:"+fileName+"||size:"+size);
+					//通过transferTo()将文件存储到硬件中
+					file.transferTo(new File("E:\\indent\\"+fileName));
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return "success";
+	}
+	
 	/**发布订单*/
 	@RequestMapping("release")
 	public ModelAndView release(@RequestParam("files")MultipartFile[] files){
@@ -61,7 +82,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 					long size = file.getSize();//获取文件的字节大小，单位为byte
 					System.out.println("fieldName:"+fieldName+"||fileName:"+fileName+"||size:"+size);
 					//通过transferTo()将文件存储到硬件中
-					file.transferTo(new File("E:\\Workspaces\\MyEclipse 2015\\fsjg\\WebRoot\\upload\\indent\\"+fileName));
+					file.transferTo(new File("E:\\indent\\"+fileName));
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {

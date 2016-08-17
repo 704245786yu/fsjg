@@ -1,6 +1,7 @@
 $(function(){
 	initCostumeCategory();
 	initUEditor();
+	initFileUpload();
 });
 
 function initUEditor(){
@@ -43,6 +44,22 @@ function initUEditor(){
 		        'edittip ' //编辑提示
 		    ]
 		]
+	});
+}
+
+function initFileUpload(){
+	$('#fileUploadImg').fileupload({
+//		autoUpload:false,
+		acceptFileTypes:/(\.|\/)(git|jpg|jpeg|png)$/i,
+		maxFileSize:5000000	//设定图片文件大小限制，不能大于5MB
+	}).on('fileuploadadd',function(e,data){
+		data.context = $('<div/>').appendTo('#files');
+		//将data参数中上下文数据插入到#files元素
+		$.each(data.files,function(index,file){
+			//遍历上传图片文件列表并插入文件列表
+			var node = $('<p>').append($('<span>').text(file.name));
+			node.appendTo(data.context);
+		});
 	});
 }
 
