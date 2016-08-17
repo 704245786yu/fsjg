@@ -47,21 +47,115 @@ function initUEditor(){
 	});
 }
 
+//初始化上传文件控件
 function initFileUpload(){
+	//上传图片
 	$('#fileUploadImg').fileupload({
-//		autoUpload:false,
-		acceptFileTypes:/(\.|\/)(git|jpg|jpeg|png)$/i,
-		maxFileSize:5000000	//设定图片文件大小限制，不能大于5MB
-	}).on('fileuploadadd',function(e,data){
-		data.context = $('<div/>').appendTo('#files');
-		//将data参数中上下文数据插入到#files元素
-		$.each(data.files,function(index,file){
-			//遍历上传图片文件列表并插入文件列表
-			var node = $('<p>').append($('<span>').text(file.name));
-			node.appendTo(data.context);
-		});
+		url:'indent/uploadImg',
+		submit:function(e, data){
+			var file = data.files[0];
+			var fileName = file.name;
+			var size = file.size;
+			var type = file.type;
+			if(type!="image/png" && type!="image/jpeg"){
+				new JqConfirmExtend().autoClose("请上传jpg或png格式图片");
+				return false;
+			}
+			if(size>200000){
+				new JqConfirmExtend().autoClose("图片不能大于200KB");
+				return false;
+			}
+		},
+		done : function(e, data) { // 上传请求成功完成后的回调处理方法
+			var result = data.result;
+			//设置图片的实际文件名称，多个图片之间用,隔开
+			if(result.status == 200){
+				var photo = $('input[name="photo"]');
+				if(photo.val() == '')
+					photo.val(result.value);
+				else
+					photo.val(photo.val()+','+result.value);
+				
+				//将data参数中上下文数据插入到#files元素
+				var $imgNames = $('#imgNames');
+				$.each(data.files,function(index,file){
+					//遍历上传图片文件列表并插入文件列表
+					$imgNames.append($('<div>').text(file.name));
+				});
+			}else if(result.status == 500){
+				if(result.value=='nologin'){
+					new JqConfirmExtend().autoClose('请先登录到平台');
+				}else if(result.value=='imageError'){
+					new JqConfirmExtend().autoClose('图片格式不对');
+				}
+			}else if(result.status == 501){
+				new JqConfirmExtend().autoClose('上传失败');
+			}
+		}
+	});
+	//上传附件
+	$('#fileUploadDoc').fileupload({
+		url:'indent/uploadDoc',
+		submit:function(e, data){
+			var file = data.files[0];
+			var fileName = file.name;
+			var size = file.size;
+			var ary = fileName.split(".");
+			var suffix = ary[ary.length-1];
+			if(suffix!="txt" && suffix!="doc" && suffix!="docx" && suffix!="xls" && suffix!="xlsx"){
+				new JqConfirmExtend().autoClose("请上传txt、word或excel格式文档");
+				return false;
+			}
+			if(size>500000){
+				new JqConfirmExtend().autoClose("文件不能大于500KB");
+				return false;
+			}
+		},
+		done : function(e, data) { // 上传请求成功完成后的回调处理方法
+			var result = data.result;
+			//设置文档的实际名称
+			if(result.status == 200){
+				var doc = $('input[name="document"]');
+				doc.val(result.value);
+				
+				//将data参数中上下文数据插入到#files元素
+				$.each(data.files,function(index,file){
+					//遍历上传文件列表并插入文件列表
+					$('#docName').html(file.name);
+				});
+			}else if(result.status == 500){
+				if(result.value=='nologin'){
+					new JqConfirmExtend().autoClose('请先登录到平台');
+				}else if(result.value=='docError'){
+					new JqConfirmExtend().autoClose('文档格式不对');
+				}
+			}else if(result.status == 501){
+				new JqConfirmExtend().autoClose('上传失败');
+			}
+		}
 	});
 }
+
+$('#ff').bootstrapValidator({
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+    	enterpriseName: {
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			stringLength: {
+    				max: 30,
+    				message: '最多30个字符'
+    			}
+    		}
+    	}
+    }
+});
 
 function initCostumeCategory(){
 	var $tableTemplate = $('#template').clone();

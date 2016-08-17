@@ -28,7 +28,7 @@ public class Indent {
 	private String indentName;//订单名称
 	
 	@Column(name="costume_code")
-	private Integer costumeCode;//服饰类型编码
+	private String costumeCode;//服饰类型编码，多个用,隔开
 	
 	private Integer quantity;//订单数量
 	
@@ -130,11 +130,11 @@ public class Indent {
 		this.indentName = indentName;
 	}
 
-	public Integer getCostumeCode() {
+	public String getCostumeCode() {
 		return costumeCode;
 	}
 
-	public void setCostumeCode(Integer costumeCode) {
+	public void setCostumeCode(String costumeCode) {
 		this.costumeCode = costumeCode;
 	}
 

@@ -8,16 +8,17 @@ public class ReturnValueVo {
 	public static final int ERROR = 500;
 	public static final int EXCEPTION = 501;
 	
+	//返回值的状态
+	private int status;
+	//返回的值
+	private Object value;
+
 	public ReturnValueVo(){}
 	
 	public ReturnValueVo(int status, Object value) {
 		this.status = status;
 		this.value = value;
 	}
-	//返回值的状态
-	private int status;
-	//返回的值
-	private Object value;
 	
 	public int getStatus() {
 		return status;

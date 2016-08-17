@@ -17,6 +17,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
+<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 <link href="plugin/jQuery-File-Upload/css/jquery.fileupload.css" rel="stylesheet">
 <link href="CSS/common/default.css" rel="stylesheet">
 <link href="CSS/indent-release.css" rel="stylesheet">
@@ -27,27 +29,21 @@
 <body>
 <%@ include file="top.jsp" %>
 <div style="width:1190px; margin:0 auto;">
-	<form action="indent/release" enctype="multipart/form-data" method="post">
+	<form id="ff" action="indent/release" method="post" autocomplete="off">
 	<table class="title" style="height:78px;">
 		<tr>
 			<td style="width:365px;text-align:left;padding-left:15px;font-size:24px;color:white;background-color:#00B5FF;">
 				<img src="image/indentRelease/release.png" style="margin-right:20px;"/>新建发布订单
 			</td>
-			<td style="width:260px">
-				发布订单信息
-			</td>
+			<td style="width:260px">发布订单信息</td>
 			<td>
 				<span class="glyphicon glyphicon-circle-arrow-right" style="font-size:24px;color:#0089A9;"></span>
 			</td>
-			<td style="width:260px">
-				收到来自工厂报价
-			</td>
+			<td style="width:260px">收到来自工厂报价</td>
 			<td>
 				<span class="glyphicon glyphicon-circle-arrow-right" style="font-size:24px;color:#0089A9;"></span>
 			</td>
-			<td style="width:259px">
-				选择合适的工厂洽谈
-			</td>
+			<td style="width:259px">选择合适的工厂洽谈</td>
 		</tr>
 	</table>
 	<div class="panel panel-default">
@@ -110,13 +106,13 @@
 												<!-- 二级类目 -->
 												<td style="width:100px;vertical-align:top;display:none;">
 													<label style="cursor:pointer;">
-														<input type="checkbox" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
+														<input type="checkbox" name="costumeCodes" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
 													</label>
 												</td>
 												<!-- 三级类目 -->
 												<td>
 													<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
-														<input type="checkbox" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
+														<input type="checkbox" name="costumeCodes" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
 													</label>
 												</td>
 											</tr>
@@ -188,13 +184,18 @@
 			<p>
 				<span id="fileUploadImg" class="btn btn-info fileinput-button" style="font-size:20px;background-color:#00A1E8;">
 					<span>上传款图</span>
-					<input id="fileupload" type="file"  name="files" >
+					<input type="file" name="file">
 				</span>
-				<span class="btn btn-info fileinput-button" style="font-size:20px;background-color:#00A1E8;">
+				<span id="fileUploadDoc" class="btn btn-info fileinput-button" style="font-size:20px;background-color:#00A1E8;">
 					<span>上传附件</span>
-					<input id="fileupload" type="file" accept="application/vnd.ms-excel" name="file" data-url="indent/uploadFile">
+					<input type="file" name="file">
 				</span>
-				<div id="files"></div>
+				<!-- 可上传多个图片 -->
+				<input type="hidden" name="photo"/>
+				<!-- 只可上传一个文档 -->
+				<input type="hidden" name="document"/>
+				<div id="imgNames"></div>
+				<div id="docName"></div>
 			</p>
 			<p style="width:70%;">
 				<script id="editor" name="content" type="text/plain"></script>
@@ -235,16 +236,16 @@
 									<div id="districtContainer" class="modal-body">
 										<div class="row">
 											<div class="col-sm-3">
-												<select class="form-control" id="province" name="province"></select>
+												<select class="form-control" id="province" name="condProvince"></select>
 											</div>
 											<div class="col-sm-3">
-												<select class="form-control" id="city" name="city"></select>
+												<select class="form-control" id="city" name="condCity"></select>
 											</div>
 											<div class="col-sm-3">
-												<select class="form-control" id="county" name="county"></select>
+												<select class="form-control" id="county" name="condCounty"></select>
 											</div>
 											<div class="col-sm-3">
-												<select class="form-control" id="town" name="town"></select>
+												<select class="form-control" id="town" name="condTown"></select>
 											</div>
 										</div>
 									</div>
@@ -266,7 +267,7 @@
 				<tr>
 					<td style="padding-top:10px;padding-left:2em;vertical-align:top;">接单条件：</td>
 					<td colspan="2" style="padding-top:10px;width:570px;">
-						<textarea class="form-control" rows="3"></textarea>
+						<textarea name="condDemand" class="form-control" rows="3"></textarea>
 					</td>
 				</tr>
 			</table>
@@ -277,13 +278,13 @@
 				<tr>
 					<td>联系人：</td>
 					<td>
-						<input type="text" class="form-control" style="width:180px;" name="expectPrice">
+						<input type="text" class="form-control" style="width:180px;" name="linkman">
 					</td>
 				</tr>
 				<tr>
 					<td>联系电话：</td>
 					<td style="width:290px;">
-						<input type="text" class="form-control" name="expectPrice">
+						<input type="text" class="form-control" name="telephone">
 					</td>
 				</tr>
 			</table>
@@ -303,12 +304,16 @@
 </c:if>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+<script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 <script src="plugin/UEditor/ueditor.config.js" type="text/javascript"></script>
 <script src="plugin/UEditor/ueditor.all.js" type="text/javascript"></script>
 <script src="plugin/UEditor/lang/zh-cn/zh-cn.js" type="text/javascript"></script>
+
+<script src="JS/util/jqConfirmExtend.js"></script>
 <script src="JS/util/treeUtil.js"></script>
 <script src="JS/util/districtCascade.js"></script>
 <script src="JS/main/indentRelease.js"></script>
