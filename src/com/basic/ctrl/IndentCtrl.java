@@ -121,9 +121,11 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	
 	/**发布订单*/
 	@RequestMapping(value="release",method=RequestMethod.POST)
-	public ModelAndView release(Indent indent,Integer costumeCodes){
+	public ModelAndView release(Indent indent,Integer[] costumeCodes){
 		JacksonJson.printBeanToJson(indent);
 		JacksonJson.printBeanToJson(costumeCodes);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main/indent");
 		return null;
 	}
 }

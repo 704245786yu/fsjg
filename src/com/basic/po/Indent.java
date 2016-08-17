@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**加工订单*/
 @Entity
 @Table(name="process_indent")
@@ -40,6 +42,7 @@ public class Indent {
 	@Column(name="expect_price")
 	private Double expectPrice;//预期价，若为空，则表示面谈,
 	
+	@DateTimeFormat
 	@Column(name="pre_delivery_date")
 	private Date preDeliveryDate;//预计交货日期',
 	

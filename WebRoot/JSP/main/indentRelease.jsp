@@ -198,7 +198,7 @@
 				<div id="docName"></div>
 			</p>
 			<p style="width:70%;">
-				<script id="editor" name="content" type="text/plain"></script>
+				<script id="editor" name="detail" type="text/plain"></script>
 			</p>
 		</li>
 		<li class="list-group-item">
