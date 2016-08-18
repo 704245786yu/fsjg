@@ -24,8 +24,8 @@
 
 <div style="width:1190px; margin:0 auto;">
 	<div class="panel panel-default">
-		<div class="panel-body">
-			<table>
+		<div class="panel-body" style="padding-top:110px;padding-left:60px;">
+			<table style="margin:70px auto 68px auto;">
 				<tr>
 					<td style="padding-right:10px;">
 						<span class="glyphicon glyphicon-ok-sign" style="color:#B1D764;font-size:26px;"></span>
@@ -36,11 +36,20 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td>
-						订单发布期间，您可以进入个人中心-我收到的报价查看工厂申请，请保持电话畅通。
+					<td style="padding-top:36px;color:#ee8032">
+						<strong>订单发布期间，您可以进入个人中心-我收到的报价查看工厂申请，<br/>请保持电话畅通。</strong>
 					</td>
 				</tr>
-			</div>
+				<tr>
+					<td></td>
+					<td style="padding-top:36px;">
+						<a href="" class="btn btn-warning" style="width:200px;height:40px;font-size:20px;background-color:#FF7623;">查看已发布的订单</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="indent/showRelease" class="btn btn-warning" style="width:180px;height:40px;font-size:20px;background-color:#FF7623;">继续发布订单</a>
+					</td>
+				</tr>
+			</table>
+			<img src="image/indentRelease/release-success.png">
 		</div>
 	</div>
 </div>
