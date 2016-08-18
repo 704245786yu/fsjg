@@ -5,9 +5,12 @@ $(function(){
 	//初始化查询日期
 	$('.date').datetimepicker({
 		format: 'YYYY-MM-DD',
-		locale: 'zh-cn',
-		defaultDate:new Date()
+		locale: 'zh-cn'
     });
+	var val = $(effectiveDateSel).val();
+	var str = moment().add('days',val).format('YYYY-MM-DD');
+	$('#effectiveDateTxt').text(str);
+	$(':hidden[name="effectiveDate"]').text(str);
 });
 
 function initUEditor(){
@@ -256,14 +259,20 @@ function isOverChecked(checkbox){
 //确定选择产品类别
 function checkCostume(){
 	var str = '';
+	var val = '';
 	var $checks = $('#costumeCategoryModal :checked').not(':disabled');
 	for(var i=0; i<$checks.length; i++){
 		var $check = $($checks[i]);
+		val += $check.val()+',';
 		str += $check.next().html()+',';
 	}
-	if(str=='')
+	if(str==''){
 		str = '选择产品类别';
+	}else{
+		val = val.substring(0, val.length-1);
+	}
 	$('#costumeBtn').html(str);
+	$(':hidden[name="costumeCode"]').val(val);
 }
 
 //确定选择地区
@@ -278,3 +287,17 @@ function checkDistrict(){
 		str = '选择发单地区';
 	$('#districtBtn').html(str);
 }
+
+$(':checkbox[name="expectPrice"]').change(function(){
+	if($(this).prop('checked'))
+		$(':text[name="expectPrice"]').val('').prop('disabled','disabled');
+	else
+		$(':text[name="expectPrice"]').prop('disabled',false);
+});
+
+$('#effectiveDateSel').change(function(){
+	var val = $(this).val();
+	var str = moment().add('days',val).format('YYYY-MM-DD');
+	$('#effectiveDateTxt').text(str);
+	$(':hidden[name="effectiveDate"]').text(str);
+});

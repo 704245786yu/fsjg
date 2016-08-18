@@ -23,6 +23,7 @@ import com.common.BaseCtrl;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
+import com.util.JacksonJson;
 
 @Controller
 @RequestMapping("indent")
@@ -121,10 +122,18 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	
 	/**发布订单*/
 	@RequestMapping(value="release",method=RequestMethod.POST)
-	public ModelAndView release(Indent indent,Integer[] costumeCodes){
-		
+	public ModelAndView release(Indent indent,HttpSession session){
+		//检查是否登录
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		if(basicUser == null){
+			return new ModelAndView("redirect:../login.jsp");
+		}
+		indent.setState((byte)0);
+		indent.setCreateBy(basicUser.getId());
+		indent.setCreateUserType(basicUser.getRoleId().byteValue());
+		biz.save(indent);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main/indent");
+		mav.setViewName("main/indentReleaseSuccess");
 		return null;
 	}
 }

@@ -52,6 +52,8 @@ public class Indent {
 	@Column(name="is_urgency")
 	private Boolean isUrgency;//是否为紧急订单',
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@Column(name="effective_date")
 	private Date effectiveDate;//有效日期。前端选择天数，后端保存日期',
 	

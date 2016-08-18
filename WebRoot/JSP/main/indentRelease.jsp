@@ -74,6 +74,7 @@
 					<td>产品类别：</td>
 					<td>
 						<button id="costumeBtn" type="button" class="btn btn-default btn-select" data-toggle="modal" data-target="#costumeCategoryModal">选择产品类别</button>
+						<input type="hidden" name="costumeCode"/>
 						<!-- 选择服饰类别模态框 -->
 						<div class="modal fade" id="costumeCategoryModal" tabindex="-1">
 							<div class="modal-dialog">
@@ -107,13 +108,13 @@
 												<!-- 二级类目 -->
 												<td style="width:100px;vertical-align:top;display:none;">
 													<label style="cursor:pointer;">
-														<input type="checkbox" name="costumeCodes" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
+														<input type="checkbox" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
 													</label>
 												</td>
 												<!-- 三级类目 -->
 												<td>
 													<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
-														<input type="checkbox" name="costumeCodes" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
+														<input type="checkbox" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
 													</label>
 												</td>
 											</tr>
@@ -175,7 +176,6 @@
 			                	<span class="glyphicon glyphicon-calendar"></span>
 			                </span>
 			            </div>
-						<!-- <input type="text" class="form-control" name="preDeliveryDate"> -->
 					</td>
 					<td style="padding-left:10px;">
 						<div class="checkbox">
@@ -214,7 +214,7 @@
 				<tr>
 					<td style="width:120px;">发布有效期：</td>
 					<td style="width:180px;">
-						<select class="form-control">
+						<select id="effectiveDateSel" class="form-control">
 							<option value="3">3天</option>
 							<option value="7">7天</option>
 							<option value="15">15天</option>
@@ -223,6 +223,7 @@
 					</td>
 					<td style="padding-left:10px;">
 						在<span id="effectiveDateTxt" style="color:red;"></span>后，结束工厂报价
+						<input type="hidden" name="effectiveDate"/>
 					</td>
 				</tr>
 				<tr>
