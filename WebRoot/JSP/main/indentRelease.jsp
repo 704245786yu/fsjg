@@ -20,6 +20,7 @@
 <link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 <link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 <link href="plugin/jQuery-File-Upload/css/jquery.fileupload.css" rel="stylesheet">
+<link href="plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <link href="CSS/common/default.css" rel="stylesheet">
 <link href="CSS/indent-release.css" rel="stylesheet">
 
@@ -62,7 +63,7 @@
 	<ul id="indentUL" class="list-group">
 		<li class="list-group-item">
 			<h4>订单信息</h4>
-			<table>
+			<table class="mytable">
 				<tr>
 					<td style="width:120px;">订单名称：</td>
 					<td style="width:290px;">
@@ -143,7 +144,7 @@
 		</li>
 		<li class="list-group-item">
 			<h4>交易条件</h4>
-			<table>
+			<table class="mytable">
 				<tr>
 					<td style="width:120px;">加工类型：</td>
 					<td colspan="2">
@@ -168,7 +169,13 @@
 				<tr>
 					<td>预计交货日期：</td>
 					<td>
-						<input type="text" class="form-control" name="preDeliveryDate">
+						<div class='input-group date'>
+			                <input type='text' id="testDate2" class="form-control" name="preDeliveryDate"/>
+			                <span class="input-group-addon">
+			                	<span class="glyphicon glyphicon-calendar"></span>
+			                </span>
+			            </div>
+						<!-- <input type="text" class="form-control" name="preDeliveryDate"> -->
 					</td>
 					<td style="padding-left:10px;">
 						<div class="checkbox">
@@ -203,7 +210,7 @@
 		</li>
 		<li class="list-group-item">
 			<h4>发布设置</h4>
-			<table>
+			<table class="mytable">
 				<tr>
 					<td style="width:120px;">发布有效期：</td>
 					<td style="width:180px;">
@@ -274,7 +281,7 @@
 		</li>
 		<li class="list-group-item">
 			<h4>联系方式</h4>
-			<table>
+			<table class="mytable">
 				<tr>
 					<td>联系人：</td>
 					<td>
@@ -309,6 +316,8 @@
 <script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="plugin/UEditor/ueditor.config.js" type="text/javascript"></script>
 <script src="plugin/UEditor/ueditor.all.js" type="text/javascript"></script>
 <script src="plugin/UEditor/lang/zh-cn/zh-cn.js" type="text/javascript"></script>

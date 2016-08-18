@@ -2,6 +2,12 @@ $(function(){
 	initCostumeCategory();
 	initUEditor();
 	initFileUpload();
+	//初始化查询日期
+	$('.date').datetimepicker({
+		format: 'YYYY-MM-DD',
+		locale: 'zh-cn',
+		defaultDate:new Date()
+    });
 });
 
 function initUEditor(){

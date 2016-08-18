@@ -23,7 +23,6 @@ import com.common.BaseCtrl;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
-import com.util.JacksonJson;
 
 @Controller
 @RequestMapping("indent")
@@ -63,7 +62,6 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		if(basicUser == null){
 			return  new ReturnValueVo(ReturnValueVo.ERROR, "nologin");
 		}
-		
 		//判断是否为png/jpeg文件，且检测文件大小
 //		String fieldName = file.getName();//获取表单中文件组件的名字
 		String fileName = file.getOriginalFilename();//获取上传文件的原名
@@ -78,9 +76,10 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		
 		//通过transferTo()将文件存储到硬件中
 		try {
+			String uploadDir = session.getServletContext().getInitParameter("uploadDir");
 			Date date = new Date();
 			String newFileName = basicUser.getId()+""+date.getTime()+"."+suffix;
-			file.transferTo(new File("E:\\indent\\"+newFileName));
+			file.transferTo(new File(uploadDir + newFileName));
 			return new ReturnValueVo(ReturnValueVo.SUCCESS, newFileName);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -109,9 +108,10 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		
 		//通过transferTo()将文件存储到硬件中
 		try {
+			String uploadDir = session.getServletContext().getInitParameter("uploadDir");
 			Date date = new Date();
 			String newFileName = basicUser.getId()+""+date.getTime()+"."+suffix;
-			file.transferTo(new File("E:\\indent\\"+newFileName));
+			file.transferTo(new File(uploadDir + newFileName));
 			return new ReturnValueVo(ReturnValueVo.SUCCESS, newFileName);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -122,8 +122,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	/**发布订单*/
 	@RequestMapping(value="release",method=RequestMethod.POST)
 	public ModelAndView release(Indent indent,Integer[] costumeCodes){
-		JacksonJson.printBeanToJson(indent);
-		JacksonJson.printBeanToJson(costumeCodes);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main/indent");
 		return null;

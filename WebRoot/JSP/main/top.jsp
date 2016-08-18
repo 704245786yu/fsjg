@@ -3,7 +3,7 @@
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/top.css" rel="stylesheet">
-<div class="top">
+<div id="topBanner" class="top">
 	欢迎来到服饰加工网!
 	<span class="signIn">
 		<c:if test="${loginBasicUser == null}">

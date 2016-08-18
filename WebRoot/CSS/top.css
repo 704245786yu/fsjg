@@ -1,18 +1,18 @@
 @CHARSET "UTF-8";
-.top{
+#topBanner.top{
 	padding:5px 90px;
 	background-color:#f0f0f0;
 }
-.top .signIn{
+#topBanner.top .signIn{
 	margin-left:40px;
 }
-.top div{
+#topBanner.top div{
 	float:right;
 }
-.top div > span{
+#topBanner.top div > span{
 	margin-left:20px;
 }
-.top .glyphicon{
+#topBanner.top .glyphicon{
 	color:#FF842F;
 }
 

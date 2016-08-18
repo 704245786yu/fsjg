@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**加工订单*/
 @Entity
 @Table(name="process_indent")
@@ -42,7 +44,8 @@ public class Indent {
 	@Column(name="expect_price")
 	private Double expectPrice;//预期价，若为空，则表示面谈,
 	
-	@DateTimeFormat
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@Column(name="pre_delivery_date")
 	private Date preDeliveryDate;//预计交货日期',
 	

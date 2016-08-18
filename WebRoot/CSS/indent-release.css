@@ -14,7 +14,7 @@ table.title{
 }
 
 /*设置表格行高*/
-#indentUL .list-group-item table tr{
+#indentUL .list-group-item > table > tbody > tr{
 	height:50px;
 }
 
