@@ -1,4 +1,23 @@
 @CHARSET "UTF-8";
+/*订单搜索*/
+.form-horizontal > table td{
+	padding-bottom:15px;
+}
+
+.form-horizontal > table button.btn-default{
+	width:inherit;
+	overflow:hidden;
+	background: url('../image/select-btn.png') no-repeat 90%;
+}
+
+.form-horizontal > table td:first-child{
+	width:65px;
+}
+
+.form-horizontal > table td:first-child + td{
+	width:273px;
+}
+
 /*如何得到高质量的订单*/
 .panel-tip1 .panel-body{
 	padding:10px;

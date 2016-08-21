@@ -23,7 +23,7 @@ public class Indent {
 	private Integer id;
 	
 	@Column(name="indent_num")
-	private Integer indentNum;//订单编号
+	private Long indentNum;//订单编号
 	
 	@Column(name="indent_type")
 	private Byte indentType;//订单类型
@@ -102,6 +102,7 @@ public class Indent {
 	@Column(name="create_user_type")
 	private Byte createUserType;//发单用户类型 0：个人 1：企业',
 	
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@Column(name="create_time")
 	private Date createTime;//创建时间'
 
@@ -114,11 +115,11 @@ public class Indent {
 		this.id = id;
 	}
 
-	public Integer getIndentNum() {
+	public Long getIndentNum() {
 		return indentNum;
 	}
 
-	public void setIndentNum(Integer indentNum) {
+	public void setIndentNum(Long indentNum) {
 		this.indentNum = indentNum;
 	}
 

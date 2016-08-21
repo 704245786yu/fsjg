@@ -39,6 +39,14 @@ public class BaseBiz<DAO extends BaseDao, ID extends Serializable, PO> {
 		return dao.getAll();
 	}
 	
+	public PO getById(ID id){
+		return (PO)dao.findById(id);
+	}
+	
+	public List<PO> findByExample(PO example){
+		return dao.findByExample(example);
+	}
+	
 	/**分页获取所有数据
 	 * @param total 总记录数
 	 * @param offset 偏移量，即记录索引位置

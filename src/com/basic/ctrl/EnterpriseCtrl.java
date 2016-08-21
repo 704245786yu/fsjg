@@ -1,6 +1,5 @@
 package com.basic.ctrl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -146,12 +145,6 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	
 	@RequestMapping(value="search2",method=RequestMethod.POST)
 	public ModelAndView search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
-		try {
-			keyword = new String(keyword.getBytes("iso8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		keyword = keyword.trim();
 		BootTablePageDto<Enterprise> result = biz.search2(province,city,county,town,costumeCode,keyword);
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");

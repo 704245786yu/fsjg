@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+#districtBtn{
+	width:320px;
+	overflow:hidden;
+	background: url('../image/select-btn.png') no-repeat 90%;
+}
+
+.search-panel td{
+	vertical-align:top;
+	padding-bottom:10px;
+	color:grey;
+}
+
+.search-panel td b{
+	color:black;
+}
+
+.search-panel a{
+	margin-right:15px;
+	font-size: 14px;
+}
+
+/*订单列表*/
+#indentDiv table{
+	border: 1px solid #E6E4E1;
+}
+#indentDiv table td{
+	vertical-align: middle;
+}

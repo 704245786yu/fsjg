@@ -2,13 +2,16 @@ package com.basic.ctrl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,19 +19,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.basic.biz.CostumeCategoryBiz;
+import com.basic.biz.DistrictBiz;
 import com.basic.biz.IndentBiz;
+import com.basic.dto.IndentDto;
 import com.basic.po.BasicUser;
+import com.basic.po.District;
 import com.basic.po.Indent;
 import com.common.BaseCtrl;
+import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
-import com.util.JacksonJson;
 
 @Controller
 @RequestMapping("indent")
 public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 
+	@Autowired
+	private DistrictBiz districtBiz;
+	@Autowired
+	private CostumeCategoryBiz costumeCategoryBiz;
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
 	
@@ -128,12 +139,70 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		if(basicUser == null){
 			return new ModelAndView("redirect:../login.jsp");
 		}
+		indent.setIndentNum(new Date().getTime());
 		indent.setState((byte)0);
 		indent.setCreateBy(basicUser.getId());
 		indent.setCreateUserType(basicUser.getRoleId().byteValue());
 		biz.save(indent);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main/indentReleaseSuccess");
-		return null;
+		return mav;
+	}
+	
+	/**搜索订单，不能包括订单状态为2(已接单)和3(已失效)的订单
+	 * */
+	@RequestMapping(value="search2",method=RequestMethod.POST)
+	public ModelAndView search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
+		BootTablePageDto<IndentDto> result = biz.search2(province,city,county,town,costumeCode,keyword);
+		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
+		List<District> districts =	districtBiz.getProvinceAndCity();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
+		mav.addObject("costumeCategoryMap", costumeCategoryMap);
+		mav.addObject("processTypes", processTypes);
+		mav.addObject("districts", districts);
+		mav.setViewName("main/indentList");
+		System.out.println("长度："+result.getRows().size());
+		return mav;
+	}
+	
+	@RequestMapping("detail/{indentNum}")
+	public ModelAndView detail(@PathVariable Long indentNum){
+		Indent indent = biz.getByNum(indentNum);
+		//产品类型
+		String[] costumeCodeStr = indent.getCostumeCode().split(",");
+		List<Integer> costumeCodes = new ArrayList<Integer>();
+		for(int i=0; i<costumeCodeStr.length; i++){
+			costumeCodes.add(Integer.valueOf(costumeCodeStr[i]));
+		}
+		List<String> costumes = costumeCategoryBiz.getNameByCode(costumeCodes);
+		
+		//加工类型
+		Byte processType = indent.getProcessType();
+		ConstantDict dict = new ConstantDict();
+		dict.setConstantTypeCode("process_type");
+		dict.setConstantValue(processType.toString());
+		List<ConstantDict> list = constantDictBiz.findByExample(dict);
+		String processTypeStr = "";
+		if(list.size() == 1)
+			processTypeStr = list.get(0).getConstantName();
+		//发单用户所在地
+		int userId = indent.getCreateBy();
+		int userType = indent.getCreateUserType();
+		
+		//接单地区要求
+		List<Long> districtCode = new ArrayList<Long>();
+		districtCode.add(indent.getCondProvince());
+		districtCode.add(indent.getCondCity());
+		List<String> districts = districtBiz.getNameByCode(districtCode);
+
+		ModelAndView mav = new ModelAndView("main/indentDetail");
+		mav.addObject("indent", indent);
+		mav.addObject("costumes", costumes);
+		mav.addObject("districts", districts);
+		mav.addObject("processType", processTypeStr);
+		return mav;
 	}
 }

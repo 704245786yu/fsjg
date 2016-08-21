@@ -300,6 +300,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		basicUserDao.update(basicUser);
 		dao.update(enterprise);
 	}
+	
 	/**删除企业信息时同时删除关联的BasicUser、EnterpriseCostumeRela信息*/
 	@Override
 	@Transactional
@@ -419,6 +420,15 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		int eId = e.getId();
 		e.setCostumeCode(enterpriseCostumeRelaDao.getCostumeCode(eId));
 		return e;
+	}
+	
+	/**根据BasicUser的id获取企业的id
+	 * */
+	@SuppressWarnings("unchecked")
+	public Integer getIdByUserId(int userId){
+		String hql = "select id from Enterprise where basicUser.id =:userId";
+		List<Integer> list = (List<Integer>)dao.find(hql, new String[]{"userId"}, new Integer[]{userId});
+		return list.get(0);
 	}
 	
 	public BootTablePageDto<Enterprise> getByCostumeCode(int costumeCode){

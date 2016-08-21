@@ -1,10 +1,7 @@
-var g_processType = {1:'清加工',2:'经销',3:'自营出口',4:'其他'};
+var g_processType = null;
 
 $(function(){
 	initCostumeCategory();
-	getExcellent();
-	getNewest();
-	getNewAuth();
 });
 
 function initCostumeCategory(){
@@ -17,7 +14,7 @@ function initCostumeCategory(){
 	var $td2 = $($tds[1]);
 	var $checkbox2 = $td2.find('label').clone();
 	$checkbox2.css('display','block');
-	
+
 	$.get('costumeCategory/getAllHierarchy',function(data){
 		var ary = new TreeUtil().adjTransToNest(data);
 		var costumeCategorys = ary[0].children;
@@ -110,39 +107,15 @@ function checkCostume(){
 	$('#costumeBtn').html(str);
 }
 
-//获取优秀工厂(接单工厂)
-function getExcellent(){
-	var $enterpriseList = $('#enterpriseList');
-	var $enterprise = $enterpriseList.children('.enterprise');
-	$.get('enterprise/getExcellent',function(data){
-		for(var i=0; i<data.length; i++){
-			var enterprise = data[i];
-			var $new = $enterprise.clone().css('display','block');
-			var $head = $new.find('.media-heading').text(enterprise.enterpriseName);
-			var workNumber = null;
-			if(enterprise.minimumStaffAmount == enterprise.maximumStaffAmount)
-				workNumber = enterprise.minimumStaffAmount;
-			else
-				workNumber = enterprise.minimumStaffAmount + '~' + enterprise.maximumStaffAmount;
-			var $list1 = $head.next().text('员工人数：'+workNumber+'人');
-			var $list2 = $list1.next().text('加工类型：'+g_processType[enterprise.processType]);
-			$list2.next().text('主营产品：');
-			$enterpriseList.append($new);
-		}
-	});
-}
-
-//最新入住的企业
-function getNewest(){
-	var $enterpriseList = $('#newEnterpriseList');
-	var $enterprise = $enterpriseList.children('.enterprise');
-	$.get('enterprise/getNewest',function(data){
-		for(var i=0; i<data.length; i++){
-			var enterprise = data[i];
-			var $new = $enterprise.clone().css('display','block');
-			var $head = $new.find('.media-heading').text(enterprise.enterpriseName);
-			$head.next().text('主营产品：');
-			$enterpriseList.append($new);
-		}
-	});
+//确定选择地区
+function checkDistrict(){
+	var $select = $('#districtContainer :selected');
+	var str = '';
+	for(var i=0; i<$select.length; i++){
+		if($($select[i]).val() != '')
+			str += $($select[i]).text()+' ';
+	}
+	if(str == '')
+		str = '选择发单地区';
+	$('#districtBtn').html(str);
 }
