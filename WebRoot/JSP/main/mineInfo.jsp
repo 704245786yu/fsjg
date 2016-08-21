@@ -67,20 +67,58 @@
 			<ul class="menu_li">
 				<li
 					style="line-height:50px;font-weight:bold;font-size:15px;list-style:none">帐号管理</li>
-				<li>详细信息</li>
-				<li>修改密码</li>
+				<li class="detailInfo_menu">详细信息</li>
+				<li class="revisePsw_menu">修改密码</li>
 				<li
 					style="line-height:50px;font-weight:bold;font-size:15px;list-style:none">个人管理</li>
-				<li>快产信息</li>
+				<li class="">快产信息</li>
 				<li
 					style="line-height:50px;font-weight:bold;font-size:15px;list-style:none">发单管理</li>
-				<li>我发布的订单</li>
-				<li>我收到的报价</li>
-				<li>我确认单的订单</li>
+				<li class="">我发布的订单</li>
+				<li class="">我收到的报价</li>
+				<li class="">我确认单的订单</li>
 			</ul>
 		</div>
-
-		<div class="right_info">
+         
+        <div class="right_info,revisePsw">    
+			<input type="hidden" value=${userInfo.basicUser.id } name="id" class="form-control">
+			<div class="title" style="border-bottom:1px solid #cccccc">
+				<p style="line-height:40px">
+					<span style="font-size:20px;font-weight:bold;padding-left:20px;">修改密码</span><span
+						style="padding-left:700px">&nbsp;</span>
+					<button type="submit" class="btn btn-primary" id="submitRevisePsw">保存修改</button>
+				</p>
+			</div>			
+				<div class="form-group" style="margin-left:50px;margin-top:10px">
+					<table width=300 height=250>
+						<tr>
+							<td><label for="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原密码：</label>
+								<input type="password"
+								name=oldpassword
+								class="form-control" id="oldpassword">
+								</td>
+						</tr>
+						<tr>
+							<td><label for="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新密码：</label><input type="password"
+								name=newpassword
+								class="form-control" id="newpassword"></td>
+						</tr>
+						<tr>
+							<td><label for="name">确认新密码：</label><input type="password"
+								name=passwordconfirm
+								class="form-control" id="passwordconfirm"></td>	
+						</tr>
+						<tr>
+						<td>
+						  <span id="tips" style="font-size:18px;color:red"></span>
+						</td>
+						</tr>
+					</table>
+				</div>		
+        </div>
+         
+         
+		<div class="right_info,detailInfo" style="display:none">
 		<form class="form-inline" role="form" action="basicUser/editEnterpriseInfo" method="post" accept-charset="utf-8">
 			<div class="title" style="border-bottom:1px solid #cccccc">
 				<p style="line-height:40px">
@@ -90,9 +128,7 @@
 					<button type="submit" class="btn btn-primary ">保存修改</button>
 					<button type="submit" class="btn btn-primary">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
 				</p>
-			</div>
-
-			
+			</div>			
 				<div class="form-group" style="margin-left:50px;margin-top:10px">
 					<table width=650 height=400>
 						<tr>
@@ -110,8 +146,7 @@
 						</tr>
 						<tr>
 							<td><label for="name">加工类型：</label><input type="text"
-								name="processType"
-								
+								name="processType"								
 								<c:forEach var="processType" items="${processTypes}">
 								<c:set var="processType_ph" value="${processType_ph} ${processType.constantName}" />      
 						</c:forEach>
@@ -180,18 +215,7 @@
 					</table>
 				</div>
 			</form>
-
-
-
-
-
-
-
-
 		</div>
-
-
-
 		<div class="right_order" style="display:none">
 			<table>
 				<tr>
@@ -209,6 +233,43 @@
 			</table>
 		</div>
 		<script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		$("#submitRevisePsw").click(function(){
+			$.ajax({  
+				      url:"basicUser/modifyPwd",  
+				      data:{  
+				               id : $("#myid").val(),  
+				               oldpassword:$("#oldpassword").val(),  
+				               newpassword : $("#newpassword").val(),  
+				               passwordconfirm : $("#passwordconfirm").val()  
+				      },  
+				     type:"post",  
+				    // dataType:"json",  
+				    success:function(data) {  
+				    	 $("#tips").text("");
+				         if(data=="input_empty"){
+				        	 $("#tips").text("输入框不能为空");
+				        	 return;
+				         }else if(data=="password_not_equal"){
+				        	 $("#tips").text("两次密码输入不一致");
+				        	 return;
+				         }else if(data=="success"){
+				        	 $("#tips").text("修改成功");
+				        	 return;
+				         }else if(data=="oldpassword_false"){
+				        	 $("#tips").text("旧密码错误");
+				        	 return;
+				         }else if(data=="error"){
+				        	 $("#tips").text("服务器内部错误，请稍后再试");
+				        	 return;
+				         }else{
+				        	 $("#tips").text("出错了，请稍候再试");
+				        	 return;
+				         }			     
+				      }
+				 });
+		})
+		</script>
 </body>
 </html>
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.basic.biz.BasicUserBiz;
@@ -24,7 +25,9 @@ import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.LoginCtrl;
+import com.sys.ctrl.UserCtrl;
 import com.sys.po.ConstantDict;
+import com.sys.po.User;
 
 @Controller
 @RequestMapping("basicUser")
@@ -57,14 +60,29 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 	/**修改密码
 	 * @return success：修改成功
 	 * */
-//	@RequestMapping("modifyPwd")
-//	@ResponseBody
-	/*public String modifyPwd(Integer id, String password, HttpSession session){
-		User loginUser = BasicUserCtrl.getLoginUser(session);
-		int updateBy = loginUser.getId();
-		biz.modifyPwd(id, password, updateBy);
-		return "success";
-	}*/
+	@RequestMapping("modifyPwd")
+	@ResponseBody
+	public String modifyPwd(Integer id, String oldpassword,String newpassword,String passwordconfirm, HttpSession session){
+		try{
+			if(oldpassword==null||"".equals(oldpassword)||newpassword==null||"".equals(newpassword)||passwordconfirm==null||"".equals(passwordconfirm)){
+				return "input_empty";
+			}
+			if(!newpassword.equals(passwordconfirm)){
+				return "password_not_equal";
+			}
+			if(biz.checkPwd(id, oldpassword)){
+				BasicUser loginUser = BasicUserCtrl.getLoginUser(session);
+				int updateBy = loginUser.getId();
+				biz.modifyPwd(id, newpassword, updateBy);
+				return "success";
+			}else{
+				return "oldpassword_false";
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return "error";
+		}
+	}
 	
 	/**显示个人中心*/
 	@RequestMapping("showMineInfo")

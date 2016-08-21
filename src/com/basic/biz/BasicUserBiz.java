@@ -1,5 +1,7 @@
 package com.basic.biz;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,24 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 			personDao.persist(person);
 		}
 		return null;
+	}
+	
+	/**密码验证
+	 * @return 验证通过返回true,失败返回false
+	 * */
+	public boolean checkPwd(Integer userId, String oldPassword){
+		List<?> passwords = dao.find("select password from BasicUser where id =:id",new String[]{"id"},new Integer[]{userId});
+		String password = (String)passwords.get(0);
+		if(password.equals(oldPassword))
+			return true;
+		else
+			return false;
+	}
+	/**修改密码
+	 * */
+	public void modifyPwd(Integer userId, String password, Integer updateBy){
+		dao.executeUpdate("update BasicUser set password =:password, updateBy =:updateBy where id =:userId",
+				new String[]{"password","updateBy","userId"}, new Object[]{password, updateBy,userId});
 	}
 	
 	public BasicUser login(String nameOrTele, String password){
