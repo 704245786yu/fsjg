@@ -12,6 +12,7 @@ public class IndentDto {
 	private Byte indentType;//订单类型
 	private String indentName;//订单名称
 	private Integer quantity;//订单数量
+	private Byte saleMarket;//销售市场
 	private Byte processType;//加工类型
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date preDeliveryDate;//预计交货日期',
@@ -56,6 +57,12 @@ public class IndentDto {
 	}
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+	public Byte getSaleMarket() {
+		return saleMarket;
+	}
+	public void setSaleMarket(Byte saleMarket) {
+		this.saleMarket = saleMarket;
 	}
 	public Byte getProcessType() {
 		return processType;

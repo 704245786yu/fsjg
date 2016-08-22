@@ -1,5 +1,5 @@
 $(function() {
-    $('#loginModal').modal();
+	$('#loginModal').modal();
     $('#loginModal form').submit(function(e){
     	e.preventDefault();
     	var $userName = $('input[name="userName"]');

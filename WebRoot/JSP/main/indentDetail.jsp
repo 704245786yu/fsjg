@@ -120,6 +120,9 @@
 	</td>
 </tr>
 </table>
+
+<%@include file="loginModal.jsp"%>
+
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>

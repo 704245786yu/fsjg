@@ -84,7 +84,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		long total = bigInt.longValue();
 		
 //		订单编号、订单名称、预计订单数量、预计交货日期、订单类型、发单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
-		StringBuffer sql = new StringBuffer("select indent_num as indentNum, indent_name as indentName, process_type as processType,quantity, pre_delivery_date as preDeliveryDate, is_urgency as isUrgency,indent_type as indentType,"
+		StringBuffer sql = new StringBuffer("select indent_num as indentNum, indent_name as indentName, process_type as processType,quantity, sale_market as saleMarket,pre_delivery_date as preDeliveryDate, is_urgency as isUrgency,indent_type as indentType,"
 				+ "userType,province,city,cond_province as condProvince,cond_city as condCity, cond_demand as condDemand, create_time as createTime,effective_date as effectiveDate ");
 		sql.append(subSql);
 		System.out.println(sql);
@@ -93,6 +93,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		scalars.add(new Object[]{"indentName",StandardBasicTypes.STRING});
 		scalars.add(new Object[]{"processType",StandardBasicTypes.BYTE});
 		scalars.add(new Object[]{"quantity",StandardBasicTypes.INTEGER});
+		scalars.add(new Object[]{"saleMarket",StandardBasicTypes.BYTE});
 		scalars.add(new Object[]{"preDeliveryDate",StandardBasicTypes.DATE});
 		scalars.add(new Object[]{"isUrgency",StandardBasicTypes.BOOLEAN});
 		scalars.add(new Object[]{"indentType",StandardBasicTypes.BYTE});

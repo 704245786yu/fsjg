@@ -132,7 +132,16 @@ function initIndentList(){
 	for(var i=0; i<$tables.length; i++){
 		var $tds = $($tables[i]).find('td');
 		
-		//1、订单类型
+		//1、销售市场
+		var span = $($tds[1]).find('span');
+		var saleMarket = span.html();
+		if(saleMarket == 1){
+			span.html('内销');
+		}else if(saleMarket == 2){
+			span.html('外销');
+		}
+		
+		//2、订单类型
 		var $divs = $($tds[2]).find('div');
 		//加工类型
 		var processType = $divs[0].innerHTML;
@@ -144,7 +153,7 @@ function initIndentList(){
 			$divs[1].innerHTML = '看款下单';
 		}
 		
-		//2、接单企业要求所在地区
+		//3、接单企业要求所在地区
 		var div = $($tds[3]).find('div')[0];
 		var disctricts = div.innerHTML.split(',');
 		var province = g_district[disctricts[0]];
@@ -158,7 +167,7 @@ function initIndentList(){
 				div.innerHTML = province+' '+city;
 		}
 		
-		//3、发单企业
+		//4、发单企业
 		var $children = $($tds[4]).children();
 		disctricts = $children[1].innerHTML.split(',');
 		province = g_district[disctricts[0]];

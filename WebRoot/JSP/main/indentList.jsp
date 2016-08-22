@@ -129,7 +129,7 @@
 							<label style="font-size:16px"><a href="indent/detail/${indent.indentNum}" style="color:#4eb1e5;">${indent.indentName}</a></label>
 							<div>预计订单数量：${indent.quantity}件</div>
 							<div>预计交货日期：${indent.preDeliveryDate}</div>
-							<div>销售市场：内销</div>
+							<div>销售市场：<span>${indent.saleMarket}</span></div>
 						</td>
 						<td style="width:120px;">
 							<!-- 加工类型 -->

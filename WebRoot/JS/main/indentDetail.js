@@ -1,4 +1,5 @@
 $(function(){
+	$('#loginModal').modal('hide');
 	var $createTime = $('#createTime');
 	$createTime.html($createTime.html().split(' ')[0]);
 	var $preDeliveryDate = $('#preDeliveryDate');

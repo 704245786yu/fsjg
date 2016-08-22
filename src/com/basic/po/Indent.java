@@ -38,6 +38,9 @@ public class Indent {
 	
 	private String description;//订单说明
 	
+	@Column(name="sale_market")
+	private Byte saleMarket;//销售市场
+	
 	@Column(name="process_type")
 	private Byte processType;//加工类型
 	
@@ -161,6 +164,14 @@ public class Indent {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public Byte getSaleMarket() {
+		return saleMarket;
+	}
+
+	public void setSaleMarket(Byte saleMarket) {
+		this.saleMarket = saleMarket;
 	}
 
 	public Byte getProcessType() {
