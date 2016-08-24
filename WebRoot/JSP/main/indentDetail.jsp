@@ -17,6 +17,7 @@
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+<link href="CSS/common/default.css" rel="stylesheet">
 <link href="CSS/indent-detail.css" rel="stylesheet">
 <script src="plugin/jquery.min.js"></script>
 </head>
@@ -42,7 +43,7 @@
 						<img src="image/indentRelease/detailDoc.png"/>
 					</p>
 					<div style="text-align:center;margin-bottom:10px;">登录后可查看详细信息</div>
-					<div style="text-align:center;"><a class="btn btn-warning" style="width:170px;background-color:#ff5719;">申请下载</a></div>
+					<div style="text-align:center;"><a class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:170px;background-color:#ff5719;">申请下载</a></div>
 				</td>
 			</tr>
 			<tr>
@@ -113,6 +114,14 @@
 	
 	<!-- 右边栏 -->
 	<td style="width:274px;vertical-align:top;padding-left:10px;background-color:#FBF8F9">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新认证加工厂</h3>
+			</div>
+			<div class="panel-body">
+				是的饭的事发生
+			</div><!-- panel-body -->
+		</div><!-- panel -->
 		<ul class="list-group">
 			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
 			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>

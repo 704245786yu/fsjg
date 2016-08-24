@@ -169,7 +169,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	}
 	
 	@RequestMapping("detail/{indentNum}")
-	public ModelAndView detail(@PathVariable Long indentNum){
+	public ModelAndView detail(@PathVariable Long indentNum, HttpSession session){
 		Indent indent = biz.getByNum(indentNum);
 		//产品类型
 		String[] costumeCodeStr = indent.getCostumeCode().split(",");
@@ -188,9 +188,6 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		String processTypeStr = "";
 		if(list.size() == 1)
 			processTypeStr = list.get(0).getConstantName();
-		//发单用户所在地
-		int userId = indent.getCreateBy();
-		int userType = indent.getCreateUserType();
 		
 		//接单地区要求
 		List<Long> districtCode = new ArrayList<Long>();
@@ -203,6 +200,13 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		mav.addObject("costumes", costumes);
 		mav.addObject("districts", districts);
 		mav.addObject("processType", processTypeStr);
+
+		if(BasicUserCtrl.getLoginUser(session) != null){
+			//发单用户所在地
+			int userId = indent.getCreateBy();
+			int userType = indent.getCreateUserType();
+			
+		}
 		return mav;
 	}
 }
