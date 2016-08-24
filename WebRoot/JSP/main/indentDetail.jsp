@@ -73,7 +73,7 @@
 
 		<table class="table table-bordered">
 			<tr>
-				<td style="width:550px;">
+				<td style="width:550px;border:0px;">
 					<p><label style="font-size:16px">接单要求：</label>请确认您符合接单要求再报价，以提升接单成功几率</p>
 					<p style="padding:20px 0 20px 20px;">
 						<span>
@@ -83,7 +83,7 @@
 					<p>
 						<c:choose>
 							<c:when test="${loginBasicUser == null}">
-								<button class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:170px;background-color:#ff5719;">申请接单</button>
+								<button class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:170px;background-color:#ff5719;margin-left:20px;">申请接单</button>
 							</c:when>
 							<c:when test="${loginBasicUser != null}">
 								<div id="quoteP">
@@ -100,6 +100,17 @@
 						</c:choose>
 					</p>
 					<p></p>
+				</td>
+				<td style="border:0px;">
+					<a class="btn btn-default disabled" style="color:black;width:220px;">找到订单，申请接单</a>
+					<div style="width:220px;text-align:center;margin-top:5px;margin-bottom:5px;color:#50B2E9;font-size:16px;">
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</div>
+					<a class="btn btn-default disabled" style="color:black;width:220px;">填写报价或者QQ在线交流</a>
+					<div style="width:220px;text-align:center;margin-top:5px;margin-bottom:5px;color:#50B2E9;font-size:16px;">
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</div>
+					<a class="btn btn-default disabled" style="color:black;width:220px;">双方洽谈达成意向</a>
 				</td>
 			</tr>
 		</table>
