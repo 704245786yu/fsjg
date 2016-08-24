@@ -5,7 +5,12 @@ $(function(){
 	var $preDeliveryDate = $('#preDeliveryDate');
 	$preDeliveryDate.html($preDeliveryDate.html().split(' ')[0]);
 	var $effectiveDate = $('#effectiveDate');
-	$effectiveDate.html($effectiveDate.html().split(' ')[0]);
+	var effectiveDate = $effectiveDate.html().split(' ')[0];
+	var date = moment(effectiveDate);
+	var now = moment();
+	var days = date.get('date')-now.get('date')+1;
+	
+	$effectiveDate.html(effectiveDate+'&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red;font-size:16px;">仅剩'+days+'天</strong>');
 	var $indentType = $('#indentType');
 	var indentType = $indentType.html();
 	if(indentType==1){

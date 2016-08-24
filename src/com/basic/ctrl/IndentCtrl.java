@@ -21,11 +21,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.basic.biz.CostumeCategoryBiz;
 import com.basic.biz.DistrictBiz;
+import com.basic.biz.EnterpriseBiz;
 import com.basic.biz.IndentBiz;
+import com.basic.biz.IndentQuoteBiz;
+import com.basic.biz.PersonBiz;
 import com.basic.dto.IndentDto;
 import com.basic.po.BasicUser;
 import com.basic.po.District;
 import com.basic.po.Indent;
+import com.basic.po.UserAbstract;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
@@ -42,6 +46,12 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	private CostumeCategoryBiz costumeCategoryBiz;
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
+	@Autowired
+	private PersonBiz personBiz;
+	@Autowired
+	private EnterpriseBiz enterpriseBiz;
+	@Autowired
+	private IndentQuoteBiz indentQuoteBiz;
 	
 	private static final long imgMaxSize = 200000;//图片最大200kb
 	private static final long docMaxSize = 500000;//文档最大500kb
@@ -195,18 +205,33 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		districtCode.add(indent.getCondCity());
 		List<String> districts = districtBiz.getNameByCode(districtCode);
 
+
+		//发单用户所在地
+		int userId = indent.getCreateBy();
+		byte userType = indent.getCreateUserType();
+		UserAbstract userAbstract = null;
+		if(userType == 1)
+			userAbstract = personBiz.getByBasicUserId(userId);
+		else if(userType == 2)
+			userAbstract = enterpriseBiz.getByBasicUserId(userId);
+		ArrayList<Long> districtCodes = new ArrayList<Long>();
+		districtCodes.add(userAbstract.getProvince());
+		districtCodes.add(userAbstract.getCity());
+		districtCodes.add(userAbstract.getCounty());
+		districtCodes.add(userAbstract.getTown());
+		List<String> districtNames = districtBiz.getNameByCode(districtCodes);
+		
+		//订单报价数
+		long quoteNum = indentQuoteBiz.getQuoteNum(indent.getId());
+		
 		ModelAndView mav = new ModelAndView("main/indentDetail");
 		mav.addObject("indent", indent);
 		mav.addObject("costumes", costumes);
 		mav.addObject("districts", districts);
 		mav.addObject("processType", processTypeStr);
-
-		if(BasicUserCtrl.getLoginUser(session) != null){
-			//发单用户所在地
-			int userId = indent.getCreateBy();
-			int userType = indent.getCreateUserType();
-			
-		}
+		mav.addObject("quoteNum", quoteNum);
+		mav.addObject("user", userAbstract);
+		mav.addObject("districtNames", districtNames);
 		return mav;
 	}
 }

@@ -28,4 +28,11 @@ public class IndentQuoteBiz extends BaseBiz<IndentQuoteDao, Integer, IndentQuote
 		dao.save(indentQuote);
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, null);
 	}
+	
+	/**获取当前的报价数
+	 * */
+	public long getQuoteNum(int indentId){
+		String hql = "select count(1) from IndentQuote where indentId =:indentId";
+		return dao.getCount(hql, new String[]{"indentId"}, new Integer[]{indentId});
+	}
 }

@@ -52,7 +52,7 @@ public class EnterpriseTest {
 	
 	@Test
 	public void get(){
-		enterpriseDao.findById(1);
+		JacksonJson.printBeanToJson(enterpriseDao.findById(61));
 	}
 	
 	@Test

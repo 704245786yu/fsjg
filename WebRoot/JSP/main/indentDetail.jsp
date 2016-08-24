@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -39,11 +40,11 @@
 				<td rowspan="5" style="width:270px;padding-top:30px;">
 					<label style="font-size:20px;">详细资料：</label>
 					<p style="text-align:center;">
-						<img src="image/indentRelease/detailImg.png" style="margin:20px 20px 20px 0px;"/>
-						<img src="image/indentRelease/detailDoc.png"/>
+						<span class="glyphicon glyphicon-picture" style="font-size:50px;color:#50B2E9;margin-right:30px;"></span>
+						<span class="glyphicon glyphicon-file" style="font-size:45px;color:#50B2E9;"></span>
 					</p>
 					<div style="text-align:center;margin-bottom:10px;">登录后可查看详细信息</div>
-					<div style="text-align:center;"><a class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:170px;background-color:#ff5719;">申请下载</a></div>
+					<div style="text-align:center;"><button class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:170px;background-color:#ff5719;">申请下载</button></div>
 				</td>
 			</tr>
 			<tr>
@@ -69,7 +70,7 @@
 				<td>加工类型：</td><td>${processType}</td>
 			</tr>
 		</table>
-		
+
 		<table class="table table-bordered">
 			<tr>
 				<td style="width:550px;">
@@ -80,16 +81,23 @@
 						</span>企业，${indent.condDemand}
 					</p>
 					<p>
-						<div id="quoteP">
-							<div style="width:160px;float:left;padding-left:20px;">
-								<input id="quote" type="text" class="form-control" placeholder="输入您的报价金额"/>
-								<input id="quoteUrl" type="hidden" value="indentQuote/quote/${indent.id}/"/>
-							</div>
-							<div style="float:left;">
-								元，<button class="btn btn-warning" style="background-color:#ff5719;" onclick="quote()">报价</button> &nbsp;<span></span>
-							</div>
-						</div>
-						<div id="quoteSuc" style="font-size:20px;padding-left:20px;display:none;">恭喜您报价成功，耐心等待对方的回复，<br/>前往个人中心查看您申请过的报价订单。</div>
+						<c:choose>
+							<c:when test="${loginBasicUser == null}">
+								<button class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:170px;background-color:#ff5719;">申请接单</button>
+							</c:when>
+							<c:when test="${loginBasicUser != null}">
+								<div id="quoteP">
+									<div style="width:160px;float:left;padding-left:20px;">
+										<input id="quote" type="text" class="form-control" placeholder="输入您的报价金额"/>
+										<input id="quoteUrl" type="hidden" value="indentQuote/quote/${indent.id}/"/>
+									</div>
+									<div style="float:left;">
+										元，<button class="btn btn-warning" style="background-color:#ff5719;" onclick="quote()">报价</button> &nbsp;<span></span>
+									</div>
+								</div>
+								<div id="quoteSuc" style="font-size:20px;padding-left:20px;display:none;">恭喜您报价成功，耐心等待对方的回复，<br/>前往个人中心查看您申请过的报价订单。</div>
+							</c:when>
+						</c:choose>
 					</p>
 					<p></p>
 				</td>
@@ -119,9 +127,34 @@
 				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新认证加工厂</h3>
 			</div>
 			<div class="panel-body">
-				是的饭的事发生
+				<c:choose>
+					<c:when test="${loginBasicUser == null}">
+						<h5>
+							<c:forEach var="districtName" items="${districtNames}" end="1">${districtName}</c:forEach>某
+							<c:choose>
+								<c:when test="${indent.createUserType == 1}">个体户</c:when>
+								<c:when test="${indent.createUserType == 2}">加工厂</c:when>
+							</c:choose>
+						</h5>
+						<p>联 系 人 ：<button class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:160px;background-color:#ff5719;">申请查看</button></p>
+						<p>联系电话：<button class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:160px;background-color:#ff5719;">申请查看</button></p>
+						<p>所在地区：<c:forEach var="districtName" items="${districtNames}" end="1">${districtName}</c:forEach></p>
+					</c:when>
+					<c:when test="${loginBasicUser != null}">
+						<h4>
+							<c:choose>
+								<c:when test="${indent.createUserType == 1}">${user.realName}</c:when>
+								<c:when test="${indent.createUserType == 2}">${user.enterpriseName}</c:when>
+							</c:choose>
+						</h4>
+						<p>联系人：${indent.linkman}</p>
+						<p>联系电话：${indent.telephone}</p>
+						<p>所在地区：<c:forEach var="districtName" items="${districtNames}">${districtName}</c:forEach>${user.detailAddr}</p>
+					</c:when>
+				</c:choose>
 			</div><!-- panel-body -->
 		</div><!-- panel -->
+		
 		<ul class="list-group">
 			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
 			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
@@ -134,6 +167,7 @@
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
 <script src="JS/main/indentDetail.js"></script>
 </body>
