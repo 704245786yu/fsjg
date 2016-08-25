@@ -18,6 +18,15 @@ $(function(){
 	}else if(indentType==2){
 		$indentType.html('看款下单');
 	}
+	
+	var $photo = $('.photo');
+	var photoAry = $(':hidden[name="photo"]').val().split(',');
+	for(var i=0; i<photoAry.length; i++){
+		var $temp = $photo.clone();
+		$temp.css('display','inline');
+		$temp.attr('src', $temp.attr('src')+photoAry[i]);
+		$photo.after($temp);
+	}
 })
 
 function quote(){

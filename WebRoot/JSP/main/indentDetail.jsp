@@ -39,12 +39,29 @@
 				</td>
 				<td rowspan="5" style="width:270px;padding-top:30px;">
 					<label style="font-size:20px;">详细资料：</label>
-					<p style="text-align:center;">
-						<span class="glyphicon glyphicon-picture" style="font-size:50px;color:#50B2E9;margin-right:30px;"></span>
-						<span class="glyphicon glyphicon-file" style="font-size:45px;color:#50B2E9;"></span>
-					</p>
-					<div style="text-align:center;margin-bottom:10px;">登录后可查看详细信息</div>
-					<div style="text-align:center;"><button class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:170px;background-color:#ff5719;">申请下载</button></div>
+					<c:choose>
+						<c:when test="${loginBasicUser == null}">
+							<p style="text-align:center;">
+								<span class="glyphicon glyphicon-picture" style="font-size:50px;color:#50B2E9;margin-right:30px;"></span>
+								<span class="glyphicon glyphicon-file" style="font-size:45px;color:#50B2E9;"></span>
+							</p>
+							<div style="text-align:center;margin-bottom:10px;">登录后可查看详细信息</div>
+							<div style="text-align:center;"><button class="btn btn-warning" data-toggle="modal" data-target="#loginModal" style="width:170px;background-color:#ff5719;">申请下载</button></div>
+						</c:when>
+						<c:when test="${loginBasicUser != null}">
+							<p style="text-align:center;">
+								<span class="glyphicon glyphicon-file" style="font-size:45px;color:#50B2E9;"></span>
+							</p>
+							<c:if test="${indent.document == ''}">
+								<div style="text-align:center;margin-bottom:10px;">无订单附件。</div>
+								<div style="text-align:center;"><button class="btn" style="width:170px;">立即下载</button></div>
+							</c:if>
+							<c:if test="${indent.document != ''}">
+								<div style="text-align:center;margin-bottom:10px;">订单有附件可以下载，更详细！</div>
+								<div style="text-align:center;"><a class="btn btn-warning" href="http://localhost:8080/indent/${indent.document}" style="width:170px;background-color:#ff5719;">立即下载</a></div>
+							</c:if>
+						</c:when>
+					</c:choose>
 				</td>
 			</tr>
 			<tr>
@@ -69,6 +86,14 @@
 				<td>有效日期：</td><td id="effectiveDate">${indent.effectiveDate}</td>
 				<td>加工类型：</td><td>${processType}</td>
 			</tr>
+			<c:if test="${loginBasicUser != null}">
+				<tr>
+					<td colspan="5">
+						<img class="photo" src="http://localhost:8080/indent/" width="120px" height="120px" style="display:none;margin-left:10px;border:1px solid #DDDDDD"/>
+						<input type="hidden" name="photo" value="${indent.photo}"/>
+					</td>
+				</tr>
+			</c:if>
 		</table>
 
 		<table class="table table-bordered">
