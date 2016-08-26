@@ -235,25 +235,6 @@ public class BaseDao<ID extends Serializable, T> {
 		return (Long)query.uniqueResult();
 	}
 	
-	/**根据查询条件获取数据总数
-	 * @param List<Object[]> Object[]数组内容 0：匹配方式 1：列名 2：值
-	 * */
-	public long getCountByCriteria(List<Object[]> params){
-		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
-		for(int i=0; i<params.size(); i++){
-			Object[] param = params.get(i);
-			Criterion criterion = null;
-			if(param[0].equals("like")){
-				criterion = Restrictions.like(param[1].toString(), param[2]);
-			}else if(param[0].equals("eq")){
-				criterion = Restrictions.eq(param[1].toString(), param[2]);
-			}
-			criteria.add(criterion);
-		}
-		criteria.setProjection(Projections.rowCount());
-		return (Long)criteria.uniqueResult();
-	}
-	
 	/**根据传入的属性执行查询
 	 * @param propertyNames 精确查询属性名
 	 * @param values1 精确查询属性值
@@ -367,32 +348,6 @@ public class BaseDao<ID extends Serializable, T> {
 		}
 		// 执行分页，并返回查询结果
 		return query.setFirstResult(offset)
-				.setMaxResults(limit)
-				.list();
-	}
-	
-	/**
-	* 使用QBC 进行分页查询操作
-	* @param params List<Object[]> Object[]数组内容 0：匹配方式 1：列名 2：值
-	* @param offset 偏移量，即记录索引位置
-	* @param limit 每页记录数
-	* @return 当前页的所有记录
-	*/
-	public List<T> findByPageAndParams(List<Object[]> params, int offset, int limit)
-	{
-		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
-		for(int i=0; i<params.size(); i++){
-			Object[] param = params.get(i);
-			Criterion criterion = null;
-			if(param[0].equals("like")){
-				criterion = Restrictions.like(param[1].toString(), param[2]);
-			}else if(param[0].equals("eq")){
-				criterion = Restrictions.eq(param[1].toString(), param[2]);
-			}
-			criteria.add(criterion);
-		}
-		// 执行分页，并返回查询结果
-		return criteria.setFirstResult(offset)
 				.setMaxResults(limit)
 				.list();
 	}

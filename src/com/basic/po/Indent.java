@@ -109,7 +109,19 @@ public class Indent {
 	@Column(name="create_time")
 	private Date createTime;//创建时间'
 
+	public Indent(){}
 	
+	public Indent(Long indentNum, String indentName, Integer quantity,
+			Double expectPrice, Byte state, Date createTime) {
+		super();
+		this.indentNum = indentNum;
+		this.indentName = indentName;
+		this.quantity = quantity;
+		this.expectPrice = expectPrice;
+		this.state = state;
+		this.createTime = createTime;
+	}
+
 	public Integer getId() {
 		return id;
 	}

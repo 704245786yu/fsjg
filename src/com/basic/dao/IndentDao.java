@@ -2,6 +2,7 @@ package com.basic.dao;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.type.StandardBasicTypes;
@@ -108,5 +109,53 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		scalars.add(new Object[]{"effectiveDate",StandardBasicTypes.DATE});
 		List<IndentDto> indents = (List<IndentDto>)super.findByNativeSql(sql.toString(), params, values, scalars, 0, 20, IndentDto.class);
 		return new BootTablePageDto<IndentDto>(total, indents);
+	}
+	
+	/**个人中心-我发布的订单
+	 * @param indentNum 订单编号
+	 * @param indentName 订单名称,模糊匹配
+	 * @param state 订单状态
+	 * @param beginDate 开始日期
+	 * @param endDate 结束日期
+	 * @param userId 用户Id
+	 * @param total 总记录数
+	 * @param offset 偏移量，即记录索引位置
+	 * @param limit 每页记录数
+	 * @return 订单编号、订单名称、订单数量、订单金额、订单状态、发布日期，按发布日期倒序
+	 * */
+	@SuppressWarnings("unchecked")
+	public BootTablePageDto<Indent> getMyReleased(Long indentNum, String indentName, Byte state, Date beginDate, Date endDate,
+			int userId, Long total, int offset, int limit){
+		StringBuffer hql = new StringBuffer(" from Indent where 1=1 ");
+		List<String> paramNames = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		if(indentNum != null){
+			hql.append(" and indentNum =:indentNum");
+			paramNames.add("indentNum");
+			values.add(indentNum);
+		}
+		if(indentName.length() != 0){
+			hql.append(" and indentName like :indentName");
+			paramNames.add("indentName");
+			values.add("%"+indentName+"%");
+		}
+		if(state != null){
+			hql.append(" and state := state");
+			paramNames.add("state");
+			values.add(state);
+		}
+		if(beginDate != null || endDate != null){
+			hql.append(" and createTime between :beginDate and :endDate");
+			paramNames.add("beginDate");
+			paramNames.add("endDate");
+			values.add(beginDate);
+			values.add(endDate);
+		}
+		hql.append(" and userId =:userId");
+		if(total == null){
+			total = super.getCount("select count(1) "+hql.toString(), (String[])paramNames.toArray(), values.toArray());
+		}
+		List<Indent> list = (List<Indent>)super.findByPage("select new Indent(indentNum, indentName, quantity, expectPrice, state, createTime)", offset, limit, (String[])paramNames.toArray(), values.toArray());
+		return new BootTablePageDto<Indent>(total, list);
 	}
 }

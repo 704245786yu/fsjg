@@ -234,4 +234,28 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		mav.addObject("districtNames", districtNames);
 		return mav;
 	}
+	
+	@RequestMapping("showMyRealeseIndent")
+	public String showMyRealeseIndent(){
+		return "main/myCenter/myRealseIndent";
+	}
+	
+	/**个人中心-我发布的订单
+	 * @param indentNum 订单编号
+	 * @param indentName 订单名称,模糊匹配
+	 * @param state 订单状态
+	 * @param beginDate 开始日期
+	 * @param endDate 结束日期
+	 * @param total 总记录数
+	 * @param offset 偏移量，即记录索引位置
+	 * @param limit 每页记录数
+	 * */
+	@RequestMapping("getMyReleased")
+	@ResponseBody
+	public BootTablePageDto<Indent> getMyReleased(Long indentNum, String indentName, Byte state, String beginDate, String endDate,
+			Long total, int offset, int limit, HttpSession session){
+		BasicUser user = BasicUserCtrl.getLoginUser(session);
+		return biz.getMyReleased(indentNum, indentName, state, beginDate, endDate, user.getId(), total, offset, limit);
+	}
+
 }

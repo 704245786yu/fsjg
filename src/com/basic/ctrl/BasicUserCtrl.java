@@ -92,11 +92,9 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		UserAbstract userAbstract = null;
 		int roleId = basicUser.getRoleId();
 		if(roleId == 1){
-			mav = new ModelAndView("main/mineInfoPerson");
+			mav = new ModelAndView("main/myCenter/mineInfoPerson");
 			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
-			
-		}
-		else if(roleId == 2){
+		}else if(roleId == 2){
 			mav = new ModelAndView("main/mineInfo");
 			Enterprise e = enterpriseBiz.getByBasicUserId(basicUser.getId());
 			userAbstract = e;
