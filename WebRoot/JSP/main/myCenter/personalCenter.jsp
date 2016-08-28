@@ -16,7 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="CSS/mine-info.css" rel="stylesheet">
+<link href="CSS/my-center.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
 </head>
@@ -61,24 +61,33 @@
 		<td style="padding:0px;width:200px;background-color:#FCF9FA;">
 			<ul class="menu_li">
 				<li class="level1">帐号管理</li>
-				<li>详细信息</li>
-				<li>修改密码</li>
-				<li class="level1">个人管理</li>
-				<li>快产信息</li>
+				<li name="1">详细信息</li>
+				<li name="2">修改密码</li>
 				<li class="level1">发单管理</li>
-				<li>我发布的订单</li>
-				<li>我收到的报价</li>
-				<li>我确认单的订单</li>
+				<li name="3">我发布的订单</li>
+				<li name="4">我收到的报价</li>
+				<li name="5">我确认单的订单</li>
 			</ul>
 		</td>
 		<!-- 主体内容 -->
-		<td>
-			<%@ include file="personInfo.jsp"%>
+		<td id="mainContent" style="padding:0px;">
+			<div style="display:none;">
+				<jsp:include page="personInfo.jsp"></jsp:include>
+			</div>
+			<div style="display:none;">
+			</div>
+			<div>
+				<jsp:include page="myReleased.jsp"></jsp:include>
+			</div>
+			<div style="display:none;">
+			</div>
+			<div style="display:none;">
+			</div>
 		</td>
 	</tr>
 </table>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="JS/main/myCenter/personalCenter.js"></script>
 </body>
 </html>
-

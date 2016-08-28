@@ -1,9 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
 <!DOCTYPE html>
@@ -25,7 +23,7 @@
 
 <body>
 
-	<%@ include file="top.jsp"%>
+	<%@ include file="../top.jsp"%>
 	<div class="info_detail_div">
 		<div class="headphoto_div">
 			<ul style="margin-left:30px">
@@ -118,7 +116,7 @@
         </div>
          
          
-		<div class="right_info,detailInfo" style="display:none">
+		<div class="right_info,detailInfo">
 		<form class="form-inline" role="form" action="basicUser/editEnterpriseInfo" method="post" accept-charset="utf-8">
 			<div class="title" style="border-bottom:1px solid #cccccc">
 				<p style="line-height:40px">
@@ -216,7 +214,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="right_order" style="display:none">
+		<div class="right_order">
 			<table>
 				<tr>
 					<td>订单编号：<input type="text" name="odernum"

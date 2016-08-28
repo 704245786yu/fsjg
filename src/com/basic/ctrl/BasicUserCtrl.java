@@ -25,9 +25,7 @@ import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.LoginCtrl;
-import com.sys.ctrl.UserCtrl;
 import com.sys.po.ConstantDict;
-import com.sys.po.User;
 
 @Controller
 @RequestMapping("basicUser")
@@ -85,17 +83,17 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 	}
 	
 	/**显示个人中心*/
-	@RequestMapping("showMineInfo")
+	@RequestMapping("showMyCenter")
 	public ModelAndView showMineInfo(HttpSession session){
 		ModelAndView mav = null;
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
 		UserAbstract userAbstract = null;
 		int roleId = basicUser.getRoleId();
 		if(roleId == 1){
-			mav = new ModelAndView("main/myCenter/mineInfoPerson");
+			mav = new ModelAndView("main/myCenter/personalCenter");
 			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
 		}else if(roleId == 2){
-			mav = new ModelAndView("main/mineInfo");
+			mav = new ModelAndView("main/myCenter/enterpriseCenter");
 			Enterprise e = enterpriseBiz.getByBasicUserId(basicUser.getId());
 			userAbstract = e;
 			//行业分类
@@ -118,9 +116,7 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		districtCodes.add(userAbstract.getProvince());
 		districtCodes.add(userAbstract.getCity());
 		districtCodes.add(userAbstract.getCounty());
-		Long town = userAbstract.getTown();
-		if(town != null)
-			districtCodes.add(town);
+		districtCodes.add(userAbstract.getTown());
 		List<String> districtNames = districtBiz.getNameByCode(districtCodes);
 		mav.addObject("districtNames", districtNames);
 		mav.addObject("userInfo", userAbstract);

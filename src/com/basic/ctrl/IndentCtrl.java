@@ -235,11 +235,6 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return mav;
 	}
 	
-	@RequestMapping("showMyRealeseIndent")
-	public String showMyRealeseIndent(){
-		return "main/myCenter/myRealseIndent";
-	}
-	
 	/**个人中心-我发布的订单
 	 * @param indentNum 订单编号
 	 * @param indentName 订单名称,模糊匹配

@@ -13,7 +13,7 @@ $(function(){
 		timePicker24Hour:true,
         timePickerIncrement: 1,
 		locale:{
-			format:'YYYY-MM-DD HH:mm',
+			format:'YYYY-MM-DD',
 			applyLabel: '确定',
 			cancelLabel: '取消'
 		}

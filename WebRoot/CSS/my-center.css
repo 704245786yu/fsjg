@@ -28,6 +28,7 @@ td.auth span{
 
 .menu_li li{
 	line-height:48px;
+	color:black;
 	background-color:#f5f5f5;
 	border-bottom:1px solid #DCDCDC;
 	font-size:14px;
@@ -35,4 +36,8 @@ td.auth span{
 	padding-left:55px;
 	list-style:disc inside;
 }
- 
+
+/*嵌套页面中的查询条件*/
+.query-cond td{
+	padding-right:10px;
+}
