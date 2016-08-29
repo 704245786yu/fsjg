@@ -1,52 +1,60 @@
-var g_processType = new Object();
-var g_auditState = {0:'待审核',1:'未通过',2:'已通过'};
+var g_state = {0:'未收到报价',1:'已收到报价',2:'已接单',3:'已失效'};//订单状态
+var g_total = null;
 
 $(function(){
-	//初始化g_processType，供table的processType格式化显示用
-	var processTypes = $('#processType option');
-	$.each(processTypes, function(i,n){
-		g_processType[n.value] = n.text; 
-	});
 	$('input[name="daterange"]').daterangepicker({
-//		maxDate: new Date(),
-		timePicker: true,
-		timePicker24Hour:true,
-        timePickerIncrement: 1,
+		startDate:moment().subtract(1,'month'),
 		locale:{
 			format:'YYYY-MM-DD',
 			applyLabel: '确定',
-			cancelLabel: '取消'
+			cancelLabel: '取消',
+			daysOfWeek:['日', '一', '二', '三', '四', '五',	'六'],
+			monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
 		}
 	});
-	//启用Tooltips工具提示
-	$("[data-toggle='tooltip']").tooltip();
+	$('input[name="indentNum"').mask('#');
+	
+	var options = $('#dg').bootstrapTable('getOptions');
+	options.url = "indent/getMyReleased";
+	$('#dg').bootstrapTable('refreshOptions',options);
+	$('#dg').bootstrapTable('refresh');
+});
+
+$('#dg').bootstrapTable({
+	onPageChange:function(number,size){
+		g_total = $('#dg').bootstrapTable('getOptions').totalRows;
+		console.log(g_total);
+	}
 });
 
 function getQueryParams(params){
-//	var searchText = $('#searchText').val().trim();
-//	params.constantName = searchText;
+	var indentNum = $('input[name="indentNum"]').val();
+	var indentName = $('input[name="indentName"]').val();
+	var state = $('select[name="state"]').val();
+	var daterange = $('input[name="daterange"]').val();
+	params.indentNum = indentNum;
+	params.indentName = indentName;
+	params.state = state;
+	var dates = daterange.split(' - ');
+	params.beginDate = dates[0];
+	params.endDate = dates[1];
+	
+	console.log('q'+g_total)
+	//判断是否传递total值
+	if(g_total != null)
+		params.total = g_total;
+		
 	delete params.order;
 	return params;
 }
 
 //审核状态
-function auditStateFormatter(value,row,index){
-	return g_auditState[value];
-}
-
-//日期格式化
-function dateFormatter(value,row,index){
-	return new Date(value).format("yyyy-MM-dd hh:mm:ss");
+function stateFormatter(value,row,index){
+	return g_state[value];
 }
 
 //根据常量名称搜索
 function search(){
+	g_total = null;//设置为null，使后台重新计算total值
 	$('#dg').bootstrapTable('selectPage',1);
 }
-
-//查询框回车执行查询操作
-$('#searchText').keydown(function(event){
-	if(event.keyCode == 13){
-		search();
-	}
-});

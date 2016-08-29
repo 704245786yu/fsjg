@@ -117,7 +117,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	 * @param state 订单状态
 	 * @param beginDate 开始日期
 	 * @param endDate 结束日期
-	 * @param userId 用户Id
+	 * @param createBy 用户Id
 	 * @param total 总记录数
 	 * @param offset 偏移量，即记录索引位置
 	 * @param limit 每页记录数
@@ -125,7 +125,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	 * */
 	@SuppressWarnings("unchecked")
 	public BootTablePageDto<Indent> getMyReleased(Long indentNum, String indentName, Byte state, Date beginDate, Date endDate,
-			int userId, Long total, int offset, int limit){
+			int createBy, Long total, int offset, int limit){
 		StringBuffer hql = new StringBuffer(" from Indent where 1=1 ");
 		List<String> paramNames = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
@@ -140,7 +140,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			values.add("%"+indentName+"%");
 		}
 		if(state != null){
-			hql.append(" and state := state");
+			hql.append(" and state =:state");
 			paramNames.add("state");
 			values.add(state);
 		}
@@ -151,11 +151,14 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			values.add(beginDate);
 			values.add(endDate);
 		}
-		hql.append(" and userId =:userId");
+		hql.append(" and createBy =:createBy");
+		paramNames.add("createBy");
+		values.add(createBy);
+		String[] paramNameAry = paramNames.toArray(new String[paramNames.size()]);
 		if(total == null){
-			total = super.getCount("select count(1) "+hql.toString(), (String[])paramNames.toArray(), values.toArray());
+			total = super.getCount("select count(1) "+hql.toString(), paramNameAry, values.toArray());
 		}
-		List<Indent> list = (List<Indent>)super.findByPage("select new Indent(indentNum, indentName, quantity, expectPrice, state, createTime)", offset, limit, (String[])paramNames.toArray(), values.toArray());
+		List<Indent> list = (List<Indent>)super.findByPage("select new Indent(indentNum, indentName, quantity, expectPrice, state, createTime)"+hql.toString(), offset, limit, paramNameAry, values.toArray());
 		return new BootTablePageDto<Indent>(total, list);
 	}
 }

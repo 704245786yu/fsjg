@@ -41,40 +41,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<label>发布日期：</label>
 		</td>
 		<td colspan="2">
-			<input type="text" class="form-control" style="width:270px;" id="daterange" name="daterange">
+			<input type="text" class="form-control" style="width:270px;" name="daterange">
 		</td>
 		<td>
-			<button type="button" class="btn btn-primary">查询</button>
+			<button type="button" class="btn btn-primary" onclick="search()">查询</button>
 		</td>
 	</tr>
 </table>
 
 <!-- 数据表格 -->
-<table id="dg" data-toggle="table" data-url="" data-unique-id="id"
-		data-pagination="true"
-		data-side-pagination="server"
-		data-query-params="getQueryParams"
-		data-page-size="10"
-		data-page-list="[30,50]">
-    <thead>
-        <tr>
-        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
-            <th data-field="userName" data-align="center">用户名</th>
-            <th data-field="enterpriseNumber" data-align="center">工厂编号</th>
-            <th data-field="enterpriseName" data-align="center">工厂名称</th>
-            <th data-field="auditState" data-align="center" data-formatter="auditStateFormatter">审核状态</th>
-            <th data-field="processType" data-align="center" data-formatter="processTypeFormatter">加工类型</th>
-            <th data-field="basicUser.createTime" data-align="center">注册时间</th>
-            <th data-formatter="operFormatterVUD" class="col-sm-2" data-align="center">操作</th>
-        </tr>
-    </thead>
-</table>
+<div style="padding:0px 10px;">
+	<table id="dg" data-toggle="table" data-unique-id="id"
+			data-pagination="true"
+			data-side-pagination="server"
+			data-query-params="getQueryParams"
+			data-page-size="30"
+			data-page-list="[30,50]">
+	    <thead>
+	        <tr>
+	            <th data-field="indentNum" data-align="center">订单编号</th>
+	            <th data-field="indentName" data-align="center">订单名称</th>
+	            <th data-field="quantity" data-align="center">订单数量</th>
+	            <th data-field="expectPrice" data-align="center">订单金额(元)</th>
+	            <th data-field="state" data-align="center" data-formatter="stateFormatter">订单状态</th>
+	            <th data-field="createTime" data-align="center">发布日期</th>
+	        </tr>
+	    </thead>
+	</table>
+</div>
 
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
 <script src="plugin/bootstrap-daterangepicker/moment.min.js"></script>
 <script src="plugin/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<script src="plugin/jquery.mask.min.js"></script>
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/main/myCenter/myReleased.js"></script>

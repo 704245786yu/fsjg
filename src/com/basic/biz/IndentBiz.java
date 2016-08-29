@@ -57,15 +57,15 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	 * @param state 订单状态
 	 * @param beginDate 开始日期
 	 * @param endDate 结束日期
-	 * @param userId 用户Id
+	 * @param createBy 用户Id
 	 * @param total 总记录数
 	 * @param offset 偏移量，即记录索引位置
 	 * @param limit 每页记录数
 	 * */
 	public BootTablePageDto<Indent> getMyReleased(Long indentNum, String indentName, Byte state, String beginDate, String endDate,
-			int userId, Long total, int offset, int limit){
+			int createBy, Long total, int offset, int limit){
 		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
 		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
-		return dao.getMyReleased(indentNum, indentName, state, beginTime, endTime, userId, total, offset, limit);
+		return dao.getMyReleased(indentNum, indentName, state, beginTime, endTime, createBy, total, offset, limit);
 	}
 }
