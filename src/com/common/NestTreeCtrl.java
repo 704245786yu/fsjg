@@ -24,7 +24,7 @@ public abstract class NestTreeCtrl <BIZ extends NestTreeBiz<?, ID, PO>, ID exten
 	 * */
 	@RequestMapping("getAdjTree")
 	@ResponseBody
-	public List<?> getAdjTree(){
+	public List<PO> getAdjTree(){
 		return biz.getAdjTree();
 	}
 	
