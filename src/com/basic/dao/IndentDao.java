@@ -144,7 +144,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			paramNames.add("state");
 			values.add(state);
 		}
-		if(beginDate != null || endDate != null){
+		if(beginDate != null && endDate != null){
 			hql.append(" and createTime between :beginDate and :endDate");
 			paramNames.add("beginDate");
 			paramNames.add("endDate");
@@ -157,8 +157,57 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		String[] paramNameAry = paramNames.toArray(new String[paramNames.size()]);
 		if(total == null){
 			total = super.getCount("select count(1) "+hql.toString(), paramNameAry, values.toArray());
+			if(total == 0)
+				return new BootTablePageDto<Indent>(total, null);
 		}
 		List<Indent> list = (List<Indent>)super.findByPage("select new Indent(indentNum, indentName, quantity, expectPrice, state, createTime)"+hql.toString(), offset, limit, paramNameAry, values.toArray());
 		return new BootTablePageDto<Indent>(total, list);
+	}
+	
+	/**我收到的报价，返回收到报价的订单，但不包含已接单和已失效的订单
+	 * @param indentNum 订单编号
+	 * @param indentName 订单名称,模糊匹配
+	 * @param beginDate 报价-开始日期
+	 * @param endDate 报价-结束日期
+	 * @param total
+	 * @param offset
+	 * @param limit
+	 * @return 订单ID、订单编号、订单名称、订单数量、订单金额、报价人数、最新报价日期
+	 */
+	public BootTablePageDto<Indent> getMyQuoted(Long indentNum, String indentName, Date beginDate, Date endDate,
+			int createBy, Long total, int offset, int limit){
+		List<String> paramNames = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		StringBuffer hql = new StringBuffer(" from Indent i, IndentQuote q where i.id = q.indentId and i.createBy =:createBy ");
+		paramNames.add("createBy");
+		values.add(createBy);
+		
+		if(indentNum != null){
+			hql.append(" and i.indentNum =:indentNum");
+			paramNames.add("indentNum");
+			values.add(indentNum);
+		}
+		if(indentName.length() != 0){
+			hql.append(" and i.indentName like :indentName");
+			paramNames.add("indentName");
+			values.add("%"+indentName+"%");
+		}
+		if(beginDate != null && endDate != null){
+			hql.append(" and q.createTime between :beginDate and :endDate");
+			paramNames.add("beginDate");
+			paramNames.add("endDate");
+			values.add(beginDate);
+			values.add(endDate);
+		}
+		
+		String[] paramNameAry = paramNames.toArray(new String[paramNames.size()]);
+		/*if(total == null){
+			total = super.getCount("select count(distinct i.id) "+hql.toString(), paramNameAry, values.toArray());
+			if(total == 0)
+				return new BootTablePageDto<Indent>(total, null);
+		}*/
+		List<Indent> list = (List<Indent>)super.findByPage("select i.id as id, i.indentNum as indentNum, i.indentName as indentName, count(i.id) as countNum "+hql.toString()+"group by i.id", offset, limit, paramNameAry, values.toArray());
+		return new BootTablePageDto<Indent>(total, list);
+//		return null;
 	}
 }

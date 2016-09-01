@@ -21,6 +21,8 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.basic.vo.IndentVo;
+
 /**数据库操作基类
  * @param ID 实体类的ID属性的类型，实现了Serializable接口
  * @param T 实体类的类型
@@ -349,6 +351,7 @@ public class BaseDao<ID extends Serializable, T> {
 		// 执行分页，并返回查询结果
 		return query.setFirstResult(offset)
 				.setMaxResults(limit)
+				.setResultTransformer(Transformers.aliasToBean(IndentVo.class))
 				.list();
 	}
 	

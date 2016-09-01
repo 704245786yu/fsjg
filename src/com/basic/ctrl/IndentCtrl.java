@@ -253,4 +253,18 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return biz.getMyReleased(indentNum, indentName, state, beginDate, endDate, user.getId(), total, offset, limit);
 	}
 
+	/**我收到的报价
+	 * @param indentNum 订单编号
+	 * @param indentName 订单名称,模糊匹配
+	 * @param beginDate 开始日期
+	 * @param endDate 结束日期
+	 * @param total
+	 * @param offset
+	 * @param limit
+	 * @return
+	 */
+	public BootTablePageDto<Object> getMyQuoted(Long indentNum, String indentName, String beginDate, String endDate,
+			Long total, int offset, int limit, HttpSession session){
+		return null;
+	}
 }

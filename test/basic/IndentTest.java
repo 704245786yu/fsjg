@@ -26,4 +26,9 @@ public class IndentTest {
 		Date endDate = DateTransform.String2Date("2016-08-20", "yyyy-MM-dd");
 		JacksonJson.printBeanToJson(indentDao.find(hql, new String[]{"indentName","beginDate","endDate"}, new Object[]{"%为让人%",beginDate,endDate}));
 	}
+	
+	@Test
+	public void test1(){
+		JacksonJson.printBeanToJson(indentDao.getMyQuoted(null, "", null, null, 31, null, 0, 10));
+	}
 }
