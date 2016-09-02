@@ -3,8 +3,6 @@ package com.basic.biz;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.basic.dao.IndentDao;
 import com.basic.dto.IndentDto;
 import com.basic.po.Indent;
+import com.basic.vo.IndentVo;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
 import com.sys.biz.ConstantDictBiz;
@@ -71,10 +70,10 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 		return dao.getMyReleased(indentNum, indentName, state, beginTime, endTime, createBy, total, offset, limit);
 	}
 	
-	public BootTablePageDto<Object> getMyQuoted(Long indentNum, String indentName, String beginDate, String endDate,
+	public BootTablePageDto<IndentVo> myReceivedQuote(Long indentNum, String indentName, String beginDate, String endDate,
 			int createBy, Long total, int offset, int limit){
 		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
 		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
-		return null;
+		return dao.myReceivedQuote(indentNum, indentName, beginTime, endTime, createBy, total, offset, limit);
 	}
 }

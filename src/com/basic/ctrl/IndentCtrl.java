@@ -30,6 +30,7 @@ import com.basic.po.BasicUser;
 import com.basic.po.District;
 import com.basic.po.Indent;
 import com.basic.po.UserAbstract;
+import com.basic.vo.IndentVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
@@ -235,6 +236,11 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return mav;
 	}
 	
+	@RequestMapping("showMyReleased")
+	public String showMyReleased(){
+		return "main/myCenter/myReleased";
+	}
+	
 	/**个人中心-我发布的订单
 	 * @param indentNum 订单编号
 	 * @param indentName 订单名称,模糊匹配
@@ -245,14 +251,19 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	 * @param offset 偏移量，即记录索引位置
 	 * @param limit 每页记录数
 	 * */
-	@RequestMapping("getMyReleased")
+	@RequestMapping("myReleased")
 	@ResponseBody
-	public BootTablePageDto<Indent> getMyReleased(Long indentNum, String indentName, Byte state, String beginDate, String endDate,
+	public BootTablePageDto<Indent> myReleased(Long indentNum, String indentName, Byte state, String beginDate, String endDate,
 			Long total, int offset, int limit, HttpSession session){
 		BasicUser user = BasicUserCtrl.getLoginUser(session);
 		return biz.getMyReleased(indentNum, indentName, state, beginDate, endDate, user.getId(), total, offset, limit);
 	}
 
+	@RequestMapping("showMyReceivedQuote")
+	public String showMyReceivedQuote(){
+		return "main/myCenter/myReceivedQuote";
+	}
+	
 	/**我收到的报价
 	 * @param indentNum 订单编号
 	 * @param indentName 订单名称,模糊匹配
@@ -263,8 +274,11 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	 * @param limit
 	 * @return
 	 */
-	public BootTablePageDto<Object> getMyQuoted(Long indentNum, String indentName, String beginDate, String endDate,
+	@RequestMapping("myReceivedQuote")
+	@ResponseBody
+	public BootTablePageDto<IndentVo> myReceivedQuote(Long indentNum, String indentName, String beginDate, String endDate,
 			Long total, int offset, int limit, HttpSession session){
-		return null;
+		BasicUser user = BasicUserCtrl.getLoginUser(session);
+		return biz.myReceivedQuote(indentNum, indentName, beginDate, endDate, user.getId(), total, offset, limit);
 	}
 }

@@ -21,8 +21,6 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.basic.vo.IndentVo;
-
 /**数据库操作基类
  * @param ID 实体类的ID属性的类型，实现了Serializable接口
  * @param T 实体类的类型
@@ -351,7 +349,24 @@ public class BaseDao<ID extends Serializable, T> {
 		// 执行分页，并返回查询结果
 		return query.setFirstResult(offset)
 				.setMaxResults(limit)
-				.setResultTransformer(Transformers.aliasToBean(IndentVo.class))
+				.list();
+	}
+	
+	public <T2> List<T2> findByPage(String hql , int offset, int limit, String[] paramNames, Object[] params, Class<T2> clazz)
+	{
+		Query query = getCurrentSession().createQuery(hql);
+		//为包含占位符的 HQL语句设置参数
+		for(int i=0; i<paramNames.length; i++)
+		{
+			if(params[i] instanceof Collection)
+				query.setParameterList(paramNames[i], (Collection<?>)params[i]);
+			else
+				query.setParameter(paramNames[i], params[i]);
+		}
+		// 执行分页，并返回查询结果
+		return query.setFirstResult(offset)
+				.setMaxResults(limit)
+				.setResultTransformer(Transformers.aliasToBean(clazz))
 				.list();
 	}
 	
@@ -471,7 +486,7 @@ public class BaseDao<ID extends Serializable, T> {
 	 * @param offset 偏移量，即记录索引位置
 	 * @param limit 每页记录数
 	 * */
-	public List<?> findByNativeSql(String sql, List<String> propertyNames, List<Object> values, List<Object[]> scalars, int offset, int limit, Class<?> clazz){
+	public <T2> List<T2> findByNativeSql(String sql, List<String> propertyNames, List<Object> values, List<Object[]> scalars, int offset, int limit, Class<T2> clazz){
 		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(sql);
 		for(int i=0; i<propertyNames.size(); i++){
 			if(values.get(i) instanceof Object[])
@@ -492,7 +507,7 @@ public class BaseDao<ID extends Serializable, T> {
 	/**根据本地SQL执行查询，并返回需要封装成的Bean类型
 	 * @param scalars Object[0] SQL语句中的列别名 Object[1] hibernate Type类型
 	 * */
-	public List<?> findByNativeSql(String sql, String[] propertyNames, List<?> values, List<Object[]> scalars, Class<?> clazz){
+	public <T2> List<T2> findByNativeSql(String sql, String[] propertyNames, List<?> values, List<Object[]> scalars, Class<T2> clazz){
 		SQLQuery sqlQuery = getCurrentSession().createSQLQuery(sql);
 		for(int i=0; i<propertyNames.length; i++){
 			if(values.get(i) instanceof Object[])

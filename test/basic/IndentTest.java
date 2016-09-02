@@ -29,6 +29,6 @@ public class IndentTest {
 	
 	@Test
 	public void test1(){
-		JacksonJson.printBeanToJson(indentDao.getMyQuoted(null, "", null, null, 31, null, 0, 10));
+		JacksonJson.printBeanToJson(indentDao.myReceivedQuote(null, "", null, null, 31, null, 0, 10));
 	}
 }

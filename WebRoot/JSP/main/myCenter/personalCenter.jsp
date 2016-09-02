@@ -77,9 +77,10 @@
 			<div style="display:none;">
 			</div>
 			<div>
-				<jsp:include page="myReleased.jsp"></jsp:include>
+				<iframe src="indent/showMyReleased"></iframe>
 			</div>
 			<div style="display:none;">
+				<iframe src="indent/showMyReceivedQuote"></iframe>
 			</div>
 			<div style="display:none;">
 			</div>

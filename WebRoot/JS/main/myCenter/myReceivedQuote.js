@@ -15,7 +15,7 @@ $(function(){
 	$('input[name="indentNum"').mask('#');
 	
 	var options = $('#dg').bootstrapTable('getOptions');
-	options.url = "indent/myReleased";
+	options.url = "indent/myReceivedQuote";
 	$('#dg').bootstrapTable('refreshOptions',options);
 	$('#dg').bootstrapTable('refresh');
 });
@@ -30,11 +30,9 @@ $('#dg').bootstrapTable({
 function queryParams(params){
 	var indentNum = $('input[name="indentNum"]').val();
 	var indentName = $('input[name="indentName"]').val();
-	var state = $('select[name="state"]').val();
 	var daterange = $('input[name="daterange"]').val();
 	params.indentNum = indentNum;
 	params.indentName = indentName;
-	params.state = state;
 	var dates = daterange.split(' - ');
 	params.beginDate = dates[0];
 	params.endDate = dates[1];
@@ -42,7 +40,6 @@ function queryParams(params){
 	//判断是否传递total值
 	if(g_total != null)
 		params.total = g_total;
-		
 	delete params.order;
 	return params;
 }
@@ -52,8 +49,14 @@ function stateFormatter(value,row,index){
 	return g_state[value];
 }
 
-//根据常量名称搜索
+//搜索
 function search(){
 	g_total = null;//设置为null，使后台重新计算total值
 	$('#dg').bootstrapTable('selectPage',1);
 }
+
+function operFormatter(value,row,index){
+	var btn = "<button type='button' class='btn' onclick='showDiglog("+row.id+")'></button>";
+	return btn;
+}
+

@@ -37,7 +37,8 @@ td.auth span{
 	list-style:disc inside;
 }
 
-/*嵌套页面中的查询条件*/
-.query-cond td{
-	padding-right:10px;
+iframe{
+	border:0px;
+	width:100%;
+	height:1000px;
 }

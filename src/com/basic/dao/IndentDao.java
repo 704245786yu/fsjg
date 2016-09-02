@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.basic.dto.IndentDto;
 import com.basic.po.Indent;
+import com.basic.vo.IndentVo;
 import com.common.BaseDao;
 import com.common.dto.BootTablePageDto;
 
@@ -22,7 +23,6 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	 * @param keyword 模糊订单名称、订单说明
 	 * @return id、订单名称、预计订单数量、预计交货日期、销售市场、订单类型、接单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
 	 * */
-	@SuppressWarnings("unchecked")
 	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode,String processType,String keyword){
 		StringBuffer userQuerySql = new StringBuffer(" where 1=1 ");
 		List<String> params = new ArrayList<String>();
@@ -107,7 +107,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		scalars.add(new Object[]{"condDemand",StandardBasicTypes.STRING});
 		scalars.add(new Object[]{"createTime",StandardBasicTypes.DATE});
 		scalars.add(new Object[]{"effectiveDate",StandardBasicTypes.DATE});
-		List<IndentDto> indents = (List<IndentDto>)super.findByNativeSql(sql.toString(), params, values, scalars, 0, 20, IndentDto.class);
+		List<IndentDto> indents = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 20, IndentDto.class);
 		return new BootTablePageDto<IndentDto>(total, indents);
 	}
 	
@@ -174,11 +174,11 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	 * @param limit
 	 * @return 订单ID、订单编号、订单名称、订单数量、订单金额、报价人数、最新报价日期
 	 */
-	public BootTablePageDto<Indent> getMyQuoted(Long indentNum, String indentName, Date beginDate, Date endDate,
+	public BootTablePageDto<IndentVo> myReceivedQuote(Long indentNum, String indentName, Date beginDate, Date endDate,
 			int createBy, Long total, int offset, int limit){
 		List<String> paramNames = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
-		StringBuffer hql = new StringBuffer(" from Indent i, IndentQuote q where i.id = q.indentId and i.createBy =:createBy ");
+		StringBuffer hql = new StringBuffer(" from Indent i, IndentQuote q where i.id = q.indentId and i.createBy =:createBy and state=1");
 		paramNames.add("createBy");
 		values.add(createBy);
 		
@@ -201,13 +201,14 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		}
 		
 		String[] paramNameAry = paramNames.toArray(new String[paramNames.size()]);
-		/*if(total == null){
+		if(total == null){
 			total = super.getCount("select count(distinct i.id) "+hql.toString(), paramNameAry, values.toArray());
 			if(total == 0)
-				return new BootTablePageDto<Indent>(total, null);
-		}*/
-		List<Indent> list = (List<Indent>)super.findByPage("select i.id as id, i.indentNum as indentNum, i.indentName as indentName, count(i.id) as countNum "+hql.toString()+"group by i.id", offset, limit, paramNameAry, values.toArray());
-		return new BootTablePageDto<Indent>(total, list);
-//		return null;
+				return new BootTablePageDto<IndentVo>(total, null);
+		}
+		List<IndentVo> list = super.findByPage(
+				"select i.id as id, i.indentNum as indentNum, i.indentName as indentName, i.quantity as quantity, i.expectPrice as expectPrice, count(i.id) as countNum, max(q.createTime) as latestTime"
+				+hql.toString()+" group by i.id", offset, limit, paramNameAry, values.toArray(),IndentVo.class);
+		return new BootTablePageDto<IndentVo>(total, list);
 	}
 }

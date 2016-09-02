@@ -44,18 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>
 			<input type="text" class="form-control" name="indentName" style="width:280px;">
 		</td>
-		<td>
-			<label>订单状态：</label>
-		</td>
-		<td>
-			<select class="form-control" name="state">
-				<option></option>
-				<option value="0">未收到报价</option>
-				<option value="1">已收到报价</option>
-				<option value="2">已接单</option>
-				<option value="3">已失效</option>
-			</select>
-		</td>
 	</tr>
 	<tr style="line-height: 60px;">
 		<td>
@@ -84,12 +72,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <th data-field="indentName" data-align="center">订单名称</th>
 	            <th data-field="quantity" data-align="center">订单数量</th>
 	            <th data-field="expectPrice" data-align="center">订单金额(元)</th>
-	            <th data-field="state" data-align="center" data-formatter="stateFormatter">订单状态</th>
-	            <th data-field="createTime" data-align="center">发布日期</th>
+	            <th data-field="countNum" data-align="center">报价人数</th>
+	            <th data-field="latestTime" data-align="center">报价日期</th>
+	            <th data-formatter="operFormatter" data-align="center">操作</th>
 	        </tr>
 	    </thead>
 	</table>
 </div>
+
+<!-- 添加/更新模态框 -->
+<div class="modal fade" id="formModal">
+	<div class="modal-dialog" style="width:500px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+				<h4 class="modal-title" id="formModalLabel">确认订单</h4>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" name="indentId">
+				<table id="Dg2" data-toggle="table" data-unique-id="id" data-url="">
+				    <thead>
+				        <tr>
+				            <th data-field="indentNum" data-align="center">工厂名称</th>
+				            <th data-field="indentName" data-align="center">联系人</th>
+				            <th data-field="quantity" data-align="center">手机号码</th>
+				            <th data-field="expectPrice" data-align="center">报价金额(元)</th>
+				            <th data-field="countNum" data-align="center">员工人数</th>
+				            <th data-field="latestTime" data-align="center">报价日期</th>
+				            <th data-formatter="operFormatter" data-align="center">操作</th>
+				        </tr>
+				    </thead>
+				</table>
+				最终成交价格（元）：<input type="text" class="form-control" name="quote">
+				<div class="col-sm-4 col-sm-offset-8" style="text-align:right">
+					<button type="submit" name="save" class="btn btn-primary">确认订单</button>
+				</div>
+			</div><!-- modal-body -->
+		</div><!-- modal-content -->
+	</div><!-- modal-dialog -->
+</div><!-- modal -->
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
@@ -101,6 +122,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="plugin/jquery.mask.min.js"></script>
 
 <script src="JS/util/bsFormTableExtend.js"></script>
-<script src="JS/main/myCenter/myReleased.js"></script>
+<script src="JS/main/myCenter/myReceivedQuote.js"></script>
 </body>
 </html>
