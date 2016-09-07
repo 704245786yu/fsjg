@@ -158,3 +158,19 @@ function operFormatter(value,row,index){
 	return "<button type='button' class='btn btn-default btn-xs' title='修改' onclick='modify("+row.id+")'><span class='text-primary glyphicon glyphicon-edit'></span></button>" +
 			" <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
 }
+
+$.fn.serializeObject = function(){    
+   var o = {};    
+   var a = this.serializeArray();    
+   $.each(a, function() {    
+       if (o[this.name]) {    
+           if (!o[this.name].push) {    
+               o[this.name] = [o[this.name]];    
+           }    
+           o[this.name].push(this.value || '');    
+       } else {    
+           o[this.name] = this.value || '';    
+       }    
+   });    
+   return o;    
+};
