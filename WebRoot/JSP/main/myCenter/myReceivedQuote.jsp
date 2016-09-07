@@ -80,26 +80,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 </div>
 
-<!-- 添加/更新模态框 -->
-<div class="modal fade" id="formModal">
-	<div class="modal-dialog" style="width:500px">
+<div class="modal fade" id="formModal" data-backdrop="false">
+	<div class="modal-dialog" style="width:800px">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h4 class="modal-title" id="formModalLabel">确认订单</h4>
+				<h4 class="modal-title">确认订单</h4>
 			</div>
 			<div class="modal-body">
 				<input type="hidden" name="indentId">
-				<table id="Dg2" data-toggle="table" data-unique-id="id" data-url="">
+				<table id="dg2" data-toggle="table" data-unique-id="id" class="table-no-bordered">
 				    <thead>
 				        <tr>
-				            <th data-field="indentNum" data-align="center">工厂名称</th>
-				            <th data-field="indentName" data-align="center">联系人</th>
-				            <th data-field="quantity" data-align="center">手机号码</th>
-				            <th data-field="expectPrice" data-align="center">报价金额(元)</th>
-				            <th data-field="countNum" data-align="center">员工人数</th>
-				            <th data-field="latestTime" data-align="center">报价日期</th>
-				            <th data-formatter="operFormatter" data-align="center">操作</th>
+				            <th data-field="enterpriseName" data-align="center">工厂名称</th>
+				            <th data-field="linkman" data-align="center">联系人</th>
+				            <th data-field="telephone" data-align="center">手机号码</th>
+				            <th data-field="quote" data-align="center">报价金额(元)</th>
+				            <th data-field="quoteDate" data-align="center">报价日期</th>
+				            <th data-field="staffNumber" data-align="center">员工人数</th>
 				        </tr>
 				    </thead>
 				</table>

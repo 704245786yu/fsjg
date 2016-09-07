@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Entity
 @Table(name="process_indent_quote")
 public class IndentQuote {
@@ -19,15 +17,14 @@ public class IndentQuote {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name="indent_id")
-	private Integer indentId;	//订单ID
+	@Column(name="indent_num")
+	private Long indentNum;	//订单编号
 	
 	@Column(name="enterprise_id")
-	private Integer enterpriseId;	//企业ID
+	private Integer enterpriseId;	//企业Id
 	
 	private Double quote;	//报价
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "create_time")
 	private Date createTime;	//创建时间
 
@@ -39,12 +36,12 @@ public class IndentQuote {
 		this.id = id;
 	}
 
-	public Integer getIndentId() {
-		return indentId;
+	public Long getIndentNum() {
+		return indentNum;
 	}
 
-	public void setIndentId(Integer indentId) {
-		this.indentId = indentId;
+	public void setIndentNum(Long indentNum) {
+		this.indentNum = indentNum;
 	}
 
 	public Integer getEnterpriseId() {

@@ -8,6 +8,8 @@
 		<welcome-file>home.jsp</welcome-file>
 	</welcome-file-list>
 
+
+
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

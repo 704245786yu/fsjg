@@ -235,25 +235,6 @@ public class BaseDao<ID extends Serializable, T> {
 		return (Long)query.uniqueResult();
 	}
 	
-	/**根据传入的属性执行查询
-	 * @param propertyNames 精确查询属性名
-	 * @param values1 精确查询属性值
-	 * @param propertyNames 模糊匹配查询属性名
-	 * @param values1 模糊匹配查询属性值，参数值中需加入模糊匹配符
-	 * */
-	public List<T> findByProperty(String[] propertyNames,Object[] values1, 
-			String[] propertyNamesByLike,Object[] values2){
-		Criteria criteria = getCurrentSession().createCriteria(persistentClass);
-
-		for(int i=0; i<propertyNames.length; i++){
-			criteria.add(Restrictions.eq(propertyNames[i], values1[i]));
-		}
-		for(int i=0; i<propertyNamesByLike.length; i++){
-			criteria.add(Restrictions.like(propertyNamesByLike[i], values2[i]));
-		}
-		return criteria.list();
-	}
-	
 	/**QBE查询方式
 	 * @param exampleEntity 包含查询条件的实例
 	 * @param excludeProperty 不需要查询的属性名
@@ -325,6 +306,26 @@ public class BaseDao<ID extends Serializable, T> {
 				query.setParameter(paramNames[i], values[i]);
 		}
 		return query.list();
+	}
+	
+	/**HQL命名查询
+	 * @param paramNames 参数名
+	 * @param values 参数值
+	 * @param clazz 要转换成的Class类型
+	 * */
+	public <T2> List<T2> find(String hql, String[] paramNames, Object[] values, Class<T2> clazz){
+		Query query = getCurrentSession().createQuery(hql);
+		for(int i=0; i<paramNames.length; i++)
+		{
+			if(values[i] instanceof Object[])
+				query.setParameterList(paramNames[i], (Object[])values[i]);
+			else if(values[i] instanceof Collection)
+				query.setParameterList(paramNames[i], (Collection<?>)values[i]);
+			else
+				query.setParameter(paramNames[i], values[i]);
+		}
+		return query.setResultTransformer(Transformers.aliasToBean(clazz))
+				.list();
 	}
 	
 	/**

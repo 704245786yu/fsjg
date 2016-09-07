@@ -178,7 +178,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			int createBy, Long total, int offset, int limit){
 		List<String> paramNames = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
-		StringBuffer hql = new StringBuffer(" from Indent i, IndentQuote q where i.id = q.indentId and i.createBy =:createBy and state=1");
+		StringBuffer hql = new StringBuffer(" from Indent i, IndentQuote q where i.indentNum = q.indentNum and i.createBy =:createBy and state=1");
 		paramNames.add("createBy");
 		values.add(createBy);
 		
@@ -210,5 +210,12 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 				"select i.id as id, i.indentNum as indentNum, i.indentName as indentName, i.quantity as quantity, i.expectPrice as expectPrice, count(i.id) as countNum, max(q.createTime) as latestTime"
 				+hql.toString()+" group by i.id", offset, limit, paramNameAry, values.toArray(),IndentVo.class);
 		return new BootTablePageDto<IndentVo>(total, list);
+	}
+
+	/**更新订单状态
+	 * */
+	public void updateState(long indentNum, byte state){
+		String hql = "update Indent set state =:state where indentNum =:indentNum";
+		super.executeUpdate(hql, new String[]{"indentNum","state"}, new Object[]{indentNum,state});
 	}
 }

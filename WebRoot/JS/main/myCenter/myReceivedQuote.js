@@ -56,7 +56,14 @@ function search(){
 }
 
 function operFormatter(value,row,index){
-	var btn = "<button type='button' class='btn' onclick='showDiglog("+row.id+")'></button>";
+	var btn = "<button type='button' class='btn' onclick='showDialog("+row.indentNum+")'>确认订单</button>";
 	return btn;
 }
 
+//显示确认订单模态框
+function showDialog(indentNum){
+	$.get('indentQuote/getQuoteEnterprise/'+indentNum,function(data){
+		$('#dg2').bootstrapTable('load', data);
+		$('#formModal').modal('show');
+	});
+}

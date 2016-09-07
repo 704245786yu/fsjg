@@ -114,7 +114,7 @@
 								<div id="quoteP">
 									<div style="width:160px;float:left;padding-left:20px;">
 										<input id="quote" type="text" class="form-control" placeholder="输入您的报价金额"/>
-										<input id="quoteUrl" type="hidden" value="indentQuote/quote/${indent.id}/"/>
+										<input id="quoteUrl" type="hidden" value="indentQuote/quote/${indent.indentNum}/"/>
 									</div>
 									<div style="float:left;">
 										元，<button class="btn btn-warning" style="background-color:#ff5719;" onclick="quote()">报价</button> &nbsp;<span></span>
