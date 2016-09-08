@@ -70,10 +70,16 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 		return dao.getMyReleased(indentNum, indentName, state, beginTime, endTime, createBy, total, offset, limit);
 	}
 	
+	/**个人中心-我收到报价的订单*/
 	public BootTablePageDto<IndentVo> myReceivedQuote(Long indentNum, String indentName, String beginDate, String endDate,
 			int createBy, Long total, int offset, int limit){
 		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
 		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
 		return dao.myReceivedQuote(indentNum, indentName, beginTime, endTime, createBy, total, offset, limit);
+	}
+	
+	/**确认订单*/
+	public void confirm(long indentNum,int enterpriseId,double price, int createBy){
+		dao.confirm(indentNum, enterpriseId, price, createBy);
 	}
 }

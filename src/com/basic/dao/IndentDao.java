@@ -193,7 +193,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			values.add("%"+indentName+"%");
 		}
 		if(beginDate != null && endDate != null){
-			hql.append(" and q.createTime between :beginDate and :endDate");
+			hql.append(" and i.createTime between :beginDate and :endDate");
 			paramNames.add("beginDate");
 			paramNames.add("endDate");
 			values.add(beginDate);
@@ -217,5 +217,50 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	public void updateState(long indentNum, byte state){
 		String hql = "update Indent set state =:state where indentNum =:indentNum";
 		super.executeUpdate(hql, new String[]{"indentNum","state"}, new Object[]{indentNum,state});
+	}
+	
+	/**确认订单，并修改订单状态为已接单*/
+	public void confirm(long indentNum, int enterpriseId, double price, int createBy){
+		String hql = "update Indent set state = 2, receivedEnterpriseId =:enterpriseId, price =:price where indentNum =:indentNum and createBy =:createBy";
+		super.executeUpdate(hql, new String[]{"enterpriseId","price","indentNum","createBy"}, new Object[]{enterpriseId, price, indentNum, createBy});
+	}
+	
+	/**我确认的订单*/
+	public BootTablePageDto<IndentVo> myConfirmed(Long indentNum, String indentName, Date beginDate, Date endDate,
+			int createBy, Long total, int offset, int limit){
+		List<String> paramNames = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		StringBuffer hql = new StringBuffer(" where i.createBy =:createBy and state=2");
+		paramNames.add("createBy");
+		values.add(createBy);
+		
+		if(indentNum != null){
+			hql.append(" and i.indentNum =:indentNum");
+			paramNames.add("indentNum");
+			values.add(indentNum);
+		}
+		if(indentName.length() != 0){
+			hql.append(" and i.indentName like :indentName");
+			paramNames.add("indentName");
+			values.add("%"+indentName+"%");
+		}
+		if(beginDate != null && endDate != null){
+			hql.append(" and i.createTime between :beginDate and :endDate");
+			paramNames.add("beginDate");
+			paramNames.add("endDate");
+			values.add(beginDate);
+			values.add(endDate);
+		}
+		
+		String[] paramNameAry = paramNames.toArray(new String[paramNames.size()]);
+		if(total == null){
+			total = super.getCount("select count(1) from Indent i"+hql.toString(), paramNameAry, values.toArray());
+			if(total == 0)
+				return new BootTablePageDto<IndentVo>(total, null);
+		}
+		List<IndentVo> list = super.findByPage(
+				"select i.indentNum as indentNum, i.indentName as indentName, i.expectPrice as expectPrice, i.price as price max(q.createTime) as latestTime"
+				+hql.toString()+" group by i.id", offset, limit, paramNameAry, values.toArray(),IndentVo.class);
+		return new BootTablePageDto<IndentVo>(total, list);
 	}
 }

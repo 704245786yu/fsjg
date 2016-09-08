@@ -282,11 +282,20 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return biz.myReceivedQuote(indentNum, indentName, beginDate, endDate, user.getId(), total, offset, limit);
 	}
 	
-	/**确认订单*/
+	/**确认订单
+	 * 要根据session获取当前登录用户的ID进行数据的更新，防止非订单创建者非法操作。
+	 * */
 	@RequestMapping("confirm")
 	@ResponseBody
-	public ReturnValueVo confirm(long indentNum,int enterpriseId,double finalQuote){
-		System.out.println(indentNum);
+	public ReturnValueVo confirm(long indentNum,int enterpriseId,double price,HttpSession session){
+		int userId = BasicUserCtrl.getLoginUser(session).getId();
+		biz.confirm(indentNum, enterpriseId, price, userId);
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, null);
+	}
+	
+	/**显示我确认的订单*/
+	@RequestMapping("showMyConfirmed")
+	public String showMyConfirmed(){
+		return "main/myCenter/myConfirmed";
 	}
 }

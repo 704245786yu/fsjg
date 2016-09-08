@@ -66,7 +66,7 @@
 				<li class="level1">发单管理</li>
 				<li name="3">我发布的订单</li>
 				<li name="4">我收到的报价</li>
-				<li name="5">我确认单的订单</li>
+				<li name="5">我确认的订单</li>
 			</ul>
 		</td>
 		<!-- 主体内容 -->
@@ -79,10 +79,11 @@
 			<div style="display:none;">
 				<iframe src="indent/showMyReleased"></iframe>
 			</div>
-			<div>
+			<div style="display:none;">
 				<iframe src="indent/showMyReceivedQuote"></iframe>
 			</div>
-			<div style="display:none;">
+			<div>
+				<iframe src="indent/showMyConfirmed"></iframe>
 			</div>
 		</td>
 	</tr>

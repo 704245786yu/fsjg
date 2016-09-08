@@ -99,6 +99,8 @@ public class Indent {
 	@Column(name="received_enterprise_id")
 	private Integer receivedEnterpriseId;//接单企业ID',
 	
+	private Double price;//成交价
+	
 	@Column(name="create_by")
 	private Integer createBy;//创建用户（个人或企业）ID',
 	
@@ -328,6 +330,14 @@ public class Indent {
 
 	public void setReceivedEnterpriseId(Integer receivedEnterpriseId) {
 		this.receivedEnterpriseId = receivedEnterpriseId;
+	}
+	
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	public Integer getCreateBy() {

@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服务加工网-个人中心</title>
+<title>中国服务加工网-个人中心-我确认的订单</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -131,7 +131,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="plugin/jquery.mask.min.js"></script>
 
-<script src="JS/util/bsFormTableExtend.js"></script>
-<script src="JS/main/myCenter/myReceivedQuote.js"></script>
+<script src="JS/main/myCenter/myConfirmed.js"></script>
 </body>
 </html>
