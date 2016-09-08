@@ -60,10 +60,42 @@ function operFormatter(value,row,index){
 	return btn;
 }
 
+function radioFormatter(value,row,index){
+	var radio = "<input type='radio' name='enterprise' onclick='onCheckRadio("+row.id+","+row.quote+")'>";
+	return radio;
+}
+
+//============确认订单==============
 //显示确认订单模态框
 function showDialog(indentNum){
+	$(':hidden[name="indentNum"]').val(indentNum);
+	$('#errorMsg').html('');
 	$.get('indentQuote/getQuoteEnterprise/'+indentNum,function(data){
 		$('#dg2').bootstrapTable('load', data);
 		$('#formModal').modal('show');
 	});
 }
+
+function onCheckRadio(enterpriseId,quote){
+	$(':hidden[name="enterpriseId"]').val(enterpriseId);
+	$(':hidden[name="quote"]').val(quote);
+}
+
+$('#confirmFrom').submit(function(e){
+	e.preventDefault();
+	var $form = $(e.target);
+	var action = $form.attr('action');
+	var param = $form.serializeObject();
+	if(param.enterpriseId == null || param.enterpriseId == ''){
+		$('#errorMsg').html('请选择接单工厂');
+	}else{
+		if(param.finalQuote == '')
+			param.finalQuote = param.quote;
+		delete param.quote;
+		$.post($form.attr('action'), param, function(data) {
+			if(data.status==200)
+				$('#dg').bootstrapTable('removeByUniqueId',param.indentNum);
+			$('#formModal').modal('hide');
+		},'json');
+	}
+});

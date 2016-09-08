@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!-- 数据表格 -->
 <div style="padding:0px 10px;">
-	<table id="dg" data-toggle="table" data-unique-id="id"
+	<table id="dg" data-toggle="table" data-unique-id="indentNum"
 			data-pagination="true"
 			data-side-pagination="server"
 			data-query-params="queryParams"
@@ -83,15 +83,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="modal fade" id="formModal" data-backdrop="false">
 	<div class="modal-dialog" style="width:800px">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+			<div class="modal-header" style="background-color:#208EEA;color:white;">
+				<button type="button" class="close" data-dismiss="modal"><span >&times;</span></button>
 				<h4 class="modal-title">确认订单</h4>
 			</div>
 			<div class="modal-body">
-				<input type="hidden" name="indentId">
 				<table id="dg2" data-toggle="table" data-unique-id="id" class="table-no-bordered">
 				    <thead>
 				        <tr>
+				            <th data-formatter="radioFormatter" data-align="right" style="width:30px;"></th>
 				            <th data-field="enterpriseName" data-align="center">工厂名称</th>
 				            <th data-field="linkman" data-align="center">联系人</th>
 				            <th data-field="telephone" data-align="center">手机号码</th>
@@ -101,10 +101,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        </tr>
 				    </thead>
 				</table>
-				最终成交价格（元）：<input type="text" class="form-control" name="quote">
-				<div class="col-sm-4 col-sm-offset-8" style="text-align:right">
-					<button type="submit" name="save" class="btn btn-primary">确认订单</button>
-				</div>
+				<form id="confirmFrom" style="margin-top:10px;" action="indent/confirm">
+					<label>最终成交价格（元）：</label>
+					<input type="text" class="form-control" name="finalQuote" style="width:200px;display:inline;">
+					<input type="hidden" name="indentNum">
+					<input type="hidden" name="enterpriseId">
+					<input type="hidden" name="quote">
+					<span id="errorMsg" style="color:red"></span>
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-8" style="text-align:right">
+							<button type="submit" name="save" class="btn btn-primary">确认订单</button>
+						</div>
+					</div>
+				</form>
 			</div><!-- modal-body -->
 		</div><!-- modal-content -->
 	</div><!-- modal-dialog -->

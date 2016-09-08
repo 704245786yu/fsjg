@@ -281,4 +281,12 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		BasicUser user = BasicUserCtrl.getLoginUser(session);
 		return biz.myReceivedQuote(indentNum, indentName, beginDate, endDate, user.getId(), total, offset, limit);
 	}
+	
+	/**确认订单*/
+	@RequestMapping("confirm")
+	@ResponseBody
+	public ReturnValueVo confirm(long indentNum,int enterpriseId,double finalQuote){
+		System.out.println(indentNum);
+		return new ReturnValueVo(ReturnValueVo.SUCCESS, null);
+	}
 }
