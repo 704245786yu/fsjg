@@ -109,7 +109,11 @@ public class Indent {
 	
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@Column(name="create_time")
-	private Date createTime;//创建时间'
+	private Date createTime;//创建时间
+	
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	@Column(name="update_time")
+	private Date updateTime;//更新时间
 
 	public Indent(){}
 	
@@ -362,6 +366,14 @@ public class Indent {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 	
 }

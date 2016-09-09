@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.basic.dto.IndentDto;
 import com.basic.po.Indent;
+import com.basic.vo.ConfirmIndentVo;
 import com.basic.vo.IndentVo;
 import com.common.BaseDao;
 import com.common.dto.BootTablePageDto;
@@ -226,7 +227,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	}
 	
 	/**我确认的订单*/
-	public BootTablePageDto<IndentVo> myConfirmed(Long indentNum, String indentName, Date beginDate, Date endDate,
+	public BootTablePageDto<ConfirmIndentVo> myConfirmed(Long indentNum, String indentName, Date beginDate, Date endDate,
 			int createBy, Long total, int offset, int limit){
 		List<String> paramNames = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
@@ -256,11 +257,11 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		if(total == null){
 			total = super.getCount("select count(1) from Indent i"+hql.toString(), paramNameAry, values.toArray());
 			if(total == 0)
-				return new BootTablePageDto<IndentVo>(total, null);
+				return new BootTablePageDto<ConfirmIndentVo>(total, null);
 		}
-		List<IndentVo> list = super.findByPage(
-				"select i.indentNum as indentNum, i.indentName as indentName, i.expectPrice as expectPrice, i.price as price max(q.createTime) as latestTime"
-				+hql.toString()+" group by i.id", offset, limit, paramNameAry, values.toArray(),IndentVo.class);
-		return new BootTablePageDto<IndentVo>(total, list);
+		List<ConfirmIndentVo> list = super.findByPage(
+				"select i.indentNum as indentNum, i.indentName as indentName, i.expectPrice as expectPrice, i.price as price, e.enterpriseName as enterpriseName, i.updateTime as updateTime from Indent i, Enterprise e"
+				+hql.toString()+" and i.receivedEnterpriseId = e.id", offset, limit, paramNameAry, values.toArray(),ConfirmIndentVo.class);
+		return new BootTablePageDto<ConfirmIndentVo>(total, list);
 	}
 }

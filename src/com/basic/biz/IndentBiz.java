@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.basic.dao.IndentDao;
 import com.basic.dto.IndentDto;
 import com.basic.po.Indent;
+import com.basic.vo.ConfirmIndentVo;
 import com.basic.vo.IndentVo;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
@@ -81,5 +82,13 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	/**确认订单*/
 	public void confirm(long indentNum,int enterpriseId,double price, int createBy){
 		dao.confirm(indentNum, enterpriseId, price, createBy);
+	}
+	
+	/**我确认的订单*/
+	public BootTablePageDto<ConfirmIndentVo> myConfirmed(Long indentNum, String indentName, String beginDate, String endDate,
+			int createBy, Long total, int offset, int limit){
+		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		return dao.myConfirmed(indentNum, indentName, beginTime, endTime, createBy, total, offset, limit);
 	}
 }

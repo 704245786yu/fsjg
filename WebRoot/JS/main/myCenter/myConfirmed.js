@@ -1,4 +1,3 @@
-var g_state = {0:'未收到报价',1:'已收到报价',2:'已接单',3:'已失效'};//订单状态
 var g_total = null;
 
 $(function(){
@@ -15,7 +14,7 @@ $(function(){
 	$('input[name="indentNum"').mask('#');
 	
 	var options = $('#dg').bootstrapTable('getOptions');
-	options.url = "indent/myReceivedQuote";
+	options.url = "indent/myConfirmed";
 	$('#dg').bootstrapTable('refreshOptions',options);
 	$('#dg').bootstrapTable('refresh');
 });
@@ -44,65 +43,8 @@ function queryParams(params){
 	return params;
 }
 
-//审核状态
-function stateFormatter(value,row,index){
-	return g_state[value];
-}
-
 //搜索
 function search(){
 	g_total = null;//设置为null，使后台重新计算total值
 	$('#dg').bootstrapTable('selectPage',1);
-}
-
-function operFormatter(value,row,index){
-	var btn = "<button type='button' class='btn' onclick='showDialog("+row.indentNum+")'>确认订单</button>";
-	return btn;
-}
-
-function radioFormatter(value,row,index){
-	var radio = "<input type='radio' name='enterprise' onclick='onCheckRadio("+row.id+","+row.quote+")'>";
-	return radio;
-}
-
-//============确认订单==============
-//显示确认订单模态框
-function showDialog(indentNum){
-	$(':hidden[name="indentNum"]').val(indentNum);
-	$('#errorMsg').html('');
-	$.get('indentQuote/getQuoteEnterprise/'+indentNum,function(data){
-		$('#dg2').bootstrapTable('load', data);
-		$('#formModal').modal('show');
-	});
-}
-
-function onCheckRadio(enterpriseId,quote){
-	$(':hidden[name="enterpriseId"]').val(enterpriseId);
-	$(':hidden[name="quote"]').val(quote);
-}
-
-$('#confirmFrom').submit(function(e){
-	e.preventDefault();
-	var $form = $(e.target);
-	var action = $form.attr('action');
-	var param = $form.serializeObject();
-	if(param.enterpriseId == null || param.enterpriseId == ''){
-		$('#errorMsg').html('请选择接单工厂');
-	}else{
-		if(param.price == '')
-			param.price = param.quote;
-		delete param.quote;
-		$.post($form.attr('action'), param, function(data) {
-			if(data.status==200){
-				$('#dg').bootstrapTable('removeByUniqueId',param.indentNum);
-				$('.alert').fadeIn();
-				setTimeout("timeOut()",3000);
-			}
-		},'json');
-	}
-});
-
-function timeOut(){
-	$('#formModal').modal('hide');
-	$('.alert').hide();
 }

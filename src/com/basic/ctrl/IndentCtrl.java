@@ -30,6 +30,7 @@ import com.basic.po.BasicUser;
 import com.basic.po.District;
 import com.basic.po.Indent;
 import com.basic.po.UserAbstract;
+import com.basic.vo.ConfirmIndentVo;
 import com.basic.vo.IndentVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
@@ -297,5 +298,13 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	@RequestMapping("showMyConfirmed")
 	public String showMyConfirmed(){
 		return "main/myCenter/myConfirmed";
+	}
+	
+	@RequestMapping("myConfirmed")
+	@ResponseBody
+	public BootTablePageDto<ConfirmIndentVo> myConfirmed(Long indentNum, String indentName, String beginDate, String endDate,
+			Long total, int offset, int limit, HttpSession session){
+		BasicUser user = BasicUserCtrl.getLoginUser(session);
+		return biz.myConfirmed(indentNum, indentName, beginDate, endDate, user.getId(), total, offset, limit);
 	}
 }

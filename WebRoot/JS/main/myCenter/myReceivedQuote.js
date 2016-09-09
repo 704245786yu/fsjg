@@ -1,4 +1,3 @@
-var g_state = {0:'未收到报价',1:'已收到报价',2:'已接单',3:'已失效'};//订单状态
 var g_total = null;
 
 $(function(){
@@ -42,11 +41,6 @@ function queryParams(params){
 		params.total = g_total;
 	delete params.order;
 	return params;
-}
-
-//审核状态
-function stateFormatter(value,row,index){
-	return g_state[value];
 }
 
 //搜索
