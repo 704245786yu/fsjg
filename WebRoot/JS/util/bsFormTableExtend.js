@@ -80,7 +80,6 @@ BsFormTableExtend.prototype.submitForm = function(e,datagridId){
     	for(var i=0; i<panel.length; i++){
     		console.log(panel.html());
     	}
-    	console.log($form.parentsUntil('.panel').length);
     	$(datagridId).parentsUntil('.panel').show();
     	$form.parentsUntil('.panel').hide();
     	$form.bootstrapValidator('resetForm', true);

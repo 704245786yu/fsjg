@@ -126,7 +126,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return biz.getNewAuth();
 	}
 	
-	/**查找工厂*/
+	/**页面顶部的全局搜索：搜索工厂*/
 	@RequestMapping("search")
 	public ModelAndView search(String enterpriseKeyword){
 		BootTablePageDto<Enterprise> result = biz.search(enterpriseKeyword);
@@ -134,12 +134,15 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		List<District> districts =	districtBiz.getProvinceAndCity();
 		
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		mav.addObject("result", result);
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		mav.addObject("processTypes", processTypes);
 		mav.addObject("districts", districts);
-		mav.setViewName("main/enterpriseList");
+		
+		//保留页面顶部搜索框的状态
+		mav.addObject("tabIndex",1);
+		mav.addObject("enterpriseKeyword",enterpriseKeyword);
 		return mav;
 	}
 	

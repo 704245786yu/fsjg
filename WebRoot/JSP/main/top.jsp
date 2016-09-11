@@ -31,6 +31,8 @@
 			<img src="image/logo.png">
 		</div>
 		<div class="col-md-6 col-md-offset-1 searchBox">
+			<!-- 判断搜索框tab的选中状态 -->
+	    	<input type="hidden" name="tabIndex" value="${tabIndex}">
 			<form id="globalSearchForm" class="jq22-search-form">
 				<div id="search-bd" class="search-bd">
 				    <ul>
@@ -41,9 +43,9 @@
 				</div>
 		        <div id="search-hd" class="search-hd">
 		            <div class="search-bg"></div>
-		            <input type="text" id="s1" name="keyword" class="search-input">
-		            <input type="text" id="s2" name="enterpriseKeyword" class="search-input">
-		            <input type="text" id="s3" name="keyword" class="search-input">
+		            <input type="text" id="s1" name="indentKeyword" class="search-input" value="${indnetKeyword}">
+		            <input type="text" id="s2" name="enterpriseKeyword" class="search-input" value="${enterpriseKeyword}">
+		            <input type="text" id="s3" name="sampleKeyword" class="search-input">
 		            <!-- <span class="s1 pholder">食品酒水半价抢疯</span>
 		            <span class="s2 pholder">搜商家名称</span> -->
 		            <button id="submit" class="btn-search" value="搜索">搜索</button>

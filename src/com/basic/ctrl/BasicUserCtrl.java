@@ -1,6 +1,7 @@
 package com.basic.ctrl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -47,39 +48,26 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		return (BasicUser)session.getAttribute(LoginCtrl.loginBasicUser);
 	}
 	
-	/**密码验证
+	/**密码验证。只能验证当前用户的密码是否正确
 	 * */
-	/*@RequestMapping("checkPwd")
+	@RequestMapping("checkMyPwd")
 	@ResponseBody
-	public String checkPwd(Integer userId, String oldPassword){
-		return biz.checkPwd(userId, oldPassword);
-	}*/
+	public HashMap<String,Boolean> checkMyPwd(String oldPassword,HttpSession session){
+		int userId = getLoginUser(session).getId();
+		HashMap<String,Boolean> map =new HashMap<String,Boolean>();
+		map.put("valid", biz.checkPwd(userId, oldPassword));
+		return map;
+	}
 	
 	/**修改密码
 	 * @return success：修改成功
 	 * */
 	@RequestMapping("modifyPwd")
 	@ResponseBody
-	public String modifyPwd(Integer id, String oldpassword,String newpassword,String passwordconfirm, HttpSession session){
-		try{
-			if(oldpassword==null||"".equals(oldpassword)||newpassword==null||"".equals(newpassword)||passwordconfirm==null||"".equals(passwordconfirm)){
-				return "input_empty";
-			}
-			if(!newpassword.equals(passwordconfirm)){
-				return "password_not_equal";
-			}
-			if(biz.checkPwd(id, oldpassword)){
-				BasicUser loginUser = BasicUserCtrl.getLoginUser(session);
-				int updateBy = loginUser.getId();
-				biz.modifyPwd(id, newpassword, updateBy);
-				return "success";
-			}else{
-				return "oldpassword_false";
-			}
-		}catch(Exception ex){
-			ex.printStackTrace();
-			return "error";
-		}
+	public String modifyPwd(String password, HttpSession session){
+		int userId = BasicUserCtrl.getLoginUser(session).getId();
+		biz.modifyPwd(userId, password);
+		return "success";
 	}
 	
 	/**显示个人中心*/

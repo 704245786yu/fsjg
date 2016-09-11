@@ -40,9 +40,9 @@ public class IndentQuoteBiz extends BaseBiz<IndentQuoteDao, Integer, IndentQuote
 	
 	/**获取当前的报价数
 	 * */
-	public long getQuoteNum(int indentId){
-		String hql = "select count(1) from IndentQuote where indentId =:indentId";
-		return dao.getCount(hql, new String[]{"indentId"}, new Integer[]{indentId});
+	public long getQuoteNum(long indentNum){
+		String hql = "select count(1) from IndentQuote where indentNum =:indentNum";
+		return dao.getCount(hql, new String[]{"indentNum"}, new Long[]{indentNum});
 	}
 	
 	/**获取报价工厂信息

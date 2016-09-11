@@ -1,5 +1,8 @@
 package javaSETest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import com.util.JacksonJson;
@@ -17,8 +20,9 @@ public class StringTest {
 	
 	@Test
 	public void test1(){
-		String a = "几个数字";
-		System.out.println(a.length());
+		List list = new ArrayList();
+		list.add(11);
+		System.out.println(list.subList(0, 1));
 	}
 	
 }

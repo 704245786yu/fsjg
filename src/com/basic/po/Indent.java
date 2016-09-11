@@ -82,7 +82,7 @@ public class Indent {
 	private Long condTown;//工厂报名条件限制：所在镇/乡/街道',
 	
 	@Column(name="cond_staff_num")
-	private Integer condStaffNum;//工厂报名条件限制：工人数量',
+	private Integer condStaffNum;//工厂报名条件限制：员工数量',
 	
 	@Column(name="cond_demand")
 	private String condDemand;//工厂接单要求',

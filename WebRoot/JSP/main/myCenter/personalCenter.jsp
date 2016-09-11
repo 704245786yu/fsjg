@@ -84,7 +84,7 @@
 					<div class="form-group">
 						<label for="oldPassword" class="col-sm-3 control-label">当前密码</label>
 						<div class="col-sm-9">
-							<input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="初始密码为123456">
+							<input type="password" class="form-control" id="oldPassword" name="oldPassword">
 						</div>
 					</div>
 					<div class="form-group">
@@ -104,9 +104,9 @@
                        <span id="passstrength"></span>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-4 col-sm-offset-8" style="text-align:right">
-							<button type="submit" name="save" class="btn btn-primary">保存</button>
-							<button type="reset" class="btn btn-default">取消</button>
+						<div class="col-sm-8 col-sm-offset-4" style="text-align:right">
+							<button type="submit" class="btn btn-primary" style="width:100px;">保存</button>
+							<button type="button" class="btn btn-default" style="width:100px;" onclick="resetForm()">重置</button>
 						</div>
 					</div>
 				</form>

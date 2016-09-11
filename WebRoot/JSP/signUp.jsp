@@ -18,57 +18,52 @@
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 <link href="CSS/login.css" rel="stylesheet">
+<style type="text/css">
+a:hover{
+text-decoration:none;
+}
+</style>
 </head>
 <body>
 <!-- Top content -->
 <div class="top-banner">
-	<img src="image/logo.png">
+	<a href="">
+		<img src="image/logo.png">
+	</a>
 </div>
-<div class="container sign_up_container">
+<div class="background_div">
+<div class="col-sm-3 col-sm-offset-8 form-box" style="margin-top:40px;">
 	<!-- Nav tabs -->
-	<ul class="nav nav-tabs nav-justified">
+	<!-- <ul class="nav nav-tabs nav-justified">
 		<li class="active"><a href="#person" data-toggle="tab">个人用户注册</a></li>
 		<li><a href="#enterprise" data-toggle="tab">企业用户注册</a></li>
-	</ul>
+	</ul> -->
+	<a href="#person" data-toggle="tab">个人注册</a> <a href="#enterprise" data-toggle="tab" style="margin-left:20px;">工厂注册</a>
+	<div style="float:right;">
+	<a href="login.jsp">登录</a>
+	</div>
 	<!-- Tab panes -->
-	<div class="tab-content" style="padding:20px 80px">
+	<div class="tab-content" style="padding:20px">
 		<!-- 个人用户注册 -->
 		<div class="tab-pane active" id="person">
 			<form id="personForm" class="form-horizontal" action="login/signUp" method="post" accept-charset="utf-8">
 				<h4 id="errorMsg" style="color:red">${errorMsg}</h4>
 				<input type="hidden" name="roleId" value="1"/>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">用户名</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="userName">
-					</div>
+					<input type="text" class="form-control" name="userName" placeholder="用户名">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">密码</label>
-					<div class="col-sm-10">
-						<input type="password" class="form-control" name="password">
-					</div>
+					<input type="password" class="form-control" name="password" placeholder="密码">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">确认密码</label>
-					<div class="col-sm-10">
-						<input type="password" class="form-control" name="rePassword">
-					</div>
+					<input type="password" class="form-control" name="rePassword" placeholder="确认密码">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">手机号</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="telephone">
-					</div>
+						<input type="text" class="form-control" name="telephone" placeholder="手机号">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">短信验证码</label>
-					<div class="col-sm-6">
-						<input type="text" class="form-control" name="telephone">
-					</div>
-					<div class="col-sm-3">
-						<button type="button" class="btn btn-primary">获取短信验证码</button>
-					</div>
+					<input type="text" class="form-control" name="captcha" placeholder="短信验证码" style="display:inline;width:54%">
+					<button type="button" class="btn btn-primary" style="display:inline;width:40%">获取短信验证码</button>
 				</div>
 				<div class="checkbox col-sm-offset-2">
 					<label>
@@ -90,43 +85,23 @@
 				<h4 id="errorMsg" style="color:red">${errorMsg}</h4>
 				<input type="hidden" name="roleId" value="2"/>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">用户名</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="userName">
-					</div>
+						<input type="text" class="form-control" name="userName" placeholder="用户名">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">企业名称</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="enterpriseName">
-					</div>
+						<input type="text" class="form-control" name="enterpriseName" placeholder="企业名称">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">密码</label>
-					<div class="col-sm-10">
-						<input type="password" class="form-control" name="password">
-					</div>
+						<input type="password" class="form-control" name="password" placeholder="密码">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">确认密码</label>
-					<div class="col-sm-10">
-						<input type="password" class="form-control" name="rePassword">
-					</div>
+						<input type="password" class="form-control" name="rePassword" placeholder="确认密码">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">手机号</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="telephone">
-					</div>
+						<input type="text" class="form-control" name="telephone" placeholder="手机号">
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">短信验证码</label>
-					<div class="col-sm-6">
-						<input type="text" class="form-control" name="telephone">
-					</div>
-					<div class="col-sm-3">
-						<button type="button" class="btn btn-primary">获取短信验证码</button>
-					</div>
+					<input type="text" class="form-control" name="captcha" placeholder="短信验证码" style="display:inline;width:54%">
+					<button type="button" class="btn btn-primary" style="display:inline;width:40%">获取短信验证码</button>
 				</div>
 				<div class="checkbox col-sm-offset-2">
 					<label>
@@ -143,6 +118,7 @@
 			</form>
 		</div>
   </div>
+</div>
 </div>
 
 <script src="plugin/jquery.min.js"></script>

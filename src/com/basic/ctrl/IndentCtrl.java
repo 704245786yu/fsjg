@@ -161,6 +161,25 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return mav;
 	}
 	
+	/**页面顶部的全局搜索：搜索订单*/
+	@RequestMapping("search")
+	public ModelAndView search(String indentKeyword){
+		BootTablePageDto<IndentDto> result = biz.search(indentKeyword);
+		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
+		List<District> districts =	districtBiz.getProvinceAndCity();
+		
+		ModelAndView mav = new ModelAndView("main/indentList");
+		mav.addObject("result", result);
+		mav.addObject("costumeCategoryMap", costumeCategoryMap);
+		mav.addObject("processTypes", processTypes);
+		mav.addObject("districts", districts);
+		//保留页面顶部搜索框的状态
+		mav.addObject("tabIndex",0);
+		mav.addObject("indentKeyword",indentKeyword);
+		return mav;
+	}
+	
 	/**搜索订单，不能包括订单状态为2(已接单)和3(已失效)的订单
 	 * */
 	@RequestMapping(value="search2",method=RequestMethod.POST)
@@ -170,13 +189,11 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		List<District> districts =	districtBiz.getProvinceAndCity();
 		
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		mav.addObject("processTypes", processTypes);
 		mav.addObject("districts", districts);
-		mav.setViewName("main/indentList");
-		System.out.println("长度："+result.getRows().size());
 		return mav;
 	}
 	
@@ -224,7 +241,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		List<String> districtNames = districtBiz.getNameByCode(districtCodes);
 		
 		//订单报价数
-		long quoteNum = indentQuoteBiz.getQuoteNum(indent.getId());
+		long quoteNum = indentQuoteBiz.getQuoteNum(indent.getIndentNum());
 		
 		ModelAndView mav = new ModelAndView("main/indentDetail");
 		mav.addObject("indent", indent);

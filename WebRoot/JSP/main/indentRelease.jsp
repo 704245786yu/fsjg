@@ -141,6 +141,15 @@
 						<input type="text" class="form-control" name="description">
 					</td>
 				</tr>
+				<tr>
+					<td>销售市场：</td>
+					<td>
+						<select class="form-control" name="saleMarket" style="width:50%;">
+							<option value="0">内销</option>
+							<option value="1">外销</option>
+						</select>
+					</td>
+				</tr>
 			</table>
 		</li>
 		<li class="list-group-item">
@@ -269,7 +278,15 @@
 				<tr>
 					<td style="padding-left:2em;">工人数量：</td>
 					<td>
-						<input type="text" class="form-control" name="condStaffNum">
+						<select class="form-control" name="condStaffNum">
+							<option value="0">不限</option>
+							<option value="50">50人以下</option>
+							<option value="100">50~100人</option>
+							<option value="200">100~200人</option>
+							<option value="500">200~500人</option>
+							<option value="1000">500~1000人</option>
+							<option value="1001">1000人以上</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
@@ -292,7 +309,7 @@
 				<tr>
 					<td>联系电话：</td>
 					<td style="width:290px;">
-						<input type="text" class="form-control" name="telephone">
+						<input type="text" class="form-control" name="telephone" value="${loginBasicUser.telephone}">
 					</td>
 				</tr>
 			</table>

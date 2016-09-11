@@ -64,9 +64,6 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 	 * @return id、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品、QQ、企业logo
 	 * */
 	public BootTablePageDto<Enterprise> search(String keyword, String processType, List<Integer> costumeCategoryCodes){
-//		System.out.println(keyword);
-//		System.out.println(processType);
-//		JacksonJson.printBeanToJson(costumeCategoryCodes);
 		StringBuffer countSql = new StringBuffer("select count(1)");
 		StringBuffer subSql = new StringBuffer(" from basic_enterprise where enterprise_name like :keyword or description like :keyword");
 		List<String> params = new ArrayList<String>();

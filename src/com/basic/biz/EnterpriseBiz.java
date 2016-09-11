@@ -357,12 +357,20 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	public BootTablePageDto<Enterprise> search(String keyword){
 		//为简化查询，不匹配多个加工类型
 		String processType = null;
-		List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
-		if(processTypes.size() != 0){
-			processType = processTypes.get(0).getConstantValue();
+		if(keyword.length() > 0){
+			List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
+			if(processTypes.size() != 0){
+				processType = processTypes.get(0).getConstantValue();
+			}
 		}
-		List<Integer> costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
-		BootTablePageDto<Enterprise> result = dao.search(keyword, processType, costumeCategoryCodes);
+		List<Integer> costumeCategoryCodes = new ArrayList<Integer>();
+		int endIndex = 0;
+		if(keyword.length() > 0){
+			costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
+			//为保证性能，取前3条服饰类型记录
+			endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
+		}
+		BootTablePageDto<Enterprise> result = dao.search(keyword, processType, costumeCategoryCodes.subList(0, endIndex));
 		List<Enterprise> enterprises = result.getRows();
 		for(int i=0; i<enterprises.size(); i++){
 			Enterprise e = enterprises.get(i);

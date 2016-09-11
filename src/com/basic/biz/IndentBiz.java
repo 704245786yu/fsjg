@@ -1,5 +1,6 @@
 package com.basic.biz;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,31 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
+	@Autowired
+	private CostumeCategoryBiz costumeCategoryBiz;
+	
+	/**页面顶部的全局搜索：搜索订单
+	 * 模糊匹配 订单名称、服饰类型、加工类型、订单说明、详细说明
+	 * */
+	public BootTablePageDto<IndentDto> search(String keyword){
+		//为简化查询，不匹配多个加工类型
+		String processType = null;
+		if(keyword.length() > 0){
+			List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
+			if(processTypes.size() != 0){
+				processType = processTypes.get(0).getConstantValue();
+			}
+		}
+		List<Integer> costumeCategoryCodes = new ArrayList<Integer>();
+		int endIndex = 0;
+		if(keyword.length() > 0){
+			costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
+			//为保证性能，取前3条服饰类型记录
+			endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
+		}
+		BootTablePageDto<IndentDto> result = dao.search(processType,keyword,costumeCategoryCodes.subList(0, endIndex));
+		return result;
+	}
 	
 	/**@param province..town 发单用户的省市区县乡镇编码
 	 * @param costumeCode[] 服饰类型编码数组 
