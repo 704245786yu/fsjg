@@ -54,39 +54,6 @@ BsFormTableExtend.prototype.submitFunc = function(e,datagridId,formModalId){
     },'json');
 }
 
-/**form submit 执行save/update操作，更新数据表格，显示表格面板，隐藏表单面板。
- * @param {event} e bootstrapValidator验证通过事件
- * @param {String} datagridId 数据表格Id. default value:dg
- * */
-BsFormTableExtend.prototype.submitForm = function(e,datagridId){
-	// Prevent form submission
-    e.preventDefault();
-    // Get the form instance
-    var $form = $(e.target);
-    var action = $form.attr('action')
-    
-    //设置datagrid、formModal的id
-    datagridId = datagridId == undefined ? '#dg':datagridId;
-    
-    //post返回的数据必须包含unique id字段
-    $.post(action, $form.serialize(), function(data) {
-    	var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
-    	if(opt.indexOf("save")!=-1){
-    		$(datagridId).bootstrapTable('append',data);
-    	}else if(opt.indexOf("update")!=-1){	//update by unique id
-    		$(datagridId).bootstrapTable('updateByUniqueId',{'id':data.id,'row':data});
-    	}
-    	var panel = $(datagridId).parentsUntil('.panel');
-    	for(var i=0; i<panel.length; i++){
-    		console.log(panel.html());
-    	}
-    	$(datagridId).parentsUntil('.panel').show();
-    	$form.parentsUntil('.panel').hide();
-    	$form.bootstrapValidator('resetForm', true);
-    	$form[0].reset();
-    },'json');
-}
-
 /**删除记录
  * @param {Number,required} index 记录在数据表格中的行索引号
  * @param {Number,required} id 要删除的数据主键id
@@ -117,12 +84,12 @@ BsFormTableExtend.prototype.closeFormModal = function(formModalId,otherFun){
 	var formModalId = formModalId == undefined ? '#formModal':'#'+formModalId;
 	$(formModalId).on('hide.bs.modal', function (e) {
 		var $target = $(e.target);
-		var $form = $target.find("form");
-		$form.bootstrapValidator('resetForm', true);
-		$form[0].reset();
 		//执行其他操作
 		if(otherFun != undefined)
 			otherFun();
+		var $form = $target.find("form");
+		$form.bootstrapValidator('resetForm', true);
+		$form[0].reset();
 	});
 }
 
