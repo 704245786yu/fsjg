@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.basic.biz.BasicUserBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.po.BasicUser;
+import com.common.vo.ReturnValueVo;
 import com.sys.biz.UserBiz;
 import com.sys.po.User;
 
@@ -35,6 +36,12 @@ public class LoginCtrl {
 	@RequestMapping(value="showSignUp")
 	public String showSignUp(){
 		return "signUp";
+	}
+	
+	@RequestMapping("getSmsNum")
+	public ReturnValueVo getSmsNum(HttpSession session){
+		int a = (int)(Math.random()*(9999-1000+1))+1000;//产生1000-9999的随机数
+		return null;
 	}
 	
 	/**注册*/

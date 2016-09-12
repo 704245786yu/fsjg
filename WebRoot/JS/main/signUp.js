@@ -5,7 +5,7 @@ $('#personForm').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-    	'userName': {
+    	userName: {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -46,16 +46,13 @@ $('#personForm').bootstrapValidator({
 				}
 			}
 		},
-    	'telephone': {
+    	telephone: {
+    		threshold: 11,
     		validators: {
-    			integer: {
-    				message: '非数字'
-    			},
-				stringLength : {
-					min : 11,
-					max : 11,
-					message : '必须11位数字'
-				},
+    			regexp: {
+                    regexp: /^1[3|4|5|7|8]\d{9}$/,
+                    message: '手机号码格式不正确'
+                },
 	    		remote : {
 					trigger: 'keyup',
 					delay:2000,
@@ -63,7 +60,14 @@ $('#personForm').bootstrapValidator({
 					url:'login/teleIsExist'
 				}
     		}
-    	}
+    	},
+		smsNum: {
+			validators : {
+				notEmpty : {
+					message : '不能为空'
+				}
+			}
+		}
     }
 });
 
@@ -74,7 +78,7 @@ $('#enterpriseForm').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-    	'userName': {
+    	userName: {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -92,7 +96,7 @@ $('#enterpriseForm').bootstrapValidator({
 				}
     		}
     	},
-    	'enterpriseName': {
+    	enterpriseName: {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -132,16 +136,12 @@ $('#enterpriseForm').bootstrapValidator({
 				}
 			}
 		},
-    	'telephone': {
+    	telephone: {
     		validators: {
-    			integer: {
-    				message: '非数字'
-    			},
-				stringLength : {
-					min : 11,
-					max : 11,
-					message : '必须11位数字'
-				},
+    			regexp: {
+                    regexp: /^1[3|4|5|7|8]\d{9}$/,
+                    message: '手机号码格式不正确'
+                },
 	    		remote : {
 					trigger: 'keyup',
 					delay:2000,
@@ -149,6 +149,20 @@ $('#enterpriseForm').bootstrapValidator({
 					url:'login/teleIsExist'
 				}
     		}
-    	}
+    	},
+    	smsNum: {
+			validators : {
+				notEmpty : {
+					message : '不能为空'
+				}
+			}
+		}
     }
 });
+
+
+function getSmsNum(){
+	var bootstrapValidator = $('#personForm').data('bootstrapValidator');
+	var tele = bootstrapValidator.getFieldElements('telephone');
+	console.log(tele);
+}

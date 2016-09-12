@@ -62,8 +62,8 @@ text-decoration:none;
 						<input type="text" class="form-control" name="telephone" placeholder="手机号">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="captcha" placeholder="短信验证码" style="display:inline;width:54%">
-					<button type="button" class="btn btn-primary" style="display:inline;width:40%">获取短信验证码</button>
+					<input type="text" class="form-control" name="smsNum" placeholder="短信验证码" style="display:inline;width:54%">
+					<button type="button" class="btn btn-primary" style="display:inline;width:40%" onclick="getSmsNum()">获取短信验证码</button>
 				</div>
 				<div class="checkbox col-sm-offset-2">
 					<label>
@@ -100,7 +100,7 @@ text-decoration:none;
 						<input type="text" class="form-control" name="telephone" placeholder="手机号">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="captcha" placeholder="短信验证码" style="display:inline;width:54%">
+					<input type="text" class="form-control" name="smsNum" placeholder="短信验证码" style="display:inline;width:54%">
 					<button type="button" class="btn btn-primary" style="display:inline;width:40%">获取短信验证码</button>
 				</div>
 				<div class="checkbox col-sm-offset-2">

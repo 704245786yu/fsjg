@@ -25,4 +25,8 @@ public class StringTest {
 		System.out.println(list.subList(0, 1));
 	}
 	
+	@Test
+	public void test2(){
+		System.out.println((int)(Math.random()*(9999-1000+1))+1000);
+	}
 }
