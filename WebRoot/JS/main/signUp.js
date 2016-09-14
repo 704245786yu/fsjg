@@ -1,3 +1,10 @@
+$(function(){
+	var userType = $(':hidden[name="userType"]').val();
+	if(userType == 2){
+		$('a[href="#enterprise"]').tab('show');
+	}
+});
+
 $('#personForm').bootstrapValidator({
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -17,7 +24,7 @@ $('#personForm').bootstrapValidator({
     			},
     			remote : {
 					trigger: 'keyup',
-					delay:1000,
+					delay:2000,
 					message: '用户名已存在',
 					url:'login/nameIsExist'
 				}
@@ -55,7 +62,7 @@ $('#personForm').bootstrapValidator({
                 },
 	    		remote : {
 					trigger: 'keyup',
-					delay:2000,
+					delay:1000,
 					message: '手机号已存在',
 					url:'login/teleIsExist'
 				}
@@ -65,6 +72,16 @@ $('#personForm').bootstrapValidator({
 			validators : {
 				notEmpty : {
 					message : '不能为空'
+				},
+				integer: {
+                    message: '需填数字'
+                }
+			}
+		},
+		agree: {
+			validators:{
+				notEmpty:{
+					message : '需同意后才能注册'
 				}
 			}
 		}
@@ -90,7 +107,7 @@ $('#enterpriseForm').bootstrapValidator({
     			},
     			remote : {
 					trigger: 'keyup',
-					delay:1000,
+					delay:2000,
 					message: '用户名已存在',
 					url:'login/nameIsExist'
 				}
@@ -107,7 +124,7 @@ $('#enterpriseForm').bootstrapValidator({
     			},
     			remote : {
 					trigger: 'keyup',
-					delay:1000,
+					delay:2000,
 					message: '企业名称已存在',
 					url:'login/enterpriseIsExist'
 				}
@@ -137,6 +154,7 @@ $('#enterpriseForm').bootstrapValidator({
 			}
 		},
     	telephone: {
+    		threshold: 11,
     		validators: {
     			regexp: {
                     regexp: /^1[3|4|5|7|8]\d{9}$/,
@@ -144,7 +162,7 @@ $('#enterpriseForm').bootstrapValidator({
                 },
 	    		remote : {
 					trigger: 'keyup',
-					delay:2000,
+					delay:1000,
 					message: '手机号已存在',
 					url:'login/teleIsExist'
 				}
@@ -154,6 +172,16 @@ $('#enterpriseForm').bootstrapValidator({
 			validators : {
 				notEmpty : {
 					message : '不能为空'
+				},
+				integer: {
+                    message: '需填数字'
+                }
+			}
+		},
+		agree: {
+			validators:{
+				notEmpty:{
+					message : '需同意后才能注册'
 				}
 			}
 		}
@@ -161,8 +189,35 @@ $('#enterpriseForm').bootstrapValidator({
 });
 
 
-function getSmsNum(){
-	var bootstrapValidator = $('#personForm').data('bootstrapValidator');
-	var tele = bootstrapValidator.getFieldElements('telephone');
-	console.log(tele);
+function getSmsNum(btn){
+	var $form = $(btn).parents('form');
+	var $telephone = $form.children(".form-group:has(input[name='telephone'])");
+	if(!$telephone.hasClass("has-success")){
+		alert('请有效的手机号码');
+		return;
+	}
+	var telephone = $telephone.children("input[name='telephone']").val();
+	$.get('login/getSmsNum/'+telephone,function(data){
+		if(data.status==200){
+			$(btn).attr('disabled','disabled');
+			settime($(btn));
+		}else if(data.status==500){
+			alert('验证码发送失败,请重新发送');
+		}
+	});
+}
+
+var g_countdown=60; 
+function settime($btn){ 
+	if(g_countdown == 0){ 
+		$btn.attr("disabled",false);    
+		$btn.html("获取短信验证码"); 
+		g_countdown = 60; 
+	}else{ 
+		$btn.html("短信已发送(" + g_countdown + ")"); 
+		g_countdown--; 
+		setTimeout(function() { 
+			settime($btn) 
+		},1000);
+	}
 }

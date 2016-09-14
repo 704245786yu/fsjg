@@ -1,9 +1,13 @@
 package com.sys.ctrl;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +20,7 @@ import com.basic.po.BasicUser;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.UserBiz;
 import com.sys.po.User;
+import com.util.SMS;
 
 @Controller
 @RequestMapping("login")
@@ -31,28 +36,64 @@ public class LoginCtrl {
 	@Autowired
 	private EnterpriseBiz enterpriseBiz;
 	
-
-	
-	@RequestMapping(value="showSignUp")
-	public String showSignUp(){
-		return "signUp";
+	/**发送短信验证码
+	 * */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("getSmsNum/{telephone}")
+	@ResponseBody
+	public ReturnValueVo getSmsNum(@PathVariable long telephone, HttpSession session){
+		int num = (int)(Math.random()*(9999-1000+1))+1000;//产生1000-9999的随机数
+		HashMap<String,LinkedHashMap<String,Object>> map = SMS.sendNum(telephone, num);
+		LinkedHashMap<String,Object> map2 = (LinkedHashMap<String,Object>)map.get("alibaba_aliqin_fc_sms_num_send_response").get("result");
+		if((boolean)map2.get("success")){
+			//发送成功后保存验证码和当前时间到session，用于调用注册方法时进行验证码和时间的比对
+			HashMap<String,Long> sms = new HashMap<String,Long>();
+			sms.put("smsNum", (long)num);
+			sms.put("generateTime", System.currentTimeMillis());
+			session.setAttribute("sms",sms);
+			return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
+		}else{
+			System.out.println("发送验证码错误："+map);
+			return new ReturnValueVo(ReturnValueVo.ERROR,null);
+		}
 	}
 	
-	@RequestMapping("getSmsNum")
-	public ReturnValueVo getSmsNum(HttpSession session){
-		int a = (int)(Math.random()*(9999-1000+1))+1000;//产生1000-9999的随机数
-		return null;
-	}
-	
-	/**注册*/
+	/**注册
+	 * @param smsNum 短信验证码
+	 * */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="signUp", method=RequestMethod.POST)
-	public ModelAndView signUp(BasicUser basicUser, String enterpriseName,RedirectAttributes attr){
-		//此处有乱码问题
-//		System.out.println(enterpriseName);
-		String errorMsg = basicUserBiz.signUp(basicUser, enterpriseName);
+	public ModelAndView signUp(BasicUser basicUser, long smsNum, String enterpriseName, RedirectAttributes attr, HttpSession session){
+		String redirectSignUp = "redirect:../JSP/signUp.jsp";
 		ModelAndView mav = new ModelAndView();
-		if(basicUser == null){
-			mav.setViewName("redirect:showSignUp");
+		mav.addObject("userType", basicUser.getRoleId());
+		String errorMsg = null;
+		//判断验证码是否正确且有效
+		HashMap<String,Long> sms = (HashMap<String,Long>)session.getAttribute("sms");
+		if(sms==null){
+			errorMsg = "请先获取验证码";
+			mav.setViewName(redirectSignUp);
+			mav.addObject("errorMsg", errorMsg);
+			return mav;
+		}
+		long now = System.currentTimeMillis();
+		long generateTime = sms.get("generateTime");
+		long generateSmsNum = sms.get("smsNum");	//session里保存的验证码
+		if((now-generateTime)>10000){	//10秒有效
+			errorMsg = "验证码已失效请重新获取";
+			mav.setViewName(redirectSignUp);
+			mav.addObject("errorMsg", errorMsg);
+			return mav;
+		}else if(generateSmsNum != smsNum){
+			errorMsg = "验证码错误";
+			mav.setViewName(redirectSignUp);
+			mav.addObject("errorMsg", errorMsg);
+			return mav;
+		}
+			
+		errorMsg = basicUserBiz.signUp(basicUser, enterpriseName);
+		if(errorMsg != null){
+			mav.setViewName(redirectSignUp);
 			mav.addObject("errorMsg", errorMsg);
 		}else{
 			mav.setViewName("redirect:../login.jsp");

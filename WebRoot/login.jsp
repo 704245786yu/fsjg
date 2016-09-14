@@ -57,7 +57,7 @@
 				<label>
 					<input type="checkbox"> 记住密码
 				</label>
-				<div style="float:right;"><a href="login/showSignUp">注册</a></div>
+				<div style="float:right;"><a href="JSP/signUp.jsp">注册</a></div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">

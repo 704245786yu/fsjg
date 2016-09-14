@@ -43,11 +43,12 @@ text-decoration:none;
 	<a href="login.jsp">登录</a>
 	</div>
 	<!-- Tab panes -->
+	<input type="hidden" name="userType" value="${param.userType}">
 	<div class="tab-content" style="padding:20px">
 		<!-- 个人用户注册 -->
 		<div class="tab-pane active" id="person">
-			<form id="personForm" class="form-horizontal" action="login/signUp" method="post" accept-charset="utf-8">
-				<h4 id="errorMsg" style="color:red">${errorMsg}</h4>
+			<form id="personForm" class="form-horizontal" action="login/signUp" method="post" autocomplete="off">
+				<h4 id="errorMsg" style="color:red">${param.errorMsg}</h4>
 				<input type="hidden" name="roleId" value="1"/>
 				<div class="form-group">
 					<input type="text" class="form-control" name="userName" placeholder="用户名">
@@ -59,17 +60,19 @@ text-decoration:none;
 					<input type="password" class="form-control" name="rePassword" placeholder="确认密码">
 				</div>
 				<div class="form-group">
-						<input type="text" class="form-control" name="telephone" placeholder="手机号">
+					<input type="text" class="form-control" name="telephone" placeholder="手机号">
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="smsNum" placeholder="短信验证码" style="display:inline;width:54%">
-					<button type="button" class="btn btn-primary" style="display:inline;width:40%" onclick="getSmsNum()">获取短信验证码</button>
+					<button type="button" class="btn btn-primary" style="display:inline;width:40%" onclick="getSmsNum(this)">获取短信验证码</button>
 				</div>
-				<div class="checkbox col-sm-offset-2">
-					<label>
-						<input type="checkbox"> 我已阅读并同意相关
-					</label>
-					<a href="">《服务协议》</a>
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="agree"> 我已阅读并同意相关
+						</label>
+						<a href="">《服务协议》</a>
+					</div>
 				</div>
 				<br/>
 				<div class="row">
@@ -81,8 +84,8 @@ text-decoration:none;
 		</div>
 		<!-- 企业用户注册 -->
 		<div class="tab-pane fade" id="enterprise">
-			<form id="enterpriseForm" class="form-horizontal" action="login/signUp" method="post" accept-charset="utf-8">
-				<h4 id="errorMsg" style="color:red">${errorMsg}</h4>
+			<form id="enterpriseForm" class="form-horizontal" action="login/signUp" method="post" autocomplete="off">
+				<h4 id="errorMsg" style="color:red">${param.errorMsg}</h4>
 				<input type="hidden" name="roleId" value="2"/>
 				<div class="form-group">
 						<input type="text" class="form-control" name="userName" placeholder="用户名">
@@ -101,13 +104,15 @@ text-decoration:none;
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="smsNum" placeholder="短信验证码" style="display:inline;width:54%">
-					<button type="button" class="btn btn-primary" style="display:inline;width:40%">获取短信验证码</button>
+					<button type="button" class="btn btn-primary" style="display:inline;width:40%" onclick="getSmsNum(this)">获取短信验证码</button>
 				</div>
-				<div class="checkbox col-sm-offset-2">
-					<label>
-						<input type="checkbox"> 我已阅读并同意相关
-					</label>
-					<a href="">《服务协议》</a>
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="agree"> 我已阅读并同意相关
+						</label>
+						<a href="">《服务协议》</a>
+					</div>
 				</div>
 				<br/>
 				<div class="row">
