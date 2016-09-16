@@ -41,6 +41,13 @@ ul.category-search{
 	margin-right:20px;
 }
 
+/*实力工厂、认证工厂*/
+#table2 .col-md-8 div{
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
 #table2 .ad,#table2 .col-md-8{
 	padding:0px;
 }

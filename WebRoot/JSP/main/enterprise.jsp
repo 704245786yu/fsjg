@@ -19,7 +19,20 @@
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/common/default.css" rel="stylesheet">
 <link href="CSS/enterprise-main.css" rel="stylesheet">
-
+<style type="text/css">
+.css1{
+color:#6699ff;border:1px #ff8000 dashed;
+margin-bottom:20px;
+width: 20em;
+}
+.css2 {
+overflow: hidden;
+text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+white-space: nowrap;/*强制不换行*/
+width: 20em;/*不允许出现半汉字截断*/
+color:#6699ff;border:1px #ff8000 dashed;
+}
+</style>
 <script src="plugin/jquery.min.js"></script>
 </head>
 
@@ -145,19 +158,25 @@
 		
 		<!-- 实力工厂 -->
 		<div style="width:520px;float:right;">
-			<div class="panel panel-default panel-ad1" style="height:260px">
+			<div class="panel panel-default strength-enterprise" style="height:260px">
 				<div class="panel-heading">实力工厂</div>
 				<div class="panel-body">
 					<table>
 						<tr>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
+							<c:forEach var="enterprise" items="${enterprises}" end="3">
+								<td><img src="image/enterpriseLogo/${enterprise.logo}"><div><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
+							</c:forEach>
+						</tr>
+						<tr style="height:40px;">
+							<!-- 省略号样式 -->
+							<c:forEach var="enterprise" items="${enterprises}" begin="4" end="7">
+								<td><div style="width:119.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
+							</c:forEach>
 						</tr>
 						<tr>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
-							<td><img src="image/ad/enterprise-logo.png">工厂名称</td>
+							<c:forEach var="enterprise" items="${enterprises}" begin="8" end="11">
+								<td><div style="width:119.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
+							</c:forEach>
 						</tr>
 					</table>
 				</div>

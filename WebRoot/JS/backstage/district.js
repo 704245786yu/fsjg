@@ -3,8 +3,8 @@ $(function(){
 });
 
 function getQueryParams(params){
-//	var searchText = $('#searchText').val().trim();
-//	params.constantName = searchText;
+	var searchText = $('#searchText').val().trim();
+	params.districtName = searchText;
 	delete params.order;
 	return params;
 }
@@ -37,7 +37,13 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 20,
     				message: '最多20个字符'
-    			}
+    			},
+    			remote : {
+					trigger: 'keyup',
+					delay:2000,
+					message: '地区名已存在',
+					url:'district/nameIsExist'
+				}
     		}
     	},
     	districtCode: {
@@ -46,9 +52,18 @@ $('#ff').bootstrapValidator({
                     message: '不能为空'
                 },
                 stringLength: {
-                	max: 20,
-    				message: '最多20个字符'
-                }
+                	max: 12,
+    				message: '最多12个字符'
+                },
+                digits:{
+                	message:'必须为整数'
+                },
+                remote : {
+					trigger: 'keyup',
+					delay:2000,
+					message: '编码已存在',
+					url:'district/codeIsExist'
+				}
             }
         }
     }

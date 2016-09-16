@@ -37,6 +37,8 @@ function auditStateFormatter(value,row,index){
 
 //加工类型
 function processTypeFormatter(value,row,index){
+	if(value==null)
+		return;
 	var str = '';
 	var processAry = value.split(',');
 	for(var i=0; i<processAry.length; i++){

@@ -19,19 +19,14 @@
 }
 
 /*实力工厂*/
-.panel-ad1 .panel-body{
+.strength-enterprise .panel-body{
 	padding:15px 0;
 }
-.panel-ad1 tr{
-	height:90px;
-}
 
-.panel-ad1 td{
-	padding:0px 10px;
+.strength-enterprise td{
+	width:25%;
+	padding:0px 5px;
 	text-align: center;
-}
-.panel-ad1 img{
-	width:100%;
 }
 
 .media-heading{

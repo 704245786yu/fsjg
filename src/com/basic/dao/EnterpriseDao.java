@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.basic.po.Enterprise;
 import com.basic.po.EnterpriseCostumeRela;
+import com.basic.vo.AuthEnterpriseVo;
+import com.basic.vo.StrengthEnterpriseVo;
 import com.common.BaseDao;
 import com.common.dto.BootTablePageDto;
 
@@ -51,13 +52,29 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		return (Integer)super.findByNativeSql(sql, new String[]{"id"}, new Integer[]{id}).get(0);
 	}
 	
-	/**最新入住的企业*/
+	/**实力工厂,展示员工人数多的几个工厂
+	 * @param limit 要获取的实力工厂数
+	 * */
+	public List<StrengthEnterpriseVo> getStrength(int limit){
+		String hql = "select id as id, enterpriseName as name, logo as logo from Enterprise order by staffNumber desc";
+		return super.findByPage(hql, 0, limit, new String[]{}, null, StrengthEnterpriseVo.class);
+	}
+	
+	/**最新入住的企业
+	 * @param limit 工厂数
+	 * */
 	@SuppressWarnings("unchecked")
-	public List<Enterprise> getNewest(){
+	public List<Enterprise> getNewest(int limit){
 		String hql = "from Enterprise order by id desc";
-		Query query = getCurrentSession().createQuery(hql);
-		query.setFirstResult(0).setMaxResults(5);
-		return query.list();
+		return (List<Enterprise>)super.findByPage(hql, 0, limit, new String[]{}, null);
+	}
+	
+	/**最新认证加工厂
+	 * @param limit 工厂数
+	 * */
+	public List<AuthEnterpriseVo> getNewAuth(int limit){
+		String hql = "select id as id, enterpriseName as name, logo as logo from Enterprise where auditState = 2 order by id desc";
+		return super.findByPage(hql, 0, limit, new String[]{}, null, AuthEnterpriseVo.class);
 	}
 	
 	/**模糊匹配企业名称、加工类型、主营产品、工厂描述
@@ -206,22 +223,22 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		if(staffNumber != null){
 			switch(staffNumber){
 			case 1:
-				subSql.append(" and staffNumber < 50");
+				subSql.append(" and staff_number < 50");
 				break;
 			case 2:
-				subSql.append(" and staffNumber between 50 and 100");
+				subSql.append(" and staff_number between 50 and 100");
 				break;
 			case 3:
-				subSql.append(" and staffNumber between 101 and 200");
+				subSql.append(" and staff_number between 101 and 200");
 				break;
 			case 4:
-				subSql.append(" and staffNumber between 201 and 500");
+				subSql.append(" and staff_number between 201 and 500");
 				break;
 			case 5:
-				subSql.append(" and staffNumber between 501 and 1000");
+				subSql.append(" and staff_number between 501 and 1000");
 				break;
 			case 6:
-				subSql.append(" and staffNumber > 1000");
+				subSql.append(" and staff_number > 1000");
 				break;
 			}
 		}

@@ -84,21 +84,25 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 			mav = new ModelAndView("main/myCenter/enterpriseCenter");
 			Enterprise e = enterpriseBiz.getByBasicUserId(basicUser.getId());
 			userAbstract = e;
-			//行业分类
+			//行业分类，工厂刚注册时有可能还未选择所属行业
 			String trade = e.getTrade();
-			String[] trades = trade.split(",");
-			List<Integer> codes = new ArrayList<Integer>();
-			for(int i=0; i<trades.length; i++)
-				codes.add(Integer.valueOf(trades[i]));
-			List<String> tradeNames = costumeCategoryBiz.getNameByCode(codes);
-			mav.addObject("tradeNames", tradeNames);
+			if(trade != null){
+				String[] trades = trade.split(",");
+				List<Integer> codes = new ArrayList<Integer>();
+				for(int i=0; i<trades.length; i++)
+					codes.add(Integer.valueOf(trades[i]));
+				List<String> tradeNames = costumeCategoryBiz.getNameByCode(codes);
+				mav.addObject("tradeNames", tradeNames);
+			}
 			//加工类型
 			List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 			mav.addObject("processTypes", processTypes);
-			//主营产品
+			//主营产品，工厂刚注册时有可能还未选择主营产品
 			List<Integer> costumeCodes = e.getCostumeCode();
-			List<String> costumeNames = costumeCategoryBiz.getNameByCode(costumeCodes);
-			mav.addObject("costumeNames", costumeNames);
+			if(costumeCodes.size()>0){
+				List<String> costumeNames = costumeCategoryBiz.getNameByCode(costumeCodes);
+				mav.addObject("costumeNames", costumeNames);
+			}
 		}
 		List<Long> districtCodes = new ArrayList<Long>();
 		districtCodes.add(userAbstract.getProvince());

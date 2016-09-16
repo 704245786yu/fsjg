@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -129,12 +130,14 @@
 						<img src="image/ad/front_ad.png">
 					</div>
 					<div class="col-md-8">
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">sdfdfs</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">adsasa</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
+						<c:forEach var="enterprise" items="${strengths}">
+							<div class="col-md-4">
+								<img src="image/enterpriseLogo/${enterprise.logo}">
+								<div>
+									<a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -148,12 +151,14 @@
 						<img src="image/ad/front_ad2.png">
 					</div>
 					<div class="col-md-8">
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">sdfdfs</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdas</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">adsasa</div>
-						<div class="col-md-4"><img src="image/ad/enterprise-logo.png">asdad</div>
+						<c:forEach var="enterprise" items="${auths}">
+							<div class="col-md-4">
+								<img src="image/enterpriseLogo/${enterprise.logo}">
+								<div>
+									<a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>

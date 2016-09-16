@@ -74,4 +74,9 @@ public class EnterpriseTest {
 	public void getByCostumeCode(){
 		enterpriseDao.getByCostumeCode(10108);
 	}
+	
+	@Test
+	public void getStrength(){
+		JacksonJson.printBeanToJson(enterpriseBiz.getStrength(8));
+	}
 }

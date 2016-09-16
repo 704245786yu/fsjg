@@ -54,7 +54,7 @@
 		</div>
 		
 		<!-- 数据表格 -->
-		<table id="dg" data-toggle="table" data-url="district/getAllByPage" data-unique-id="districtCode"
+		<table id="dg" data-toggle="table" data-url="district/getByNameAndPage" data-unique-id="districtCode"
 			data-pagination="true"
 			data-side-pagination="server"
 			data-query-params="getQueryParams"

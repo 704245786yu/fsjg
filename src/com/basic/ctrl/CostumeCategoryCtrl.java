@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.basic.biz.CostumeCategoryBiz;
 import com.basic.po.CostumeCategory;
 import com.common.NestTreeCtrl;
+import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 
 @Controller
@@ -23,17 +24,17 @@ public class CostumeCategoryCtrl extends NestTreeCtrl<CostumeCategoryBiz, Intege
 	}
 	
 	@Override
-	public CostumeCategory save(CostumeCategory po, HttpSession httpSession) {
-		User user = (User)httpSession.getAttribute("loginUser");
+	public CostumeCategory save(CostumeCategory po, HttpSession session) {
+		User user = UserCtrl.getLoginUser(session);
 		po.setUpdateBy(user.getId());
-		return super.save(po, httpSession);
+		return super.save(po, session);
 	}
 
 	@Override
-	public CostumeCategory update(CostumeCategory po, HttpSession httpSession) {
-		User user = (User)httpSession.getAttribute("loginUser");
+	public CostumeCategory update(CostumeCategory po, HttpSession session) {
+		User user = UserCtrl.getLoginUser(session);
 		po.setUpdateBy(user.getId());
-		return super.update(po, httpSession);
+		return super.update(po, session);
 	}
 
 	/**获取行业分类*/

@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.basic.biz.DistrictBiz;
 import com.basic.po.District;
 import com.common.BaseCtrl;
+import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
+import com.common.vo.ValidVo;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 import com.util.MicroOfficeFile;
@@ -89,5 +91,32 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
 		map.put("countyList", countyList);
 		map.put("townList", townList);
 		return map;
+	}
+	
+	/**判断地区名是否已经存在
+	 * */
+	@RequestMapping("nameIsExist")
+	@ResponseBody
+	public ValidVo nameIsExist(String districtName){
+		boolean b = biz.nameIsExist(districtName);
+		return new ValidVo(!b);
+	}
+	
+	/**判断地区编码是否已经存在
+	 * */
+	@RequestMapping("codeIsExist")
+	@ResponseBody
+	public ValidVo codeIsExist(long districtCode){
+		boolean b = biz.codeIsExist(districtCode);
+		return new ValidVo(!b);
+	}
+	
+	/**根据地区名称分页查询
+	 * @param districtName 地区名称模糊匹配
+	 * */
+	@RequestMapping("getByNameAndPage")
+	@ResponseBody
+	public BootTablePageDto<District> getByNameAndPage(String districtName, int offset, int limit){
+		return biz.getByNameAndPage(districtName, offset, limit);
 	}
 }

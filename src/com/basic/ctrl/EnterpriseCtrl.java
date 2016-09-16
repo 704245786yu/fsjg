@@ -23,6 +23,8 @@ import com.basic.biz.EnterpriseBiz;
 import com.basic.po.BasicUser;
 import com.basic.po.District;
 import com.basic.po.Enterprise;
+import com.basic.vo.AuthEnterpriseVo;
+import com.basic.vo.StrengthEnterpriseVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
@@ -50,8 +52,11 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	public ModelAndView showDefaultPage(HttpSession session){
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(defaultPage);
+		//实力工厂
+		List<StrengthEnterpriseVo> enterprises = biz.getStrength(12);
+		
+		ModelAndView mav = new ModelAndView(defaultPage);
+		mav.addObject("enterprises",enterprises);
 		mav.addObject("processTypes", processTypes);
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		return mav;
@@ -116,14 +121,14 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@RequestMapping("getNewest")
 	@ResponseBody
 	public List<Enterprise> getNewest(){
-		return biz.getNewest();
+		return biz.getNewest(6);//获取六个工厂
 	}
 	
 	/**最新认证加工厂*/
 	@RequestMapping("getNewAuth")
 	@ResponseBody
-	public List<Enterprise> getNewAuth(){
-		return biz.getNewAuth();
+	public List<AuthEnterpriseVo> getNewAuth(){
+		return biz.getNewAuth(6,true);//获取六个工厂
 	}
 	
 	/**页面顶部的全局搜索：搜索工厂*/

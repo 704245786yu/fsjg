@@ -38,13 +38,6 @@ public class Enterprise extends UserAbstract{
 	@Transient
 	private List<Integer> costumeCode;	//主营产品
 	
-	/*@Column(name = "minimum_staff_amount")
-	private Short minimumStaffAmount;	//最小员工数量
-	
-	@Column(name = "maximum_staff_amount")
-	private Short maximumStaffAmount;	//最大员工数量
-*/	
-	
 	@Column(name = "staff_number")
 	private Integer staffNumber;	//员工人数
 	
@@ -66,6 +59,8 @@ public class Enterprise extends UserAbstract{
 	
 	@Column(name = "website_url")
 	private String websiteUrl;	//企业网址
+	
+	private String logo = "default_logo.png";//企业logo
 	
 	@Column(name = "enterprise_img")
 	private String enterpriseImg;	//工厂图片,多图片用逗号隔开
@@ -207,6 +202,14 @@ public class Enterprise extends UserAbstract{
 
 	public void setWebsiteUrl(String websiteUrl) {
 		this.websiteUrl = websiteUrl;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public String getEnterpriseImg() {

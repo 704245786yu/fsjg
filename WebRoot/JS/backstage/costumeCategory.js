@@ -2,6 +2,13 @@ $(function(){
 	new BsFormTableExtend().closeFormModal();//form模态框关闭事件，触发该事件时重置form
 });
 
+$(document).ajaxError(function(e,jqxhr,settings,errorMsg){
+	console.log(jqxhr.status);
+	console.log(jqxhr.statusText);
+	console.log(jqxhr.responseText);
+	alert("发生错误，请与管理员联系");
+});
+
 function rowStyle(value, row, index) {
 	var ownClass = 'treegrid-'+value.id;
 	var pClass = '';
@@ -62,14 +69,21 @@ $('#ff').bootstrapValidator({
     		validators: {
     			notEmpty: {
     				message: '不能为空'
-    			}
+    			},
+    			stringLength: {
+    				max:20,
+    				message: '不能超过20个字'
+    			},
     		}
     	},
     	categoryCode: {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
-    			}
+    			},
+    			integer: {
+                    message: '需填数字'
+                }
     		}
     	}
     }

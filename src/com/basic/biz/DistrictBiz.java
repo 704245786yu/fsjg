@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.basic.dao.DistrictDao;
 import com.basic.po.District;
 import com.common.BaseBiz;
+import com.common.dto.BootTablePageDto;
 
 @Service
 public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
@@ -169,5 +170,20 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
 	public List<String> getNameByCode(List<Long> codes){
 		String hql = "select districtName from District where districtCode in (:codes)";
 		return (List<String>)dao.find(hql, new String[]{"codes"}, new Object[]{codes});
+	}
+	
+	/**根据地区名称分页查询
+	 * @param districtName 地区名称模糊匹配
+	 * */
+	public BootTablePageDto<District> getByNameAndPage(String districtName, int offset, int limit){
+		return dao.getByNameAndPage(districtName, offset, limit);
+	}
+	
+	public boolean nameIsExist(String districtName){
+		return dao.nameIsExist(districtName);
+	}
+	
+	public boolean codeIsExist(long districtCode){
+		return dao.codeIsExist(districtCode);
 	}
 }

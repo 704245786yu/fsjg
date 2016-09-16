@@ -15,6 +15,8 @@ import com.basic.dao.EnterpriseCostumeRelaDao;
 import com.basic.dao.EnterpriseDao;
 import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
+import com.basic.vo.AuthEnterpriseVo;
+import com.basic.vo.StrengthEnterpriseVo;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
@@ -316,6 +318,13 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return enterpriseCostumeRelaDao.getCostumeCode(enterpriseId);
 	}
 	
+	/**实力工厂,展示员工人数多的几个个工厂
+	 * @param limit 要获取的实力工厂数
+	 * */
+	public List<StrengthEnterpriseVo> getStrength(int limit){
+		return dao.getStrength(limit);
+	}
+	
 	/**获取优秀企业
 	 * 暂时获取列表中前10个
 	 * */
@@ -329,9 +338,11 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return enterprises;
 	}
 	
-	/**最新入住的企业*/
-	public List<Enterprise> getNewest(){
-		List<Enterprise> enterprises = dao.getNewest();
+	/**最新入住的企业
+	 * @param limit 工厂数
+	 * */
+	public List<Enterprise> getNewest(int limit){
+		List<Enterprise> enterprises = dao.getNewest(limit);
 		for(int i=0; i<enterprises.size(); i++){
 			Enterprise e = enterprises.get(i);
 			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
@@ -340,13 +351,18 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return enterprises;
 	}
 	
-	/**最新认证加工厂*/
-	public List<Enterprise> getNewAuth(){
-		List<Enterprise> enterprises = dao.getNewest();
-		for(int i=0; i<enterprises.size(); i++){
-			Enterprise e = enterprises.get(i);
-			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
-			e.setCostumeCode(costumeCode);
+	/**最新认证加工厂
+	 * @param limit 工厂数
+	 * @param isGetCostume 是否获取企业的主营产品信息。对于首页上的认证工厂无需获取，而工厂主页上的需要显示
+	 * */
+	public List<AuthEnterpriseVo> getNewAuth(int limit, boolean isGetCostume){
+		List<AuthEnterpriseVo> enterprises = dao.getNewAuth(limit);
+		if(isGetCostume){
+			for(int i=0; i<enterprises.size(); i++){
+				AuthEnterpriseVo e = enterprises.get(i);
+				List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+				e.setCostumeCode(costumeCode);
+			}
 		}
 		return enterprises;
 	}
