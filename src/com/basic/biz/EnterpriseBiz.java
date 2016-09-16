@@ -430,13 +430,6 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return result;
 	}
 	
-	public Enterprise getById(int id){
-		Enterprise e = dao.findById(id);
-		List<Integer> list = enterpriseCostumeRelaDao.getCostumeCode(id);
-		e.setCostumeCode(list);
-		return e;
-	}
-	
 	/**根据BasicUser的id查询对应的企业信息*/
 	public Enterprise getByBasicUserId(int userId){
 		Criterion c = Restrictions.eq("basicUser.id", userId);

@@ -146,7 +146,7 @@ public class LoginCtrl {
 		}else{
 			session.setAttribute(loginBasicUser, basicUser);
 //			mav.setViewName("../home");//此种方式会导致显示home.jsp页面，刷新时登录表单会重复提交
-			mav.setViewName("redirect:../home.jsp");
+			mav.setViewName("redirect:../home");
 		}
 		return mav;
 	}

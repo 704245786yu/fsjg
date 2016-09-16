@@ -60,4 +60,5 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 	public List<String> getNameByCode(List<Integer> codes){
 		return dao.getNameByCode(codes);
 	}
+
 }

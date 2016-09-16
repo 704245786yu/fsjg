@@ -1,5 +1,9 @@
 $(function(){
 	$('#loginModal').modal('hide');
+	//目标价
+	var expectPrice = Number($('#expectPrice').html());
+	if(expectPrice==-1)
+		$('#expectPrice').html('面谈');
 	var $createTime = $('#createTime');
 	$createTime.html($createTime.html().split(' ')[0]);
 	var $preDeliveryDate = $('#preDeliveryDate');
@@ -9,6 +13,7 @@ $(function(){
 	var date = moment(effectiveDate);
 	var now = moment();
 	var days = date.get('date')-now.get('date')+1;
+	days = days<0 ? 0 : days; 
 	
 	$effectiveDate.html(effectiveDate+'&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red;font-size:16px;">仅剩'+days+'天</strong>');
 	var $indentType = $('#indentType');

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.basic.biz.CostumeCategoryBiz;
 import com.basic.biz.DistrictBiz;
 import com.basic.biz.EnterpriseBiz;
+import com.basic.biz.EnterpriseCostumeRelaBiz;
 import com.basic.po.BasicUser;
 import com.basic.po.District;
 import com.basic.po.Enterprise;
@@ -42,6 +43,8 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	private ConstantDictBiz constantDictBiz;
 	@Autowired
 	private CostumeCategoryBiz costumeCategoryBiz;
+	@Autowired
+	private EnterpriseCostumeRelaBiz enterpriseCostumeRelaBiz;
 	@Autowired
 	private DistrictBiz districtBiz;
 	
@@ -176,8 +179,10 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@RequestMapping("showDetail/{id}")
 	public ModelAndView showDetail(@PathVariable int id){
 		Enterprise e = biz.getById(id);
+		List<String> costumeNames = enterpriseCostumeRelaBiz.getCostumeNameByEnterpriseId(e.getId());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("enterprise", e);
+		mav.addObject("costumeNames", costumeNames);
 		mav.setViewName("main/enterpriseDetail");
 		return mav;
 	}

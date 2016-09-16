@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="CSS/login.css" rel="stylesheet">
@@ -7,6 +8,10 @@
 	<div class="modal-dialog" style="width:500px">
 		<div class="modal-content">
 			<div class="modal-body" style="padding:0;">
+				<%--根据条件判断是否显示关闭按钮，对于发布订单页面就不能显示关闭按钮 --%>
+				<c:if test="${param.showCloseBtn==true}">
+					<button type="button" class="btn btn-link" style="float:right;" data-dismiss="modal">关闭</button>
+				</c:if>
 				<div class="form-box" style="margin-top:0px;">
 					<h4>用户登录</h4>
 					<form class="form-group" action="login/asyLogin" method="post">

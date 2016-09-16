@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -56,12 +57,20 @@
 						</div>
 					</div>
 					<p style="margin-top:10px;">联 系 人:${enterprise.linkman}</p>
-					<p>联系电话：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
-					<p>QQ 号码：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
+					<c:choose>
+						<c:when test="${loginBasicUser==null}">
+							<p>联系电话：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
+							<p>QQ 号码：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
+						</c:when>
+						<c:when test="${loginBasicUser!=null}">
+							<p>联系电话：${enterprise.basicUser.telephone}</p>
+							<p>QQ 号码：${enterprise.qq}</p>
+						</c:when>
+					</c:choose>
 					<p>加工类型：清加工</p>
 					<p>经营期限：${enterprise.enterpriseAge}年</p>
 					<p>员工人数：${enterprise.staffNumber}人</p>
-					<p>主营产品：${enterprise.costumeCode}</p>
+					<p>主营产品：<c:forEach var="name" items="${costumeNames}">${name} </c:forEach></p>
 				</div>
 			</div>
 			<div class="panel panel-default">

@@ -80,7 +80,7 @@
 			</tr>
 			<tr>
 				<td>预计数量：</td><td>${indent.quantity}件</td>
-				<td>目标价：</td><td>${indent.expectPrice}</td>
+				<td>目标价：</td><td id="expectPrice">${indent.expectPrice}</td>
 			</tr>
 			<tr>
 				<td>有效日期：</td><td id="effectiveDate">${indent.effectiveDate}</td>
@@ -199,7 +199,9 @@
 </tr>
 </table>
 
-<%@include file="loginModal.jsp"%>
+<jsp:include page="loginModal.jsp">
+	<jsp:param name="showCloseBtn" value="true"/>
+</jsp:include>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
