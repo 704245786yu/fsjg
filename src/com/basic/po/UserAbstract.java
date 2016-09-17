@@ -43,6 +43,9 @@ public abstract class UserAbstract {
 	
 	private String wechat;	//微信号
 	
+	@Column(name="postal_code")
+	private String postalCode;	//邮政编码
+	
 	private String email;	//电子邮箱
 
 	@Column(name="audit_state")
@@ -166,6 +169,14 @@ public abstract class UserAbstract {
 
 	public void setAuditTime(Date auditTime) {
 		this.auditTime = auditTime;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 }

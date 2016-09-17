@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 	<link href="plugin/jQuery-File-Upload/css/jquery.fileupload.css" rel="stylesheet">
-	<link href="plugin/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	<link href="plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 </head>
   
 <body>
@@ -30,7 +30,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="form-inline" style="padding-bottom:10px;">
 			<div class="form-group">
 				<label for="startDate">发布日期</label>
-				<input type="text" class="form-control" style="width:270px;" id="daterange" name="daterange">
+				<div class="input-group date">
+	                <input type="text" class="form-control" name="beginDate"/>
+	                <span class="input-group-addon">
+	                	<span class="glyphicon glyphicon-calendar"></span>
+	                </span>
+	            </div>
+				至
+				<div class="input-group date">
+	                <input type="text" class="form-control" name="endDate"/>
+	                <span class="input-group-addon">
+	                	<span class="glyphicon glyphicon-calendar"></span>
+	                </span>
+	            </div>
 			</div>
 			<div class="form-group">
 				<label for="workerAmount">员工数量</label>
@@ -92,8 +104,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 
-<script src="plugin/bootstrap-daterangepicker/moment.min.js"></script>
-<script src="plugin/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>

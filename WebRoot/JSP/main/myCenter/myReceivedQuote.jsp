@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
-<link href="plugin/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+<link href="plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <style type="text/css">
 	.query-cond td{
 		padding-right:10px;
@@ -49,8 +49,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>
 			<label>发布日期：</label>
 		</td>
-		<td colspan="2">
-			<input type="text" class="form-control" style="width:270px;" name="daterange">
+		<td colspan="3">
+			<table>
+				<tr>
+					<td>
+						<div class="input-group date">
+			                <input type="text" class="form-control" name="beginDate"/>
+			                <span class="input-group-addon">
+			                	<span class="glyphicon glyphicon-calendar"></span>
+			                </span>
+			            </div>
+					</td>
+					<td>至</td>
+					<td>
+						<div class="input-group date">
+			                <input type="text" class="form-control" name="endDate"/>
+			                <span class="input-group-addon">
+			                	<span class="glyphicon glyphicon-calendar"></span>
+			                </span>
+			            </div>
+					</td>
+				</tr>
+			</table>
 		</td>
 		<td>
 			<button type="button" class="btn btn-primary" onclick="search()">查询</button>
@@ -126,8 +146,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
-<script src="plugin/bootstrap-daterangepicker/moment.min.js"></script>
-<script src="plugin/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
 <script src="plugin/jquery.mask.min.js"></script>
 

@@ -20,9 +20,6 @@ public class Person extends UserAbstract{
 	@Column(name="person_state")
 	private Byte personState;	//用户状态 0：正常 1：冻结
 	
-	@Column(name="postal_code")
-	private String postalCode;	//邮政编码
-	
 	private String idCard;	//身份证号
 	
 	@Column(name="idCard_photo_url")
@@ -59,14 +56,6 @@ public class Person extends UserAbstract{
 
 	public void setPersonState(Byte personState) {
 		this.personState = personState;
-	}
-
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
 	}
 
 	public String getIdCard() {

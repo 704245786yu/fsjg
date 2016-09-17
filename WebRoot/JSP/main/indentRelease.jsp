@@ -336,9 +336,9 @@
 <script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 <script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
 <script src="plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-<script src="plugin/UEditor/ueditor.config.js" type="text/javascript"></script>
-<script src="plugin/UEditor/ueditor.all.js" type="text/javascript"></script>
-<script src="plugin/UEditor/lang/zh-cn/zh-cn.js" type="text/javascript"></script>
+<script src="plugin/UEditor/ueditor.config.js"></script>
+<script src="plugin/UEditor/ueditor.all.js"></script>
+<script src="plugin/UEditor/lang/zh-cn/zh-cn.js"></script>
 
 <script src="JS/util/jqConfirmExtend.js"></script>
 <script src="JS/util/treeUtil.js"></script>

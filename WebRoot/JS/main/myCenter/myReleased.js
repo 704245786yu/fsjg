@@ -2,16 +2,16 @@ var g_state = {0:'未收到报价',1:'已收到报价',2:'已接单',3:'已失�
 var g_total = null;
 
 $(function(){
-	$('input[name="daterange"]').daterangepicker({
-		startDate:moment().subtract(1,'month'),
-		locale:{
-			format:'YYYY-MM-DD',
-			applyLabel: '确定',
-			cancelLabel: '取消',
-			daysOfWeek:['日', '一', '二', '三', '四', '五',	'六'],
-			monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-		}
-	});
+	$('input[name="beginDate"]').datetimepicker({
+		format: 'YYYY-MM-DD',
+		locale: 'zh-cn',
+		defaultDate:moment().subtract(1,'months')
+    });
+	$('input[name="endDate"]').datetimepicker({
+		format: 'YYYY-MM-DD',
+		locale: 'zh-cn',
+		defaultDate:moment()
+    });
 	$('input[name="indentNum"').mask('#');
 	
 	var options = $('#dg').bootstrapTable('getOptions');
@@ -31,20 +31,25 @@ function queryParams(params){
 	var indentNum = $('input[name="indentNum"]').val();
 	var indentName = $('input[name="indentName"]').val();
 	var state = $('select[name="state"]').val();
-	var daterange = $('input[name="daterange"]').val();
+	var beginDate = $('input[name="beginDate"]').val();
+	var endDate = $('input[name="endDate"]').val();
 	params.indentNum = indentNum;
 	params.indentName = indentName;
 	params.state = state;
-	var dates = daterange.split(' - ');
-	params.beginDate = dates[0];
-	params.endDate = dates[1];
+	params.beginDate = beginDate;
+	params.endDate = endDate;
 	
 	//判断是否传递total值
 	if(g_total != null)
 		params.total = g_total;
-		
+
 	delete params.order;
 	return params;
+}
+
+//订单金额
+function expectPriceFormatter(value,row,index){
+	return value == -1 ? '面谈':value;
 }
 
 //审核状态

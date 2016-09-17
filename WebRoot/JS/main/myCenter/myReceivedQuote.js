@@ -1,16 +1,16 @@
 var g_total = null;
 
 $(function(){
-	$('input[name="daterange"]').daterangepicker({
-		startDate:moment().subtract(1,'month'),
-		locale:{
-			format:'YYYY-MM-DD',
-			applyLabel: '确定',
-			cancelLabel: '取消',
-			daysOfWeek:['日', '一', '二', '三', '四', '五',	'六'],
-			monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-		}
-	});
+	$('input[name="beginDate"]').datetimepicker({
+		format: 'YYYY-MM-DD',
+		locale: 'zh-cn',
+		defaultDate:moment().subtract(1,'months')
+    });
+	$('input[name="endDate"]').datetimepicker({
+		format: 'YYYY-MM-DD',
+		locale: 'zh-cn',
+		defaultDate:moment()
+    });
 	$('input[name="indentNum"').mask('#');
 	
 	var options = $('#dg').bootstrapTable('getOptions');
@@ -29,12 +29,12 @@ $('#dg').bootstrapTable({
 function queryParams(params){
 	var indentNum = $('input[name="indentNum"]').val();
 	var indentName = $('input[name="indentName"]').val();
-	var daterange = $('input[name="daterange"]').val();
+	var beginDate = $('input[name="beginDate"]').val();
+	var endDate = $('input[name="endDate"]').val();
 	params.indentNum = indentNum;
 	params.indentName = indentName;
-	var dates = daterange.split(' - ');
-	params.beginDate = dates[0];
-	params.endDate = dates[1];
+	params.beginDate = beginDate;
+	params.endDate = endDate;
 	
 	//判断是否传递total值
 	if(g_total != null)

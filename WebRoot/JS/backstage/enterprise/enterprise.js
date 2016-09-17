@@ -8,17 +8,16 @@ $(function(){
 	$.each(processTypes, function(i,n){
 		g_processType[n.value] = n.text; 
 	});
-	$('input[name="daterange"]').daterangepicker({
-//		maxDate: new Date(),
-		timePicker: true,
-		timePicker24Hour:true,
-        timePickerIncrement: 1,
-		locale:{
-			format:'YYYY-MM-DD HH:mm',
-			applyLabel: '确定',
-			cancelLabel: '取消'
-		}
-	});
+	$('input[name="beginDate"]').datetimepicker({
+		format: 'YYYY-MM-DD',
+		locale: 'zh-cn',
+		defaultDate:moment().subtract(1,'months')
+    });
+	$('input[name="endDate"]').datetimepicker({
+		format: 'YYYY-MM-DD',
+		locale: 'zh-cn',
+		defaultDate:moment()
+    });
 	//启用Tooltips工具提示
 	$("[data-toggle='tooltip']").tooltip();
 });
