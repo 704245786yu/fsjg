@@ -17,6 +17,7 @@
 }
 
 #ff table td label{
+	width:90px;
 	margin-top:7px;
 	margin-right:7px;
 }
@@ -32,14 +33,14 @@
 <div class="panel">
 <div id="editPanel" class="panel panel-primary" style="display:none;">
 	<div class="panel-body">
-		<form id="ff" method="post" class="form-inline">
+		<form id="ff" method="post" enctype="multipart/form-data" class="form-inline">
 			<input type="hidden" name="basicUser.id"/>
 			<input type="hidden" name="id"/>
 			<table id="districtContainer">
 				<tr>
 					<td><label>工厂编号</label></td>
 					<td>
-						<div class="form-group"><input type="text" class="form-control" name="number" readonly></div>
+						<div class="form-group"><input type="text" class="form-control" name="number" readonly value="111"></div>
 					</td>
 					<td><label><span>*</span>用户名 </label></td>
 					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.userName"></div></td>
@@ -221,21 +222,22 @@
 				<tr style="height:190px;">
 					<td><label>工厂logo</label></td>
 					<td>
-						<input type="file" name="logo" onchange="logoChange(this)"><p style="color:grey;">支持jpg、png格式图片,尺寸90*90</p>
-						<img src="image/enterpriseLogo/default_logo.png" style="align:bottom">
+						<input type="file" name="logo" accept="image/jpeg,image/png" onchange="imgChange(this,50)"><p style="color:grey;">支持jpg、png格式图片,尺寸90*90</p>
+						<img src="image/enterpriseLogo/default_logo.png">
 						<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
 					</td>
 					<td><label>营业执照</label></td>
 					<td>
-						<input type="file" name="businessLicenseImg"><p style="color:grey;">支持jpg、png格式图片</p>
-						<img src="image/enterpriseLogo/default_logo.png" style="align:bottom">
+						<input type="file" name="businessLicenseImg" accept="image/jpeg,image/png"><p style="color:grey;">支持jpg、png格式图片</p>
+						<img src="image/enterpriseLogo/default_logo.png">
 						<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
 					</td>
 				</tr>
 				<tr>
 					<td><label>工厂图片</label></td>
 					<td colspan="3">
-						<input type="file" name="enterpriseImg"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240</p>
+						<!-- IE9下无法多选 -->
+						<input type="file" name="enterpriseImg" accept="image/jpeg,image/png" multiple="multiple" onchange="imgChange(this,200)"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240</p>
 						<div style="float:left;">
 							<img src="image/enterpriseLogo/default_logo.png">
 							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
@@ -255,6 +257,7 @@
 </div><!-- panel -->
 </div>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+<script src="plugin/jquery.form.min.js"></script>
 <script src="plugin/jquery.formautofill.min.js"></script>
 <script src="JS/util/districtCascade.js"></script>
 <script src="JS/backstage/enterprise/editEnterprise.js"></script>

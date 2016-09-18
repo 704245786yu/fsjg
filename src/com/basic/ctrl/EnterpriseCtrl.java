@@ -1,6 +1,9 @@
 package com.basic.ctrl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,6 +51,9 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@Autowired
 	private DistrictBiz districtBiz;
 	
+	private static final long logoImgMaxSize = 50000;//logo图片最大50kb
+	private static final long imgMaxSize = 200000;//文档最大200kb
+	
 	public EnterpriseCtrl(){
 		defaultPage = "main/enterprise";
 	}
@@ -73,6 +79,44 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		mav.setViewName("backstage/enterprise/enterprise");
 		mav.addObject("processTypes", processTypes);
 		return mav;
+	}
+	
+	@RequestMapping("saveEnterprise")
+	@ResponseBody
+	public ReturnValueVo saveEnterprise(
+			Enterprise e, 
+			@RequestParam(value="logo",required=false)MultipartFile logoImg,
+			@RequestParam(value="businessLicenseImg",required=false)MultipartFile businessLicenseImg,
+			@RequestParam(value="enterpriseImg",required=false)MultipartFile enterpriseImg,
+			HttpSession session){
+		//检查是否登录
+//		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+//		if(basicUser == null){
+//			return  new ReturnValueVo(ReturnValueVo.ERROR, "nologin");
+//		}
+		
+		String errorMsg = "";
+		
+		String fileName = logoImg.getOriginalFilename();//获取上传文件的原名
+		long size = logoImg.getSize();//获取文件的字节大小，单位为byte
+		String contentType = logoImg.getContentType();
+		if( size>logoImgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+			errorMsg = "工厂logo不符合要求";
+		}
+		String ary[] = fileName.split("\\.");
+		String suffix = ary[ary.length-1];
+		return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		//通过transferTo()将文件存储到硬件中
+		/*try {
+			String uploadDir = session.getServletContext().getInitParameter("uploadDir");
+			Date date = new Date();
+			String newFileName = basicUser.getId()+""+date.getTime()+"."+suffix;
+			file.transferTo(new File(uploadDir + newFileName));
+			return new ReturnValueVo(ReturnValueVo.SUCCESS, newFileName);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, null);
+		}*/
 	}
 	
 	/**批量导入工厂信息

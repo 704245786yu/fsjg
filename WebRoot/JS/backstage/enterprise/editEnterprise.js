@@ -1,3 +1,4 @@
+var g_jqConfirm = null;
 $(function(){
 	$.get('costumeCategory/getTrade',function(data){
 		var $trade = $('select[name="trade"]');
@@ -5,6 +6,7 @@ $(function(){
 			$('<option>').text(i).val(n).appendTo($trade);
 		});
 	});
+	g_jqConfirm = new JqConfirmExtend();
 });
 
 //表单验证
@@ -27,8 +29,39 @@ $('#ff').bootstrapValidator({
     		}
     	}
     }
-}).on('success.form.bv', function(e) {
-	new BsFormTableExtend().submitForm(e);
+});
+/*.on('success.form.bv', function(e){
+	e.preventDefault();
+    var $form = $(e.target);
+    var action = $form.attr('action')
+    
+    $.post($form.attr('action'), $form.serialize(), function(data) {
+    	if(data.status==200){
+    		var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
+    		if(opt.indexOf("save")!=-1){
+    			$('#dg').bootstrapTable('append',data);
+    		}else if(opt.indexOf("update")!=-1){	//update by unique id
+    			$('#dg').bootstrapTable('updateByUniqueId',{'id':data.id,'row':data.value});
+    		}
+    		cancel();
+    	}else if(data.status==500){
+    		g_jqConfirm.showDiglog(data.value);
+    	}
+    });
+});*/
+
+$('#ff').ajaxForm(function(data){
+	if(data.status==200){
+		var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
+		if(opt.indexOf("save")!=-1){
+			$('#dg').bootstrapTable('append',data);
+		}else if(opt.indexOf("update")!=-1){	//update by unique id
+			$('#dg').bootstrapTable('updateByUniqueId',{'id':data.id,'row':data.value});
+		}
+		cancel();
+	}else if(data.status==500){
+		g_jqConfirm.showDialog(data.value);
+	}
 });
 
 //显示Form表单，隐藏其他面板
@@ -39,7 +72,7 @@ function showForm(){
 
 //新增，该方法由主页面的add按钮触发
 function add(){
-	$('#ff').attr('action','enterprise/save');
+	$('#ff').attr('action','enterprise/saveEnterprise');
 	showForm();
 }
 
@@ -169,10 +202,23 @@ function checkCostume(){
 	$('#costumeBtn').html(str);
 }
 
-function logoChange(file){
+//上传文件验证,不兼容IE9及以下浏览器
+function imgChange(file,maxSize){
 	//image/jpeg image/png
-//	alert(file.files[0].size);
-	alert(file.files[0].type);
+	var files = file.files;
+	//IE9以下无此属性
+	if(files==null)
+		return;
+	for(var i=0; i<files.length; i++){
+		var f = files[i];
+		if(f.type!='image/jpeg' && f.type!='image/png'){
+			g_jqConfirm.autoClose("请上传jpg或png图片");
+			return;
+		}else if(f.size > (maxSize*1000)){
+			g_jqConfirm.autoClose("上传的图片大于"+maxSize);
+			return;
+		}
+	}
 }
 
 /**取消编辑表单，同时重置表单
