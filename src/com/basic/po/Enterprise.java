@@ -23,8 +23,8 @@ public class Enterprise extends UserAbstract{
 	@Column(name = "sale_market")
 	private Byte saleMarket;	//销售市场 1、内销 2、外销
 	
-	@Column(name = "business_license_Img")
-	private String businessLicenseImg;	//营业执照
+	@Column(name = "license_Img")
+	private String licenseImg;	//营业执照
 	
 	@Column(name = "org_code")
 	private String orgCode;	//组织机构代码
@@ -100,12 +100,12 @@ public class Enterprise extends UserAbstract{
 		this.saleMarket = saleMarket;
 	}
 
-	public String getBusinessLicenseImg() {
-		return businessLicenseImg;
+	public String getLicenseImg() {
+		return licenseImg;
 	}
 
-	public void setBusinessLicenseImg(String businessLicenseImg) {
-		this.businessLicenseImg = businessLicenseImg;
+	public void setLicenseImg(String licenseImg) {
+		this.licenseImg = licenseImg;
 	}
 
 	public String getOrgCode() {

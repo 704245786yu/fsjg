@@ -30,25 +30,6 @@ $('#ff').bootstrapValidator({
     	}
     }
 });
-/*.on('success.form.bv', function(e){
-	e.preventDefault();
-    var $form = $(e.target);
-    var action = $form.attr('action')
-    
-    $.post($form.attr('action'), $form.serialize(), function(data) {
-    	if(data.status==200){
-    		var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
-    		if(opt.indexOf("save")!=-1){
-    			$('#dg').bootstrapTable('append',data);
-    		}else if(opt.indexOf("update")!=-1){	//update by unique id
-    			$('#dg').bootstrapTable('updateByUniqueId',{'id':data.id,'row':data.value});
-    		}
-    		cancel();
-    	}else if(data.status==500){
-    		g_jqConfirm.showDiglog(data.value);
-    	}
-    });
-});*/
 
 $('#ff').ajaxForm(function(data){
 	if(data.status==200){
@@ -60,7 +41,7 @@ $('#ff').ajaxForm(function(data){
 		}
 		cancel();
 	}else if(data.status==500){
-		g_jqConfirm.showDialog(data.value);
+		new JqConfirmExtend().showDialog('保存失败',data.value);
 	}
 });
 
@@ -209,6 +190,10 @@ function imgChange(file,maxSize){
 	//IE9以下无此属性
 	if(files==null)
 		return;
+	if(files.length > 6){
+		g_jqConfirm.autoClose("最多选择6张图片");
+		return;
+	}
 	for(var i=0; i<files.length; i++){
 		var f = files[i];
 		if(f.type!='image/jpeg' && f.type!='image/png'){

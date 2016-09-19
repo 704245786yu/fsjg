@@ -34,8 +34,8 @@
 <div id="editPanel" class="panel panel-primary" style="display:none;">
 	<div class="panel-body">
 		<form id="ff" method="post" enctype="multipart/form-data" class="form-inline">
-			<input type="hidden" name="basicUser.id"/>
 			<input type="hidden" name="id"/>
+			<input type="hidden" name="basicUser.id"/>
 			<table id="districtContainer">
 				<tr>
 					<td><label>工厂编号</label></td>
@@ -222,13 +222,13 @@
 				<tr style="height:190px;">
 					<td><label>工厂logo</label></td>
 					<td>
-						<input type="file" name="logo" accept="image/jpeg,image/png" onchange="imgChange(this,50)"><p style="color:grey;">支持jpg、png格式图片,尺寸90*90</p>
+						<input type="file" name="logoImg" accept="image/jpeg,image/png" onchange="imgChange(this,50)"><p style="color:grey;">支持jpg、png格式图片,尺寸90*90</p>
 						<img src="image/enterpriseLogo/default_logo.png">
 						<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
 					</td>
 					<td><label>营业执照</label></td>
 					<td>
-						<input type="file" name="businessLicenseImg" accept="image/jpeg,image/png"><p style="color:grey;">支持jpg、png格式图片</p>
+						<input type="file" name="licensePic" accept="image/jpeg,image/png"><p style="color:grey;">支持jpg、png格式图片</p>
 						<img src="image/enterpriseLogo/default_logo.png">
 						<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
 					</td>
@@ -237,7 +237,7 @@
 					<td><label>工厂图片</label></td>
 					<td colspan="3">
 						<!-- IE9下无法多选 -->
-						<input type="file" name="enterpriseImg" accept="image/jpeg,image/png" multiple="multiple" onchange="imgChange(this,200)"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240</p>
+						<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="imgChange(this,200)"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240</p>
 						<div style="float:left;">
 							<img src="image/enterpriseLogo/default_logo.png">
 							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>

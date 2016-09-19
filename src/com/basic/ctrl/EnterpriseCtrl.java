@@ -81,31 +81,60 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return mav;
 	}
 	
+	/**@param enterprisePic 最多选择6张图片
+	 * */
 	@RequestMapping("saveEnterprise")
 	@ResponseBody
 	public ReturnValueVo saveEnterprise(
-			Enterprise e, 
-			@RequestParam(value="logo",required=false)MultipartFile logoImg,
-			@RequestParam(value="businessLicenseImg",required=false)MultipartFile businessLicenseImg,
-			@RequestParam(value="enterpriseImg",required=false)MultipartFile enterpriseImg,
+			Enterprise e,
+			@RequestParam(value="logoImg",required=false)MultipartFile logoImg,
+			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
+			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
 			HttpSession session){
-		//检查是否登录
-//		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
-//		if(basicUser == null){
-//			return  new ReturnValueVo(ReturnValueVo.ERROR, "nologin");
-//		}
+		//检查是否登录,判断操作用户是管理员还是普通用户自己
+		Integer createBy = null;
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		if(basicUser != null){
+			createBy = basicUser.getId();
+		}else{
+			User user = UserCtrl.getLoginUser(session);
+			if(user!=null)
+				createBy = user.getId();
+		}
+		if(createBy==null){
+			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
+		}
 		
+		//验证文件类型、大小是否符合
 		String errorMsg = "";
+		String contentType = null;
+		if(logoImg != null){
+			contentType = logoImg.getContentType();
+			if( logoImg.getSize()>logoImgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg = "工厂logo不符合上传要求";
+			}
+		}
+		if(licensePic != null){
+			contentType = licensePic.getContentType();
+			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg += "营业执照不符合上传要求";
+			}
+		}
+		String enterprisePicError = "";
+		for(int i=0;i<enterprisePic.length;i++){
+			contentType = enterprisePic[i].getContentType();
+			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				enterprisePicError = "工厂照片不符合上传要求";
+			}
+		}
+		errorMsg += enterprisePicError;
+		if(errorMsg.length() > 0)
+			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
 		
 		String fileName = logoImg.getOriginalFilename();//获取上传文件的原名
-		long size = logoImg.getSize();//获取文件的字节大小，单位为byte
-		String contentType = logoImg.getContentType();
-		if( size>logoImgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-			errorMsg = "工厂logo不符合要求";
-		}
 		String ary[] = fileName.split("\\.");
 		String suffix = ary[ary.length-1];
-		return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		return new ReturnValueVo(ReturnValueVo.ERROR, "我草");
 		//通过transferTo()将文件存储到硬件中
 		/*try {
 			String uploadDir = session.getServletContext().getInitParameter("uploadDir");
