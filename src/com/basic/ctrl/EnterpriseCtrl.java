@@ -36,6 +36,7 @@ import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.ConstantDict;
 import com.sys.po.User;
+import com.util.JacksonJson;
 import com.util.MicroOfficeFile;
 
 @Controller
@@ -60,14 +61,14 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	
 	public ModelAndView showDefaultPage(HttpSession session){
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
+//		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
 		//实力工厂
 		List<StrengthEnterpriseVo> enterprises = biz.getStrength(12);
 		
 		ModelAndView mav = new ModelAndView(defaultPage);
 		mav.addObject("enterprises",enterprises);
 		mav.addObject("processTypes", processTypes);
-		mav.addObject("costumeCategoryMap", costumeCategoryMap);
+//		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		return mav;
 	}
 	
@@ -91,6 +92,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
 			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
 			HttpSession session){
+		JacksonJson.printBeanToJson(e);
 		//检查是否登录,判断操作用户是管理员还是普通用户自己
 		Integer createBy = null;
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);

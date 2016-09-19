@@ -11,7 +11,21 @@ import com.common.NestTreeBiz;
 
 @Service
 public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer, CostumeCategory>{
-
+	
+	/**此方法问题在于webApplicationContext为null，原因可能bean未都创建成功*/
+//	@PostConstruct
+//	public void init(){  
+//		HashMap<Integer,String> map = this.getAllCodeNameMap();
+//		WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();  
+//		ServletContext servletContext = webApplicationContext.getServletContext();
+//		servletContext.setAttribute("costumeCategoryMap", map);
+//	}
+	
+	/**获取行业分类*/
+	public HashMap<String,Integer> getTrade(){
+		return this.getChildCostumeMap(null);
+	}
+	
 	/**获取直接子节点的服饰类型名，服饰类型编码 键值对
 	 * @param id 若为null，表示获取一级节点
 	 * */

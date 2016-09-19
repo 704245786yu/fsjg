@@ -44,7 +44,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	}
 	
 	public ReturnValueVo batchSaveEnterprise(List<String[]> data,Integer userId){
-		HashMap<String,Integer> tradeMap = costumeCategoryBiz.getChildCostumeMap(null);	//行业类型为服饰类型的一级分类
+		HashMap<String,Integer> tradeMap = costumeCategoryBiz.getTrade();	//行业类型为服饰类型的一级分类
 		HashMap<String,Integer> costumeMap = costumeCategoryBiz.getAllNameCodeMap();	//服饰类型
 		HashMap<String,String> processTypeMap = constantDictBiz.getNameValueMap("process_type");	//加工类型
 		

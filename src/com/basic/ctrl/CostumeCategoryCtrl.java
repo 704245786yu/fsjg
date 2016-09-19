@@ -1,6 +1,5 @@
 package com.basic.ctrl;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -38,11 +37,11 @@ public class CostumeCategoryCtrl extends NestTreeCtrl<CostumeCategoryBiz, Intege
 	}
 
 	/**获取行业分类*/
-	@RequestMapping("getTrade")
+	/*@RequestMapping("getTrade")
 	@ResponseBody
 	public HashMap<String,Integer> getTrade(){
 		return biz.getChildCostumeMap(null);
-	}
+	}*/
 	
 	/**获取所有节点包含层级信息*/
 	@RequestMapping("getAllHierarchy")
