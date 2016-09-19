@@ -3,7 +3,6 @@ package com.basic.ctrl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,7 +35,6 @@ import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.ConstantDict;
 import com.sys.po.User;
-import com.util.JacksonJson;
 import com.util.MicroOfficeFile;
 
 @Controller
@@ -92,7 +90,6 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
 			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
 			HttpSession session){
-		JacksonJson.printBeanToJson(e);
 		//检查是否登录,判断操作用户是管理员还是普通用户自己
 		Integer createBy = null;
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
@@ -106,6 +103,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		if(createBy==null){
 			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
 		}
+		e.getBasicUser().setCreateBy(createBy);
 		
 		//验证文件类型、大小是否符合
 		String errorMsg = "";
@@ -133,22 +131,33 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		if(errorMsg.length() > 0)
 			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
 		
-		String fileName = logoImg.getOriginalFilename();//获取上传文件的原名
-		String ary[] = fileName.split("\\.");
-		String suffix = ary[ary.length-1];
-		return new ReturnValueVo(ReturnValueVo.ERROR, "我草");
-		//通过transferTo()将文件存储到硬件中
-		/*try {
-			String uploadDir = session.getServletContext().getInitParameter("uploadDir");
-			Date date = new Date();
-			String newFileName = basicUser.getId()+""+date.getTime()+"."+suffix;
-			file.transferTo(new File(uploadDir + newFileName));
-			return new ReturnValueVo(ReturnValueVo.SUCCESS, newFileName);
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-			return new ReturnValueVo(ReturnValueVo.EXCEPTION, null);
-		}*/
+		//转储图片
+		String uploadDir = session.getServletContext().getInitParameter("uploadDir/enterprise");
+		try{
+			if(logoImg != null)
+				e.setLogo(this.transferFile(logoImg,uploadDir,createBy));
+			else
+				e.setLogo("default_logo.png");//设置默认图片
+			
+			if(licensePic != null)
+				e.setLicenseImg(this.transferFile(licensePic,uploadDir,createBy));
+			if(enterprisePic.length > 0){
+				String enterpriseImg = null;
+				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,createBy);
+				for(int i=1;i<enterprisePic.length;i++){
+					enterpriseImg +=  this.transferFile(enterprisePic[0],uploadDir,createBy);
+				}
+				e.setEnterpriseImg(enterpriseImg);
+			}
+		} catch (IllegalStateException | IOException ex) {
+			ex.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
+		}
+		biz.save(e);
+		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
 	}
+	
+
 	
 	/**批量导入工厂信息
 	 * */
@@ -274,5 +283,24 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		BootTablePageDto<Enterprise> result = biz.getByCostumeCode(costumeCode);
 		mav.addObject("result", result);
 		return mav;
+	}
+	
+	/**保存文件到磁盘
+	 * @param srcFile 原文件
+	 * @param uploadDir 保存路径
+	 * @param createBy 创建人ID
+	 * @return 返回新文件名
+	 * @throws IOException 
+	 * @throws IllegalStateException */
+	private String transferFile(MultipartFile srcFile, String uploadDir, int createBy) throws IllegalStateException, IOException{
+		String suffix = null;
+		String fileName = srcFile.getOriginalFilename();//获取上传文件的原名
+		String ary[] = fileName.split("\\.");
+		suffix = ary[ary.length-1];
+		//通过transferTo()将文件存储到硬件中
+		long time = System.currentTimeMillis();
+		String newFileName = createBy+""+time+"."+suffix;
+		srcFile.transferTo(new File(uploadDir + newFileName));
+		return newFileName;
 	}
 }

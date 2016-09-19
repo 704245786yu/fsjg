@@ -83,7 +83,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				Enterprise enterprise=new Enterprise();
 				//关联工厂的基本用户信息
 				enterprise.setBasicUser(basicUser);
-	//			enterprise.setEnterpriseNumber(temp[0]);
+				enterprise.setNumber(System.currentTimeMillis());
 				//企业名称
 				String enterpriseName = temp[0];
 				if(enterpriseName.length() > 0 && enterpriseName.length()<=30){
@@ -199,6 +199,18 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
 	}
 	
+	/**保存工厂，同时保存工厂的主营产品信息
+	 * */
+	@Transactional
+	@Override
+	public void save(Enterprise e) {
+		e.getBasicUser().setPassword(defaultPassword);
+		e.getBasicUser().setRoleId(2);
+		e.setNumber(System.currentTimeMillis());
+		dao.save(e);
+		enterpriseCostumeRelaDao.save(e.getId(), e.getCostumeCode());
+	}
+
 	/**获取行业类型编码，多个编码用,分割*/
 	private String getTradeCode(String trade, HashMap<String,Integer> tradeMap){
 		StringBuffer tradeCodeBuf = new StringBuffer(); 
@@ -311,6 +323,18 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		enterpriseCostumeRelaDao.delByEnterpriseId(id);
 		dao.deleteById(id);
 		basicUserDao.deleteById(userId);
+	}
+
+	@Override
+	public BootTablePageDto<Enterprise> getAllByPage(Long total, int offset,int limit) {
+		BootTablePageDto<Enterprise> bt = super.getAllByPage(total, offset, limit);
+		List<Enterprise> enterprises = bt.getRows();
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(costumeCode);
+		}
+		return bt;
 	}
 
 	/**获取加工企业的主营产品类型*/

@@ -106,10 +106,10 @@
 					<td><label><span>*</span>行业分类</label></td>
 					<td>
 						<div class="form-group">
-							<label class="checkbox-inline"><input type="checkbox" name="trade" value="option1">服装</label>
-							<label class="checkbox-inline"><input type="checkbox" name="trade" value="option2">服饰</label>
-							<label class="checkbox-inline"><input type="checkbox" name="trade" value="option3">家纺</label>
-							<label class="checkbox-inline"><input type="checkbox" name="trade" value="option3">面料</label>
+							<label class="checkbox-inline"><input type="checkbox" name="trade" value="1">服装</label>
+							<label class="checkbox-inline"><input type="checkbox" name="trade" value="2">服饰</label>
+							<label class="checkbox-inline"><input type="checkbox" name="trade" value="3">家纺</label>
+							<label class="checkbox-inline"><input type="checkbox" name="trade" value="4">面料</label>
 						</div>
 					</td>
 					<td><label>组织机构代码</label></td>
@@ -186,7 +186,7 @@
 					<td><label>工厂图片</label></td>
 					<td colspan="3">
 						<!-- IE9下无法多选 -->
-						<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="imgChange(this,200)"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240</p>
+						<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="enterpriseImgChange(this,200)"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240</p>
 						<div style="float:left;">
 							<img src="image/enterpriseLogo/default_logo.png">
 							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>

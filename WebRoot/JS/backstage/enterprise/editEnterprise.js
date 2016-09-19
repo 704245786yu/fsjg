@@ -32,7 +32,9 @@ $('#ff').ajaxForm(function(data){
 		}
 		cancel();
 	}else if(data.status==500){
-		new JqConfirmExtend().showDialog('保存失败',data.value);
+		g_jqConfirm.showDialog('保存失败',data.value);
+	}else if(data.status==501){
+		g_jqConfirm.showDialog('保存失败',data.value);
 	}
 });
 
@@ -51,8 +53,9 @@ function add(){
 //新增，该方法由主页面的add按钮触发
 function modify(id){
 	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
-//	console.log(data);
+	console.log(data);
 	$("#ff").autofill(data);
+	checkCostume();//设置“选择产品类别”button的显示文字
 	
 	fillDistrict(data.province, data.city, data.county, data.town);
 	$('input[name="basicUser.id"]').val(data.basicUser.id);
@@ -71,6 +74,22 @@ function modify(id){
 
 //上传文件验证,不兼容IE9及以下浏览器
 function imgChange(file,maxSize){
+	//image/jpeg image/png
+	var files = file.files;
+	//IE9以下无此属性
+	if(files==null)
+		return;
+	var f = files[0];
+	if(f.type!='image/jpeg' && f.type!='image/png'){
+		g_jqConfirm.autoClose("请上传jpg或png图片");
+		return;
+	}else if(f.size > (maxSize*1000)){
+		g_jqConfirm.autoClose("上传的图片大于"+maxSize);
+		return;
+	}
+}
+
+function enterpriseImgChange(file,maxSize){
 	//image/jpeg image/png
 	var files = file.files;
 	//IE9以下无此属性

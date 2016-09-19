@@ -105,3 +105,12 @@ function checkCostume(){
 		str = '选择产品类别';
 	$('#costumeBtn').html(str);
 }
+
+/**根据服饰类型编码获取名称*/
+/*function getCostumeNameByCodes(codes){
+	var names = new Array(codes.length);
+	$('#costumeCategoryModal')
+	for(var i=0; i<codes.length; i++){
+		
+	}
+}*/
