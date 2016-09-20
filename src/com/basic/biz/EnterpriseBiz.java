@@ -206,8 +206,9 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	public void save(Enterprise e) {
 		e.getBasicUser().setPassword(defaultPassword);
 		e.getBasicUser().setRoleId(2);
+		e.setAuditState((byte)0);
 		e.setNumber(System.currentTimeMillis());
-		dao.save(e);
+		dao.persist(e);
 		enterpriseCostumeRelaDao.save(e.getId(), e.getCostumeCode());
 	}
 

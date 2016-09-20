@@ -41,7 +41,7 @@
 				<tr>
 					<td><label>工厂编号</label></td>
 					<td>
-						<div class="form-group"><input type="text" class="form-control" name="number" readonly value="111"></div>
+						<div class="form-group"><input type="text" class="form-control" name="number" readonly></div>
 					</td>
 					<td><label><span>*</span>用户名 </label></td>
 					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.userName"></div></td>
@@ -172,19 +172,21 @@
 					<td><label>工厂logo</label></td>
 					<td>
 						<input type="hidden" name="logo">
-						<input type="file" name="logoImg" accept="image/jpeg,image/png" onchange="imgChange(this,50)"><p style="color:grey;">支持jpg、png格式图片,尺寸90*90,最大50kb</p>
+						<input type="file" name="logoImg" accept="image/jpeg,image/png" onchange="imgChange(this,50)">
+						<p style="color:grey;">支持jpg、png格式图片,尺寸90*90,最大50kb</p>
 						<div style="display:none;">
 							<img width="90px" height="90px" src="">
-							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
+							<div><button type="button" class="btn btn-primary btn-sm" onclick="delImg('logo')">删除</button></div>
 						</div>
 					</td>
 					<td><label>营业执照</label></td>
 					<td>
 						<input type="hidden" name="licenseImg">
-						<input type="file" name="licensePic" accept="image/jpeg,image/png"><p style="color:grey;">支持jpg、png格式图片,最大200kb</p>
+						<input type="file" name="licensePic" accept="image/jpeg,image/png">
+						<p style="color:grey;">支持jpg、png格式图片,最大200kb</p>
 						<div style="display:none;">
 							<img width="90px" height="90px" src="">
-							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
+							<div><button type="button" class="btn btn-primary btn-sm" onclick="delImg('licenseImg')">删除</button></div>
 						</div>
 					</td>
 				</tr>
@@ -193,21 +195,19 @@
 					<td colspan="3">
 						<!-- IE9下无法多选 -->
 						<input type="hidden" name="enterpriseImg">
-						<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="enterpriseImgChange(this,200)"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
-						<div style="float:left;display:none;">
-							<img width="200px" height="100px" src="">
-							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
+						<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="enterpriseImgChange(this,200)">
+						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+						<div style="float:left;display:none;margin-right:10px;">
+							<img width="200px" height="100px" class="img-thumbnail" src="">
+							<div><button type="button" class="btn btn-primary btn-sm" onclick="delEnterpriseImg(this)">删除</button></div>
 						</div>
 					</td>
 				</tr>
 			</table>
-			<div class="form-group">
-				<div class="col-sm-4 col-sm-offset-8" style="text-align:right">
-					<button type="submit" name="save" class="btn btn-primary">保存</button>
-					<button type="button" class="btn btn-default" onclick="cancel()">取消</button>
-				</div>
+			<div style="margin-top:20px;text-align:right;padding-right:100px;">
+				<button type="submit" name="save" class="btn btn-primary" style="width:80px;margin-right:10px;">保存</button>
+				<button type="button" class="btn btn-default" onclick="cancel()" style="width:80px;">取消</button>
 			</div>
-			
 		</form>
 	</div><!-- panel-body -->
 </div><!-- panel -->

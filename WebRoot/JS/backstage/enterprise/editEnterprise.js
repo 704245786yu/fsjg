@@ -1,4 +1,5 @@
 var g_jqConfirm = new JqConfirmExtend();
+var g_delImg = new Array();
 
 //表单验证
 $('#ff').bootstrapValidator({
@@ -8,14 +9,14 @@ $('#ff').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-    	number: {
+    	'basicUser.userName': {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
     			},
     			stringLength: {
-    				max: 30,
-    				message: '最多30个字符'
+    				max: 20,
+    				message: '最多20个字符'
     			}
     		}
     	}
@@ -35,6 +36,7 @@ function beforeSubmit(formData, jqForm, options){
 }
 
 function success(data){
+	var action = $('#ff').attr('action');
 	if(data.status==200){
 		var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
 		if(opt.indexOf("save")!=-1){
@@ -52,6 +54,7 @@ function success(data){
 
 //显示Form表单，隐藏其他面板
 function showForm(){
+	g_delImg = new Array();
 	$('#listPanel').hide();
 	$('#editPanel').show();
 }
@@ -84,24 +87,45 @@ function modify(id){
 	}
 	//显示图片
 	if(data.logo!='' && data.logo!='default_logo.png'){
-		var $div = $('input[name="logoImg"] + div').css('display','');
+		var $div = $('input[name="logoImg"] ~ div').css('display','');
 		$div.children('img').attr('src','uploadFile/enterprise/'+data.logo);
 	}
-	if(data.licenseImg!=''){
-		var $div = $('input[name="licensePic"] + div').css('display','');
+	if(data.licenseImg !=null && data.licenseImg!=''){
+		var $div = $('input[name="licensePic"] ~ div').css('display','');
 		$div.children('img').attr('src','uploadFile/enterprise/'+data.licenseImg);
 	}
-	if(data.enterpriseImg!=''){
-		var imgs = enterpriseImg.split(',');
-		var $div = $('input[name="enterprisePic"] + div');
+	if(data.enterpriseImg!=null && data.enterpriseImg!=''){
+		var imgs = data.enterpriseImg.split(',');
+		var $div = $('input[name="enterprisePic"] ~ div');
 		for(var i=0; i<imgs.length; i++){
 			var $divTemp = $div.clone().css('display','');
-			$divTemp.children('img').attr('src','uploadFile/enterprise/'+data.imgs[i]);
+			$divTemp.children('img').attr('src','uploadFile/enterprise/'+imgs[i]);
 			$div.after($divTemp);
 		}
 	}
 	$('#ff').attr('action','enterprise/update');
 	showForm();
+}
+
+function delImg(imgName){
+	var $hidden = $(':hidden[name="'+imgName+'"]');
+	g_delImg.push($hidden.val());
+	$hidden.val('');
+	$hidden.nextAll('div').css('display','none');
+}
+
+function delEnterpriseImg(btn){
+	var $enterpriseImg = $(':hidden[name="enterpriseImg"]');
+	var enterpriseImgs = $enterpriseImg.val().split(',');
+	var path = "uploadFile/enterprise/";
+	var $img = $(btn).parent('div').prev();
+	var src = $img.attr('src')
+	src = src.slice(path.length,src.length);
+	g_delImg.push(src);
+	var index = $.inArray(src,enterpriseImgs);
+	enterpriseImgs.splice(index,1);
+	$enterpriseImg.val(enterpriseImgs.join());
+	$img.parent('div').css('display','none');
 }
 
 //上传文件验证,不兼容IE9及以下浏览器
@@ -123,11 +147,12 @@ function imgChange(file,maxSize){
 
 function enterpriseImgChange(file,maxSize){
 	//image/jpeg image/png
+	var imgs = $(':hidden[name="enterpriseImg"]').val().split(',');
 	var files = file.files;
 	//IE9以下无此属性
 	if(files==null)
 		return;
-	if(files.length > 6){
+	if((files.length+imgs.length) > 6){
 		g_jqConfirm.autoClose("最多选择6张图片");
 		return;
 	}
@@ -148,7 +173,12 @@ function enterpriseImgChange(file,maxSize){
 function cancel(){
 	$('#listPanel').show();
 	$('#editPanel').hide();
+	g_delImg = new Array();
 	var $form = $('#ff');
+	
+	$form.find('input[name="logoImg"] ~ div').css('display','none');//隐藏工厂logo
+	$form.find('input[name="licensePic"] ~ div').css('display','none');//licensePic工厂营业执照
+	$form.find(':hidden[name="enterpriseImg"] ~ div:first').nextAll().remove();//移除展示的工厂图片
 	$form.bootstrapValidator('resetForm', true);
 	$form[0].reset();
 }
