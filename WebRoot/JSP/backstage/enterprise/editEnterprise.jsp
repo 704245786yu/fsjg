@@ -171,24 +171,31 @@
 				<tr style="height:190px;">
 					<td><label>工厂logo</label></td>
 					<td>
-						<input type="file" name="logoImg" accept="image/jpeg,image/png" onchange="imgChange(this,50)"><p style="color:grey;">支持jpg、png格式图片,尺寸90*90</p>
-						<img src="image/enterpriseLogo/default_logo.png">
-						<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
+						<input type="hidden" name="logo">
+						<input type="file" name="logoImg" accept="image/jpeg,image/png" onchange="imgChange(this,50)"><p style="color:grey;">支持jpg、png格式图片,尺寸90*90,最大50kb</p>
+						<div style="display:none;">
+							<img width="90px" height="90px" src="">
+							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
+						</div>
 					</td>
 					<td><label>营业执照</label></td>
 					<td>
-						<input type="file" name="licensePic" accept="image/jpeg,image/png"><p style="color:grey;">支持jpg、png格式图片</p>
-						<img src="image/enterpriseLogo/default_logo.png">
-						<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
+						<input type="hidden" name="licenseImg">
+						<input type="file" name="licensePic" accept="image/jpeg,image/png"><p style="color:grey;">支持jpg、png格式图片,最大200kb</p>
+						<div style="display:none;">
+							<img width="90px" height="90px" src="">
+							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<td><label>工厂图片</label></td>
 					<td colspan="3">
 						<!-- IE9下无法多选 -->
-						<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="enterpriseImgChange(this,200)"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240</p>
-						<div style="float:left;">
-							<img src="image/enterpriseLogo/default_logo.png">
+						<input type="hidden" name="enterpriseImg">
+						<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="enterpriseImgChange(this,200)"><p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+						<div style="float:left;display:none;">
+							<img width="200px" height="100px" src="">
 							<div><button type="button" class="btn btn-primary btn-sm">删除</button></div>
 						</div>
 					</td>
@@ -209,6 +216,6 @@
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.form.min.js"></script>
 <script src="plugin/jquery.formautofill.min.js"></script>
-<script src="JS/util/districtCascade.js"></script>
+<script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/util/treeUtil.js"></script>
 <script src="JS/backstage/enterprise/editEnterprise.js"></script>

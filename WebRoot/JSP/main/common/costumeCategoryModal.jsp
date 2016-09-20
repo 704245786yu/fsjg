@@ -11,22 +11,20 @@
 			</div>
 			<div class="modal-body">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
+					<!-- <li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
 					<li><a href="#costume_2" data-toggle="tab">服饰</a></li>
 					<li><a href="#costume_3" data-toggle="tab">家纺</a></li>
-					<li><a href="#costume_4" data-toggle="tab">纺织消费品</a></li>
-					<li><a href="#costume_5" data-toggle="tab">面料/皮革/纱线</a></li>
-					<li><a href="#costume_6" data-toggle="tab">纺织辅料</a></li>
+					<li><a href="#costume_4" data-toggle="tab">面料</a></li> -->
+					<li style="display:none"><a href="#costume_" data-toggle="tab"></a></li>
 				</ul>
 				<div class="tab-content">
-					<div class="tab-pane active" id="costume_1">
+					<!-- <div class="tab-pane active" id="costume_">
 						
 					</div>
 					<div class="tab-pane" id="costume_2"></div>
 					<div class="tab-pane" id="costume_3"></div>
-					<div class="tab-pane" id="costume_4"></div>
-					<div class="tab-pane" id="costume_5"></div>
-					<div class="tab-pane" id="costume_6"></div>
+					<div class="tab-pane" id="costume_4"></div> -->
+					<div style="display:none" class="tab-pane" id="costume_"></div>
 				</div>
 				
 				<table id="template" class="table" style="display:none;">

@@ -22,7 +22,19 @@ $('#ff').bootstrapValidator({
     }
 });
 
-$('#ff').ajaxForm(function(data){
+var options = {  
+   beforeSubmit: beforeSubmit,  //提交前的回调函数  
+   success: success      //提交后的回调函数  
+}
+
+$('#ff').ajaxForm(options);
+
+function beforeSubmit(formData, jqForm, options){
+	formData.push({'name':'delImg','value':"xxx.jsp"});
+	formData.push({'name':'delImg','value':"xxx2.jsp"});
+}
+
+function success(data){
 	if(data.status==200){
 		var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
 		if(opt.indexOf("save")!=-1){
@@ -36,7 +48,7 @@ $('#ff').ajaxForm(function(data){
 	}else if(data.status==501){
 		g_jqConfirm.showDialog('保存失败',data.value);
 	}
-});
+}
 
 //显示Form表单，隐藏其他面板
 function showForm(){
@@ -53,9 +65,8 @@ function add(){
 //新增，该方法由主页面的add按钮触发
 function modify(id){
 	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
-	console.log(data);
 	$("#ff").autofill(data);
-	checkCostume();//设置“选择产品类别”button的显示文字
+	checkCostumeByCodes(data.costumeCode);//设置“选择产品类别”button的显示文字
 	
 	fillDistrict(data.province, data.city, data.county, data.town);
 	$('input[name="basicUser.id"]').val(data.basicUser.id);
@@ -63,11 +74,32 @@ function modify(id){
 	$('input[name="basicUser.telephone"]').val(data.basicUser.telephone);
 	//填充行业分类
 	var trade = data.trade.split(',');
-	$('select[name="trade"]').val(trade);
+	for(var i=0; i<trade.length; i++){
+		$(':checkbox[name="trade"][value="'+trade[i]+'"]').prop('checked','checked');
+	}
 	//填充加工类型
 	var processType = data.processType.split(',');
-	$('select[name="processType"]').val(processType);
-	
+	for(var i=0; i<trade.length; i++){
+		$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
+	}
+	//显示图片
+	if(data.logo!='' && data.logo!='default_logo.png'){
+		var $div = $('input[name="logoImg"] + div').css('display','');
+		$div.children('img').attr('src','uploadFile/enterprise/'+data.logo);
+	}
+	if(data.licenseImg!=''){
+		var $div = $('input[name="licensePic"] + div').css('display','');
+		$div.children('img').attr('src','uploadFile/enterprise/'+data.licenseImg);
+	}
+	if(data.enterpriseImg!=''){
+		var imgs = enterpriseImg.split(',');
+		var $div = $('input[name="enterprisePic"] + div');
+		for(var i=0; i<imgs.length; i++){
+			var $divTemp = $div.clone().css('display','');
+			$divTemp.children('img').attr('src','uploadFile/enterprise/'+data.imgs[i]);
+			$div.after($divTemp);
+		}
+	}
 	$('#ff').attr('action','enterprise/update');
 	showForm();
 }

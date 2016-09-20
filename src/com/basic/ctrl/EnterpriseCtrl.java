@@ -86,6 +86,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@ResponseBody
 	public ReturnValueVo saveEnterprise(
 			Enterprise e,
+			String[] delImg,
 			@RequestParam(value="logoImg",required=false)MultipartFile logoImg,
 			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
 			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
@@ -135,17 +136,17 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		String uploadDir = session.getServletContext().getInitParameter("uploadDir/enterprise");
 		try{
 			if(logoImg != null)
-				e.setLogo(this.transferFile(logoImg,uploadDir,createBy));
+				e.setLogo(this.transferFile(logoImg,uploadDir,createBy,"logo"));
 			else
 				e.setLogo("default_logo.png");//设置默认图片
 			
 			if(licensePic != null)
-				e.setLicenseImg(this.transferFile(licensePic,uploadDir,createBy));
+				e.setLicenseImg(this.transferFile(licensePic,uploadDir,createBy,"lic"));
 			if(enterprisePic.length > 0){
 				String enterpriseImg = null;
-				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,createBy);
+				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,createBy,"pic");
 				for(int i=1;i<enterprisePic.length;i++){
-					enterpriseImg +=  this.transferFile(enterprisePic[0],uploadDir,createBy);
+					enterpriseImg +=  this.transferFile(enterprisePic[0],uploadDir,createBy,"pic");
 				}
 				e.setEnterpriseImg(enterpriseImg);
 			}
@@ -153,7 +154,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			ex.printStackTrace();
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
 		}
-		biz.save(e);
+//		biz.save(e);
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
 	}
 	
@@ -292,14 +293,14 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	 * @return 返回新文件名
 	 * @throws IOException 
 	 * @throws IllegalStateException */
-	private String transferFile(MultipartFile srcFile, String uploadDir, int createBy) throws IllegalStateException, IOException{
+	private String transferFile(MultipartFile srcFile, String uploadDir, int createBy, String newName) throws IllegalStateException, IOException{
 		String suffix = null;
 		String fileName = srcFile.getOriginalFilename();//获取上传文件的原名
 		String ary[] = fileName.split("\\.");
 		suffix = ary[ary.length-1];
 		//通过transferTo()将文件存储到硬件中
 		long time = System.currentTimeMillis();
-		String newFileName = createBy+""+time+"."+suffix;
+		String newFileName = createBy+""+time+newName+"."+suffix;
 		srcFile.transferTo(new File(uploadDir + newFileName));
 		return newFileName;
 	}

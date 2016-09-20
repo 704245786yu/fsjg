@@ -16,48 +16,73 @@ function initCostumeCategory(){
 	$checkbox2.css('display','block');
 	
 	var data = $.parseJSON($('#costumeCategoryModal span[name="data"]').html());
-	var ary = new TreeUtil().adjTransToNest(data);
-	var costumeCategorys = ary[0].children;
-	for(var i=0; i<costumeCategorys.length; i++){	//遍历一级类目
-		var oneLevelNode = costumeCategorys[i];
-		var $costumeDiv = $('#costume_'+oneLevelNode.categoryCode);
-		var $table = $tableTemplate.clone();
-		$costumeDiv.append($table);
-		var twoLevel = oneLevelNode.children;
-		var $tr = $trTemplate.clone();
-		var $td2 = $($tr.find('td')[1]);
-		$table.append($tr);
-		for(var j=0; j<twoLevel.length; j++){	//遍历二级类目
-			var twoLevelNode = twoLevel[j];
-			if(twoLevelNode.children == null){	//无子节点（即三级类目）则直接添加到div中
-				var $checkBox = $checkbox2.clone();
-				$checkBox.find(':checkbox').val(twoLevelNode.categoryCode);
-				$checkBox.find('span').html(twoLevelNode.categoryName);
-				$td2.append($checkBox);
-			}else{
-				//二级类目节点
-				var $tr = $trTemplate.clone();
-				var $tds = $tr.find('td');
-				var $td1 = $($tds[0]).css('display','table-cell');
-				$td1.find(':checkbox').val(twoLevelNode.categoryCode);
-				$td1.find('span').html(twoLevelNode.categoryName);
-				//三级类目节点
-				$td2 = $($tds[1]);
-				var threeLevel = twoLevelNode.children;
-				for(var k=0; k<threeLevel.length; k++){	//遍历三级类目
+	var trades = new TreeUtil().adjTransToNest(data)[0].children;//获取根目录下的行业分类
+	//获取tab模板
+	var $nav = $('#costumeCategoryModal .nav-tabs');
+	var $tabTemplate = $nav.children('li').clone().css('display','');
+	var $tabContent = $('#costumeCategoryModal .tab-content');
+	var $paneTemplate = $tabContent.children('.tab-pane').clone().css('display','');
+	for(var h=0; h<trades.length; h++){	//遍历行业分类
+		var trade = trades[h];
+		var costumeCategorys = trade.children;
+		if(costumeCategorys == null)
+			break;	//没有一级类目
+		for(var i=0; i<costumeCategorys.length; i++){	//遍历一级类目
+			var oneLevelNode = costumeCategorys[i];
+			
+			//添加tab标签及对应内容
+			var $tab = $tabTemplate.clone();
+			var $a = $tab.children();
+			$a.attr('href','#costume_'+oneLevelNode.categoryCode).html(oneLevelNode.categoryName);
+			$nav.append($tab);//添加tab标签
+			var $pane = $paneTemplate.clone();
+			$pane.attr('id','costume_'+oneLevelNode.categoryCode);
+			$tabContent.append($pane);
+			
+			var $costumeDiv = $('#costume_'+oneLevelNode.categoryCode);
+			var $table = $tableTemplate.clone();
+			$costumeDiv.append($table);
+			var twoLevel = oneLevelNode.children;
+			if(twoLevel==null)//没有二级类目
+				break;
+			var $tr = $trTemplate.clone();
+			var $td2 = $($tr.find('td')[1]);
+			$table.append($tr);
+			for(var j=0; j<twoLevel.length; j++){	//遍历二级类目
+				var twoLevelNode = twoLevel[j];
+				if(twoLevelNode.children == null){	//无子节点（即三级类目）则直接添加到div中
 					var $checkBox = $checkbox2.clone();
-					$checkBox.find(':checkbox').val(threeLevel[k].categoryCode);
-					$checkBox.find('span').html(threeLevel[k].categoryName);
+					$checkBox.find(':checkbox').val(twoLevelNode.categoryCode);
+					$checkBox.find('span').html(twoLevelNode.categoryName);
 					$td2.append($checkBox);
+				}else{
+					//二级类目节点
+					var $tr = $trTemplate.clone();
+					var $tds = $tr.find('td');
+					var $td1 = $($tds[0]).css('display','table-cell');
+					$td1.find(':checkbox').val(twoLevelNode.categoryCode);
+					$td1.find('span').html(twoLevelNode.categoryName);
+					//三级类目节点
+					$td2 = $($tds[1]);
+					var threeLevel = twoLevelNode.children;
+					for(var k=0; k<threeLevel.length; k++){	//遍历三级类目
+						var $checkBox = $checkbox2.clone();
+						$checkBox.find(':checkbox').val(threeLevel[k].categoryCode);
+						$checkBox.find('span').html(threeLevel[k].categoryName);
+						$td2.append($checkBox);
+					}
+					$table.append($tr);
 				}
-				$table.append($tr);
 			}
+			//消除“服装”标签下的多出的一个空tr，该tr由32行产生
+			var $trs = $table.find('tr');
+			if($trs.length >2)
+				$($trs[1]).remove();
 		}
-		//消除“服装”标签下的多出的一个空tr，该tr由32行产生
-		var $trs = $table.find('tr');
-		if($trs.length >2)
-			$($trs[1]).remove();
 	}
+	//设置第一个为active显示
+	$($nav.children('li')[1]).addClass('active');
+	$($tabContent.children('.tab-pane')[1]).addClass('active');
 }
 
 //二级服饰类目单击事件
@@ -106,11 +131,16 @@ function checkCostume(){
 	$('#costumeBtn').html(str);
 }
 
-/**根据服饰类型编码获取名称*/
-/*function getCostumeNameByCodes(codes){
-	var names = new Array(codes.length);
-	$('#costumeCategoryModal')
+/**根据服饰类型编码设置checkbox选中，同时设置btn内容*/
+function checkCostumeByCodes(codes){
+	var str = '';
+	var $c = $('#costumeCategoryModal');
 	for(var i=0; i<codes.length; i++){
-		
+		var $check = $c.find(':checkbox[value="'+codes[i]+'"]');
+		$check.prop('checked','checked');
+		str += $check.next().html()+',';
 	}
-}*/
+	if(str=='')
+		str = '选择产品类别';
+	$('#costumeBtn').html(str);
+}

@@ -79,7 +79,7 @@ public class LoginCtrl {
 		long now = System.currentTimeMillis();
 		long generateTime = sms.get("generateTime");
 		long generateSmsNum = sms.get("smsNum");	//session里保存的验证码
-		if((now-generateTime)>10000){	//10秒有效
+		if((now-generateTime)>60000){	//60秒有效
 			errorMsg = "验证码已失效请重新获取";
 			mav.setViewName(redirectSignUp);
 			mav.addObject("errorMsg", errorMsg);
@@ -90,7 +90,7 @@ public class LoginCtrl {
 			mav.addObject("errorMsg", errorMsg);
 			return mav;
 		}
-			
+
 		errorMsg = basicUserBiz.signUp(basicUser, enterpriseName);
 		if(errorMsg != null){
 			mav.setViewName(redirectSignUp);
