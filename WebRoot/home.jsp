@@ -132,7 +132,7 @@
 					<div class="col-md-8">
 						<c:forEach var="enterprise" items="${strengths}">
 							<div class="col-md-4">
-								<img src="image/enterpriseLogo/${enterprise.logo}">
+								<img src="uploadFile/enterprise/${enterprise.logo}">
 								<div>
 									<a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
 								</div>
@@ -153,7 +153,7 @@
 					<div class="col-md-8">
 						<c:forEach var="enterprise" items="${auths}">
 							<div class="col-md-4">
-								<img src="image/enterpriseLogo/${enterprise.logo}">
+								<img src="uploadFile/enterprise/${enterprise.logo}">
 								<div>
 									<a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
 								</div>

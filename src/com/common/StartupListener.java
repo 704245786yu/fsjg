@@ -1,5 +1,6 @@
 package com.common;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -25,7 +26,8 @@ public class StartupListener implements ServletContextListener {
 //		WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
 		
 		CostumeCategoryBiz costumeCategoryBiz = wac.getBean(CostumeCategoryBiz.class);
-		sc.setAttribute("costumeCategoryMap", costumeCategoryBiz.getAllCodeNameMap());
+		HashMap<Integer,String> codeNameMap = costumeCategoryBiz.getAllCodeNameMap();
+		sc.setAttribute("costumeCategoryMap", JacksonJson.beanToJson(codeNameMap));
 		//服饰类型层次树
 		CostumeCategoryCtrl costumeCategoryCtrl = wac.getBean(CostumeCategoryCtrl.class);
 		List<CostumeCategory> costumeCategoryList = costumeCategoryCtrl.getAllHierarchy();

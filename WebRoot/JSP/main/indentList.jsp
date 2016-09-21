@@ -206,7 +206,7 @@
 </tr>
 </table>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="JS/util/districtCascade.js"></script>
+<script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/main/indentList.js"></script>
 </body>
 </html>

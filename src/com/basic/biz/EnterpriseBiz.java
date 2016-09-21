@@ -171,6 +171,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				enterprise.setWechat(temp[24]);
 				enterprise.setEmail(temp[25]);
 				//有企业logo
+				enterprise.setLogo("default_logo.png");
 				//工厂图片
 				//工厂介绍
 				String description = temp[28];

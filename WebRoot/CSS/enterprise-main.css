@@ -4,7 +4,7 @@
 	padding-bottom:15px;
 }
 
-.form-horizontal > table button.btn-default{
+.form-horizontal > table td > button.btn-default{
 	width:inherit;
 	overflow:hidden;
 	background: url('../image/select-btn.png') no-repeat 90%;

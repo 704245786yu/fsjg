@@ -64,14 +64,12 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	
 	public ModelAndView showDefaultPage(HttpSession session){
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-//		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
 		//实力工厂
 		List<StrengthEnterpriseVo> enterprises = biz.getStrength(12);
 		
 		ModelAndView mav = new ModelAndView(defaultPage);
 		mav.addObject("enterprises",enterprises);
 		mav.addObject("processTypes", processTypes);
-//		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		return mav;
 	}
 	

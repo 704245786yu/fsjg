@@ -52,7 +52,11 @@ color:#6699ff;border:1px #ff8000 dashed;
 						<table>
 							<tr>
 								<td style="width:65px"><label>产品类别</label></td>
-								<td><button id="costumeBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#costumeCategoryModal">选择产品类别</button></td>
+								<td>
+									<jsp:include page="/JSP/main/common/costumeCategoryModal.jsp">
+										<jsp:param name="isLimitCheck" value="true"/>
+									</jsp:include>
+								</td>
 							</tr>
 							<tr>
 								<td><label>发单地区</label></td>
@@ -66,59 +70,6 @@ color:#6699ff;border:1px #ff8000 dashed;
 								<td colspan="2"><button type="submit" class="form-control btn btn-primary">搜索</button></td>
 							</tr>
 						</table>
-						
-						<!-- 选择服饰类别模态框 -->
-						<div class="modal fade" id="costumeCategoryModal" tabindex="-1">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-										<h5 class="modal-title" id="myModalLabel">选择服饰类别</h5>
-									</div>
-									<div class="modal-body">
-										<ul class="nav nav-tabs">
-											<li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
-											<li><a href="#costume_2" data-toggle="tab">服饰</a></li>
-											<li><a href="#costume_3" data-toggle="tab">家纺</a></li>
-											<li><a href="#costume_4" data-toggle="tab">纺织消费品</a></li>
-											<li><a href="#costume_5" data-toggle="tab">面料/皮革/纱线</a></li>
-											<li><a href="#costume_6" data-toggle="tab">纺织辅料</a></li>
-										</ul>
-										<div class="tab-content">
-											<div class="tab-pane active" id="costume_1">
-												
-											</div>
-											<div class="tab-pane" id="costume_2"></div>
-											<div class="tab-pane" id="costume_3"></div>
-											<div class="tab-pane" id="costume_4"></div>
-											<div class="tab-pane" id="costume_5"></div>
-											<div class="tab-pane" id="costume_6"></div>
-										</div>
-										
-										<table id="template" class="table" style="display:none;">
-											<tr style="display:none;">
-												<!-- 二级类目 -->
-												<td style="width:100px;vertical-align:top;display:none;">
-													<label style="cursor:pointer;">
-														<input type="checkbox" name="costumeCode" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
-													</label>
-												</td>
-												<!-- 三级类目 -->
-												<td>
-													<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
-														<input type="checkbox" name="costumeCode" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
-													</label>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkCostume()">确定</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-									</div>
-								</div>
-							</div>
-						</div>
 						
 						<!-- 选择地区模态框 -->
 						<div class="modal fade" id="districtModal" tabindex="-1">
@@ -164,7 +115,7 @@ color:#6699ff;border:1px #ff8000 dashed;
 					<table>
 						<tr>
 							<c:forEach var="enterprise" items="${enterprises}" end="3">
-								<td><img src="image/enterpriseLogo/${enterprise.logo}"><div><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
+								<td><img src="uploadFile/enterprise/${enterprise.logo}"><div><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
 							</c:forEach>
 						</tr>
 						<tr style="height:40px;">
@@ -323,13 +274,14 @@ color:#6699ff;border:1px #ff8000 dashed;
 	</div><!-- 右边栏 -->
 </div>
 
-<input type="hidden" id="hiddenCostumeCategory" value={<c:forEach var="costumeCategory" items="${costumeCategoryMap}">"${costumeCategory.key}":"${costumeCategory.value}",</c:forEach>}>
+<%-- <input type="hidden" id="hiddenCostumeCategory" value={<c:forEach var="costumeCategory" items="${costumeCategoryMap}">"${costumeCategory.key}":"${costumeCategory.value}",</c:forEach>}> --%>
+<!-- <input type="hidden" id="hiddenCostumeCategory" value=${costumeCategoryMap}> -->
+<span style="display:none" id="hiddenCostumeCategory">${costumeCategoryMap}</span>
 <input type="hidden" id="hiddenProcessType" value={<c:forEach var="processType" items="${processTypes}">"${processType.constantValue}":"${processType.constantName}",</c:forEach>}>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>
-<script src="JS/util/districtCascade.js"></script>
+<script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/main/enterprise.js"></script>
 </body>
 </html>
-

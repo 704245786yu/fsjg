@@ -14,7 +14,6 @@ function initCostumeCategory(){
 	var $checkbox2 = $td2.find('label').clone();
 	$td2.find('label').remove();	//去除隐藏的checkbox，防止表单提交的时候此类checkbox产生空值
 	$checkbox2.css('display','block');
-	
 	var data = $.parseJSON($('#costumeCategoryModal span[name="data"]').html());
 	var trades = new TreeUtil().adjTransToNest(data)[0].children;//获取根目录下的行业分类
 	//获取tab模板
@@ -104,12 +103,12 @@ function threeLevelCheck(checkbox){
 	isOverChecked(checkbox)
 }
 
-//判断checkbox是否选择超过三个
+//判断checkbox是否选择超过5个
 function isOverChecked(checkbox){
 	var $checkbox = $(checkbox);
 	if($checkbox.prop('checked')==true){
 		var length = $('#costumeCategoryModal :checked').not(':disabled').length;
-		var isLimitCheck = $('#costumeCategoryModal span[name="isLimitCheck"]').val();
+		var isLimitCheck = $('#costumeCategoryModal input[name="isLimitCheck"]').val();
 		if(isLimitCheck != ''){
 			if(length > 5){
 				alert('不能超过5个');

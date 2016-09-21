@@ -13,8 +13,7 @@
 				<ul class="nav nav-tabs">
 					<!-- <li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
 					<li><a href="#costume_2" data-toggle="tab">服饰</a></li>
-					<li><a href="#costume_3" data-toggle="tab">家纺</a></li>
-					<li><a href="#costume_4" data-toggle="tab">面料</a></li> -->
+					<li><a href="#costume_3" data-toggle="tab">面料</a></li> -->
 					<li style="display:none"><a href="#costume_" data-toggle="tab"></a></li>
 				</ul>
 				<div class="tab-content">
@@ -22,8 +21,7 @@
 						
 					</div>
 					<div class="tab-pane" id="costume_2"></div>
-					<div class="tab-pane" id="costume_3"></div>
-					<div class="tab-pane" id="costume_4"></div> -->
+					<div class="tab-pane" id="costume_3"></div> -->
 					<div style="display:none" class="tab-pane" id="costume_"></div>
 				</div>
 				
@@ -50,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<span name="isLimitCheck">${param.isLimitCheck}</span>
+	<input name="isLimitCheck" value="${param.isLimitCheck}">
 	<span name="data" style="display:none;">${applicationScope.costumeCategoryList}</span>
 </div>
 
