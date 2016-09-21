@@ -1,7 +1,6 @@
 package com.basic.biz;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,8 +40,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 
 	private static final String defaultPassword = "123456";
 	
-	public boolean isExsit(String enterpriseName){
-		return dao.isExsit(enterpriseName);
+	public boolean isExsit(String enterpriseName, Integer enterpriseId){
+		return dao.isExsit(enterpriseName, enterpriseId);
 	}
 	
 	public ReturnValueVo batchSaveEnterprise(List<String[]> data,Integer userId){
@@ -504,14 +503,20 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	@Transactional
 	public void deleteById(Integer id,String uploadDir) {
 		int userId = dao.getUserId(id);
-		List<String> imgs = dao.getImgs(id);
-		String enterpriseImg = imgs.get(2);
+		String[] imgs = dao.getImgs(id);
+		if(imgs[0].length()>0 && !imgs[0].equals("default_logo.png"))
+			FileUtil.delImg(uploadDir, imgs[0]);
+		if(imgs[1].length()>0)
+			FileUtil.delImg(uploadDir, imgs[1]);
+		
+		String enterpriseImg = imgs[2];
 		if(enterpriseImg.length()!=0){
-			imgs.addAll(Arrays.asList(enterpriseImg.split(",")));
+			String[] pics = enterpriseImg.split(",");
+			FileUtil.delImg(uploadDir, pics);
 		}
-		FileUtil.delImg(uploadDir, imgs.toArray(new String[]{}));
 		enterpriseCostumeRelaDao.delByEnterpriseId(id);
 		dao.deleteById(id);
 		basicUserDao.deleteById(userId);
 	}
+	
 }

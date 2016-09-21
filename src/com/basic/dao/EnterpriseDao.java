@@ -37,13 +37,16 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 	}
 	
 	/**检查企业是否已经存在*/
-	public boolean isExsit(String enterpriseName){
-		String hql = "select count(1) from Enterprise where enterpriseName =:enterpriseName";
-		long amount = super.getCount(hql, new String[]{"enterpriseName"}, new String[]{enterpriseName});
-		if(amount > 0)
-			return true;
-		else
-			return false;
+	public boolean isExsit(String enterpriseName, Integer id){
+		long amount = 0;
+		if(id == null){
+			String hql = "select count(1) from Enterprise where enterpriseName =:enterpriseName";
+			amount = super.getCount(hql, new String[]{"enterpriseName"}, new String[]{enterpriseName});
+		}else{
+			String hql = "select count(1) from Enterprise where enterpriseName =:enterpriseName and id !=:id";
+			amount = super.getCount(hql, new String[]{"enterpriseName","id"}, new Object[]{enterpriseName,id});
+		}
+		return amount>0 ? true : false;
 	}
 	
 	/**获取关联的用户ID*/
@@ -273,9 +276,16 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 	}
 	
 	/**获取工厂的图片*/
-	@SuppressWarnings("unchecked")
-	public List<String> getImgs(int id){
+	public String[] getImgs(int id){
 		String hql = "select logo,licenseImg,enterpriseImg from Enterprise where id =:id";
-		return (List<String>)super.find(hql, new String[]{"id"}, new Integer[]{id});
+		Object[] obj = (Object[])super.find(hql, new String[]{"id"}, new Integer[]{id}).get(0);
+		String[] imgs = new String[3];
+		for(int i=0; i<obj.length; i++){
+			if(obj[i] != null)
+				imgs[i] = String.valueOf(obj[i]);
+			else
+				imgs[i] = "";
+		}
+		return imgs;
 	}
 }

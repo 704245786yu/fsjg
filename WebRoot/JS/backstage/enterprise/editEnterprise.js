@@ -17,13 +17,7 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 20,
     				message: '最多20个字符'
-    			},
-    			remote : {
-					trigger: 'keyup',
-					delay:2000,
-					message: '用户名已存在',
-					url:'login/nameIsExist'
-				}
+    			}
     		}
     	},
     	enterpriseName: {
@@ -34,13 +28,7 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 30,
     				message: '最多30个字符'
-    			},
-    			remote : {
-					trigger: 'keyup',
-					delay:2000,
-					message: '用户名已存在',
-					url:'login/nameIsExist'
-				}
+    			}
     		}
     	},
     	linkman: {
@@ -63,13 +51,7 @@ $('#ff').bootstrapValidator({
     			regexp: {
                     regexp: /^1[3|4|5|7|8]\d{9}$/,
                     message: '手机号码格式不正确'
-                },
-	    		remote : {
-					trigger: 'keyup',
-					delay:1000,
-					message: '手机号已存在',
-					url:'login/teleIsExist'
-				}
+                }
     		}
     	},
     	province:{
@@ -139,6 +121,8 @@ $('#ff').bootstrapValidator({
 }).on('success.form.bv', function(e) {
 	if(!isCostumeCheck()){
 		e.preventDefault();
+		var $form = $(e.target);
+		$form.find(':submit').removeAttr('disabled');
 		alert('请选择主营产品');
 	}
 });
@@ -176,7 +160,6 @@ function success(data){
 //显示Form表单，隐藏其他面板
 function showForm(){
 	g_delImg = new Array();
-	$('#ff').bootstrapValidator('resetForm', true);
 	$('#listPanel').hide();
 	$('#editPanel').show();
 }
@@ -188,8 +171,10 @@ function add(){
 }
 
 //新增，该方法由主页面的add按钮触发
+var g_basicUserId = null;
 function modify(id){
 	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
+	g_basicUserId = data.basicUser.id;
 	$("#ff").autofill(data);
 	checkCostumeByCodes(data.costumeCode);//设置“选择产品类别”button的显示文字
 	
@@ -298,7 +283,6 @@ function enterpriseImgChange(file,maxSize){
 function cancel(){
 	g_delImg = new Array();
 	var $form = $('#ff');
-	
 	$form.find('input[name="logoImg"] ~ div').css('display','none');//隐藏工厂logo
 	$form.find('input[name="licensePic"] ~ div').css('display','none');//licensePic工厂营业执照
 	$form.find(':hidden[name="enterpriseImg"] ~ div:first').nextAll().remove();//移除展示的工厂图片

@@ -22,22 +22,28 @@ public class BasicUserDao extends BaseDao<Integer, BasicUser>{
 			return false;
 	}
 	
-	public boolean nameIsExsit(String userName){
-		String hql = "select count(1) from BasicUser where userName =:userName";
-		long amount = super.getCount(hql, new String[]{"userName"}, new String[]{userName});
-		if(amount > 0)
-			return true;
-		else
-			return false;
+	public boolean nameIsExsit(String userName, Integer id){
+		long amount = 0;
+		if(id == null){
+			String hql = "select count(1) from BasicUser where userName =:userName";
+			amount = super.getCount(hql, new String[]{"userName"}, new String[]{userName});
+		}else{
+			String hql = "select count(1) from BasicUser where userName =:userName and id !=:id";
+			amount = super.getCount(hql, new String[]{"userName","id"}, new Object[]{userName,id});
+		}
+		return amount>0 ? true : false;
 	}
 	
-	public boolean teleIsExsit(Long telephone){
-		String hql = "select count(1) from BasicUser where telephone =:telephone";
-		long amount = super.getCount(hql, new String[]{"telephone"}, new Long[]{telephone});
-		if(amount > 0)
-			return true;
-		else
-			return false;
+	public boolean teleIsExsit(Long telephone, Integer id){
+		long amount = 0;
+		if(id == null){
+			String hql = "select count(1) from BasicUser where telephone =:telephone";
+			amount = super.getCount(hql, new String[]{"telephone"}, new Long[]{telephone});
+		}else{
+			String hql = "select count(1) from BasicUser where telephone =:telephone and id !=:id";
+			amount = super.getCount(hql, new String[]{"telephone","id"}, new Object[]{telephone,id});
+		}
+		return amount>0 ? true : false;
 	}
 	
 	/**用户登录

@@ -62,7 +62,7 @@ public class EnterpriseTest {
 	
 	@Test
 	public void isExsit(){
-		JacksonJson.printBeanToJson(enterpriseDao.isExsit("服饰厂1"));
+		JacksonJson.printBeanToJson(enterpriseDao.isExsit("服饰厂1",null));
 	}
 	
 	@Test

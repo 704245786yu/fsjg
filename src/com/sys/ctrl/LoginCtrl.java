@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -18,6 +19,7 @@ import com.basic.biz.BasicUserBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.po.BasicUser;
 import com.common.vo.ReturnValueVo;
+import com.common.vo.ValidVo;
 import com.sys.biz.UserBiz;
 import com.sys.po.User;
 import com.util.SMS;
@@ -102,37 +104,27 @@ public class LoginCtrl {
 		return mav;
 	}
 	
-	/**校验用户名是否存在*/
+	/**校验用户名是否存在
+	 * @param id 判断是否存在时排除id值
+	 * */
 	@RequestMapping(value="nameIsExist")
 	@ResponseBody
-	public String nameIsExist(String userName){
-		if(basicUserBiz.nameIsExist(userName)){
-			return  "{\"valid\":false}";
-		}else{
-			return  "{\"valid\":true}";
-		}
+	public ValidVo nameIsExist(String userName, @RequestParam(required=false)Integer id){
+		return new ValidVo( ! basicUserBiz.nameIsExist(userName,id) );
 	}
 	
 	/**校验手机号是否存在*/
 	@RequestMapping(value="teleIsExist")
 	@ResponseBody
-	public String teleIsExist(Long telephone){
-		if(basicUserBiz.teleIsExist(telephone)){
-			return  "{\"valid\":false}";
-		}else{
-			return  "{\"valid\":true}";
-		}
+	public ValidVo teleIsExist(Long telephone, @RequestParam(required=false)Integer id){
+		return new ValidVo( ! basicUserBiz.teleIsExist(telephone,id) );
 	}
 	
 	/**校验企业名称是否存在*/
 	@RequestMapping(value="enterpriseIsExist")
 	@ResponseBody
-	public String enterpriseIsExist(String enterpriseName){
-		if(enterpriseBiz.isExsit(enterpriseName)){
-			return  "{\"valid\":false}";
-		}else{
-			return  "{\"valid\":true}";
-		}
+	public ValidVo enterpriseIsExist(String enterpriseName, @RequestParam(required=false)Integer id){
+		return new ValidVo( ! enterpriseBiz.isExsit(enterpriseName,id));
 	}
 	
 	//普通用户登录

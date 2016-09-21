@@ -29,7 +29,7 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 		}
 		//企业用户需判断企业名称是否重复
 		if(basicUser.getRoleId() == 2){
-			if(enterpriseDao.isExsit(enterpriseName))
+			if(enterpriseDao.isExsit(enterpriseName,null))
 				return "企业名称重复";
 			Enterprise enterprise = new Enterprise();
 			enterprise.setEnterpriseName(enterpriseName);
@@ -63,11 +63,11 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 		return dao.login(nameOrTele, password);
 	}
 	
-	public boolean nameIsExist(String userName){
-		return dao.nameIsExsit(userName);
+	public boolean nameIsExist(String userName, Integer id){
+		return dao.nameIsExsit(userName,id);
 	}
 	
-	public boolean teleIsExist(Long telephone){
-		return dao.teleIsExsit(telephone);
+	public boolean teleIsExist(Long telephone, Integer id){
+		return dao.teleIsExsit(telephone, id);
 	}
 }

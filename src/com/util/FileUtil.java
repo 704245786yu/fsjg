@@ -6,6 +6,17 @@ public class FileUtil {
 
 	/**删除文件
 	 * @param uploadDir 删除文件的目录
+	 * @param fileName 要删除的文件名
+	 * @return 是否删除成功
+	 * */
+	public static boolean delImg(String uploadDir,String fileName){
+		File file = new File(uploadDir+fileName);
+		file.delete();
+		return true;
+	}
+	
+	/**删除文件
+	 * @param uploadDir 删除文件的目录
 	 * @param fileNames 要删除的文件名
 	 * @return 是否删除成功
 	 * */

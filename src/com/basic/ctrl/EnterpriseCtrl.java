@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.basic.biz.BasicUserBiz;
 import com.basic.biz.CostumeCategoryBiz;
 import com.basic.biz.DistrictBiz;
 import com.basic.biz.EnterpriseBiz;
@@ -47,6 +48,8 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	private ConstantDictBiz constantDictBiz;
 	@Autowired
 	private CostumeCategoryBiz costumeCategoryBiz;
+	@Autowired
+	private BasicUserBiz basicUserBiz;
 	@Autowired
 	private EnterpriseCostumeRelaBiz enterpriseCostumeRelaBiz;
 	@Autowired
@@ -102,15 +105,6 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			e.printStackTrace();
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION,"读取文件发生错误，请与管理员联系");
 		}
-	}
-	
-	@Override
-	public Enterprise update(Enterprise enterprise, HttpSession session){
-		User user = (User)UserCtrl.getLoginUser(session);
-		BasicUser basicUser = enterprise.getBasicUser();
-		basicUser.setUpdateBy(user.getId());
-		biz.update(enterprise);
-		return enterprise;
 	}
 	
 	/**获取加工企业的主营产品类型*/
@@ -233,10 +227,15 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		}
 		e.getBasicUser().setCreateBy(createBy);
 		
-		//验证文件类型、大小是否符合
-		String errorMsg = this.verifyImg(logoImg,licensePic,enterprisePic);
+		//验证用户名、工厂名称、手机号码是否相同
+		String errorMsg = this.isExistField(e);
 		if(errorMsg.length() > 0)
-			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+			return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		//验证文件类型、大小是否符合
+		errorMsg = this.verifyImg(logoImg,licensePic,enterprisePic);
+		if(errorMsg.length() > 0)
+			return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
 		
 		//转储图片
 		//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
@@ -258,9 +257,9 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			
 			if(enterprisePic.length > 0){
 				String enterpriseImg = null;
-				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,createBy,"pic");
+				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,createBy,"0pic");
 				for(int i=1;i<enterprisePic.length;i++){
-					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,createBy,"pic");
+					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,createBy,i+"pic");
 				}
 				e.setEnterpriseImg(enterpriseImg);
 			}
@@ -298,8 +297,13 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		}
 		e.getBasicUser().setUpdateBy(updateBy);
 		
+		//验证用户名、工厂名称、手机号码是否相同
+		String errorMsg = this.isExistField(e);
+		if(errorMsg.length() > 0)
+			return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
 		//验证文件类型、大小是否符合
-		String errorMsg = this.verifyImg(logoImg,licensePic,enterprisePic);
+		errorMsg = this.verifyImg(logoImg,licensePic,enterprisePic);
 		if(errorMsg.length() > 0)
 			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
 		
@@ -310,12 +314,12 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			e1.printStackTrace();
 		}
 		//删除旧图片
-		if(delImg!=null)
+		if(delImg!=null){
 			FileUtil.delImg(uploadDir, delImg);
-		
-		for(int i=0; i<delImg.length; i++){
-			if(delImg[i].indexOf("logo") != -1){
-				e.setLogo("default_logo.png");
+			for(int i=0; i<delImg.length; i++){
+				if(delImg[i].indexOf("logo") != -1){
+					e.setLogo("default_logo.png");
+				}
 			}
 		}
 		
@@ -329,11 +333,14 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			
 			if(enterprisePic.length > 0){
 				String enterpriseImg = null;
-				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,updateBy,"pic");
+				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,updateBy,"0pic");
 				for(int i=1;i<enterprisePic.length;i++){
-					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,updateBy,"pic");
+					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,updateBy,i+"pic");
 				}
-				e.setEnterpriseImg(e.getEnterpriseImg()+enterpriseImg);
+				if(e.getEnterpriseImg().length() > 0)
+					e.setEnterpriseImg(e.getEnterpriseImg()+','+enterpriseImg);
+				else
+					e.setEnterpriseImg(enterpriseImg);
 			}
 		} catch (IllegalStateException | IOException ex) {
 			ex.printStackTrace();
@@ -344,7 +351,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	}
 	
 	@Override
-	public Integer delete(Integer id, HttpSession session) {
+	public Integer delete(@PathVariable Integer id, HttpSession session) {
 		String uploadDir = null;
 		try {
 			uploadDir = session.getServletContext().getResource("uploadFile/enterprise/").getPath();
@@ -399,7 +406,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		String enterprisePicError = "";
 		for(int i=0;i<enterprisePic.length;i++){
 			contentType = enterprisePic[i].getContentType();
-			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+			if( enterprisePic[i].getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
 				enterprisePicError = "工厂照片不符合上传要求";
 			}
 		}
@@ -407,4 +414,18 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return errorMsg;
 	}
 	
+	private String isExistField(Enterprise e){
+		String errorMsg = "";
+		Integer basicUserId = e.getBasicUser().getId();
+		if(basicUserBiz.nameIsExist(e.getBasicUser().getUserName(), basicUserId)){
+			errorMsg = "用户名已存在";
+		}
+		if(basicUserBiz.teleIsExist(e.getBasicUser().getTelephone(), basicUserId)){
+			errorMsg += " 手机号已存在";
+		}
+		if(biz.isExsit(e.getEnterpriseName(), e.getId())){
+			errorMsg += " 工厂名称已存在";
+		}
+		return errorMsg;
+	}
 }
