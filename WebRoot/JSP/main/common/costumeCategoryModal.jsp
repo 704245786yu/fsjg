@@ -50,6 +50,7 @@
 			</div>
 		</div>
 	</div>
+	<span name="isLimitCheck">${param.isLimitCheck}</span>
 	<span name="data" style="display:none;">${applicationScope.costumeCategoryList}</span>
 </div>
 

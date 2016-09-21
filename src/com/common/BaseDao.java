@@ -99,6 +99,11 @@ public class BaseDao<ID extends Serializable, T> {
 		getCurrentSession().update(entity);
 	}
 	
+	/**merge实体*/
+	public void merge(T entity){
+		getCurrentSession().merge(entity);
+	}
+	
 	/**保存或更新实体*/
 	public void saveOrUpdate(T entity){
 		getCurrentSession().saveOrUpdate(entity);

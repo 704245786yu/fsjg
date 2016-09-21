@@ -2,6 +2,7 @@ package com.basic.ctrl;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,7 @@ import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.ConstantDict;
 import com.sys.po.User;
+import com.util.FileUtil;
 import com.util.MicroOfficeFile;
 
 @Controller
@@ -78,165 +80,6 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		mav.setViewName("backstage/enterprise/enterprise");
 		mav.addObject("processTypes", processTypes);
 		return mav;
-	}
-	
-	/**@param enterprisePic 最多选择6张图片
-	 * */
-	@RequestMapping("saveEnterprise")
-	@ResponseBody
-	public ReturnValueVo saveEnterprise(
-			Enterprise e,
-			@RequestParam(value="logoImg",required=false)MultipartFile logoImg,
-			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
-			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
-			HttpSession session){
-		//检查是否登录,判断操作用户是管理员还是普通用户自己
-		Integer createBy = null;
-		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
-		if(basicUser != null){
-			createBy = basicUser.getId();
-		}else{
-			User user = UserCtrl.getLoginUser(session);
-			if(user!=null)
-				createBy = user.getId();
-		}
-		if(createBy==null){
-			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
-		}
-		e.getBasicUser().setCreateBy(createBy);
-		
-		//验证文件类型、大小是否符合
-		String errorMsg = "";
-		String contentType = null;
-		if(logoImg != null){
-			contentType = logoImg.getContentType();
-			if( logoImg.getSize()>logoImgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-				errorMsg = "工厂logo不符合上传要求";
-			}
-		}
-		if(licensePic != null){
-			contentType = licensePic.getContentType();
-			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-				errorMsg += "营业执照不符合上传要求";
-			}
-		}
-		String enterprisePicError = "";
-		for(int i=0;i<enterprisePic.length;i++){
-			contentType = enterprisePic[i].getContentType();
-			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-				enterprisePicError = "工厂照片不符合上传要求";
-			}
-		}
-		errorMsg += enterprisePicError;
-		if(errorMsg.length() > 0)
-			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
-		
-		//转储图片
-		//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
-		String uploadDir = session.getServletContext().getRealPath("uploadFile/enterprise/");
-//		String uploadDir = session.getServletContext().getInitParameter("uploadDir/enterprise");
-		try{
-			if(logoImg != null)
-				e.setLogo(this.transferFile(logoImg,uploadDir,createBy,"logo"));
-			else
-				e.setLogo("default_logo.png");//设置默认图片
-			
-			if(licensePic != null)
-				e.setLicenseImg(this.transferFile(licensePic,uploadDir,createBy,"lic"));
-			if(enterprisePic.length > 0){
-				String enterpriseImg = null;
-				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,createBy,"pic");
-				for(int i=1;i<enterprisePic.length;i++){
-					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,createBy,"pic");
-				}
-				e.setEnterpriseImg(enterpriseImg);
-			}
-		} catch (IllegalStateException | IOException ex) {
-			ex.printStackTrace();
-			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
-		}
-		biz.save(e);
-		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
-	}
-	
-	/**@param enterprisePic 最多选择6张图片
-	 * */
-	@RequestMapping("updateEnterprise")
-	@ResponseBody
-	public ReturnValueVo updateEnterprise(
-			Enterprise e,
-			String[] delImg,
-			@RequestParam(value="logoImg",required=false)MultipartFile logoImg,
-			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
-			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
-			HttpSession session){
-		//检查是否登录,判断操作用户是管理员还是普通用户自己
-		Integer updateBy = null;
-		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
-		if(basicUser != null){
-			updateBy = basicUser.getId();
-		}else{
-			User user = UserCtrl.getLoginUser(session);
-			if(user!=null)
-				updateBy = user.getId();
-		}
-		if(updateBy==null){
-			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
-		}
-		e.getBasicUser().setUpdateBy(updateBy);
-		
-		//验证文件类型、大小是否符合
-		String errorMsg = "";
-		String contentType = null;
-		if(logoImg != null){
-			contentType = logoImg.getContentType();
-			if( logoImg.getSize()>logoImgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-				errorMsg = "工厂logo不符合上传要求";
-			}
-		}
-		if(licensePic != null){
-			contentType = licensePic.getContentType();
-			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-				errorMsg += "营业执照不符合上传要求";
-			}
-		}
-		String enterprisePicError = "";
-		for(int i=0;i<enterprisePic.length;i++){
-			contentType = enterprisePic[i].getContentType();
-			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-				enterprisePicError = "工厂照片不符合上传要求";
-			}
-		}
-		errorMsg += enterprisePicError;
-		if(errorMsg.length() > 0)
-			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
-		
-		//转储图片
-		//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
-		String uploadDir = session.getServletContext().getRealPath("uploadFile/enterprise/");
-//		String uploadDir = session.getServletContext().getInitParameter("uploadDir/enterprise");
-		try{
-			if(logoImg != null)
-				e.setLogo(this.transferFile(logoImg,uploadDir,updateBy,"logo"));
-			else
-				e.setLogo("default_logo.png");//设置默认图片
-			
-			if(licensePic != null)
-				e.setLicenseImg(this.transferFile(licensePic,uploadDir,updateBy,"lic"));
-			if(enterprisePic.length > 0){
-				String enterpriseImg = null;
-				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,updateBy,"pic");
-				for(int i=1;i<enterprisePic.length;i++){
-					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,updateBy,"pic");
-				}
-				e.setEnterpriseImg(enterpriseImg);
-			}
-		} catch (IllegalStateException | IOException ex) {
-			ex.printStackTrace();
-			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
-		}
-		biz.save(e);
-		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
 	}
 	
 	/**批量导入工厂信息
@@ -365,6 +208,158 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return mav;
 	}
 	
+	/**@param enterprisePic 最多选择6张图片
+	 * */
+	@RequestMapping("saveEnterprise")
+	@ResponseBody
+	public ReturnValueVo saveEnterprise(
+			Enterprise e,
+			@RequestParam(value="logoImg",required=false)MultipartFile logoImg,
+			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
+			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
+			HttpSession session){
+		//检查是否登录,判断操作用户是管理员还是普通用户自己
+		Integer createBy = null;
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		if(basicUser != null){
+			createBy = basicUser.getId();
+		}else{
+			User user = UserCtrl.getLoginUser(session);
+			if(user!=null)
+				createBy = user.getId();
+		}
+		if(createBy==null){
+			return new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
+		}
+		e.getBasicUser().setCreateBy(createBy);
+		
+		//验证文件类型、大小是否符合
+		String errorMsg = this.verifyImg(logoImg,licensePic,enterprisePic);
+		if(errorMsg.length() > 0)
+			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		//转储图片
+		//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
+		String uploadDir = null;
+		try {
+			uploadDir = session.getServletContext().getResource("uploadFile/enterprise/").getPath();
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+//		String uploadDir = session.getServletContext().getInitParameter("uploadDir/enterprise");
+		try{
+			if(logoImg != null)
+				e.setLogo(this.transferFile(logoImg,uploadDir,createBy,"logo"));
+			else
+				e.setLogo("default_logo.png");//设置默认图片
+			
+			if(licensePic != null)
+				e.setLicenseImg(this.transferFile(licensePic,uploadDir,createBy,"lic"));
+			
+			if(enterprisePic.length > 0){
+				String enterpriseImg = null;
+				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,createBy,"pic");
+				for(int i=1;i<enterprisePic.length;i++){
+					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,createBy,"pic");
+				}
+				e.setEnterpriseImg(enterpriseImg);
+			}
+		} catch (IllegalStateException | IOException ex) {
+			ex.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
+		}
+		biz.save(e);
+		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
+	}
+	
+	/**@param enterprisePic 最多选择6张图片
+	 * */
+	@RequestMapping("updateEnterprise")
+	@ResponseBody
+	public ReturnValueVo updateEnterprise(
+			Enterprise e,
+			String[] delImg,
+			@RequestParam(value="logoImg",required=false)MultipartFile logoImg,
+			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
+			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
+			HttpSession session){
+		//检查是否登录,判断操作用户是管理员还是普通用户自己
+		Integer updateBy = null;
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		if(basicUser != null){
+			updateBy = basicUser.getId();
+		}else{
+			User user = UserCtrl.getLoginUser(session);
+			if(user!=null)
+				updateBy = user.getId();
+		}
+		if(updateBy==null){
+			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
+		}
+		e.getBasicUser().setUpdateBy(updateBy);
+		
+		//验证文件类型、大小是否符合
+		String errorMsg = this.verifyImg(logoImg,licensePic,enterprisePic);
+		if(errorMsg.length() > 0)
+			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		String uploadDir = null;
+		try {
+			uploadDir = session.getServletContext().getResource("uploadFile/enterprise/").getPath();
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+		//删除旧图片
+		if(delImg!=null)
+			FileUtil.delImg(uploadDir, delImg);
+		
+		for(int i=0; i<delImg.length; i++){
+			if(delImg[i].indexOf("logo") != -1){
+				e.setLogo("default_logo.png");
+			}
+		}
+		
+		//转储图片
+		try{
+			if(logoImg != null)
+				e.setLogo(this.transferFile(logoImg,uploadDir,updateBy,"logo"));
+			
+			if(licensePic != null)
+				e.setLicenseImg(this.transferFile(licensePic,uploadDir,updateBy,"lic"));
+			
+			if(enterprisePic.length > 0){
+				String enterpriseImg = null;
+				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,updateBy,"pic");
+				for(int i=1;i<enterprisePic.length;i++){
+					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,updateBy,"pic");
+				}
+				e.setEnterpriseImg(e.getEnterpriseImg()+enterpriseImg);
+			}
+		} catch (IllegalStateException | IOException ex) {
+			ex.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
+		}
+		biz.update(e);
+		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
+	}
+	
+	@Override
+	public Integer delete(Integer id, HttpSession session) {
+		String uploadDir = null;
+		try {
+			uploadDir = session.getServletContext().getResource("uploadFile/enterprise/").getPath();
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+		try{
+			biz.deleteById(id, uploadDir);
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
 	/**保存文件到磁盘
 	 * @param srcFile 原文件
 	 * @param uploadDir 保存路径
@@ -383,4 +378,33 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		srcFile.transferTo(new File(uploadDir + newFileName));
 		return newFileName;
 	}
+	
+	/**验证图片
+	 * */
+	private String verifyImg(MultipartFile logoImg,MultipartFile licensePic,MultipartFile[] enterprisePic){
+		String errorMsg = "";
+		String contentType = null;
+		if(logoImg != null){
+			contentType = logoImg.getContentType();
+			if( logoImg.getSize()>logoImgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg = "工厂logo不符合上传要求";
+			}
+		}
+		if(licensePic != null){
+			contentType = licensePic.getContentType();
+			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg += "营业执照不符合上传要求";
+			}
+		}
+		String enterprisePicError = "";
+		for(int i=0;i<enterprisePic.length;i++){
+			contentType = enterprisePic[i].getContentType();
+			if( licensePic.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				enterprisePicError = "工厂照片不符合上传要求";
+			}
+		}
+		errorMsg += enterprisePicError;
+		return errorMsg;
+	}
+	
 }

@@ -30,4 +30,9 @@ public class EnterpriseCostumeRelaDao extends BaseDao<Integer, EnterpriseCostume
 		String hql = "delete EnterpriseCostumeRela where enterpriseId =:enterpriseId";
 		super.executeUpdate(hql, new String[]{"enterpriseId"}, new Integer[]{enterpriseId});
 	}
+	
+	public void delete(int enterpriseId, List<Integer> costumeCodes){
+		super.executeUpdate("delete from EnterpriseCostumeRela where enterpriseId =:enterpriseId and costumeCode in (:costumeCodes)",
+				new String[]{"enterpriseId","costumeCodes"}, new Object[]{enterpriseId,costumeCodes});
+	}
 }

@@ -17,10 +17,130 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 20,
     				message: '最多20个字符'
+    			},
+    			remote : {
+					trigger: 'keyup',
+					delay:2000,
+					message: '用户名已存在',
+					url:'login/nameIsExist'
+				}
+    		}
+    	},
+    	enterpriseName: {
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			stringLength: {
+    				max: 30,
+    				message: '最多30个字符'
+    			},
+    			remote : {
+					trigger: 'keyup',
+					delay:2000,
+					message: '用户名已存在',
+					url:'login/nameIsExist'
+				}
+    		}
+    	},
+    	linkman: {
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			stringLength: {
+    				max: 10,
+    				message: '最多10个字符'
+    			}
+    		}
+    	},
+    	'basicUser.telephone': {
+    		threshold: 11,
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			regexp: {
+                    regexp: /^1[3|4|5|7|8]\d{9}$/,
+                    message: '手机号码格式不正确'
+                },
+	    		remote : {
+					trigger: 'keyup',
+					delay:1000,
+					message: '手机号已存在',
+					url:'login/teleIsExist'
+				}
+    		}
+    	},
+    	province:{
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			}
+    		}
+    	},
+    	city:{
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			}
+    		}
+    	},
+    	county:{
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			}
+    		}
+    	},
+    	detailAddr:{
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			stringLength: {
+    				max: 50,
+    				message: '最多50个字符'
+    			}
+    		}
+    	},
+    	trade:{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			}
+    		}
+    	},
+    	processType:{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			}
+    		}
+    	},
+    	saleMarket:{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			}
+    		}
+    	},
+    	staffNumber:{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			},
+    			integer:{
+    				message:'必须为数字'
     			}
     		}
     	}
     }
+}).on('success.form.bv', function(e) {
+	if(!isCostumeCheck()){
+		e.preventDefault();
+		alert('请选择主营产品');
+	}
 });
 
 var options = {  
@@ -31,8 +151,9 @@ var options = {
 $('#ff').ajaxForm(options);
 
 function beforeSubmit(formData, jqForm, options){
-	formData.push({'name':'delImg','value':"xxx.jsp"});
-	formData.push({'name':'delImg','value':"xxx2.jsp"});
+	for(var i=0; i<g_delImg.length; i++){
+		formData.push({'name':'delImg','value':g_delImg[i]});
+	}
 }
 
 function success(data){
@@ -40,9 +161,9 @@ function success(data){
 	if(data.status==200){
 		var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
 		if(opt.indexOf("save")!=-1){
-			$('#dg').bootstrapTable('append',data);
+			$('#dg').bootstrapTable('append',data.value);
 		}else if(opt.indexOf("update")!=-1){	//update by unique id
-			$('#dg').bootstrapTable('updateByUniqueId',{'id':data.id,'row':data.value});
+			$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
 		}
 		cancel();
 	}else if(data.status==500){
@@ -55,6 +176,7 @@ function success(data){
 //显示Form表单，隐藏其他面板
 function showForm(){
 	g_delImg = new Array();
+	$('#ff').bootstrapValidator('resetForm', true);
 	$('#listPanel').hide();
 	$('#editPanel').show();
 }
@@ -103,7 +225,7 @@ function modify(id){
 			$div.after($divTemp);
 		}
 	}
-	$('#ff').attr('action','enterprise/update');
+	$('#ff').attr('action','enterprise/updateEnterprise');
 	showForm();
 }
 
@@ -147,7 +269,10 @@ function imgChange(file,maxSize){
 
 function enterpriseImgChange(file,maxSize){
 	//image/jpeg image/png
-	var imgs = $(':hidden[name="enterpriseImg"]').val().split(',');
+	var imgStr = $(':hidden[name="enterpriseImg"]').val();
+	var imgs = [];
+	if(imgStr != '')
+		imgs = imgStr.split(',');
 	var files = file.files;
 	//IE9以下无此属性
 	if(files==null)
@@ -171,14 +296,16 @@ function enterpriseImgChange(file,maxSize){
 /**取消编辑表单，同时重置表单
  * */
 function cancel(){
-	$('#listPanel').show();
-	$('#editPanel').hide();
 	g_delImg = new Array();
 	var $form = $('#ff');
 	
 	$form.find('input[name="logoImg"] ~ div').css('display','none');//隐藏工厂logo
 	$form.find('input[name="licensePic"] ~ div').css('display','none');//licensePic工厂营业执照
 	$form.find(':hidden[name="enterpriseImg"] ~ div:first').nextAll().remove();//移除展示的工厂图片
+	$form.find('input[type="hidden"]').val('');
 	$form.bootstrapValidator('resetForm', true);
+	resetModal();//重置costumeCategoryModal
 	$form[0].reset();
+	$('#listPanel').show();
+	$('#editPanel').hide();
 }

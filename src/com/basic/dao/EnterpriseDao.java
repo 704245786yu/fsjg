@@ -271,4 +271,11 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		List<Enterprise> list = (List<Enterprise>)super.findByPage(hql, 0, 10, new String[]{"costumeCode"}, new Integer[]{costumeCode});
 		return new BootTablePageDto<Enterprise>(total, list);
 	}
+	
+	/**获取工厂的图片*/
+	@SuppressWarnings("unchecked")
+	public List<String> getImgs(int id){
+		String hql = "select logo,licenseImg,enterpriseImg from Enterprise where id =:id";
+		return (List<String>)super.find(hql, new String[]{"id"}, new Integer[]{id});
+	}
 }

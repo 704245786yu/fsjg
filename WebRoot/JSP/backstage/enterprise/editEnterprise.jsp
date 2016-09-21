@@ -8,7 +8,7 @@
 	vertical-align:top;
 }
 
-#ff table td .form-group{
+#ff table td:fist + td{
 	width:520px;
 }
 
@@ -198,7 +198,7 @@
 						<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="enterpriseImgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="float:left;display:none;margin-right:10px;">
-							<img width="200px" height="100px" class="img-thumbnail" src="">
+							<img  style="width:150px;height:100px" class="img-thumbnail" src="">
 							<div><button type="button" class="btn btn-primary btn-sm" onclick="delEnterpriseImg(this)">删除</button></div>
 						</div>
 					</td>

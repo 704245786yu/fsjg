@@ -1,6 +1,7 @@
 package com.basic.biz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
+import com.util.FileUtil;
 
 @Service
 public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
@@ -199,19 +201,6 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
 	}
 	
-	/**保存工厂，同时保存工厂的主营产品信息
-	 * */
-	@Transactional
-	@Override
-	public void save(Enterprise e) {
-		e.getBasicUser().setPassword(defaultPassword);
-		e.getBasicUser().setRoleId(2);
-		e.setAuditState((byte)0);
-		e.setNumber(System.currentTimeMillis());
-		dao.persist(e);
-		enterpriseCostumeRelaDao.save(e.getId(), e.getCostumeCode());
-	}
-
 	/**获取行业类型编码，多个编码用,分割*/
 	private String getTradeCode(String trade, HashMap<String,Integer> tradeMap){
 		StringBuffer tradeCodeBuf = new StringBuffer(); 
@@ -303,29 +292,6 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return errorInfo;
 	}
 	
-	/**更新先更新基本用户信息，后更新企业信息*/
-	@Override
-	@Transactional
-	public void update(Enterprise enterprise) {
-		BasicUser tempBasicUser = enterprise.getBasicUser();
-		BasicUser basicUser = basicUserDao.findById(tempBasicUser.getId());
-		basicUser.setUserName(tempBasicUser.getUserName());
-		basicUser.setTelephone(tempBasicUser.getTelephone());
-		basicUser.setUpdateBy(tempBasicUser.getUpdateBy());
-		basicUserDao.update(basicUser);
-		dao.update(enterprise);
-	}
-	
-	/**删除企业信息时同时删除关联的BasicUser、EnterpriseCostumeRela信息*/
-	@Override
-	@Transactional
-	public void deleteById(Integer id) {
-		int userId = dao.getUserId(id);
-		enterpriseCostumeRelaDao.delByEnterpriseId(id);
-		dao.deleteById(id);
-		basicUserDao.deleteById(userId);
-	}
-
 	@Override
 	public BootTablePageDto<Enterprise> getAllByPage(Long total, int offset,int limit) {
 		BootTablePageDto<Enterprise> bt = super.getAllByPage(total, offset, limit);
@@ -484,4 +450,68 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return dto;
 	}
 	
+	/**保存工厂，同时保存工厂的主营产品信息
+	 * */
+	@Transactional
+	@Override
+	public void save(Enterprise e) {
+		e.getBasicUser().setPassword(defaultPassword);
+		e.getBasicUser().setRoleId(2);
+		e.setAuditState((byte)0);
+		e.setNumber(System.currentTimeMillis());
+		dao.persist(e);
+		enterpriseCostumeRelaDao.save(e.getId(), e.getCostumeCode());
+	}
+	
+	/**更新先更新基本用户信息，后更新企业信息*/
+	@Override
+	@Transactional
+	public void update(Enterprise e) {
+		BasicUser tempBasicUser = e.getBasicUser();
+		BasicUser basicUser = basicUserDao.findById(tempBasicUser.getId());
+		basicUser.setUserName(tempBasicUser.getUserName());
+		basicUser.setTelephone(tempBasicUser.getTelephone());
+		basicUser.setUpdateBy(tempBasicUser.getUpdateBy());
+		tempBasicUser.setCreateTime(basicUser.getCreateTime());
+		basicUserDao.update(basicUser);
+		
+		Enterprise old = dao.findById(e.getId());
+		e.setAuditState(old.getAuditState());
+		e.setAuditBy(old.getAuditBy());
+		e.setAuditTime(old.getAuditTime());
+		
+		//更新主营产品
+		List<Integer> newCodes = new ArrayList<Integer>(e.getCostumeCode().size()); 
+		newCodes.addAll(e.getCostumeCode());
+		List<Integer> oldCodes = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+		if(oldCodes.size()!=0){
+			//对于刚注册的用户，是没有设置主营产品的,oldCodes.size()为0，会导致下面的代码空指针异常
+			List<Integer> clone = new ArrayList<Integer>(oldCodes);
+			oldCodes.removeAll(newCodes);
+			if(oldCodes.size() > 0)
+				enterpriseCostumeRelaDao.delete(e.getId(), oldCodes);
+			newCodes.removeAll(clone);
+			if(newCodes.size() > 0){
+				enterpriseCostumeRelaDao.save(e.getId(),newCodes);
+			}
+		}else{
+			enterpriseCostumeRelaDao.save(e.getId(),newCodes);
+		}
+		dao.merge(e);
+	}
+	
+	/**删除企业信息时同时删除关联的BasicUser、EnterpriseCostumeRela、图片信息*/
+	@Transactional
+	public void deleteById(Integer id,String uploadDir) {
+		int userId = dao.getUserId(id);
+		List<String> imgs = dao.getImgs(id);
+		String enterpriseImg = imgs.get(2);
+		if(enterpriseImg.length()!=0){
+			imgs.addAll(Arrays.asList(enterpriseImg.split(",")));
+		}
+		FileUtil.delImg(uploadDir, imgs.toArray(new String[]{}));
+		enterpriseCostumeRelaDao.delByEnterpriseId(id);
+		dao.deleteById(id);
+		basicUserDao.deleteById(userId);
+	}
 }

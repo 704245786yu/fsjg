@@ -109,10 +109,13 @@ function isOverChecked(checkbox){
 	var $checkbox = $(checkbox);
 	if($checkbox.prop('checked')==true){
 		var length = $('#costumeCategoryModal :checked').not(':disabled').length;
-		if(length > 3){
-			alert('超过三个');
-			$checkbox.prop('checked',false);
-			return false;
+		var isLimitCheck = $('#costumeCategoryModal span[name="isLimitCheck"]').val();
+		if(isLimitCheck != ''){
+			if(length > 5){
+				alert('不能超过5个');
+				$checkbox.prop('checked',false);
+				return false;
+			}
 		}
 	}
 	return true;
@@ -143,4 +146,13 @@ function checkCostumeByCodes(codes){
 	if(str=='')
 		str = '选择产品类别';
 	$('#costumeBtn').html(str);
+}
+
+/**重置模态框*/
+function resetModal(){
+	$('#costumeCategoryModal #costumeBtn').html('选择产品类别');
+}
+
+function isCostumeCheck(){
+	return $('#costumeCategoryModal :checked').length == 0 ? false : true;
 }
