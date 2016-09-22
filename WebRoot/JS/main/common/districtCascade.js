@@ -4,6 +4,7 @@
  *省市级联下拉框
  */
 (function(){
+	var districtAry = ['#province','#city','#county','#town'];
 	initDistrictSelect('#province', null);
 	$('#districtContainer select').each(function(i){
 		//镇/乡/街道无需出发该事件
@@ -18,21 +19,24 @@
 			
 			var districtLevel = $(this).attr('id');
 			var selectId = null;
+			var cleanIndex = null;//要级联清除下拉框内容的开始下标
 			switch(districtLevel){
 			case 'province':
 				selectId = '#city';
+				cleanIndex = 1;
 				break;
 			case 'city':
 				selectId = '#county';
+				cleanIndex = 2;
 				break;
 			case 'county':
 				selectId = '#town';
+				cleanIndex = 3;
 				break;
 			}
 			//清空所有之后的选择框
-			var $nextAll = $(this).parent().nextAll();
-			for(var i=0; i<$nextAll.length; i++){
-				$($nextAll[i]).children('select').empty();
+			for(var i=cleanIndex; i<4; i++){
+				$('#districtContainer '+districtAry[i]).empty();
 			}
 			initDistrictSelect(selectId, code);
 		});
