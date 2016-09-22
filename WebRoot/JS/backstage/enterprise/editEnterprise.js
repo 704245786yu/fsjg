@@ -116,6 +116,34 @@ $('#ff').bootstrapValidator({
     				message:'必须为数字'
     			}
     		}
+    	},
+    	qq:{
+    		validators: {
+    			digits:{
+    				message:'必须为数字'
+    			}
+    		}
+    	},
+    	highSpeedStaffNumber:{
+    		validators: {
+    			integer:{
+    				message:'必须为数字'
+    			}
+    		}
+    	},
+    	otherStaffNumber:{
+    		validators: {
+    			integer:{
+    				message:'必须为数字'
+    			}
+    		}
+    	},
+    	enterpriseAge:{
+    		validators: {
+    			integer:{
+    				message:'必须为数字'
+    			}
+    		}
     	}
     }
 }).on('success.form.bv', function(e) {
@@ -183,14 +211,20 @@ function modify(id){
 	$('input[name="basicUser.userName"]').val(data.basicUser.userName);
 	$('input[name="basicUser.telephone"]').val(data.basicUser.telephone);
 	//填充行业分类
-	var trade = data.trade.split(',');
-	for(var i=0; i<trade.length; i++){
-		$(':checkbox[name="trade"][value="'+trade[i]+'"]').prop('checked','checked');
+	var trade = data.trade;
+	if( trade != null && trade != ''){
+		trade = trade.split(',');
+		for(var i=0; i<trade.length; i++){
+			$(':checkbox[name="trade"][value="'+trade[i]+'"]').prop('checked','checked');
+		}
 	}
 	//填充加工类型
-	var processType = data.processType.split(',');
-	for(var i=0; i<trade.length; i++){
-		$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
+	var processType = data.processType;
+	if(processType != null && processType != ''){
+		var processType = processType.split(',');
+		for(var i=0; i<processType.length; i++){
+			$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
+		}
 	}
 	//显示图片
 	if(data.logo!='' && data.logo!='default_logo.png'){

@@ -15,6 +15,8 @@ import com.common.BaseBiz;
 public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 	
 	@Autowired
+	private EnterpriseBiz enterpriseBiz;
+	@Autowired
 	private EnterpriseDao enterpriseDao;
 	@Autowired
 	private PersonDao personDao;
@@ -33,6 +35,7 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 				return "企业名称重复";
 			Enterprise enterprise = new Enterprise();
 			enterprise.setEnterpriseName(enterpriseName);
+			enterprise.setNumber(enterpriseBiz.generateNumber(basicUser.getTelephone()));
 			enterprise.setBasicUser(basicUser);
 			enterpriseDao.persist(enterprise);
 		}else if(basicUser.getRoleId() == 1){

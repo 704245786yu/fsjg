@@ -1,6 +1,7 @@
 package com.basic.biz;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
+import com.util.DateTransform;
 import com.util.FileUtil;
 
 @Service
@@ -84,7 +86,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				Enterprise enterprise=new Enterprise();
 				//关联工厂的基本用户信息
 				enterprise.setBasicUser(basicUser);
-				enterprise.setNumber(System.currentTimeMillis());
+				enterprise.setNumber(this.generateNumber(enterprise.getBasicUser().getTelephone()));
 				//企业名称
 				String enterpriseName = temp[0];
 				if(enterpriseName.length() > 0 && enterpriseName.length()<=30){
@@ -458,7 +460,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		e.getBasicUser().setPassword(defaultPassword);
 		e.getBasicUser().setRoleId(2);
 		e.setAuditState((byte)0);
-		e.setNumber(System.currentTimeMillis());
+		e.setNumber(this.generateNumber(e.getBasicUser().getTelephone()));
 		dao.persist(e);
 		enterpriseCostumeRelaDao.save(e.getId(), e.getCostumeCode());
 	}
@@ -518,6 +520,15 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		enterpriseCostumeRelaDao.delByEnterpriseId(id);
 		dao.deleteById(id);
 		basicUserDao.deleteById(userId);
+	}
+	
+	/**生成企业编号格式：YYMMddHHmmssSSS + 手机号后5位
+	 * @param telephone 手机号
+	 * */
+	public Long generateNumber(Long telephone){
+		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmssSSS");
+		String numStr = time + telephone.toString().substring(7);
+		return Long.valueOf(numStr);
 	}
 	
 }

@@ -1,10 +1,12 @@
 package javaSETest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 
+import com.util.DateTransform;
 import com.util.JacksonJson;
 
 /**测试字符串方法*/
@@ -28,5 +30,15 @@ public class StringTest {
 	@Test
 	public void test2(){
 		System.out.println((int)(Math.random()*(9999-1000+1))+1000);
+	}
+	
+	@Test
+	public void test3(){
+		Long telephone = 18721414056L;
+		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmssSSS");
+		String numStr = time + telephone.toString().substring(7);
+		long num = Long.valueOf(numStr);
+		System.out.println(numStr);
+		System.out.println(num);
 	}
 }
