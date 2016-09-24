@@ -70,6 +70,9 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 		return dao.nameIsExsit(userName,id);
 	}
 	
+	/**手机号码是否已存在，若id为null判断全表，若不为null，则排除该id值的记录
+	 * @param id 要排除在检测范围内的id记录
+	 * */
 	public boolean teleIsExist(Long telephone, Integer id){
 		return dao.teleIsExsit(telephone, id);
 	}

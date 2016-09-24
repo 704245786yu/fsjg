@@ -2,6 +2,7 @@ package com.basic.dao;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.type.StandardBasicTypes;
@@ -47,6 +48,12 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 			amount = super.getCount(hql, new String[]{"enterpriseName","id"}, new Object[]{enterpriseName,id});
 		}
 		return amount>0 ? true : false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> isExist(Collection<String> enterpriseNames){
+		String hql = "select enterpriseName from Enterprise where enterpriseName in (:enterpriseNames)";
+		return (List<String>)super.find(hql, new String[]{"enterpriseNames"}, new Object[]{enterpriseNames});
 	}
 	
 	/**获取关联的用户ID*/

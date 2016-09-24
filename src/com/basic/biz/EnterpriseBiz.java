@@ -3,6 +3,7 @@ package com.basic.biz;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.criterion.Criterion;
@@ -56,8 +57,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		HashMap<Long, HashMap<String,Long>> countyMap = new HashMap<Long, HashMap<String,Long>>();//区县信息
 		HashMap<Long, HashMap<String,Long>> townMap = new HashMap<Long, HashMap<String,Long>>();//镇/乡/街道信息
 		
-		List<String> nameList = new ArrayList<String>();	//去重用
-		List<Long> teleList = new ArrayList<Long>();	//去重用
+		HashSet<String> nameSet = new HashSet<String>();	//去重用
+		HashSet<Long> teleSet = new HashSet<Long>();	//去重用
 		List<Enterprise> enterpriseList = new ArrayList<Enterprise>();	//要保存的企业信息
 		List<String> errorInfo = new ArrayList<String>();	//错误信息
 		int rowOffset = 4;	//行偏移量
@@ -72,7 +73,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 					if(teleStr.length() != 11)
 						throw new Exception("telephone length != 11");
 					Long telephone = Long.parseLong(teleStr);
-					teleList.add(telephone);
+					if(!teleSet.add(telephone)) //判断Set中是否包含指定元素
+						errorInfo.add("第"+(i+rowOffset)+"行 手机号码表中已存在");
 					basicUser.setTelephone(telephone);
 					basicUser.setPassword(defaultPassword);
 					basicUser.setRoleId(2);
@@ -90,7 +92,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				//企业名称
 				String enterpriseName = temp[0];
 				if(enterpriseName.length() > 0 && enterpriseName.length()<=30){
-					nameList.add(enterpriseName);
+					if(!nameSet.add(enterpriseName))
+						errorInfo.add("第"+(i+rowOffset)+"行 企业名称表中已存在");
 				}else{
 					errorInfo.add("第"+(i+rowOffset)+"行 企业名称未填或超过30个字");
 				}
@@ -114,7 +117,12 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				if(qqStr.length()!=0)
 					enterprise.setQq(Long.parseLong(qqStr));
 				//销售市场
-	//			enterprise.setSaleMarket(Byte.parseByte(temp[10]));
+				if(!temp[10].equals("")){
+					if(temp[10].equals("内销"))
+						enterprise.setSaleMarket((byte)0);
+					else if(temp[10].equals("外销"))
+						enterprise.setSaleMarket((byte)1);
+				}
 				//营业执照
 	//			enterprise.setBusinessLicenseImg(temp[11]);
 				//组织机构代码
@@ -190,6 +198,15 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				errorInfo.add("第"+(i+rowOffset)+"行 有错误内容");
 			}
 		}
+		
+		//检测手机号码数据库是否已存在
+		List<Long> existTele = basicUserDao.teleIsExsit(teleSet);
+		if(existTele.size()>0)
+			errorInfo.add("手机号码"+existTele.toString()+"已存在");
+		//检测工厂名称数据库是否已存在
+		List<String> existEnterpriseName = dao.isExist(nameSet);
+		if(existEnterpriseName.size()>0)
+			errorInfo.add("工厂名称"+existEnterpriseName.toString()+"已存在");
 		
 		if(errorInfo.size() != 0)
 			return new ReturnValueVo(ReturnValueVo.ERROR, errorInfo);

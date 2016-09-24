@@ -1,5 +1,6 @@
 package com.basic.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.criterion.Criterion;
@@ -34,6 +35,9 @@ public class BasicUserDao extends BaseDao<Integer, BasicUser>{
 		return amount>0 ? true : false;
 	}
 	
+	/**手机号码是否已存在，若id为null判断全表，若不为null，则排除该id值的记录
+	 * @param id 要排除在检测范围内的id记录
+	 * */
 	public boolean teleIsExsit(Long telephone, Integer id){
 		long amount = 0;
 		if(id == null){
@@ -44,6 +48,15 @@ public class BasicUserDao extends BaseDao<Integer, BasicUser>{
 			amount = super.getCount(hql, new String[]{"telephone","id"}, new Object[]{telephone,id});
 		}
 		return amount>0 ? true : false;
+	}
+	
+	/**手机号是否存在
+	 * 返回存在手机号
+	 * */
+	@SuppressWarnings("unchecked")
+	public List<Long> teleIsExsit(Collection<Long> telephones){
+		String hql = "select telephone from BasicUser where telephone in (:telephones)";
+		return (List<Long>)super.find(hql, new String[]{"telephones"}, new Object[]{telephones});
 	}
 	
 	/**用户登录
