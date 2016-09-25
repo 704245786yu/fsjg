@@ -49,7 +49,7 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 		}
 		dao.saveBatch(list);
 	}
-	
+
 	/**根据BasicUserId获取Person信息*/
 	public Person getByBasicUserId(int userId){
 		Criterion c = Restrictions.eq("basicUser.id", userId);

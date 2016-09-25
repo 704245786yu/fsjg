@@ -8,7 +8,7 @@
 	vertical-align:top;
 }
 
-#ff table td:fist + td{
+#ff table td:first + td{
 	width:520px;
 }
 

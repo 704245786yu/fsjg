@@ -539,12 +539,13 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		basicUserDao.deleteById(userId);
 	}
 	
-	/**生成企业编号格式：YYMMddHHmmssSSS + 手机号后5位
+	/**生成企业编号格式：YYMMddHHmmss+ 3位随机数 + 手机号后5位
 	 * @param telephone 手机号
 	 * */
 	public Long generateNumber(Long telephone){
-		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmssSSS");
-		String numStr = time + telephone.toString().substring(7);
+		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmss");
+		int random = new java.util.Random().nextInt(900)+100;
+		String numStr = time + random +telephone.toString().substring(7);
 		return Long.valueOf(numStr);
 	}
 	

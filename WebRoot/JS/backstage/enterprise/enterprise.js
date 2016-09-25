@@ -76,9 +76,13 @@ $('#fileupload').fileupload({
 			var opt = $('#dg').bootstrapTable('getOptions');
 			var pageNumber = opt.pageNumber;
 //			console.log(pageNumber);
-//  		var totalRows = opt.totalRows;
+			var totalRows = opt.totalRows;
+//			console.log(totalRows);
 //  		var tzPageNumber = Math.ceil(totalRows/pageSize);
-			$('#dg').bootstrapTable('selectPage',pageNumber);
+	  		if(totalRows==0)
+	  			$('#dg').bootstrapTable('refresh');
+	  		else
+	  			$('#dg').bootstrapTable('selectPage',pageNumber);
 		}else if(status == 500){
 			var errorInfo = "";
 			for(var i=0; i<value.length; i++){

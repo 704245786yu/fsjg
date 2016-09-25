@@ -41,4 +41,14 @@ public class StringTest {
 		System.out.println(numStr);
 		System.out.println(num);
 	}
+	
+	@Test
+	public void test4(){
+		java.util.Random r=new java.util.Random(10);
+		for(int i=0;i<10;i++){
+		    System.out.println(r.nextInt());
+		}
+		
+//		new java.util.Random().nextInt(900)+100;
+	}
 }

@@ -32,7 +32,7 @@
 			<table id="basic-info" class="table">
 				<tr>
 					<td rowspan="3" style="width:200px;text-align:center;">
-						<img src="image/enterpriseDetail/headphoto.png">
+						<img src="uploadFile/enterprise/default_logo.png">
 					</td>
 					<td>
 						<label>帐号名称：</label>${userInfo.basicUser.userName}
@@ -73,10 +73,10 @@
 		</td>
 		<!-- 主体内容 -->
 		<td id="mainContent" style="padding:0px;">
-			<div style="display:none;">
-				<jsp:include page="personInfo.jsp"></jsp:include>
-			</div>
 			<div>
+				<%@ include file="personInfo.jsp"%>
+			</div>
+			<div style="display:none;">
 				<div style="border-bottom:1px solid #cccccc;line-height:49px;">
 					<strong style="font-size:18px;padding-left:20px;">修改密码</strong>
 				</div>

@@ -18,7 +18,7 @@
 		<c:if test="${loginBasicUser != null}">
 			<a href="basicUser/showMyCenter">我的服饰网</a>
 		</c:if>
-		<span>我的关注</span>
+		<!-- <span>我的关注</span> -->
 		<span><a href="login/logout">退出</a></span>
 		<span><span class="glyphicon glyphicon-earphone"></span> <b>400-168-1978</b></span>
 	</div>
