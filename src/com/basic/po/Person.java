@@ -23,9 +23,11 @@ public class Person extends UserAbstract{
 	@Column(name="id_num")
 	private String idNum;	//身份证号
 	
-	@Column(name="id_photo")
-	private String idPhoto;	//身份证照片
+	@Column(name="id_front_photo")
+	private String idFrontPhoto;	//身份证照片(正)
 
+	@Column(name="id_back_photo")
+	private String idBackPhoto;	//身份证照片(反)
 	
 	public String getRealName() {
 		return realName;
@@ -67,12 +69,20 @@ public class Person extends UserAbstract{
 		this.idNum = idNum;
 	}
 
-	public String getIdPhoto() {
-		return idPhoto;
+	public String getIdFrontPhoto() {
+		return idFrontPhoto;
 	}
 
-	public void setIdPhoto(String idPhoto) {
-		this.idPhoto = idPhoto;
+	public void setIdFrontPhoto(String idFrontPhoto) {
+		this.idFrontPhoto = idFrontPhoto;
+	}
+
+	public String getIdBackPhoto() {
+		return idBackPhoto;
+	}
+
+	public void setIdBackPhoto(String idBackPhoto) {
+		this.idBackPhoto = idBackPhoto;
 	}
 
 }

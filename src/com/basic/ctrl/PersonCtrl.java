@@ -1,10 +1,11 @@
 package com.basic.ctrl;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,22 +14,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.basic.biz.BasicUserBiz;
 import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
 import com.basic.po.Person;
 import com.common.BaseCtrl;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
-import com.sys.po.ConstantDict;
-import com.sys.po.User;
-import com.util.MicroOfficeFile;
+import com.util.FileUtil;
 
 @Controller
 @RequestMapping("person")
 public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 
 	@Autowired
+	private BasicUserBiz basicUserBiz;
+	@Autowired
 	private ConstantDictBiz constantDictBiz;
+	
+	private static final long imgMaxSize = 200000;//文档最大200kb
 	
 	public PersonCtrl(){
 		defaultPage = "backstage/person";
@@ -38,29 +42,40 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 	 * */
 	@RequestMapping("backstage")
 	public ModelAndView showBackstageManage(){
-		List<ConstantDict> auditState = constantDictBiz.findByConstantTypeCode("audit_state");
-		List<ConstantDict> personState = constantDictBiz.findByConstantTypeCode("person_state");
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("auditState", auditState);
-		mav.addObject("personState", personState);
 		mav.setViewName("backstage/person");
 		return mav;
 	}
 
-	@RequestMapping("uploadExcel")
+	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
+	 * @param offset 偏移量，即记录索引位置
+	 * @param pageSize 每页记录数
+	 * @param constantName 要模糊查询的常量名称
+	 * */
+	/*@RequestMapping("findByPageAndParams")
 	@ResponseBody
-	public Integer uploadExcel(@RequestParam("file")MultipartFile file,HttpSession httpSession){
-		try{
-			MicroOfficeFile mof = new MicroOfficeFile();
-			Workbook wb = mof.readExcel(file);
-			List<String[]> data = mof.getAllData(wb,0);
-			User loginUser = (User)httpSession.getAttribute("loginUser");
-			biz.batchSavePerson(data.subList(2, data.size()),1);
-			return 1;
-		}catch(Exception e){
-			e.printStackTrace();
-			return 0;
+	public BootTablePageDto<ConstantDict> findByPageAndParams(int offset, int pageSize, String constantName){
+		return biz.findByPageAndParams(offset,pageSize,constantName);
+	}*/
+	
+	/**验证照片
+	 * */
+	private String verifyImg(MultipartFile frontPhoto, MultipartFile backPhoto){
+		String errorMsg = "";
+		String contentType = null;
+		if(frontPhoto != null){
+			contentType = frontPhoto.getContentType();
+			if( frontPhoto.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg = "身份证照(正面)不符合上传要求";
+			}
 		}
+		if(backPhoto != null){
+			contentType = backPhoto.getContentType();
+			if( backPhoto.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg += "身份证照(反面)不符合上传要求";
+			}
+		}
+		return errorMsg;
 	}
 	
 	@RequestMapping("updatePerson")
@@ -74,26 +89,76 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 		if(basicUser == null)
 			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
 		
+		p.getBasicUser().setId(basicUser.getId());//设置id为当前登录者的id
 		p.getBasicUser().setUpdateBy(0);
+		
 		//验证用户名、手机号码是否相同
-//		String errorMsg = this.isExistField(p);
-//		if(errorMsg.length() > 0)
-//			return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
-//		biz.update(person);
-//		return person;
-		return null;
+		String errorMsg = basicUserBiz.isMyNameAndTeleExist(p.getBasicUser());
+		if(errorMsg.length() > 0)
+			return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		//验证文件类型、大小是否符合
+		errorMsg = this.verifyImg(frontPhoto,backPhoto);
+		if(errorMsg.length() > 0)
+			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		String uploadDir = null;
+		try {
+			uploadDir = session.getServletContext().getResource("uploadFile/person/").getPath();
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+		
+		//转储图片
+		try{
+			if(frontPhoto != null){
+				//删除旧图片
+				String front = p.getIdFrontPhoto();
+				if(front!=null && front.length()!=0){
+					FileUtil.delImg(uploadDir, front);
+				}
+				p.setIdFrontPhoto(this.transferFile(frontPhoto,uploadDir,"front"));
+			}
+			
+			if(backPhoto != null){
+				//删除旧图片
+				String back = p.getIdBackPhoto();
+				if(back!=null && back.length()!=0){
+					FileUtil.delImg(uploadDir, back);
+				}
+				p.setIdBackPhoto(this.transferFile(backPhoto,uploadDir,"back"));
+			}
+			
+		} catch (IllegalStateException | IOException ex) {
+			ex.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
+		}
+		biz.update(p);
+		
+		//更新成功后，更新session
+		basicUser.setUserName(p.getBasicUser().getUserName());
+		basicUser.setTelephone(p.getBasicUser().getTelephone());
+		
+		return new ReturnValueVo(ReturnValueVo.SUCCESS, p);
 	}
 	
-	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
-	 * @param offset 偏移量，即记录索引位置
-	 * @param pageSize 每页记录数
-	 * @param constantName 要模糊查询的常量名称
-	 * */
-	/*@RequestMapping("findByPageAndParams")
-	@ResponseBody
-	public BootTablePageDto<ConstantDict> findByPageAndParams(int offset, int pageSize, String constantName){
-		return biz.findByPageAndParams(offset,pageSize,constantName);
-	}*/
+	/**保存文件到磁盘
+	 * @param srcFile 原文件
+	 * @param uploadDir 保存路径
+	 * @return 返回新文件名
+	 * @throws IOException 
+	 * @throws IllegalStateException */
+	private String transferFile(MultipartFile srcFile, String uploadDir, String newName) throws IllegalStateException, IOException{
+		String suffix = null;
+		String fileName = srcFile.getOriginalFilename();//获取上传文件的原名
+		String ary[] = fileName.split("\\.");
+		suffix = ary[ary.length-1];
+		//通过transferTo()将文件存储到硬件中
+		long time = System.currentTimeMillis();
+		String newFileName = time+newName+"."+suffix;
+		srcFile.transferTo(new File(uploadDir + newFileName));
+		return newFileName;
+	}
 	
 	@RequestMapping("dateRangePickerDemo")
 	public String dateRangePickerDemo(){

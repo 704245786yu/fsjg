@@ -482,7 +482,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		enterpriseCostumeRelaDao.save(e.getId(), e.getCostumeCode());
 	}
 	
-	/**更新先更新基本用户信息，后更新企业信息*/
+	/**先更新基本用户信息，后更新企业信息*/
 	@Override
 	@Transactional
 	public void update(Enterprise e) {

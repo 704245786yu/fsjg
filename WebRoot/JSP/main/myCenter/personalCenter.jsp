@@ -29,33 +29,68 @@
 	<tr>
 		<td colspan="2">
 			<!-- 用户基本信息 -->
-			<table id="basic-info" class="table">
-				<tr>
-					<td rowspan="3" style="width:200px;text-align:center;">
-						<img src="uploadFile/enterprise/default_logo.png">
-					</td>
-					<td>
-						<label>帐号名称：</label>${userInfo.basicUser.userName}
-					</td>
-					<td>
-						<label>姓名：</label>${userInfo.realName}
-					</td>
-					<td>
-						<label>电子邮箱：</label>${userInfo.email}
-					</td>
-				</tr>
-				<tr>
-					<td><label>手机号码：</label>${userInfo.basicUser.telephone}</td>
-					<td><label>身份证号：</label>${userInfo.idNum}</td>
-				</tr>
-				<tr>
-					<td colspan="3" class="auth">
-						<span><img src="image/enterpriseDetail/email_tg.png">邮箱认证</span>
-						<span><img src="image/enterpriseDetail/telephone_tg.png">手机认证</span>
-						<span><img src="image/enterpriseDetail/realname_tg.png">实名认证</span>
-					</td>
-				</tr>
-			</table>
+			<c:choose>
+				<%--普通用户信息 --%>
+				<c:when test="${userInfo.roleId==1}">
+					<table id="basic-info" class="table">
+						<tr>
+							<td rowspan="3" style="width:200px;text-align:center;">
+								<img src="uploadFile/enterprise/default_logo.png">
+							</td>
+							<td>
+								<label>帐号名称：</label><span name="userName">${userInfo.basicUser.userName}</span>
+							</td>
+							<td>
+								<label>姓名：</label><span name="realName">${userInfo.realName}</span>
+							</td>
+							<td>
+								<label>电子邮箱：</label><span name="email">${userInfo.email}</span>
+							</td>
+						</tr>
+						<tr>
+							<td><label>手机号码：</label><span name="telephone">${userInfo.basicUser.telephone}</span></td>
+							<td><label>身份证号：</label><span name="idNum">${userInfo.idNum}</span></td>
+						</tr>
+						<tr>
+							<td colspan="3" class="auth">
+								<span><img src="image/enterpriseDetail/email_tg.png">邮箱认证</span>
+								<span><img src="image/enterpriseDetail/telephone_tg.png">手机认证</span>
+								<span><img src="image/enterpriseDetail/realname_tg.png">实名认证</span>
+							</td>
+						</tr>
+					</table>
+				</c:when>
+				<%--企业用户信息 --%>
+				<c:when test="${userInfo.roleId==2}">
+					<table id="basic-info" class="table">
+						<tr>
+							<td rowspan="3" style="width:200px;text-align:center;">
+								<img src="uploadFile/enterprise/${userInfo.logo}">
+							</td>
+							<td>
+								<label>帐号名称：</label><span name="userName">${userInfo.basicUser.userName}</span>
+							</td>
+							<td>
+								<label>联系人：</label><span name="realName">${userInfo.linkman}</span>
+							</td>
+							<td>
+								<label>电子邮箱：</label><span name="email">${userInfo.email}</span>
+							</td>
+						</tr>
+						<tr>
+							<td><label>手机号码：</label><span name="telephone">${userInfo.basicUser.telephone}</span></td>
+							<td><label>工厂名称：</label><span name="idNum">${userInfo.idNum}</span></td>
+						</tr>
+						<tr>
+							<td colspan="3" class="auth">
+								<span><img src="image/enterpriseDetail/email_tg.png">邮箱认证</span>
+								<span><img src="image/enterpriseDetail/telephone_tg.png">手机认证</span>
+								<span><img src="image/enterpriseDetail/qualification_tg.png">资质认证</span>
+							</td>
+						</tr>
+					</table>
+				</c:when>
+			</c:choose>
 		</td>
 	</tr>
 	<tr>
@@ -63,8 +98,14 @@
 		<td style="padding:0px;width:200px;background-color:#FCF9FA;">
 			<ul class="menu_li">
 				<li class="level1">帐号管理</li>
-				<li name="1">详细信息</li>
+				<li name="1" style="color:#00b8ef">详细信息</li>
 				<li name="2">修改密码</li>
+				<c:if test="${userInfo.roleId == 2}">
+					<%--企业用户展示接单管理 --%>
+					<li class="level1">接单管理</li>
+					<li name="6">我的报价</li>
+					<li name="7">我收到的订单</li>
+				</c:if>
 				<li class="level1">发单管理</li>
 				<li name="3">我发布的订单</li>
 				<li name="4">我收到的报价</li>
@@ -74,7 +115,16 @@
 		<!-- 主体内容 -->
 		<td id="mainContent" style="padding:0px;">
 			<div>
-				<%@ include file="personInfo.jsp"%>
+				<c:choose>
+					<%--普通用户详情 --%>
+					<c:when test="${userInfo.roleId==1}">
+						<%@ include file="personInfo.jsp"%>
+					</c:when>
+					<%--企业用户详情 --%>
+					<c:when test="${userInfo.roleId==2}">
+						<%@ include file="personInfo.jsp"%>
+					</c:when>
+				</c:choose>
 			</div>
 			<div style="display:none;">
 				<div style="border-bottom:1px solid #cccccc;line-height:49px;">
@@ -120,6 +170,12 @@
 			<div style="display:none;">
 				<iframe src="indent/showMyConfirmed"></iframe>
 			</div>
+			<!-- <div style="display:none;">
+				<iframe src="indent/showMyConfirmed"></iframe>
+			</div>
+			<div style="display:none;">
+				<iframe src="indent/showMyConfirmed"></iframe>
+			</div> -->
 		</td>
 	</tr>
 </table>

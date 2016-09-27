@@ -1,5 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
+<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+
 <style>
 #ff table tr{
 	height:45px;
@@ -36,14 +39,12 @@
 <input type="hidden" name="county" value="${userInfo.county}">
 <input type="hidden" name="town" value="${userInfo.town}">
 
-<form id="ff" action="basicUser/editPersonInfo" method="post" enctype="multipart/form-data" class="form-inline" style="margin-left:50px;margin-top:10px">
-	<input type="hidden" name="userInfo.id"/>
-	<input type="hidden" name="userInfo.basicUser.id"/>
+<form id="ff" action="person/updatePerson" method="post" enctype="multipart/form-data" class="form-inline" style="margin-left:50px;margin-top:10px" autocomplete="off">
 	<table id="districtContainer">
 		<tr>
 			<td><label><span>*</span>用户名 </label></td>
 			<td><div class="form-group"><input type="text" class="form-control" name="basicUser.userName" value="${userInfo.basicUser.userName}"></div></td>
-			<td><label><span>*</span>姓名 </label></td>
+			<td><label>姓名 </label></td>
 			<td><div class="form-group"><input type="text" class="form-control" name="realName" value="${userInfo.realName}"></div></td>
 		</tr>
 		<tr>
@@ -95,27 +96,33 @@
 		<tr>
 			<td><label>身份证照(正)</label></td>
 			<td>
-				<input type="hidden" name="idPhoto" value="${userInfo.idPhoto}">
-				<input type="file" name="frontPhoto" accept="image/jpeg,image/png" onchange="enterpriseImgChange(this,200)">
+				<input type="hidden" name="idFrontPhoto" value="${userInfo.idFrontPhoto}">
+				<input type="file" name="frontPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 				<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+				<div style="display:none;">
+					<img style="width:150px;height:100px" src="">
+				</div>
 			</td>
 			<td><label>身份证照(反)</label></td>
 			<td>
-				<input type="file" name="backPhoto" accept="image/jpeg,image/png" onchange="enterpriseImgChange(this,200)">
+				<input type="hidden" name="idBackPhoto" value="${userInfo.idBackPhoto}">
+				<input type="file" name="backPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 				<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
-			</td>
-			<td>
-				<div style="float:left;display:none;margin-right:10px;">
-					<img  style="width:150px;height:100px" class="img-thumbnail" src="">
-					<div><button type="button" class="btn btn-primary btn-sm" onclick="delEnterpriseImg(this)">删除</button></div>
+				<div style="display:none;">
+					<img style="width:150px;height:100px" src="">
 				</div>
 			</td>
 		</tr>
 	</table>
 	<div style="margin-top:20px;text-align:right;padding-right:100px;">
-		<button type="submit" name="save" class="btn btn-primary" style="width:80px;margin-right:10px;">保存</button>
+		<button type="submit" class="btn btn-primary" style="width:80px;margin-right:10px;">保存</button>
+		<!-- <button type="reset" class="btn btn-default" style="width:80px;" onclick="resetForm()">重置</button> -->
 	</div>
 </form>
 
+<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+<script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="plugin/jquery.form.min.js"></script>
+<script src="JS/util/jqConfirmExtend.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/main/myCenter/personalInfo.js"></script>

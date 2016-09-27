@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,10 +19,10 @@ import com.basic.biz.EnterpriseBiz;
 import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
 import com.basic.po.Enterprise;
-import com.basic.po.Person;
 import com.basic.po.UserAbstract;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
+import com.common.vo.ValidVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.LoginCtrl;
 import com.sys.po.ConstantDict;
@@ -70,18 +69,34 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		return "success";
 	}
 	
+	/**校验用户名是否存在,判断是否存在时排除id值
+	 * */
+	@RequestMapping(value="isNameExist")
+	@ResponseBody
+	public ValidVo isNameExist(String userName, HttpSession session){
+		BasicUser b = getLoginUser(session);
+		return new ValidVo( ! biz.nameIsExist(userName,b.getId()) );
+	}
+	
+	/**校验手机号是否存在*/
+	@RequestMapping(value="isTeleExist")
+	@ResponseBody
+	public ValidVo isTeleExist(Long telephone, HttpSession session){
+		BasicUser b = getLoginUser(session);
+		return new ValidVo( ! biz.teleIsExist(telephone,b.getId()) );
+	}
+	
 	/**显示个人中心*/
 	@RequestMapping("showMyCenter")
 	public ModelAndView showMineInfo(HttpSession session){
 		ModelAndView mav = null;
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
 		UserAbstract userAbstract = null;
+		mav = new ModelAndView("main/myCenter/myCenter");
 		int roleId = basicUser.getRoleId();
 		if(roleId == 1){
-			mav = new ModelAndView("main/myCenter/personalCenter");
 			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
 		}else if(roleId == 2){
-			mav = new ModelAndView("main/myCenter/enterpriseCenter");
 			Enterprise e = enterpriseBiz.getByBasicUserId(basicUser.getId());
 			userAbstract = e;
 			//行业分类，工厂刚注册时有可能还未选择所属行业
@@ -114,45 +129,7 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		mav.addObject("userInfo", userAbstract);
 		return mav;
 	}
-	/**
-	 * 企业个人中心信息修改
-	 * @param userAbstract
-	 * @return
-	 */
-	@RequestMapping(value="editEnterpriseInfo", method=RequestMethod.POST)
-	public ModelAndView editEnterpriseInfo(String id,String employeeCount,String detailAddr,String qq,String wechat,String fix_phone,String orgCode,String enterpriseAge){
-		BasicUser basicUser=new BasicUser();
-		basicUser.setId(Integer.parseInt(id));
-		Enterprise enterprise=new Enterprise();
-		enterprise.setStaffNumber(Integer.parseInt(employeeCount));
-		enterprise.setDetailAddr(detailAddr);
-		enterprise.setQq(Long.parseLong(qq));
-		enterprise.setWechat(wechat);
-		enterprise.setFixPhone(fix_phone);
-		enterprise.setOrgCode(orgCode);
-		enterprise.setEnterpriseAge(Short.parseShort(enterpriseAge));
-		enterprise.setBasicUser(basicUser);
-		enterpriseBiz.update(enterprise);
-		ModelAndView mav = new ModelAndView("main/mineInfo");
-		return mav;
-	}
-	/**
-	 * 个人用户个人中心信息修改
-	 * @return
-	 */
-	@RequestMapping(value="editPersonInfo", method=RequestMethod.POST)
-	public ModelAndView editPersonInfo(String id,String qq,String wechat,String postalCode,String detailAddr,String fixPhone){
-		Person person=new Person();
-		person.setId(Integer.parseInt(id));
-		person.setFixPhone(fixPhone);
-		person.setPostalCode(postalCode);
-		person.setQq(Long.parseLong(qq));
-		person.setWechat(wechat);
-		person.setDetailAddr(detailAddr);
-		personBiz.update(person);
-		ModelAndView mav = new ModelAndView("main/mineInfoPerson");
-		return mav;
-	}
+	
 	@Override
 	public List<BasicUser> getAll(){
 		return null;
