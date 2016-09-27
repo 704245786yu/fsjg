@@ -31,7 +31,7 @@
 			<!-- 用户基本信息 -->
 			<c:choose>
 				<%--普通用户信息 --%>
-				<c:when test="${userInfo.roleId==1}">
+				<c:when test="${userInfo.basicUser.roleId==1}">
 					<table id="basic-info" class="table">
 						<tr>
 							<td rowspan="3" style="width:200px;text-align:center;">
@@ -61,7 +61,7 @@
 					</table>
 				</c:when>
 				<%--企业用户信息 --%>
-				<c:when test="${userInfo.roleId==2}">
+				<c:when test="${userInfo.basicUser.roleId==2}">
 					<table id="basic-info" class="table">
 						<tr>
 							<td rowspan="3" style="width:200px;text-align:center;">
@@ -79,7 +79,7 @@
 						</tr>
 						<tr>
 							<td><label>手机号码：</label><span name="telephone">${userInfo.basicUser.telephone}</span></td>
-							<td><label>工厂名称：</label><span name="idNum">${userInfo.idNum}</span></td>
+							<td><label>工厂名称：</label><span name="enterpriseName">${userInfo.enterpriseName}</span></td>
 						</tr>
 						<tr>
 							<td colspan="3" class="auth">
@@ -100,7 +100,7 @@
 				<li class="level1">帐号管理</li>
 				<li name="1" style="color:#00b8ef">详细信息</li>
 				<li name="2">修改密码</li>
-				<c:if test="${userInfo.roleId == 2}">
+				<c:if test="${userInfo.basicUser.roleId == 2}">
 					<%--企业用户展示接单管理 --%>
 					<li class="level1">接单管理</li>
 					<li name="6">我的报价</li>
@@ -117,12 +117,12 @@
 			<div>
 				<c:choose>
 					<%--普通用户详情 --%>
-					<c:when test="${userInfo.roleId==1}">
+					<c:when test="${userInfo.basicUser.roleId==1}">
 						<%@ include file="personInfo.jsp"%>
 					</c:when>
 					<%--企业用户详情 --%>
-					<c:when test="${userInfo.roleId==2}">
-						<%@ include file="personInfo.jsp"%>
+					<c:when test="${userInfo.basicUser.roleId==2}">
+						<%@ include file="enterpriseInfo.jsp"%>
 					</c:when>
 				</c:choose>
 			</div>
