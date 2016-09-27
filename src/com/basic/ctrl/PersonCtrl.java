@@ -14,8 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.basic.biz.PersonBiz;
+import com.basic.po.BasicUser;
 import com.basic.po.Person;
 import com.common.BaseCtrl;
+import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
 import com.sys.po.User;
@@ -61,10 +63,25 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 		}
 	}
 	
-	@Override
-	public Person update(Person person,HttpSession httpSession){
-		biz.update(person);
-		return person;
+	@RequestMapping("updatePerson")
+	@ResponseBody
+	public ReturnValueVo update(Person p,
+			@RequestParam(value="frontPhoto",required=false)MultipartFile frontPhoto,
+			@RequestParam(value="backPhoto",required=false)MultipartFile backPhoto,
+			HttpSession session){
+		//检查是否登录
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		if(basicUser == null)
+			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
+		
+		p.getBasicUser().setUpdateBy(0);
+		//验证用户名、手机号码是否相同
+//		String errorMsg = this.isExistField(p);
+//		if(errorMsg.length() > 0)
+//			return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+//		biz.update(person);
+//		return person;
+		return null;
 	}
 	
 	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。

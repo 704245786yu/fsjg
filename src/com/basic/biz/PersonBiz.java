@@ -44,7 +44,7 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 			person.setFixPhone(temp[16]);
 			person.setWechat(temp[17]);
 			person.setPostalCode(temp[18]);
-			person.setIdCard(temp[19]);
+			person.setIdNum(temp[19]);
 			list.add(person);
 		}
 		dao.saveBatch(list);

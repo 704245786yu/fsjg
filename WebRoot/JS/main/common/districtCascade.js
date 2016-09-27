@@ -72,6 +72,7 @@ function fillDistrict(province, city, county, town){
 		assembleSelect('#city', data.cityList);
 		assembleSelect('#county', data.countyList);
 		assembleSelect('#town', data.townList);
+		$('#province').val(province);
 		$('#city').val(city);
 		$('#county').val(county);
 		$('#town').val(town);

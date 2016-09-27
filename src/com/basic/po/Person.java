@@ -20,10 +20,11 @@ public class Person extends UserAbstract{
 	@Column(name="person_state")
 	private Byte personState;	//用户状态 0：正常 1：冻结
 	
-	private String idCard;	//身份证号
+	@Column(name="id_num")
+	private String idNum;	//身份证号
 	
-	@Column(name="idCard_photo_url")
-	private String idCardPhotoUrl;	//身份证照片url
+	@Column(name="id_photo")
+	private String idPhoto;	//身份证照片
 
 	
 	public String getRealName() {
@@ -58,20 +59,20 @@ public class Person extends UserAbstract{
 		this.personState = personState;
 	}
 
-	public String getIdCard() {
-		return idCard;
+	public String getIdNum() {
+		return idNum;
 	}
 
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
+	public void setIdNum(String idNum) {
+		this.idNum = idNum;
 	}
 
-	public String getIdCardPhotoUrl() {
-		return idCardPhotoUrl;
+	public String getIdPhoto() {
+		return idPhoto;
 	}
 
-	public void setIdCardPhotoUrl(String idCardPhotoUrl) {
-		this.idCardPhotoUrl = idCardPhotoUrl;
+	public void setIdPhoto(String idPhoto) {
+		this.idPhoto = idPhoto;
 	}
-	
+
 }

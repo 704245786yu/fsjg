@@ -14,7 +14,7 @@ import com.common.BaseDao;
 public class BasicUserDao extends BaseDao<Integer, BasicUser>{
 
 	/**检查用户名、手机号是否已经存在*/
-	public boolean isExsit(String userName,Long telephone){
+	public boolean isExist(String userName,Long telephone){
 		String hql = "select count(1) from BasicUser where userName =:userName or telephone =:telephone";
 		long amount = super.getCount(hql, new String[]{"userName","telephone"}, new Object[]{userName,telephone});
 		if(amount > 0)
@@ -23,7 +23,7 @@ public class BasicUserDao extends BaseDao<Integer, BasicUser>{
 			return false;
 	}
 	
-	public boolean nameIsExsit(String userName, Integer id){
+	public boolean nameIsExist(String userName, Integer id){
 		long amount = 0;
 		if(id == null){
 			String hql = "select count(1) from BasicUser where userName =:userName";
@@ -38,7 +38,7 @@ public class BasicUserDao extends BaseDao<Integer, BasicUser>{
 	/**手机号码是否已存在，若id为null判断全表，若不为null，则排除该id值的记录
 	 * @param id 要排除在检测范围内的id记录
 	 * */
-	public boolean teleIsExsit(Long telephone, Integer id){
+	public boolean teleIsExist(Long telephone, Integer id){
 		long amount = 0;
 		if(id == null){
 			String hql = "select count(1) from BasicUser where telephone =:telephone";
@@ -54,7 +54,7 @@ public class BasicUserDao extends BaseDao<Integer, BasicUser>{
 	 * 返回存在手机号
 	 * */
 	@SuppressWarnings("unchecked")
-	public List<Long> teleIsExsit(Collection<Long> telephones){
+	public List<Long> teleIsExist(Collection<Long> telephones){
 		String hql = "select telephone from BasicUser where telephone in (:telephones)";
 		return (List<Long>)super.find(hql, new String[]{"telephones"}, new Object[]{telephones});
 	}

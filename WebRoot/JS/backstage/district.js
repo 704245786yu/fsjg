@@ -78,17 +78,17 @@ function operFormatter(value,row,index){
 
 //新增
 function add(){
-	$('#ff').attr('action','disctrict/save');
+	$('#ff').attr('action','district/save');
 }
 
 //修改
 function modify(id){
-	new BsFormTableExtend().showModifyForm(id, 'disctrict/update');
+	new BsFormTableExtend().showModifyForm(id, 'district/update');
 }
 
 //删除
 function del(index,id){
-	new BsFormTableExtend().delRecord(index,id,'disctrict/delete/');
+	new BsFormTableExtend().delRecord(index,id,'district/delete/');
 }
 
 $('#fileupload').fileupload({

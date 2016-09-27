@@ -12,7 +12,7 @@ import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
 
 @Service
-public class DistrictBiz extends BaseBiz<DistrictDao,Integer,District>{
+public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 	
 	private static final String treeRoot = "100000000000";//100000000000是自定义的根节点，已经手动在数据库添加
 	

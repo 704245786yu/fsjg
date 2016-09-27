@@ -89,6 +89,27 @@
 		<tr>
 			<td><label>邮政编码</label></td>
 			<td><div class="form-group"><input type="text" class="form-control" name="postalCode" value="${userInfo.postalCode}"></div></td>
+			<td><label>身份证号</label></td>
+			<td><div class="form-group"><input type="text" class="form-control" name="idNum" value="${userInfo.idNum}"></div></td>
+		</tr>
+		<tr>
+			<td><label>身份证照(正)</label></td>
+			<td>
+				<input type="hidden" name="idPhoto" value="${userInfo.idPhoto}">
+				<input type="file" name="frontPhoto" accept="image/jpeg,image/png" onchange="enterpriseImgChange(this,200)">
+				<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+			</td>
+			<td><label>身份证照(反)</label></td>
+			<td>
+				<input type="file" name="backPhoto" accept="image/jpeg,image/png" onchange="enterpriseImgChange(this,200)">
+				<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+			</td>
+			<td>
+				<div style="float:left;display:none;margin-right:10px;">
+					<img  style="width:150px;height:100px" class="img-thumbnail" src="">
+					<div><button type="button" class="btn btn-primary btn-sm" onclick="delEnterpriseImg(this)">删除</button></div>
+				</div>
+			</td>
 		</tr>
 	</table>
 	<div style="margin-top:20px;text-align:right;padding-right:100px;">

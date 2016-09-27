@@ -109,7 +109,7 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		districtCodes.add(userAbstract.getCity());
 		districtCodes.add(userAbstract.getCounty());
 		districtCodes.add(userAbstract.getTown());
-		List<String> districtNames = districtBiz.getNameByCode(districtCodes);
+//		List<String> districtNames = districtBiz.getNameByCode(districtCodes);
 //		mav.addObject("districtNames", districtNames);
 		mav.addObject("userInfo", userAbstract);
 		return mav;

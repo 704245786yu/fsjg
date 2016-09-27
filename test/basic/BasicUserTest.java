@@ -23,6 +23,6 @@ public class BasicUserTest {
 		tele.add(18657639877L);
 		tele.add(13962129694L);
 		tele.add(1111111111L);
-		System.out.println(basicUserDao.teleIsExsit(tele));
+		System.out.println(basicUserDao.teleIsExist(tele));
 	}
 }

@@ -25,7 +25,7 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 	 * @param enterpriseName可为空
 	 * */
 	public String signUp(BasicUser basicUser, String enterpriseName){
-		boolean isExsit = dao.isExsit(basicUser.getUserName(), basicUser.getTelephone());
+		boolean isExsit = dao.isExist(basicUser.getUserName(), basicUser.getTelephone());
 		if(isExsit){
 			return "用户名或手机号重复";
 		}
@@ -67,13 +67,26 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 	}
 	
 	public boolean nameIsExist(String userName, Integer id){
-		return dao.nameIsExsit(userName,id);
+		return dao.nameIsExist(userName,id);
 	}
 	
 	/**手机号码是否已存在，若id为null判断全表，若不为null，则排除该id值的记录
 	 * @param id 要排除在检测范围内的id记录
 	 * */
 	public boolean teleIsExist(Long telephone, Integer id){
-		return dao.teleIsExsit(telephone, id);
+		return dao.teleIsExist(telephone, id);
+	}
+	
+	/**验证我的用户名、手机号是否已经存在*/
+	public String isMyNameAndTeleExist(BasicUser b){
+		String errorMsg = "";
+		Integer basicUserId = b.getId();
+		if(dao.nameIsExist(b.getUserName(), basicUserId)){
+			errorMsg = "用户名已存在";
+		}
+		if(this.teleIsExist(b.getTelephone(), basicUserId)){
+			errorMsg += " 手机号已存在";
+		}
+		return errorMsg;
 	}
 }

@@ -46,7 +46,7 @@
 				</tr>
 				<tr>
 					<td><label>手机号码：</label>${userInfo.basicUser.telephone}</td>
-					<td><label>身份证号：</label>${userInfo.idCard}</td>
+					<td><label>身份证号：</label>${userInfo.idNum}</td>
 				</tr>
 				<tr>
 					<td colspan="3" class="auth">

@@ -11,7 +11,7 @@ import com.common.BaseDao;
 import com.common.dto.BootTablePageDto;
 
 @Repository
-public class DistrictDao extends BaseDao<Integer, District>{
+public class DistrictDao extends BaseDao<Long, District>{
    public void save(List<String[]> data){
 	   List<District> districts=new ArrayList<>();
 	   District district=null;

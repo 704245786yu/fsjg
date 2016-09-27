@@ -26,7 +26,7 @@ import com.util.MicroOfficeFile;
 
 @Controller
 @RequestMapping("district")
-public class DistrictCtrl extends BaseCtrl<DistrictBiz,Integer,District>{
+public class DistrictCtrl extends BaseCtrl<DistrictBiz,Long,District>{
 	
 	public DistrictCtrl(){
 		defaultPage = "backstage/district";

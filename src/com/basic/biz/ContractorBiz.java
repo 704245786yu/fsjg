@@ -55,7 +55,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 			person.setFixPhone(temp[17]);
 			person.setWechat(temp[18]);
 			person.setPostalCode(temp[19]);
-			person.setIdCard(temp[20]);
+			person.setIdNum(temp[20]);
 			personList.add(person);
 			
 			Contractor contractor = new Contractor();

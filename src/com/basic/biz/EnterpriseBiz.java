@@ -200,7 +200,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		}
 		
 		//检测手机号码数据库是否已存在
-		List<Long> existTele = basicUserDao.teleIsExsit(teleSet);
+		List<Long> existTele = basicUserDao.teleIsExist(teleSet);
 		if(existTele.size()>0)
 			errorInfo.add("手机号码"+existTele.toString()+"已存在");
 		//检测工厂名称数据库是否已存在
