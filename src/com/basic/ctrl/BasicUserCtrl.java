@@ -1,6 +1,5 @@
 package com.basic.ctrl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,14 +17,12 @@ import com.basic.biz.DistrictBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
-import com.basic.po.Enterprise;
 import com.basic.po.UserAbstract;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ValidVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.LoginCtrl;
-import com.sys.po.ConstantDict;
 
 @Controller
 @RequestMapping("basicUser")
@@ -97,33 +94,13 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		if(roleId == 1){
 			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
 		}else if(roleId == 2){
-			Enterprise e = enterpriseBiz.getByBasicUserId(basicUser.getId());
-			userAbstract = e;
-			//行业分类，工厂刚注册时有可能还未选择所属行业
-			String trade = e.getTrade();
-			if(trade != null){
-				String[] trades = trade.split(",");
-				List<Integer> codes = new ArrayList<Integer>();
-				for(int i=0; i<trades.length; i++)
-					codes.add(Integer.valueOf(trades[i]));
-				List<String> tradeNames = costumeCategoryBiz.getNameByCode(codes);
-				mav.addObject("tradeNames", tradeNames);
-			}
-			//加工类型
-			List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-			mav.addObject("processTypes", processTypes);
-			//主营产品，工厂刚注册时有可能还未选择主营产品
-			List<Integer> costumeCodes = e.getCostumeCode();
-			if(costumeCodes.size()>0){
-				List<String> costumeNames = costumeCategoryBiz.getNameByCode(costumeCodes);
-				mav.addObject("costumeNames", costumeNames);
-			}
+			userAbstract = enterpriseBiz.getByBasicUserId(basicUser.getId());
 		}
-		List<Long> districtCodes = new ArrayList<Long>();
-		districtCodes.add(userAbstract.getProvince());
-		districtCodes.add(userAbstract.getCity());
-		districtCodes.add(userAbstract.getCounty());
-		districtCodes.add(userAbstract.getTown());
+//		List<Long> districtCodes = new ArrayList<Long>();
+//		districtCodes.add(userAbstract.getProvince());
+//		districtCodes.add(userAbstract.getCity());
+//		districtCodes.add(userAbstract.getCounty());
+//		districtCodes.add(userAbstract.getTown());
 //		List<String> districtNames = districtBiz.getNameByCode(districtCodes);
 //		mav.addObject("districtNames", districtNames);
 		mav.addObject("userInfo", userAbstract);

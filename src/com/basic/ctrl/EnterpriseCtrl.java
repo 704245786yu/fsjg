@@ -33,9 +33,8 @@ import com.basic.vo.StrengthEnterpriseVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
-import com.sys.biz.ConstantDictBiz;
+import com.common.vo.ValidVo;
 import com.sys.ctrl.UserCtrl;
-import com.sys.po.ConstantDict;
 import com.sys.po.User;
 import com.util.FileUtil;
 import com.util.MicroOfficeFile;
@@ -44,8 +43,6 @@ import com.util.MicroOfficeFile;
 @RequestMapping("enterprise")
 public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 
-	@Autowired
-	private ConstantDictBiz constantDictBiz;
 	@Autowired
 	private CostumeCategoryBiz costumeCategoryBiz;
 	@Autowired
@@ -63,23 +60,18 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	}
 	
 	public ModelAndView showDefaultPage(HttpSession session){
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		//实力工厂
 		List<StrengthEnterpriseVo> enterprises = biz.getStrength(12);
-		
 		ModelAndView mav = new ModelAndView(defaultPage);
 		mav.addObject("enterprises",enterprises);
-		mav.addObject("processTypes", processTypes);
 		return mav;
 	}
 	
 	/**显示后台管理页面*/
 	@RequestMapping("showManage")
 	public ModelAndView showManage(){
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("backstage/enterprise/enterprise");
-		mav.addObject("processTypes", processTypes);
 		return mav;
 	}
 	
@@ -138,13 +130,11 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	public ModelAndView search(String enterpriseKeyword){
 		BootTablePageDto<Enterprise> result = biz.search(enterpriseKeyword);
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		List<District> districts =	districtBiz.getProvinceAndCity();
 		
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		mav.addObject("result", result);
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
-		mav.addObject("processTypes", processTypes);
 		mav.addObject("districts", districts);
 		
 		//保留页面顶部搜索框的状态
@@ -157,13 +147,11 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	public ModelAndView search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
 		BootTablePageDto<Enterprise> result = biz.search2(province,city,county,town,costumeCode,keyword);
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		List<District> districts =	districtBiz.getProvinceAndCity();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", result);
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
-		mav.addObject("processTypes", processTypes);
 		mav.addObject("districts", districts);
 		mav.setViewName("main/enterpriseList");
 		return mav;
@@ -189,11 +177,9 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@RequestMapping("showList/{costumeCode}")
 	public ModelAndView showList(@PathVariable int costumeCode){
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		List<District> districts = districtBiz.getProvinceAndCity();
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
-		mav.addObject("processTypes", processTypes);
 		mav.addObject("districts", districts);
 		BootTablePageDto<Enterprise> result = biz.getByCostumeCode(costumeCode);
 		mav.addObject("result", result);
@@ -269,7 +255,8 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
 	}
 	
-	/**@param enterprisePic 最多选择6张图片
+	/**更新企业用户信息。对于用户自己更改信息的需同时刷新session中的信息
+	 * @param enterprisePic 最多选择6张图片
 	 * */
 	@RequestMapping("updateEnterprise")
 	@ResponseBody
@@ -284,7 +271,8 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		Integer updateBy = null;
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
 		if(basicUser != null){
-			updateBy = basicUser.getId();
+			e.getBasicUser().setId(basicUser.getId());//设置普通/企业用户设置自己的Id,防止人为篡改http通信中的id
+			updateBy = 0;
 		}else{
 			User user = UserCtrl.getLoginUser(session);
 			if(user!=null)
@@ -294,6 +282,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
 		}
 		e.getBasicUser().setUpdateBy(updateBy);
+		e.setId(biz.getIdByUserId(e.getBasicUser().getId()));//设置普通/企业用户设置自己的Id,防止人为篡改http通信中的id
 		
 		//验证用户名、工厂名称、手机号码是否相同
 		String errorMsg = this.isExistField(e);
@@ -345,6 +334,84 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
 		}
 		biz.update(e);
+		
+		//用户修改自身信息成功后，更新session
+		if(basicUser!=null){
+			basicUser.setUserName(e.getBasicUser().getUserName());
+			basicUser.setTelephone(e.getBasicUser().getTelephone());
+		}
+		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
+	}
+	
+	/**@param enterprisePic 最多选择6张图片
+	 * */
+	@RequestMapping("updateMyInfo")
+	@ResponseBody
+	public ReturnValueVo updateMyInfo(
+			Enterprise e,
+			String[] delImg,
+			@RequestParam(value="logoImg",required=false)MultipartFile logoImg,
+			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
+			@RequestParam(value="enterprisePic",required=false)MultipartFile[] enterprisePic,
+			HttpSession session){
+		//检查是否登录
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		if(basicUser == null)
+			new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
+		
+		e.getBasicUser().setId(basicUser.getId());//设置id为当前登录者的id
+		e.getBasicUser().setUpdateBy(0);
+		
+		//验证用户名、工厂名称、手机号码是否相同
+		String errorMsg = this.isExistField(e);
+		if(errorMsg.length() > 0)
+			return new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		//验证文件类型、大小是否符合
+		errorMsg = this.verifyImg(logoImg,licensePic,enterprisePic);
+		if(errorMsg.length() > 0)
+			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		String uploadDir = null;
+		try {
+			uploadDir = session.getServletContext().getResource("uploadFile/enterprise/").getPath();
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+		//删除旧图片
+		if(delImg!=null){
+			FileUtil.delImg(uploadDir, delImg);
+			for(int i=0; i<delImg.length; i++){
+				if(delImg[i].indexOf("logo") != -1){
+					e.setLogo("default_logo.png");
+				}
+			}
+		}
+		
+		//转储图片
+		try{
+			if(logoImg != null)
+				e.setLogo(this.transferFile(logoImg,uploadDir,0,"logo"));
+			
+			if(licensePic != null)
+				e.setLicenseImg(this.transferFile(licensePic,uploadDir,0,"lic"));
+			
+			if(enterprisePic.length > 0){
+				String enterpriseImg = null;
+				enterpriseImg = this.transferFile(enterprisePic[0],uploadDir,0,"0pic");
+				for(int i=1;i<enterprisePic.length;i++){
+					enterpriseImg +=  ","+this.transferFile(enterprisePic[i],uploadDir,0,i+"pic");
+				}
+				if(e.getEnterpriseImg().length() > 0)
+					e.setEnterpriseImg(e.getEnterpriseImg()+','+enterpriseImg);
+				else
+					e.setEnterpriseImg(enterpriseImg);
+			}
+		} catch (IllegalStateException | IOException ex) {
+			ex.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
+		}
+		biz.update(e);
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, e);
 	}
 	
@@ -365,6 +432,15 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return 1;
 	}
 
+	/**校验企业名称是否存在*/
+	@RequestMapping(value="isNameExist")
+	@ResponseBody
+	public ValidVo enterpriseIsExist(String enterpriseName, HttpSession session){
+		BasicUser b = BasicUserCtrl.getLoginUser(session);
+		int id = biz.getIdByUserId(b.getId());
+		return new ValidVo( ! biz.isExsit(enterpriseName,id));
+	}
+	
 	/**保存文件到磁盘
 	 * @param srcFile 原文件
 	 * @param uploadDir 保存路径

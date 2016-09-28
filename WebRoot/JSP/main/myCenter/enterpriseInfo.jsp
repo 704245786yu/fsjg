@@ -27,6 +27,11 @@
 #ff > table > tbody > tr > td > label span{
 	color:red;
 }
+#costumeBtn{
+	width:400px;
+	overflow:hidden;
+	background: url('image/select-btn.png') no-repeat 90%;
+}
 </style>
 
 <div style="border-bottom:1px solid #cccccc;line-height:49px;">
@@ -38,7 +43,7 @@
 <input type="hidden" name="county" value="${userInfo.county}">
 <input type="hidden" name="town" value="${userInfo.town}">
 
-<form id="ff" action="person/updatePerson" method="post" enctype="multipart/form-data" class="form-inline" style="margin-left:50px;margin-top:10px" autocomplete="off">
+<form id="ff" action="enterprise/updateEnterprise" method="post" enctype="multipart/form-data" class="form-inline" style="margin-left:50px;margin-top:10px" autocomplete="off">
 	<table id="districtContainer">
 		<tr>
 			<td><label>工厂编号</label></td>
@@ -105,6 +110,7 @@
 		<tr>
 			<td><label><span>*</span>行业分类</label></td>
 			<td>
+				<input type="hidden" id="trade" value="${userInfo.trade}">
 				<div class="form-group">
 					<label class="checkbox-inline"><input type="checkbox" name="trade" value="1">服装</label>
 					<label class="checkbox-inline"><input type="checkbox" name="trade" value="2">服饰</label>
@@ -118,6 +124,7 @@
 		<tr>
 			<td><label><span>*</span>加工类型</label></td>
 			<td>
+				<input type="hidden" id="processType" value="${userInfo.processType}">
 				<div class="form-group">
 					<c:forEach var="constantDict" items="${processTypes}">
 						<label class="checkbox-inline"><input type="checkbox" name="processType" value="${constantDict.constantValue}">${constantDict.constantName}</label>
@@ -128,6 +135,7 @@
 		<tr>
 			<td><label><span>*</span>主营产品</label></td>
 			<td>
+				<input type="hidden" id="costumeCode" value="${userInfo.costumeCode}">
 				<div class="form-group">
 					<%@include file="/JSP/main/common/costumeCategoryModal.jsp"%>
 				</div>
@@ -138,6 +146,7 @@
 		<tr>
 			<td><label><span>*</span>销售市场</label></td>
 			<td>
+				<input type="hidden" id="saleMarket" value="${userInfo.saleMarket}">
 				<div class="form-group">
 					<label class="radio-inline"><input type="radio" name="saleMarket" value="0">内销</label>
 					<label class="radio-inline"><input type="radio" name="saleMarket" value="1">外销</label>
@@ -171,7 +180,7 @@
 		<tr style="height:190px;">
 			<td><label>工厂logo</label></td>
 			<td>
-				<input type="hidden" name="logo">
+				<input type="hidden" name="logo" value="${userInfo.logo}">
 				<input type="file" name="logoImg" accept="image/jpeg,image/png" onchange="imgChange(this,50)">
 				<p style="color:grey;">支持jpg、png格式图片,尺寸90*90,最大50kb</p>
 				<div style="display:none;">
@@ -181,7 +190,7 @@
 			</td>
 			<td><label>营业执照</label></td>
 			<td>
-				<input type="hidden" name="licenseImg">
+				<input type="hidden" name="licenseImg" value="${userInfo.licenseImg}">
 				<input type="file" name="licensePic" accept="image/jpeg,image/png">
 				<p style="color:grey;">支持jpg、png格式图片,最大200kb</p>
 				<div style="display:none;">
@@ -194,7 +203,7 @@
 			<td><label>工厂图片</label></td>
 			<td colspan="3">
 				<!-- IE9下无法多选 -->
-				<input type="hidden" name="enterpriseImg">
+				<input type="hidden" name="enterpriseImg" value="${userInfo.enterpriseImg}">
 				<input type="file" name="enterprisePic" accept="image/jpeg,image/png" multiple="multiple" onchange="enterpriseImgChange(this,200)">
 				<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 				<div style="float:left;display:none;margin-right:10px;">
@@ -206,14 +215,14 @@
 	</table>
 	<div style="margin-top:20px;text-align:right;padding-right:100px;">
 		<button type="submit" name="save" class="btn btn-primary" style="width:80px;margin-right:10px;">保存</button>
-		<button type="button" class="btn btn-default" onclick="cancel()" style="width:80px;">取消</button>
 	</div>
 </form>
 
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.form.min.js"></script>
 
 <script src="JS/util/jqConfirmExtend.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/util/treeUtil.js"></script>
-<script src="JS/main/myCenter/personalInfo.js"></script>
+<script src="JS/main/myCenter/enterpriseInfo.js"></script>

@@ -78,16 +78,17 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 		return errorMsg;
 	}
 	
+	/**更新用户信息。同时刷新session中的信息*/
 	@RequestMapping("updatePerson")
 	@ResponseBody
-	public ReturnValueVo update(Person p,
+	public ReturnValueVo updatePerson(Person p,
 			@RequestParam(value="frontPhoto",required=false)MultipartFile frontPhoto,
 			@RequestParam(value="backPhoto",required=false)MultipartFile backPhoto,
 			HttpSession session){
 		//检查是否登录
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
 		if(basicUser == null)
-			return  new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
+			return new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
 		
 		p.getBasicUser().setId(basicUser.getId());//设置id为当前登录者的id
 		p.getBasicUser().setUpdateBy(0);

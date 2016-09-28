@@ -440,7 +440,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return result;
 	}
 	
-	/**根据BasicUser的id查询对应的企业信息*/
+	/**根据BasicUser的id查询对应的企业信息,以及企业用户的主营产品*/
 	public Enterprise getByBasicUserId(int userId){
 		Criterion c = Restrictions.eq("basicUser.id", userId);
 		Enterprise e = dao.findByCriteria(c).get(0);
@@ -494,7 +494,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		tempBasicUser.setCreateTime(basicUser.getCreateTime());
 		basicUserDao.update(basicUser);
 		
-		Enterprise old = dao.findById(e.getId());
+		Enterprise old = this.getByBasicUserId(tempBasicUser.getId());
 		e.setAuditState(old.getAuditState());
 		e.setAuditBy(old.getAuditBy());
 		e.setAuditTime(old.getAuditTime());

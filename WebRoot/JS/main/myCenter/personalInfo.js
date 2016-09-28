@@ -39,7 +39,7 @@ $('#ff').bootstrapValidator({
     			remote : {
 					trigger: 'keyup',
 					delay:1000,
-					message: '手机号已存在',
+					message: '用户名已存在',
 					url:'basicUser/isNameExist'
 				}
     		}

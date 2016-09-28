@@ -35,7 +35,7 @@
 					<table id="basic-info" class="table">
 						<tr>
 							<td rowspan="3" style="width:200px;text-align:center;">
-								<img src="uploadFile/enterprise/default_logo.png">
+								<img style="width:90px;height:90px;" src="uploadFile/enterprise/default_logo.png">
 							</td>
 							<td>
 								<label>帐号名称：</label><span name="userName">${userInfo.basicUser.userName}</span>
@@ -65,13 +65,13 @@
 					<table id="basic-info" class="table">
 						<tr>
 							<td rowspan="3" style="width:200px;text-align:center;">
-								<img src="uploadFile/enterprise/${userInfo.logo}">
+								<img style="width:90px;height:90px;" src="uploadFile/enterprise/${userInfo.logo}">
 							</td>
 							<td>
 								<label>帐号名称：</label><span name="userName">${userInfo.basicUser.userName}</span>
 							</td>
 							<td>
-								<label>联系人：</label><span name="realName">${userInfo.linkman}</span>
+								<label>联系人：</label><span name="linkman">${userInfo.linkman}</span>
 							</td>
 							<td>
 								<label>电子邮箱：</label><span name="email">${userInfo.email}</span>
@@ -170,12 +170,12 @@
 			<div style="display:none;">
 				<iframe src="indent/showMyConfirmed"></iframe>
 			</div>
-			<!-- <div style="display:none;">
-				<iframe src="indent/showMyConfirmed"></iframe>
+			<div style="display:none;">
+				搭建中...
 			</div>
 			<div style="display:none;">
-				<iframe src="indent/showMyConfirmed"></iframe>
-			</div> -->
+				搭建中...
+			</div>
 		</td>
 	</tr>
 </table>
@@ -184,6 +184,6 @@
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery-entropizer/lib/entropizer.js"></script>
 <script src="plugin/jquery-entropizer/js/jquery-entropizer.min.js"></script>
-<script src="JS/main/myCenter/personalCenter.js"></script>
+<script src="JS/main/myCenter/myCenter.js"></script>
 </body>
 </html>

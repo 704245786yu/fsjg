@@ -14,6 +14,8 @@ import org.springframework.web.context.WebApplicationContext;
 import com.basic.biz.CostumeCategoryBiz;
 import com.basic.ctrl.CostumeCategoryCtrl;
 import com.basic.po.CostumeCategory;
+import com.sys.biz.ConstantDictBiz;
+import com.sys.po.ConstantDict;
 import com.util.JacksonJson;
 
 @WebListener
@@ -35,6 +37,11 @@ public class StartupListener implements ServletContextListener {
 		
 		//行业分类
 		sc.setAttribute("trade", costumeCategoryBiz.getTrade());
+		
+		//加工类型
+		ConstantDictBiz constantDictBiz = wac.getBean(ConstantDictBiz.class);
+		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
+		sc.setAttribute("processTypes", processTypes);
 	}
 	
 	@Override

@@ -1,6 +1,62 @@
 var g_jqConfirm = new JqConfirmExtend();
 var g_delImg = new Array();
 
+$(function(){
+	var province = $('input[name="province"]').val();
+	var city = $('input[name="city"]').val();
+	var county = $('input[name="county"]').val();
+	var town = $('input[name="town"]').val();
+	fillDistrict(province, city, county, town);
+	
+	var $form = $('#ff');
+	
+	var costumeCodes = $.parseJSON($form.find('#costumeCode').val());
+	checkCostumeByCodes(costumeCodes);//设置“选择产品类别”button的显示文字
+	
+	//填充行业分类
+	var trade = $form.find('#trade').val();
+	if( trade != null && trade != ''){
+		trade = trade.split(',');
+		for(var i=0; i<trade.length; i++){
+			$(':checkbox[name="trade"][value="'+trade[i]+'"]').prop('checked','checked');
+		}
+	}
+	//填充加工类型
+	var processType = $form.find('#processType').val();
+	if(processType != null && processType != ''){
+		var processType = processType.split(',');
+		for(var i=0; i<processType.length; i++){
+			$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
+		}
+	}
+	//销售市场
+	var saleMarket = $form.find('#saleMarket').val();
+	if(saleMarket != null){
+		$(':radio[name="saleMarket"][value="'+saleMarket+'"]').prop('checked','checked');
+	}
+	//显示图片
+	var logo = $form.find('input[name="logo"]').val();
+	if(logo!='' && logo!='default_logo.png'){
+		var $div = $('input[name="logoImg"] ~ div').css('display','');
+		$div.children('img').attr('src','uploadFile/enterprise/'+logo);
+	}
+	var licenseImg = $form.find('input[name="licenseImg"]').val();
+	if(licenseImg !=null && licenseImg!=''){
+		var $div = $('input[name="licensePic"] ~ div').css('display','');
+		$div.children('img').attr('src','uploadFile/enterprise/'+licenseImg);
+	}
+	var enterpriseImg = $form.find('input[name="enterpriseImg"]').val();
+	if(enterpriseImg!=null && enterpriseImg!=''){
+		var imgs = enterpriseImg.split(',');
+		var $div = $('input[name="enterprisePic"] ~ div');
+		for(var i=0; i<imgs.length; i++){
+			var $divTemp = $div.clone().css('display','');
+			$divTemp.children('img').attr('src','uploadFile/enterprise/'+imgs[i]);
+			$div.after($divTemp);
+		}
+	}
+});
+
 //表单验证
 $('#ff').bootstrapValidator({
     feedbackIcons: {
@@ -17,7 +73,13 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 20,
     				message: '最多20个字符'
-    			}
+    			},
+    			remote : {
+					trigger: 'keyup',
+					delay:1000,
+					message: '用户名已存在',
+					url:'basicUser/isNameExist'
+				}
     		}
     	},
     	enterpriseName: {
@@ -28,7 +90,13 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 30,
     				message: '最多30个字符'
-    			}
+    			},
+    			remote : {
+					trigger: 'keyup',
+					delay:1000,
+					message: '工厂名称已存在',
+					url:'enterprise/isNameExist'
+				}
     		}
     	},
     	linkman: {
@@ -51,7 +119,13 @@ $('#ff').bootstrapValidator({
     			regexp: {
                     regexp: /^1[3|4|5|7|8]\d{9}$/,
                     message: '手机号码格式不正确'
-                }
+                },
+                remote : {
+					trigger: 'keyup',
+					delay:1000,
+					message: '手机号已存在',
+					url:'basicUser/isTeleExist'
+				}
     		}
     	},
     	province:{
@@ -151,7 +225,7 @@ $('#ff').bootstrapValidator({
 		e.preventDefault();
 		var $form = $(e.target);
 		$form.find(':submit').removeAttr('disabled');
-		alert('请选择主营产品');
+		g_jqConfirm.autoClose('请选择主营产品');
 	}
 });
 
@@ -171,81 +245,40 @@ function beforeSubmit(formData, jqForm, options){
 function success(data){
 	var action = $('#ff').attr('action');
 	if(data.status==200){
-		var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
-		if(opt.indexOf("save")!=-1){
-			$('#dg').bootstrapTable('append',data.value);
-		}else if(opt.indexOf("update")!=-1){	//update by unique id
-			$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
+		g_jqConfirm.autoClose('更新成功');
+		$('#ff').bootstrapValidator('resetForm');
+		var value = data.value;
+		//更新用户基本信息
+		updateBasicInfo(data.value);
+		//显示图片
+		var logo = value.logo;
+		if(logo!='' && logo!='default_logo.png'){
+			var $div = $('input[name="logoImg"] ~ div').css('display','');
+			$div.children('img').attr('src','uploadFile/enterprise/'+logo);
 		}
-		cancel();
+		var licenseImg = value.licenseImg;
+		if(licenseImg !=null && licenseImg!=''){
+			var $div = $('input[name="licensePic"] ~ div').css('display','');
+			$div.children('img').attr('src','uploadFile/enterprise/'+licenseImg);
+		}
+		var enterpriseImg = value.enterpriseImg;
+		if(enterpriseImg!=null && enterpriseImg!=''){
+			var imgs = enterpriseImg.split(',');
+			var $div = $('input[name="enterprisePic"] ~ div:first');
+			$div.nextAll().remove();//移除展示的工厂图片
+			for(var i=0; i<imgs.length; i++){
+				var $divTemp = $div.clone().css('display','');
+				$divTemp.children('img').attr('src','uploadFile/enterprise/'+imgs[i]);
+				$div.after($divTemp);
+			}
+		}
+		//清空删除的旧图片
+		g_delImg = new Array();
 	}else if(data.status==500){
 		g_jqConfirm.showDialog('保存失败',data.value);
 	}else if(data.status==501){
 		g_jqConfirm.showDialog('保存失败',data.value);
 	}
-}
-
-//显示Form表单，隐藏其他面板
-function showForm(){
-	g_delImg = new Array();
-	$('#listPanel').hide();
-	$('#editPanel').show();
-}
-
-//新增，该方法由主页面的add按钮触发
-function add(){
-	$('#ff').attr('action','enterprise/saveEnterprise');
-	showForm();
-}
-
-//新增，该方法由主页面的add按钮触发
-var g_basicUserId = null;//该全局变量用于验证用户名或手机号是否重复
-function modify(id){
-	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
-	g_basicUserId = data.basicUser.id;
-	$("#ff").autofill(data);
-	checkCostumeByCodes(data.costumeCode);//设置“选择产品类别”button的显示文字
-	
-	fillDistrict(data.province, data.city, data.county, data.town);
-	$('input[name="basicUser.id"]').val(data.basicUser.id);
-	$('input[name="basicUser.userName"]').val(data.basicUser.userName);
-	$('input[name="basicUser.telephone"]').val(data.basicUser.telephone);
-	//填充行业分类
-	var trade = data.trade;
-	if( trade != null && trade != ''){
-		trade = trade.split(',');
-		for(var i=0; i<trade.length; i++){
-			$(':checkbox[name="trade"][value="'+trade[i]+'"]').prop('checked','checked');
-		}
-	}
-	//填充加工类型
-	var processType = data.processType;
-	if(processType != null && processType != ''){
-		var processType = processType.split(',');
-		for(var i=0; i<processType.length; i++){
-			$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
-		}
-	}
-	//显示图片
-	if(data.logo!='' && data.logo!='default_logo.png'){
-		var $div = $('input[name="logoImg"] ~ div').css('display','');
-		$div.children('img').attr('src','uploadFile/enterprise/'+data.logo);
-	}
-	if(data.licenseImg !=null && data.licenseImg!=''){
-		var $div = $('input[name="licensePic"] ~ div').css('display','');
-		$div.children('img').attr('src','uploadFile/enterprise/'+data.licenseImg);
-	}
-	if(data.enterpriseImg!=null && data.enterpriseImg!=''){
-		var imgs = data.enterpriseImg.split(',');
-		var $div = $('input[name="enterprisePic"] ~ div');
-		for(var i=0; i<imgs.length; i++){
-			var $divTemp = $div.clone().css('display','');
-			$divTemp.children('img').attr('src','uploadFile/enterprise/'+imgs[i]);
-			$div.after($divTemp);
-		}
-	}
-	$('#ff').attr('action','enterprise/updateEnterprise');
-	showForm();
 }
 
 function delImg(imgName){
@@ -312,18 +345,12 @@ function enterpriseImgChange(file,maxSize){
 	}
 }
 
-/**取消编辑表单，同时重置表单
- * */
-function cancel(){
-	g_delImg = new Array();
-	var $form = $('#ff');
-	$form.find('input[name="logoImg"] ~ div').css('display','none');//隐藏工厂logo
-	$form.find('input[name="licensePic"] ~ div').css('display','none');//licensePic工厂营业执照
-	$form.find(':hidden[name="enterpriseImg"] ~ div:first').nextAll().remove();//移除展示的工厂图片
-	$form.find('input[type="hidden"]').val('');
-	$form.bootstrapValidator('resetForm', true);
-	resetModal();//重置costumeCategoryModal
-	$form[0].reset();
-	$('#listPanel').show();
-	$('#editPanel').hide();
+//更新用户基本信息
+function updateBasicInfo(data){
+	var $table = $('#basic-info');
+	$table.find('span[name="userName"]').html(data.basicUser.userName);
+	$table.find('span[name="linkman"]').html(data.linkman);
+	$table.find('span[name="email"]').html(data.email);
+	$table.find('span[name="telephone"]').html(data.telephone);
+	$table.find('span[name="enterpriseName"]').html(data.enterpriseName);
 }

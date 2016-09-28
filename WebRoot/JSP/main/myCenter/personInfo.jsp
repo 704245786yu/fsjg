@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 <link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 
 <style>
@@ -27,6 +26,11 @@
 }
 #ff > table > tbody > tr > td > label span{
 	color:red;
+}
+#costumeBtn{
+	width:400px;
+	overflow:hidden;
+	background: url('image/select-btn.png') no-repeat 90%;
 }
 </style>
 
@@ -120,7 +124,6 @@
 	</div>
 </form>
 
-<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="plugin/jquery.form.min.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
