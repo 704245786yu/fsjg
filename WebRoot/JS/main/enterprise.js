@@ -41,6 +41,8 @@ function getExcellent(){
 		for(var i=0; i<data.length; i++){
 			var enterprise = data[i];
 			var $new = $enterprise.clone().css('display','block');
+			//logo
+			$new.find('img').attr('src','uploadFile/enterprise/'+enterprise.logo);
 			var $head = $new.find('.media-heading');
 			$head.children('.media-heading > a').text(enterprise.enterpriseName).attr('href','enterprise/showDetail/'+enterprise.id);
 			var $list1 = $head.next().text('员工人数：'+enterprise.staffNumber+'人');

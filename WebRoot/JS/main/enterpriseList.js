@@ -72,6 +72,8 @@ function query(){
 			for(var i=0; i<rows.length; i++){
 				var enterprise = rows[i];
 				var $table = $template.clone();
+				//logo
+				$table.find('img').attr('src','uploadFile/enterprise/'+enterprise.logo);
 				var $titleA = $table.find('.title a');
 				$titleA.attr('href',$titleA.attr('href')+enterprise.id).html(enterprise.enterpriseName);
 				//加工类型

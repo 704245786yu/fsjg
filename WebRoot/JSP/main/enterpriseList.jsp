@@ -121,7 +121,7 @@
 				<table class="table table-bordered" style="margin-top:20px;">
 					<tr height="45px">
 						<td rowspan="3" style="width:180px;background-color:#F8F8F8;text-align:center;">
-							<img width="120px" height="120px" style="margin-bottom:10px" src="image/enterprise-icon.png">
+							<img width="120px" height="120px" style="margin-bottom:10px" src="uploadFile/enterprise/${enterprise.logo}">
 							<button type="button" class="btn btn-info">QQ在线交流</button>
 						</td>
 						<td style="width:90px;text-align:center;background-color:#E5E5E5">工厂信息：</td>
@@ -163,7 +163,7 @@
 		<table class="table table-bordered template" style="margin-top:20px;display:none;">
 			<tr height="45px">
 				<td rowspan="3" style="width:180px;background-color:#F8F8F8;text-align:center;">
-					<img width="120px" height="120px" style="margin-bottom:10px" src="image/enterprise-icon.png">
+					<img width="120px" height="120px" style="margin-bottom:10px" src="uploadFile/enterprise/${enterprise.logo}">
 					<button type="button" class="btn btn-info">QQ在线交流</button>
 				</td>
 				<td style="width:90px;text-align:center;background-color:#E5E5E5">工厂信息：</td>

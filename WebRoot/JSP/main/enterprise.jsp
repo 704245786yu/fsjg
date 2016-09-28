@@ -21,16 +21,16 @@
 <link href="CSS/enterprise-main.css" rel="stylesheet">
 <style type="text/css">
 .css1{
-color:#6699ff;border:1px #ff8000 dashed;
-margin-bottom:20px;
-width: 20em;
+	color:#6699ff;border:1px #ff8000 dashed;
+	margin-bottom:20px;
+	width: 20em;
 }
 .css2 {
-overflow: hidden;
-text-overflow: ellipsis;/*文字隐藏后添加省略号*/
-white-space: nowrap;/*强制不换行*/
-width: 20em;/*不允许出现半汉字截断*/
-color:#6699ff;border:1px #ff8000 dashed;
+	overflow: hidden;
+	text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+	white-space: nowrap;/*强制不换行*/
+	width: 20em;/*不允许出现半汉字截断*/
+	color:#6699ff;border:1px #ff8000 dashed;
 }
 </style>
 <script src="plugin/jquery.min.js"></script>
@@ -148,7 +148,7 @@ color:#6699ff;border:1px #ff8000 dashed;
 							<div class="panel-body">
 						    	<div class="media">
 									<div class="media-left">
-										<img class="media-object" src="image/enterprise-icon.png">
+										<img class="media-object" style="width:90px;height:90px;" src="uploadFile/enterprise/default_logo.png">
 									</div>
 									<div class="media-body">
 										<h4 class="media-heading"><a>工厂名称</a></h4>
@@ -240,7 +240,7 @@ color:#6699ff;border:1px #ff8000 dashed;
 					<div class="panel-body">
 						<div class="media">
 							<div class="media-left">
-								<img class="media-object" src="image/enterprise-icon.png">
+								<img class="media-object" src="uploadFile/enterprise/default_logo.png">
 							</div>
 							<div class="media-body">
 								<h4 class="media-heading">张先生 成功发单</h4>

@@ -111,7 +111,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
 		long total = bigInt.longValue();
 		
-		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, description, province, city, county");
+		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, left(description,150) as description, province, city, county, logo");
 		sql.append(subSql);
 		List<Object[]> scalars = new ArrayList<Object[]>();
 		scalars.add(new Object[]{"id",StandardBasicTypes.INTEGER});
@@ -176,7 +176,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
 		long total = bigInt.longValue();
 		
-		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, description, province, city, county");
+		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, left(description,150) as description, province, city, county, logo");
 		sql.append(subSql);
 		List<Object[]> scalars = new ArrayList<Object[]>();
 		scalars.add(new Object[]{"id",StandardBasicTypes.INTEGER});
@@ -256,7 +256,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
 		long total = bigInt.longValue();
 		
-		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, description, province, city, county");
+		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, left(description,150) as description, province, city, county, logo");
 		sql.append(subSql);
 		List<Object[]> scalars = new ArrayList<Object[]>();
 		scalars.add(new Object[]{"id",StandardBasicTypes.INTEGER});
