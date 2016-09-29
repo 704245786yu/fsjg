@@ -17,6 +17,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="plugin/jquery-arc-pic/css/base.css" rel="stylesheet">
 <link href="CSS/enterprise-detail.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
@@ -92,7 +93,29 @@
 		<!-- 主体 -->
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<div class="col-md-6"></div>
+				<div class="col-md-6">
+					  <!--图片展示开始-->
+  <div>
+    <div id="preview" class="spec-preview"> <span class="jqzoom"><img jqimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" /></span> </div>
+    <!--缩图开始-->
+    <div class="spec-scroll"> <a class="prev">&lt;</a> <a class="next">&gt;</a>
+      <div class="items">
+        <ul>
+          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li>
+          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s2.jpg" src="plugin/jquery-arc-pic/images/s2.jpg" onmousemove="preview(this);"></li>
+          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s3.jpg" src="plugin/jquery-arc-pic/images/s3.jpg" onmousemove="preview(this);"></li>
+          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li>
+          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s2.jpg" src="plugin/jquery-arc-pic/images/s2.jpg" onmousemove="preview(this);"></li>
+          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s3.jpg" src="plugin/jquery-arc-pic/images/s3.jpg" onmousemove="preview(this);"></li>
+          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li>
+        </ul>
+      </div>
+    </div>
+    <!--缩图结束-->
+  </div>
+  <!--图片展示结束-->
+				
+				</div>
 				<div class="col-md-6">
 					<b>生产工人:</b>
 					<p>工人${enterprise.staffNumber }人</p>
@@ -144,6 +167,8 @@
 </tr>
 </table>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugin/jquery-arc-pic/js/base.js"></script>
+<script src="plugin/jquery-arc-pic/js/jquery.jqzoom.js"></script>
 <script src="JS/main/enterpriseDetail.js"></script>
 </body>
 </html>

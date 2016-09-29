@@ -232,7 +232,9 @@ public class BaseDao<ID extends Serializable, T> {
 		Query query = getCurrentSession().createQuery(hql);
 		for(int i=0; i<paramNames.length; i++)
 		{
-			if(values[i] instanceof Collection)
+			if(values[i] instanceof Object[])
+				query.setParameterList(paramNames[i], (Object[])values[i]);
+			else if(values[i] instanceof Collection)
 				query.setParameterList(paramNames[i], (Collection<?>)values[i]);
 			else
 				query.setParameter(paramNames[i], values[i]);
