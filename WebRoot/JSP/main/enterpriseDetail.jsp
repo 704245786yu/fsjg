@@ -73,10 +73,10 @@
 						<p>QQ 号码：${enterprise.qq}</p>
 					</c:when>
 				</c:choose>
-				<p>加工类型：清加工</p>
+				<p>加工类型：<input type="hidden" name="processType" value="${processType}"></p>
 				<p>经营期限：${enterprise.enterpriseAge}年</p>
 				<p>员工人数：${enterprise.staffNumber}人</p>
-				<p>主营产品：<c:forEach var="name" items="${costumeNames}">${name} </c:forEach></p>
+				<p>主营产品：<c:forEach var="name" items="${costumeNames}">${name}</c:forEach></p>
 			</div>
 		</div>
 		<div class="panel panel-default">
@@ -94,35 +94,27 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="col-md-6">
-					  <!--图片展示开始-->
-  <div>
-    <div id="preview" class="spec-preview"> <span class="jqzoom"><img jqimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" /></span> </div>
-    <!--缩图开始-->
-    <div class="spec-scroll"> <a class="prev">&lt;</a> <a class="next">&gt;</a>
-      <div class="items">
-        <ul>
-          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li>
-          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s2.jpg" src="plugin/jquery-arc-pic/images/s2.jpg" onmousemove="preview(this);"></li>
-          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s3.jpg" src="plugin/jquery-arc-pic/images/s3.jpg" onmousemove="preview(this);"></li>
-          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li>
-          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s2.jpg" src="plugin/jquery-arc-pic/images/s2.jpg" onmousemove="preview(this);"></li>
-          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s3.jpg" src="plugin/jquery-arc-pic/images/s3.jpg" onmousemove="preview(this);"></li>
-          <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li>
-        </ul>
-      </div>
-    </div>
-    <!--缩图结束-->
-  </div>
-  <!--图片展示结束-->
-				
+					<!--图片展示开始-->
+					<div>
+						<input type="hidden" name="enterpriseImg" value="${enterpriseImg}">
+						<div id="preview" class="spec-preview"> <span class="jqzoom"><img jqimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" /></span> </div>
+						<!--缩图开始-->
+						<div class="spec-scroll"> <a class="prev">&lt;</a> <a class="next">&gt;</a>
+							<div class="items">
+								<ul>
+									<li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li>
+								</ul>
+							</div>
+						</div>
+						<!--缩图结束-->
+					</div>
+					<!--图片展示结束-->
 				</div>
 				<div class="col-md-6">
 					<b>生产工人:</b>
 					<p>工人${enterprise.staffNumber }人</p>
 					<b>生产设备:</b>
 					<p>${enterprise.equipment}</p>
-					<b>接单类型:</b>
-					<p>工人61人，生产流水线2条</p>
 					<b>销售市场:</b>
 					<p>工人61人，生产流水线2条</p>
 					<b>合作客户:</b>
