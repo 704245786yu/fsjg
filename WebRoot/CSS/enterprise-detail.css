@@ -16,3 +16,8 @@ html,body,div,ul,p,span,button{
 	color:white;
 	background-color:#FF842F;
 }
+
+.plist > p{
+	height:60px;
+	line-height:20px;
+}

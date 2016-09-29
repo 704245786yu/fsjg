@@ -163,14 +163,17 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return biz.search3(costumeCode, province, city, county, town, processType, staffNumber);
 	}
 	
+	/**工厂详情页*/
 	@RequestMapping("showDetail/{id}")
 	public ModelAndView showDetail(@PathVariable int id){
 		Enterprise e = biz.getById(id);
 		List<String> costumeNames = enterpriseCostumeRelaBiz.getCostumeNameByEnterpriseId(e.getId());
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("main/enterpriseDetail");
 		mav.addObject("enterprise", e);
 		mav.addObject("costumeNames", costumeNames);
-		mav.setViewName("main/enterpriseDetail");
+		
+		//获取可能感兴趣的工厂
+		
 		return mav;
 	}
 	

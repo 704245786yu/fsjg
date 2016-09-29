@@ -25,6 +25,7 @@
 
 <body>
 <%@ include file="top2.jsp"%>
+<%@ include file="/JSP/main/common/commonData.jsp" %>
 <div class="panel panel-default" style="margin-bottom:0px;">
 	<div id="detail-head" class="panel-body" style="background-color:#FCFCFC">
 		<h2>
@@ -62,7 +63,7 @@
 						<h4 class="media-heading">${enterprise.enterpriseName}</h4>
 					</div>
 				</div>
-				<p style="margin-top:10px;">联 系 人:${enterprise.linkman}</p>
+				<p style="margin-top:10px;">联 系 人：${enterprise.linkman}</p>
 				<c:choose>
 					<c:when test="${loginBasicUser==null}">
 						<p>联系电话：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
@@ -73,7 +74,7 @@
 						<p>QQ 号码：${enterprise.qq}</p>
 					</c:when>
 				</c:choose>
-				<p>加工类型：<input type="hidden" name="processType" value="${processType}"></p>
+				<p>加工类型：<input type="hidden" name="processType" value="${enterprise.processType}"><span id="processTypeText"></span></p>
 				<p>经营期限：${enterprise.enterpriseAge}年</p>
 				<p>员工人数：${enterprise.staffNumber}人</p>
 				<p>主营产品：<c:forEach var="name" items="${costumeNames}">${name}</c:forEach></p>
@@ -96,13 +97,17 @@
 				<div class="col-md-6">
 					<!--图片展示开始-->
 					<div>
-						<input type="hidden" name="enterpriseImg" value="${enterpriseImg}">
-						<div id="preview" class="spec-preview"> <span class="jqzoom"><img jqimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" /></span> </div>
+						<input type="hidden" name="enterpriseImg" value="${enterprise.enterpriseImg}">
+						<div id="preview" class="spec-preview">
+							<span class="jqzoom">
+								<img style="width:410px;height:260px;" jqimg="uploadFile/enterprise/default_big.png" src="uploadFile/enterprise/default_big.png" />
+							</span>
+						</div>
 						<!--缩图开始-->
 						<div class="spec-scroll"> <a class="prev">&lt;</a> <a class="next">&gt;</a>
 							<div class="items">
-								<ul>
-									<li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li>
+								<ul id="imgUl">
+									<!-- <li><img alt="佳能" bimg="plugin/jquery-arc-pic/images/s1.jpg" src="plugin/jquery-arc-pic/images/s1.jpg" onmousemove="preview(this);"></li> -->
 								</ul>
 							</div>
 						</div>
@@ -110,15 +115,31 @@
 					</div>
 					<!--图片展示结束-->
 				</div>
-				<div class="col-md-6">
-					<b>生产工人:</b>
-					<p>工人${enterprise.staffNumber }人</p>
-					<b>生产设备:</b>
-					<p>${enterprise.equipment}</p>
-					<b>销售市场:</b>
-					<p>工人61人，生产流水线2条</p>
-					<b>合作客户:</b>
-					<p>${enterprise.cooperator}</p>
+				<div class="col-md-6 plist" style="padding-left:50px;">
+					<p>
+						<b>所在行业:</b>
+						<br/><input type="hidden" name="trade" value="${enterprise.trade}"><span id="tradeText"></span>
+					</p>
+					<p>
+						<b>生产工人:</b>
+						<br/>工人${enterprise.staffNumber}人
+					</p>
+					<p>
+						<b>生产设备:</b>
+						<br/>${enterprise.equipment}
+					</p>
+					<p>
+						<b>销售市场:</b>
+						<br/>
+						<c:choose>
+							<c:when test="${enterprise.saleMarket==0}">内销</c:when>
+							<c:when test="${enterprise.saleMarket==1}">外销</c:when>
+						</c:choose>
+					</p>
+					<p>
+						<b>合作客户:</b>
+						<br/>${enterprise.cooperator}
+					</p>
 				</div>
 			</div>
 		</div>

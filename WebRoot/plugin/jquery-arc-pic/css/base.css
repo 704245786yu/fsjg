@@ -44,8 +44,8 @@ ol, ul{ list-style: none outside none;}
 .jqZoomPup{z-index:10;visibility:hidden;position:absolute;top:0px;left:0px;width:20px;height:20px;border:1px solid #aaa;background:#ffffff /*url(../images/zoom.png) 50% center no-repeat*/;opacity: 0.5;-moz-opacity: 0.5;-khtml-opacity: 0.5;filter: alpha(Opacity=50);}
 
 /*图片小图预览列表*/
-.spec-preview{width:350px;height:350px;border:1px solid #DFDFDF;}
-.spec-scroll{clear:both;margin-top:5px;width:352px;}
+.spec-preview{width:410px;height:260px;border:1px solid #DFDFDF;}
+.spec-scroll{clear:both;margin-top:5px;width:412px;}
 .spec-scroll .prev{float:left;margin-right:4px;}
 .spec-scroll .next{float:right;}
 .spec-scroll .prev,.spec-scroll .next{display:block;font-family:"宋体";text-align:center;width:10px;height:54px; line-height:54px;border:1px solid #CCC;background:#EBEBEB;cursor:pointer;text-decoration:none;}

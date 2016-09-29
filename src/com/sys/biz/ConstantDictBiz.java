@@ -33,6 +33,18 @@ public class ConstantDictBiz extends BaseBiz<ConstantDictDao, Integer, ConstantD
 		return map;
 	}
 	
+	/**根据constantTypeCode常量类型编码获取字典常量键值对*/
+	public HashMap<String,String> getValueNameMap(String constantTypeCode){
+		ConstantDict constantDict = new ConstantDict();
+		constantDict.setConstantTypeCode(constantTypeCode);
+		List<ConstantDict> list = dao.findByExample(constantDict);
+		HashMap<String,String> map = new HashMap<String,String>();
+		for(int i=0; i<list.size(); i++){
+			map.put(list.get(i).getConstantValue(), list.get(i).getConstantName());
+		}
+		return map;
+	}
+	
 	/**@param constantTypeCode 常量编码，精确匹配
 	 * @param constantName 模糊匹配
 	 * */

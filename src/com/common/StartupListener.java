@@ -42,6 +42,8 @@ public class StartupListener implements ServletContextListener {
 		ConstantDictBiz constantDictBiz = wac.getBean(ConstantDictBiz.class);
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
 		sc.setAttribute("processTypes", processTypes);
+		HashMap<String,String> processTypeMap = constantDictBiz.getValueNameMap("process_type");
+		sc.setAttribute("processTypeMap", JacksonJson.beanToJson(processTypeMap));
 	}
 	
 	@Override
