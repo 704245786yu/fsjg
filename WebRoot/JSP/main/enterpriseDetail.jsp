@@ -23,95 +23,126 @@
 </head>
 
 <body>
-<input type="hidden" name="pageName" value="enterprise">
-<%@ include file="top.jsp" %>
-<div class="page-header">
-	<h2>
-		${enterprise.enterpriseName}<small><span class="label" style="margin-left:10px;background-color:#FF842F">资质认证</span></small>
+<%@ include file="top2.jsp"%>
+<div class="panel panel-default" style="margin-bottom:0px;">
+	<div id="detail-head" class="panel-body" style="background-color:#FCFCFC">
+		<h2>
+			${enterprise.enterpriseName}<small><span class="label" style="margin-left:10px;background-color:#FF842F">资质认证</span></small>
+		</h2>
 		<div class="pull-right">
-			<button type="button" class="btn btn-primary" style="">QQ在线交流</button>
+			<button type="button" class="btn btn-primary" style="background-color:#4fb3e8">QQ在线交流</button>
 		</div>
-	</h2>
+	</div>
 </div>
-<div class="page-body">
-	<nav class="navbar navbar-default">
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="#">工厂详情</a></li>
-			<li><a href="#">样品展示</a></li>
+
+<nav class="topNav">
+	<div style="width:1190px;margin:0 auto;">
+		<ul class="nav navbar-nav" >
+			<li name="li-home" style="background-image:url('image/nav-orange.png');"><a>店铺首页</a></li>
+			<!-- <li name="li"><a>样品展示</a></li> -->
 		</ul>
-	</nav>
-	<div class="row">
+	</div>
+</nav>
+
+<table style="width:1190px;margin:15px auto;background-color:#FBF8F9">
+<tr>
+	<td style="width:280px;padding-right:5px;vertical-align:top;">
 		<!-- 左边栏 -->
-		<div class="col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					 <h3 class="panel-title"><span class="glyphicon glyphicon-volume-up"></span> 工厂信息</h3>
-				</div>
-				<div class="panel-body">
-					<div class="media">
-						<div class="media-left">
-							<img class="media-object" src="image/enterprise-icon.png">
-						</div>
-						<div class="media-body">
-							<h4 class="media-heading">${enterprise.enterpriseName}</h4>
-						</div>
+		<div id="baseInfoDiv" class="panel panel-default">
+			<div class="panel-heading">
+				 <h3 class="panel-title" style="color:#008AE6;"><span class="glyphicon glyphicon-volume-up"></span> 工厂信息</h3>
+			</div>
+			<div class="panel-body">
+				<div class="media">
+					<div class="media-left">
+						<img style="width:90px;height:90px;" class="media-object" src="uploadFile/enterprise/${enterprise.logo}">
 					</div>
-					<p style="margin-top:10px;">联 系 人:${enterprise.linkman}</p>
-					<c:choose>
-						<c:when test="${loginBasicUser==null}">
-							<p>联系电话：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
-							<p>QQ 号码：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
-						</c:when>
-						<c:when test="${loginBasicUser!=null}">
-							<p>联系电话：${enterprise.basicUser.telephone}</p>
-							<p>QQ 号码：${enterprise.qq}</p>
-						</c:when>
-					</c:choose>
-					<p>加工类型：清加工</p>
-					<p>经营期限：${enterprise.enterpriseAge}年</p>
-					<p>员工人数：${enterprise.staffNumber}人</p>
-					<p>主营产品：<c:forEach var="name" items="${costumeNames}">${name} </c:forEach></p>
+					<div class="media-body">
+						<h4 class="media-heading">${enterprise.enterpriseName}</h4>
+					</div>
 				</div>
+				<p style="margin-top:10px;">联 系 人:${enterprise.linkman}</p>
+				<c:choose>
+					<c:when test="${loginBasicUser==null}">
+						<p>联系电话：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
+						<p>QQ 号码：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
+					</c:when>
+					<c:when test="${loginBasicUser!=null}">
+						<p>联系电话：${enterprise.basicUser.telephone}</p>
+						<p>QQ 号码：${enterprise.qq}</p>
+					</c:when>
+				</c:choose>
+				<p>加工类型：清加工</p>
+				<p>经营期限：${enterprise.enterpriseAge}年</p>
+				<p>员工人数：${enterprise.staffNumber}人</p>
+				<p>主营产品：<c:forEach var="name" items="${costumeNames}">${name} </c:forEach></p>
 			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					 <h3 class="panel-title"><span class="glyphicon glyphicon-volume-up"></span> 地理位置</h3>
-				</div>
-				<div class="panel-body">
-					<p>地址：${enterprise.detailAddr}</p>
-				</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				 <h3 class="panel-title"><span class="glyphicon glyphicon-volume-up"></span> 地理位置</h3>
 			</div>
-		</div><!-- 左边栏 -->
+			<div class="panel-body">
+				<p>邮政编码：${enterprise.postalCode}</p>
+				<p>地址：${enterprise.detailAddr}</p>
+			</div>
+		</div>
+	</td>
+	<td style="padding-left:5px;">
 		<!-- 主体 -->
-		<div class="col-md-9">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-md-6"></div>
-					<div class="col-md-6">
-						<b>生产工人:</b>
-						<p>工人${enterprise.staffNumber }人</p>
-						<b>生产设备:</b>
-						<p>${enterprise.equipment}</p>
-						<b>接单类型:</b>
-						<p>工人61人，生产流水线2条</p>
-						<b>销售市场:</b>
-						<p>工人61人，生产流水线2条</p>
-						<b>合作客户:</b>
-						<p>${enterprise.cooperator}</p>
-					</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
+					<b>生产工人:</b>
+					<p>工人${enterprise.staffNumber }人</p>
+					<b>生产设备:</b>
+					<p>${enterprise.equipment}</p>
+					<b>接单类型:</b>
+					<p>工人61人，生产流水线2条</p>
+					<b>销售市场:</b>
+					<p>工人61人，生产流水线2条</p>
+					<b>合作客户:</b>
+					<p>${enterprise.cooperator}</p>
 				</div>
 			</div>
-			
-			<div class="panel panel-default">
-				<div class="panel-body">
-					${enterprise.description}
-				</div>
+		</div>
+		
+		<!-- 工厂描述 -->
+		<div class="panel panel-default">
+			<div class="panel-body">
+				${enterprise.description}
 			</div>
-		</div><!-- 主体 -->
+		</div>
 		
+		<!-- 档期 -->
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<img src="image/enterpriseDetail/clock.png"><span style="margin-left:10px;color:#00B4E8;font-size:20px;">${enterprise.schedule}</span>
+			</div>
+		</div>
 		
-	</div><!-- row -->
-</div>
+		<!-- 感兴趣的工厂 -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				 <h3 class="panel-title" style="color:#008AE6;"><span class="glyphicon glyphicon-volume-up"></span> 您可能感兴趣的工厂</h3>
+			</div>
+			<div class="panel-body">
+			</div>
+		</div>
+		
+		<!-- 免责声明 -->
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<p>免责声明：</p>
+				<p>
+					以上展示的信息由企业自行提供，内容的真实性、准确性和合法性由发布企业负责，服饰加工网对此不承担任何责任。如果发现虚假信息，欢迎到商圈举报，或直接致电客服热线：400-826-1700向我们反馈。
+				</p>
+			</div>
+		</div>
+	</td>
+</tr>
+</table>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/main/enterpriseDetail.js"></script>
 </body>

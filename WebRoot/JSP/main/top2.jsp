@@ -46,8 +46,6 @@
 		            <input type="text" id="s1" name="indentKeyword" class="search-input" value="${indnetKeyword}">
 		            <input type="text" id="s2" name="enterpriseKeyword" class="search-input" value="${enterpriseKeyword}">
 		            <input type="text" id="s3" name="sampleKeyword" class="search-input">
-		            <!-- <span class="s1 pholder">食品酒水半价抢疯</span>
-		            <span class="s2 pholder">搜商家名称</span> -->
 		            <button id="submit" class="btn-search" value="搜索">搜索</button>
 		        </div>
 			</form>
@@ -58,19 +56,7 @@
 	</div>
 </div>
 
-<nav class="topNav">
-	<div style="width:1190px;margin:0 auto;">
-		<ul class="nav navbar-nav" >
-			<li name="li-home"><a href="home">首页</a></li>
-			<li name="li-enterprise"><a href="enterprise">加工工厂</a></li>
-			<li name="li-indent"><a href="indent">加工订单</a></li>
-			<li><a href="#">快产专家</a></li>
-			<li><a href="#">服饰样品</a></li>
-		</ul>
-	</div>
-</nav>
-
 <!-- 由于上面的nav样式会影响其他页面的布局，通过此div进行影响的隔离 -->
-<div style="height:5px"></div>
+<!-- <div style="height:5px"></div> -->
 
-<script src="JS/main/top.js"></script>
+<script src="JS/main/top2.js"></script>

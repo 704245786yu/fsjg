@@ -115,7 +115,7 @@
 					<table>
 						<tr>
 							<c:forEach var="enterprise" items="${enterprises}" end="3">
-								<td><img src="uploadFile/enterprise/${enterprise.logo}"><div><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
+								<td><img style="width:90px;height:90px;" src="uploadFile/enterprise/${enterprise.logo}"><div><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
 							</c:forEach>
 						</tr>
 						<tr style="height:40px;">

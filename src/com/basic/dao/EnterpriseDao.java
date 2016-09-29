@@ -122,6 +122,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		scalars.add(new Object[]{"province",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"city",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"county",StandardBasicTypes.LONG});
+		scalars.add(new Object[]{"logo",StandardBasicTypes.STRING});
 		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 10);
 		return new BootTablePageDto<Enterprise>(total, enterprises);
 	}
@@ -187,6 +188,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		scalars.add(new Object[]{"province",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"city",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"county",StandardBasicTypes.LONG});
+		scalars.add(new Object[]{"logo",StandardBasicTypes.STRING});
 		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 10);
 		return new BootTablePageDto<Enterprise>(total, enterprises);
 	}
@@ -267,6 +269,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		scalars.add(new Object[]{"province",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"city",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"county",StandardBasicTypes.LONG});
+		scalars.add(new Object[]{"logo",StandardBasicTypes.STRING});
 		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 10);
 		return new BootTablePageDto<Enterprise>(total, enterprises);
 	}
