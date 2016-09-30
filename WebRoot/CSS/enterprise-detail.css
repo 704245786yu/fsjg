@@ -10,9 +10,8 @@ html,body,div,ul,p,span,button{
 	padding:0px 50px;
 }
 
-#baseInfoDiv a{
+#baseInfoDiv button{
 	width:160px;
-	font-size:14px;
 	color:white;
 	background-color:#FF842F;
 }

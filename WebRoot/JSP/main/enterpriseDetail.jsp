@@ -60,14 +60,14 @@
 						<img style="width:90px;height:90px;" class="media-object" src="uploadFile/enterprise/${enterprise.logo}">
 					</div>
 					<div class="media-body">
-						<h4 class="media-heading">${enterprise.enterpriseName}</h4>
+						<h5 class="media-heading">${enterprise.enterpriseName}</h5>
 					</div>
 				</div>
 				<p style="margin-top:10px;">联 系 人：${enterprise.linkman}</p>
 				<c:choose>
 					<c:when test="${loginBasicUser==null}">
-						<p>联系电话：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
-						<p>QQ 号码：<a class="btn btn-xs" href="login.jsp">登录后查看</a></p>
+						<p>联系电话：<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#loginModal">申请查看</button></p>
+						<p>QQ 号码：<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#loginModal">申请查看</button></p>
 					</c:when>
 					<c:when test="${loginBasicUser!=null}">
 						<p>联系电话：${enterprise.basicUser.telephone}</p>
@@ -77,7 +77,7 @@
 				<p>加工类型：<input type="hidden" name="processType" value="${enterprise.processType}"><span id="processTypeText"></span></p>
 				<p>经营期限：${enterprise.enterpriseAge}年</p>
 				<p>员工人数：${enterprise.staffNumber}人</p>
-				<p>主营产品：<c:forEach var="name" items="${costumeNames}">${name}</c:forEach></p>
+				<p>主营产品：<c:forEach var="name" items="${costumeNames}">${name} </c:forEach></p>
 			</div>
 		</div>
 		<div class="panel panel-default">
@@ -86,7 +86,7 @@
 			</div>
 			<div class="panel-body">
 				<p>邮政编码：${enterprise.postalCode}</p>
-				<p>地址：${enterprise.detailAddr}</p>
+				<p>地址：<c:forEach items="${districts}" var="district">${district}</c:forEach>${enterprise.detailAddr}</p>
 			</div>
 		</div>
 	</td>
@@ -164,6 +164,28 @@
 				 <h3 class="panel-title" style="color:#008AE6;"><span class="glyphicon glyphicon-volume-up"></span> 您可能感兴趣的工厂</h3>
 			</div>
 			<div class="panel-body">
+				<div id="enterpriseList" class="row">
+					<c:forEach items="${enterpriseList}" var="enterprise" varStatus="status">
+						<div class="enterprise" style="width:300px;padding:0 15px;float:left;">
+							<div class="panel panel-default">
+								<div class="panel-body">
+							    	<div class="media">
+										<div class="media-left">
+											<img class="media-object" style="width:90px;height:90px;" src="uploadFile/enterprise/default_logo.png">
+										</div>
+										<div class="media-body">
+											<h5 class="media-heading"><a>${enterprise.enterpriseName}</a></h5>
+											<p class="list-group-item-text">员工人数：${enterprise.staffNumber}人</p>
+											<p class="list-group-item-text">加工类型：<input type="hidden" name="processType" value="${enterprise.processType}"></p>
+											<p class="list-group-item-text">所在地区：<c:forEach items="${disctricsList[status.count-1]}" var="disctric">${disctric} </c:forEach></p>
+										</div>
+										<p style="margin-top:10px;text-align:center;">主营产品：<c:forEach items="${costumeNamesList[status.count-1]}" var="costume">${costume} </c:forEach></p>
+									</div>
+								</div><!-- panel-body -->
+							</div><!-- panel -->
+						</div><!-- col-md -->
+					</c:forEach>
+				</div><!-- row -->
 			</div>
 		</div>
 		
@@ -179,6 +201,11 @@
 	</td>
 </tr>
 </table>
+
+<jsp:include page="loginModal.jsp">
+	<jsp:param name="showCloseBtn" value="true"/>
+</jsp:include>
+
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/jquery-arc-pic/js/base.js"></script>
 <script src="plugin/jquery-arc-pic/js/jquery.jqzoom.js"></script>

@@ -1,4 +1,5 @@
 $(function(){
+	$('#loginModal').modal('hide');
 	//行业分类
 	var trade = $(':hidden[name="trade"]').val();
 	var tradeStr = comm_getTradeName(trade);
@@ -21,5 +22,13 @@ $(function(){
 		}
 	}else{
 		$imgUl.append($li);
+	}
+	
+	//设置感兴趣的工厂的加工类型
+	var $processTypes = $('#enterpriseList :hidden[name="processType"]');
+	for(var i=0; i<$processTypes.length; i++){
+		var $processType = $($processTypes[i]);
+		var processTypeStr = comm_getProcessTypeName($processType.val());
+		$processType.after(processTypeStr);
 	}
 });

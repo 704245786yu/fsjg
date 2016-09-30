@@ -32,4 +32,9 @@ public class DistrictTest {
 		districtCodes.add(null);
 		JacksonJson.printBeanToJson(districtBiz.getNameByCode(districtCodes));
 	}
+	
+	@Test
+	public void test3(){
+		JacksonJson.printBeanToJson(districtBiz.getNameByCode(330000l, 331000000000l, 331002000000l, null));
+	}
 }

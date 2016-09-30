@@ -458,8 +458,11 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return list.get(0);
 	}
 	
-	public BootTablePageDto<Enterprise> getByCostumeCode(int costumeCode){
-		BootTablePageDto<Enterprise> dto = dao.getByCostumeCode(costumeCode);
+	/**根据服饰类型编码获取关联的企业
+	 * @param limit 返回的记录数
+	 * */
+	public BootTablePageDto<Enterprise> getByCostumeCode(int costumeCode,int offset,int limit){
+		BootTablePageDto<Enterprise> dto = dao.getByCostumeCode(costumeCode,offset,limit);
 		List<Enterprise> enterprises = dto.getRows();
 		for(int i=0; i<enterprises.size(); i++){
 			Enterprise e = enterprises.get(i);

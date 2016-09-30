@@ -72,7 +72,7 @@ public class EnterpriseTest {
 	
 	@Test
 	public void getByCostumeCode(){
-		enterpriseDao.getByCostumeCode(10108);
+		enterpriseDao.getByCostumeCode(10108,0,3);
 	}
 	
 	@Test

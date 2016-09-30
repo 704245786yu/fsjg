@@ -28,7 +28,9 @@
 <div class="banner">
 	<div class="row">
 		<div class="col-md-3" style="width:275px;">
-			<img src="image/logo.png">
+			<a href="">
+				<img src="image/logo.png">
+			</a>
 		</div>
 		<div class="col-md-6 col-md-offset-1 searchBox">
 			<!-- 判断搜索框tab的选中状态 -->

@@ -166,14 +166,32 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	/**工厂详情页*/
 	@RequestMapping("showDetail/{id}")
 	public ModelAndView showDetail(@PathVariable int id){
+		ModelAndView mav = new ModelAndView("main/enterpriseDetail");
 		Enterprise e = biz.getById(id);
 		List<String> costumeNames = enterpriseCostumeRelaBiz.getCostumeNameByEnterpriseId(e.getId());
-		ModelAndView mav = new ModelAndView("main/enterpriseDetail");
+		List<String> districts = districtBiz.getNameByUser(e);
 		mav.addObject("enterprise", e);
 		mav.addObject("costumeNames", costumeNames);
+		mav.addObject("districts",districts);
 		
 		//获取可能感兴趣的工厂
-		
+		List<Integer> costumeCodes = enterpriseCostumeRelaBiz.getCostumeCode(e.getId());
+		//企业可能未设置主营产品
+		if(costumeCodes.size()>0){
+			List<Enterprise> enterpriseList = biz.getByCostumeCode(costumeCodes.get(0),1,3).getRows();
+			List<List<String>> costumeNamesList = new ArrayList<List<String>>(enterpriseList.size());
+			List<List<String>> disctricsList = new ArrayList<List<String>>(enterpriseList.size());
+			for(int i=0; i<enterpriseList.size(); i++){
+				Enterprise temp = enterpriseList.get(i);
+				List<String> costumeNamesTemp = enterpriseCostumeRelaBiz.getCostumeNameByEnterpriseId(temp.getId());
+				costumeNamesList.add(costumeNamesTemp);
+				List<String> districtsTemp = districtBiz.getNameByCode(temp.getProvince(), temp.getCity(), null, null);
+				disctricsList.add(districtsTemp);
+			}
+			mav.addObject("enterpriseList", enterpriseList);
+			mav.addObject("costumeNamesList", costumeNamesList);
+			mav.addObject("disctricsList", disctricsList);
+		}
 		return mav;
 	}
 	
@@ -184,7 +202,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		mav.addObject("districts", districts);
-		BootTablePageDto<Enterprise> result = biz.getByCostumeCode(costumeCode);
+		BootTablePageDto<Enterprise> result = biz.getByCostumeCode(costumeCode,0,10);
 		mav.addObject("result", result);
 		return mav;
 	}

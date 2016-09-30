@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.basic.dao.DistrictDao;
 import com.basic.po.District;
+import com.basic.po.UserAbstract;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
 
@@ -165,11 +166,29 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 		return district;
 	}
 	
-	/**根据编码获取地区名字*/
-	@SuppressWarnings("unchecked")
+	/**根据地区编码获取地区名称,多用于返回用户或订单的省、市、区县、乡镇信息*/
 	public List<String> getNameByCode(List<Long> codes){
-		String hql = "select districtName from District where districtCode in (:codes)";
-		return (List<String>)dao.find(hql, new String[]{"codes"}, new Object[]{codes});
+		return dao.getNameByCode(codes);
+	}
+	
+	/**根据地区编码获取地区名称,多用于返回用户或订单的省、市、区县、乡镇信息*/
+	public List<String> getNameByCode(Long province, Long city, Long county, Long town){
+		List<Long> codes = new ArrayList<Long>();
+		codes.add(province);
+		codes.add(city);
+		codes.add(county);
+		codes.add(town);
+		return dao.getNameByCode(codes);
+	}
+	
+	/**获取用户所在地区名称*/
+	public List<String> getNameByUser(UserAbstract userAbstract){
+		List<Long> codes = new ArrayList<Long>();
+		codes.add(userAbstract.getProvince());
+		codes.add(userAbstract.getCity());
+		codes.add(userAbstract.getCounty());
+		codes.add(userAbstract.getTown());
+		return dao.getNameByCode(codes);
 	}
 	
 	/**根据地区名称分页查询
