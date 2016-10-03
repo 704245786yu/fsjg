@@ -125,6 +125,7 @@
 </form>
 
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.form.min.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>

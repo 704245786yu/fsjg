@@ -398,6 +398,13 @@
 	</tr>
 </table>
 
+<div style="font-size:16px;">友情链接</div>
+<p style="border-top:2px solid grey;padding:5px 10px;line-height:30px;">
+	<c:forEach items="${blogrolls}" var="blogroll">
+		<a style="color:black;margin-right:20px;" href="${blogroll.url}" target="_blank">${blogroll.name}</a>
+	</c:forEach>
+</p>
+
 </div>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/main/home.js"></script>

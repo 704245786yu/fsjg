@@ -117,6 +117,11 @@ public class Indent {
 
 	public Indent(){}
 	
+	public Indent(String indentName, String telephone){
+		this.indentName = indentName;
+		this.telephone = telephone;
+	}
+	
 	public Indent(Long indentNum, String indentName, Integer quantity,
 			Double expectPrice, Byte state, Date createTime) {
 		super();

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sys.po.User;
+
 @Controller
 @RequestMapping("backstage")
 public class BackstageCtrl {
@@ -21,9 +23,13 @@ public class BackstageCtrl {
 	/**登录成功后显示主界面
 	 * */
 	@RequestMapping("index")
-	public ModelAndView showIndex(){
+	public ModelAndView showIndex(HttpSession session){
+		User user = UserCtrl.getLoginUser(session);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("../JSP/backstage/index");
+		if(user==null)
+			mav.setViewName("redirect:../backstage");
+		else
+			mav.setViewName("../JSP/backstage/index");
 		return mav;
 	}
 }

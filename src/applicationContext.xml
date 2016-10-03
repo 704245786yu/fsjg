@@ -19,7 +19,7 @@
 	<context:annotation-config />
 
 	<!-- 扫描类包以启动注解驱动的Bean -->
-	<context:component-scan base-package="com.basic,com.sys"/>
+	<context:component-scan base-package="com.ad,com.basic,com.sys"/>
 	<!-- 引入属性文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties"/>
 	
@@ -38,7 +38,7 @@
 	<!-- 2、配置SessionFactory、映射信息、Hibernate属性 -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
 		p:dataSource-ref="dataSource"
-		p:packagesToScan="com.basic.po,com.sys.po">
+		p:packagesToScan="com.ad.po,com.basic.po,com.sys.po">
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>

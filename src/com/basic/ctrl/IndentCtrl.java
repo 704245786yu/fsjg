@@ -32,6 +32,7 @@ import com.basic.po.Indent;
 import com.basic.po.UserAbstract;
 import com.basic.vo.ConfirmIndentVo;
 import com.basic.vo.IndentVo;
+import com.basic.vo.MyQuotedVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
@@ -277,9 +278,42 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return biz.getMyReleased(indentNum, indentName, state, beginDate, endDate, user.getId(), total, offset, limit);
 	}
 
+	/**个人中心-我的报价
+	 * @param indentNum 订单编号
+	 * @param indentName 订单名称,模糊匹配
+	 * @param state 订单状态
+	 * @param beginDate 开始日期
+	 * @param endDate 结束日期
+	 * @param total 总记录数
+	 * @param offset 偏移量，即记录索引位置
+	 * @param limit 每页记录数
+	 * */
+	@RequestMapping("myQuoted")
+	@ResponseBody
+	public BootTablePageDto<MyQuotedVo> myQuoted(Long indentNum, String indentName, Byte state, String beginDate, String endDate,
+			Long total, int offset, int limit, HttpSession session){
+		BasicUser user = BasicUserCtrl.getLoginUser(session);
+		int enterpriseId = enterpriseBiz.getIdByUserId(user.getId());
+		return biz.getMyQuoted(indentNum, indentName, state, beginDate, endDate, enterpriseId, total, offset, limit);
+	}
+
+	/**显示我的报价
+	 * */
+	@RequestMapping("showMyQuoted")
+	public String showMyQuoted(){
+		return "main/myCenter/myQuoted";
+	}
+	
+	/**显示我收到的报价*/
 	@RequestMapping("showMyReceivedQuote")
 	public String showMyReceivedQuote(){
 		return "main/myCenter/myReceivedQuote";
+	}
+	
+	/**显示我收到的订单*/
+	@RequestMapping("showMyReceivedIndent")
+	public String showMyReceivedIndent(){
+		return "main/myCenter/myReceivedIndent";
 	}
 	
 	/**我收到的报价
@@ -300,14 +334,34 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return biz.myReceivedQuote(indentNum, indentName, beginDate, endDate, user.getId(), total, offset, limit);
 	}
 	
-	/**确认订单
+	/**我收到的订单
+	 * @param indentNum 订单编号
+	 * @param indentName 订单名称,模糊匹配
+	 * @param beginDate 开始日期
+	 * @param endDate 结束日期
+	 * @param total
+	 * @param offset
+	 * @param limit
+	 * @return
+	 */
+	@RequestMapping("myReceivedIndent")
+	@ResponseBody
+	public BootTablePageDto<MyQuotedVo> myReceivedIndent(Long indentNum, String indentName, String beginDate, String endDate,
+			Long total, int offset, int limit, HttpSession session){
+		BasicUser user = BasicUserCtrl.getLoginUser(session);
+		int enterpriseId = enterpriseBiz.getIdByUserId(user.getId());
+		return biz.myReceivedIndent(indentNum, indentName, beginDate, endDate, enterpriseId, total, offset, limit);
+	}
+	
+	/**确认订单,并发送短信通知接单方
 	 * 要根据session获取当前登录用户的ID进行数据的更新，防止非订单创建者非法操作。
+	 * @param telephone 报价企业手机号
 	 * */
 	@RequestMapping("confirm")
 	@ResponseBody
-	public ReturnValueVo confirm(long indentNum,int enterpriseId,double price,HttpSession session){
+	public ReturnValueVo confirm(long indentNum,String indentName,int enterpriseId,long telephone,double price,HttpSession session){
 		int userId = BasicUserCtrl.getLoginUser(session).getId();
-		biz.confirm(indentNum, enterpriseId, price, userId);
+		biz.confirm(indentNum, indentName, enterpriseId, telephone, price, userId);
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, null);
 	}
 	

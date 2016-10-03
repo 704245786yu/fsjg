@@ -12,6 +12,7 @@ import com.basic.dto.IndentDto;
 import com.basic.po.Indent;
 import com.basic.vo.ConfirmIndentVo;
 import com.basic.vo.IndentVo;
+import com.basic.vo.MyQuotedVo;
 import com.common.BaseDao;
 import com.common.dto.BootTablePageDto;
 
@@ -232,6 +233,70 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		return new BootTablePageDto<Indent>(total, list);
 	}
 	
+	/**个人中心-我的报价
+	 * @param indentNum 订单编号
+	 * @param indentName 订单名称,模糊匹配
+	 * @param state 订单状态
+	 * @param beginDate 开始日期
+	 * @param endDate 结束日期
+	 * @param enterpriseId 报价企业Id
+	 * @param total 总记录数
+	 * @param offset 偏移量，即记录索引位置
+	 * @param limit 每页记录数
+	 * @return 订单编号、订单名称、订单数量、订单金额、订单状态、报价金额，报价日期
+	 * */
+	@SuppressWarnings("unchecked")
+	public BootTablePageDto<MyQuotedVo> getMyQuoted(Long indentNum, String indentName, Byte state, Date beginDate, Date endDate,
+			int enterpriseId, Long total, int offset, int limit){
+		StringBuffer hql = new StringBuffer(" from Indent i,IndentQuote iq where i.indentNum = iq.indentNum and iq.enterpriseId =:enterpriseId ");
+		List<String> paramNames = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		paramNames.add("enterpriseId");
+		values.add(enterpriseId);
+		if(indentNum != null){
+			hql.append(" and indentNum =:indentNum");
+			paramNames.add("indentNum");
+			values.add(indentNum);
+		}
+		if(indentName.length() != 0){
+			hql.append(" and indentName like :indentName");
+			paramNames.add("indentName");
+			values.add("%"+indentName+"%");
+		}
+		if(state != null){
+			hql.append(" and state =:state");
+			paramNames.add("state");
+			values.add(state);
+		}
+		//报价日期
+		if(beginDate != null && endDate != null){
+			hql.append(" and iq.createTime between :beginDate and :endDate");
+			paramNames.add("beginDate");
+			paramNames.add("endDate");
+			values.add(beginDate);
+			values.add(endDate);
+		}
+		String[] paramNameAry = paramNames.toArray(new String[paramNames.size()]);
+		if(total == null){
+			total = super.getCount("select count(1) "+hql.toString(), paramNameAry, values.toArray());
+			if(total == 0)
+				return new BootTablePageDto<MyQuotedVo>(total, new ArrayList<MyQuotedVo>());
+		}
+		List<MyQuotedVo> list = super.findByPage("select i.indentNum as indentNum, i.indentName as indentName, i.quantity as quantity, i.expectPrice as expectPrice, i.state as state, iq.quote as quote, iq.createTime as createTime"+hql.toString(), offset, limit, paramNameAry, values.toArray(),MyQuotedVo.class);
+		//获取每个订单的报价人数
+		List<Long> indentNums = new ArrayList<Long>(list.size());
+		for(int i=0;i<list.size();i++){
+			indentNums.add(list.get(i).getIndentNum());
+		}
+		hql = new StringBuffer("select count(1) from IndentQuote where indentNum in (:indentNums) group by indentNum");
+		List<Long> counts = (List<Long>)super.find(hql.toString(), new String[]{"indentNums"}, new Object[]{indentNums});
+		for(int i=0; i<counts.size(); i++){
+			MyQuotedVo vo = list.get(i);
+			vo.setCountNum(counts.get(i));
+		}
+		return new BootTablePageDto<MyQuotedVo>(total, list);
+	}
+	
 	/**我收到的报价，返回收到报价的订单，但不包含已接单和已失效的订单
 	 * @param indentNum 订单编号
 	 * @param indentName 订单名称,模糊匹配
@@ -278,6 +343,51 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 				"select i.id as id, i.indentNum as indentNum, i.indentName as indentName, i.quantity as quantity, i.expectPrice as expectPrice, count(i.id) as countNum, max(q.createTime) as latestTime"
 				+hql.toString()+" group by i.id", offset, limit, paramNameAry, values.toArray(),IndentVo.class);
 		return new BootTablePageDto<IndentVo>(total, list);
+	}
+	
+	/**我收到的订单
+	 * @param indentNum 订单编号
+	 * @param indentName 订单名称,模糊匹配
+	 * @param beginDate 报价-开始日期
+	 * @param endDate 报价-结束日期
+	 * @param total
+	 * @param offset
+	 * @param limit
+	 * @return 订单编号、订单名称、订单数量、订单金额、报价金额、报价日期
+	 */
+	public BootTablePageDto<MyQuotedVo> myReceivedIndent(Long indentNum, String indentName, Date beginDate, Date endDate,
+			int enterpriseId, Long total, int offset, int limit){
+		StringBuffer hql = new StringBuffer(" from Indent i,IndentQuote iq where i.indentNum = iq.indentNum and i.receivedEnterpriseId =:enterpriseId and iq.enterpriseId =:enterpriseId");
+		List<String> paramNames = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		paramNames.add("enterpriseId");
+		values.add(enterpriseId);
+		if(indentNum != null){
+			hql.append(" and indentNum =:indentNum");
+			paramNames.add("indentNum");
+			values.add(indentNum);
+		}
+		if(indentName.length() != 0){
+			hql.append(" and indentName like :indentName");
+			paramNames.add("indentName");
+			values.add("%"+indentName+"%");
+		}
+		//报价日期
+		if(beginDate != null && endDate != null){
+			hql.append(" and iq.createTime between :beginDate and :endDate");
+			paramNames.add("beginDate");
+			paramNames.add("endDate");
+			values.add(beginDate);
+			values.add(endDate);
+		}
+		String[] paramNameAry = paramNames.toArray(new String[paramNames.size()]);
+		if(total == null){
+			total = super.getCount("select count(1) "+hql.toString(), paramNameAry, values.toArray());
+			if(total == 0)
+				return new BootTablePageDto<MyQuotedVo>(total, new ArrayList<MyQuotedVo>());
+		}
+		List<MyQuotedVo> list = super.findByPage("select i.indentNum as indentNum, i.indentName as indentName, i.quantity as quantity, i.expectPrice as expectPrice, iq.quote as quote, iq.createTime as createTime"+hql.toString(), offset, limit, paramNameAry, values.toArray(),MyQuotedVo.class);
+		return new BootTablePageDto<MyQuotedVo>(total, list);
 	}
 
 	/**更新订单状态
@@ -330,5 +440,16 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 				"select i.indentNum as indentNum, i.indentName as indentName, i.expectPrice as expectPrice, i.price as price, e.enterpriseName as enterpriseName, i.updateTime as updateTime from Indent i, Enterprise e"
 				+hql.toString()+" and i.receivedEnterpriseId = e.id", offset, limit, paramNameAry, values.toArray(),ConfirmIndentVo.class);
 		return new BootTablePageDto<ConfirmIndentVo>(total, list);
+	}
+	
+	/**获取订单的名称和发单人的手机号码
+	 * @prama indentNum 订单编号
+	 * @return String[] indentName,telephone
+	 * */
+	@SuppressWarnings("unchecked")
+	public Indent getNameAndTele(long indentNum){
+		String hql = "select new Indent(indentName, telephone) from Indent where indentNum =:indentNum";
+		List<Indent> list = (List<Indent>)super.find(hql, new String[]{"indentNum"}, new Long[]{indentNum});
+		return list.get(0);
 	}
 }

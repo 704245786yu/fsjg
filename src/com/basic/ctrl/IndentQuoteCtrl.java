@@ -18,6 +18,8 @@ import com.basic.vo.QuoteEnterpriseVo;
 import com.common.BaseCtrl;
 import com.common.vo.ReturnValueVo;
 
+/**订单报价
+ * */
 @Controller
 @RequestMapping("indentQuote")
 public class IndentQuoteCtrl extends BaseCtrl<IndentQuoteBiz,Integer,IndentQuote>{
@@ -25,7 +27,7 @@ public class IndentQuoteCtrl extends BaseCtrl<IndentQuoteBiz,Integer,IndentQuote
 	@Autowired
 	private EnterpriseBiz enterpriseBiz;
 	
-	/**订单报价
+	/**订单报价，报价后要发送短信通知发单方
 	 * */
 	@RequestMapping("quote/{indentNum}/{quote}")
 	@ResponseBody

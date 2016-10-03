@@ -5,7 +5,8 @@ $(function(){
 	var city = $('input[name="city"]').val();
 	var county = $('input[name="county"]').val();
 	var town = $('input[name="town"]').val();
-	fillDistrict(province, city, county, town);
+	if(province!='')
+		fillDistrict(province, city, county, town);
 	//显示图片
 	var idFrontPhoto = $('input[name="idFrontPhoto"]').val();
 	var idBackPhoto = $('input[name="idBackPhoto"]').val();

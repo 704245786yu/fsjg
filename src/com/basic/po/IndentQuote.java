@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**订单报价
+ * */
 @Entity
 @Table(name="process_indent_quote")
 public class IndentQuote {

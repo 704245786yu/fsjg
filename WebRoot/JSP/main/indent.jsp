@@ -45,8 +45,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td><label>发单地区</label></td>
-								<td><button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择发单地区</button></td>
+								<td><label>接单地区</label></td>
+								<td><button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择接单地区</button></td>
 							</tr>
 							<tr>
 								<td><label>关 键 字</label></td>

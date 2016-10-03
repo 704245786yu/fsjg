@@ -14,7 +14,7 @@ $(function(){
 	$('input[name="indentNum"').mask('#');
 	
 	var options = $('#dg').bootstrapTable('getOptions');
-	options.url = "indent/myConfirmed";
+	options.url = "indent/myReceivedIndent";
 	$('#dg').bootstrapTable('refreshOptions',options);
 	$('#dg').bootstrapTable('refresh');
 });
@@ -22,7 +22,6 @@ $(function(){
 $('#dg').bootstrapTable({
 	onPageChange:function(number,size){
 		g_total = $('#dg').bootstrapTable('getOptions').totalRows;
-		console.log(g_total);
 	}
 });
 
@@ -39,6 +38,7 @@ function queryParams(params){
 	//判断是否传递total值
 	if(g_total != null)
 		params.total = g_total;
+
 	delete params.order;
 	return params;
 }
@@ -48,7 +48,7 @@ function expectPriceFormatter(value,row,index){
 	return value == -1 ? '面谈':value;
 }
 
-//搜索
+//查询
 function search(){
 	g_total = null;//设置为null，使后台重新计算total值
 	$('#dg').bootstrapTable('selectPage',1);

@@ -12,6 +12,7 @@ $(function(){
 		defaultDate:moment()
     });
 	$('input[name="indentNum"').mask('#');
+	$('input[name="price"').mask('#');
 	
 	var options = $('#dg').bootstrapTable('getOptions');
 	options.url = "indent/myReceivedQuote";
@@ -49,20 +50,26 @@ function search(){
 	$('#dg').bootstrapTable('selectPage',1);
 }
 
+//订单金额
+function expectPriceFormatter(value,row,index){
+	return value == -1 ? '面谈':value;
+}
+
 function operFormatter(value,row,index){
-	var btn = "<button type='button' class='btn' onclick='showDialog("+row.indentNum+")'>确认订单</button>";
+	var btn = "<button type='button' class='btn btn-default' onclick='showDialog("+row.indentNum+",\""+row.indentName+"\")'>确认订单</button>";
 	return btn;
 }
 
 function radioFormatter(value,row,index){
-	var radio = "<input type='radio' name='enterprise' onclick='onCheckRadio("+row.id+","+row.quote+")'>";
+	var radio = "<input type='radio' name='enterprise' onclick='onCheckRadio("+row.id+","+row.quote+","+row.telephone+")'>";
 	return radio;
 }
 
 //============确认订单==============
 //显示确认订单模态框
-function showDialog(indentNum){
+function showDialog(indentNum,indentName){
 	$(':hidden[name="indentNum"]').val(indentNum);
+	$(':hidden[name="indentName"]').val(indentName);
 	$('#errorMsg').html('');
 	$.get('indentQuote/getQuoteEnterprise/'+indentNum,function(data){
 		$('#dg2').bootstrapTable('load', data);
@@ -70,9 +77,10 @@ function showDialog(indentNum){
 	});
 }
 
-function onCheckRadio(enterpriseId,quote){
+function onCheckRadio(enterpriseId,quote,telephone){
 	$(':hidden[name="enterpriseId"]').val(enterpriseId);
 	$(':hidden[name="quote"]').val(quote);
+	$(':hidden[name="telephone"]').val(telephone);
 }
 
 $('#confirmFrom').submit(function(e){

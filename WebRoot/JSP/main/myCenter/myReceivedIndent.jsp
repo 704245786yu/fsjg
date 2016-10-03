@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服务加工网-个人中心-我确认的订单</title>
+<title>中国服务加工网-个人中心</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</tr>
 	<tr style="line-height: 60px;">
 		<td>
-			<label>发布日期：</label>
+			<label>报价日期：</label>
 		</td>
 		<td colspan="3">
 			<table>
@@ -90,10 +90,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <tr>
 	            <th data-field="indentNum" data-align="center">订单编号</th>
 	            <th data-field="indentName" data-align="center">订单名称</th>
-	            <th data-field="expectPrice" data-align="center" data-formatter="expectPriceFormatter">预期价(元)</th>
-	            <th data-field="price" data-align="center">成交价(元)</th>
-	            <th data-field="enterpriseName" data-align="center">工厂名称</th>
-	            <th data-field="updateTime" data-align="center">接单日期</th>
+	            <th data-field="quantity" data-align="center">订单数量</th>
+	            <th data-field="expectPrice" data-align="center" data-formatter="expectPriceFormatter">订单金额(元)</th>
+	            <th data-field="quote" data-align="center">报价(元)</th>
+	            <th data-field="createTime" data-align="center">报价日期</th>
 	        </tr>
 	    </thead>
 	</table>
@@ -108,6 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="plugin/jquery.mask.min.js"></script>
 
-<script src="JS/main/myCenter/myConfirmed.js"></script>
+<script src="JS/util/bsFormTableExtend.js"></script>
+<script src="JS/main/myCenter/myReceivedIndent.js"></script>
 </body>
 </html>

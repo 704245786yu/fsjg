@@ -170,12 +170,14 @@
 			<div style="display:none;">
 				<iframe src="indent/showMyConfirmed"></iframe>
 			</div>
-			<div style="display:none;">
-				搭建中...
-			</div>
-			<div style="display:none;">
-				搭建中...
-			</div>
+			<c:if test="${userInfo.basicUser.roleId == 2}">
+				<div style="display:none;">
+					<iframe src="indent/showMyQuoted"></iframe>
+				</div>
+				<div style="display:none;">
+					<iframe src="indent/showMyReceivedIndent"></iframe>
+				</div>
+			</c:if>
 		</td>
 	</tr>
 </table>

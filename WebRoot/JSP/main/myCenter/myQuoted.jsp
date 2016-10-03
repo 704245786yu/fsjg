@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服务加工网-个人中心-我确认的订单</title>
+<title>中国服务加工网-个人中心</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -44,6 +44,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<td>
 			<input type="text" class="form-control" name="indentName" style="width:280px;">
 		</td>
+		<td>
+			<label>订单状态：</label>
+		</td>
+		<td>
+			<select class="form-control" name="state">
+				<option></option>
+				<option value="1">已报价</option>
+				<option value="2">已接单</option>
+				<option value="3">已失效</option>
+			</select>
+		</td>
 	</tr>
 	<tr style="line-height: 60px;">
 		<td>
@@ -63,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>至</td>
 					<td>
 						<div class="input-group date">
-			                <input type="text" class="form-control" name="endDate"/>
+			                <input type="text" class="form-control" id="endDate" name="endDate"/>
 			                <span class="input-group-addon">
 			                	<span class="glyphicon glyphicon-calendar"></span>
 			                </span>
@@ -80,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!-- 数据表格 -->
 <div style="padding:0px 10px;">
-	<table id="dg" data-toggle="table" data-unique-id="indentNum"
+	<table id="dg" data-toggle="table" data-unique-id="id"
 			data-pagination="true"
 			data-side-pagination="server"
 			data-query-params="queryParams"
@@ -90,10 +101,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <tr>
 	            <th data-field="indentNum" data-align="center">订单编号</th>
 	            <th data-field="indentName" data-align="center">订单名称</th>
-	            <th data-field="expectPrice" data-align="center" data-formatter="expectPriceFormatter">预期价(元)</th>
-	            <th data-field="price" data-align="center">成交价(元)</th>
-	            <th data-field="enterpriseName" data-align="center">工厂名称</th>
-	            <th data-field="updateTime" data-align="center">接单日期</th>
+	            <th data-field="quantity" data-align="center">订单数量</th>
+	            <th data-field="expectPrice" data-align="center" data-formatter="expectPriceFormatter">订单金额(元)</th>
+	            <th data-field="state" data-align="center" data-formatter="stateFormatter">订单状态</th>
+	            <th data-field="quote" data-align="center">报价(元)</th>
+	            <th data-field="countNum" data-align="center">报价人数</th>
+	            <th data-field="createTime" data-align="center">报价日期</th>
 	        </tr>
 	    </thead>
 	</table>
@@ -108,6 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="plugin/jquery.mask.min.js"></script>
 
-<script src="JS/main/myCenter/myConfirmed.js"></script>
+<script src="JS/util/bsFormTableExtend.js"></script>
+<script src="JS/main/myCenter/myQuoted.js"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.basic.biz;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.basic.dao.IndentDao;
 import com.basic.dao.IndentQuoteDao;
+import com.basic.po.Indent;
 import com.basic.po.IndentQuote;
 import com.basic.vo.QuoteEnterpriseVo;
 import com.common.BaseBiz;
 import com.common.vo.ReturnValueVo;
+import com.util.SMS;
 
 @Service
 public class IndentQuoteBiz extends BaseBiz<IndentQuoteDao, Integer, IndentQuote> {
@@ -21,7 +25,9 @@ public class IndentQuoteBiz extends BaseBiz<IndentQuoteDao, Integer, IndentQuote
 	
 	/**订单报价
 	 * 需检测企业是否已经报价，企业不能重复报价，更新订单状态为已收到报价。
+	 * 报价后要发送短信通知发单方
 	 * */
+	@SuppressWarnings("unchecked")
 	@Transactional
 	public ReturnValueVo quote(long indentNum,double quote,int enterpriseId){
 		IndentQuote indentQuote = new IndentQuote();
@@ -35,6 +41,13 @@ public class IndentQuoteBiz extends BaseBiz<IndentQuoteDao, Integer, IndentQuote
 		indentQuote.setQuote(quote);
 		dao.save(indentQuote);
 		indentDao.updateState(indentNum, (byte)1);
+		//发送通知短信
+		Indent indent = indentDao.getNameAndTele(indentNum);
+		HashMap<String,LinkedHashMap<String,Object>> map = SMS.sendQuoteNotice(indent.getIndentName(), indent.getTelephone());
+		LinkedHashMap<String,Object> map2 = (LinkedHashMap<String,Object>)map.get("alibaba_aliqin_fc_sms_num_send_response").get("result");
+		if(!(boolean)map2.get("success")){
+			System.out.println("订单报价-发送验证码错误："+map);
+		}
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, null);
 	}
 	

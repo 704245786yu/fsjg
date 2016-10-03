@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <th data-field="indentNum" data-align="center">订单编号</th>
 	            <th data-field="indentName" data-align="center">订单名称</th>
 	            <th data-field="quantity" data-align="center">订单数量</th>
-	            <th data-field="expectPrice" data-align="center">订单金额(元)</th>
+	            <th data-field="expectPrice" data-align="center" data-formatter="expectPriceFormatter">订单金额(元)</th>
 	            <th data-field="countNum" data-align="center">报价人数</th>
 	            <th data-field="latestTime" data-align="center">报价日期</th>
 	            <th data-formatter="operFormatter" data-align="center">操作</th>
@@ -125,7 +125,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label>最终成交价格（元）：</label>
 					<input type="text" class="form-control" name="price" style="width:200px;display:inline;">
 					<input type="hidden" name="indentNum">
+					<input type="hidden" name="indentName">
 					<input type="hidden" name="enterpriseId">
+					<input type="hidden" name="telephone">
 					<input type="hidden" name="quote">
 					<span id="errorMsg" style="color:red"></span>
 					<div class="alert alert-info" style="margin-top:5px;margin-bottom:5px;display:none;">

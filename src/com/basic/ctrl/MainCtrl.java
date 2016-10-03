@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ad.biz.BlogrollBiz;
+import com.ad.po.Blogroll;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.vo.AuthEnterpriseVo;
 import com.basic.vo.StrengthEnterpriseVo;
@@ -16,6 +18,8 @@ public class MainCtrl {
 
 	@Autowired
 	private EnterpriseBiz enterpriseBiz;
+	@Autowired
+	private BlogrollBiz blogrollBiz;
 	
 	@RequestMapping({"/","home"})
 	public String home(Model model){
@@ -25,6 +29,9 @@ public class MainCtrl {
 		//认证工厂
 		List<AuthEnterpriseVo> auths = enterpriseBiz.getNewAuth(6,false);
 		model.addAttribute("auths", auths);
+		//友情链接
+		List<Blogroll> blogrolls = blogrollBiz.getAll();
+		model.addAttribute("blogrolls", blogrolls);
 		return "../home";
 	} 
 }
