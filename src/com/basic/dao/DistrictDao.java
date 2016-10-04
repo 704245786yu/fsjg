@@ -46,9 +46,18 @@ public class DistrictDao extends BaseDao<Long, District>{
 		return (List<String>)super.find(hql, new String[]{"codes"}, new Object[]{codes});
 	}
 	
-	public boolean nameIsExist(String districtName){
+	/**判断地区名是否已经存在
+	 * @param oldCode 可为null。原始地区编码，判断是否重复时排除oldCode的记录。
+	 * */
+	public boolean nameIsExist(String districtName,Long oldCode){
 		String hql = "select count(1) from District where districtName =:districtName";
-		long amount = super.getCount(hql, new String[]{"districtName"}, new String[]{districtName});
+		long amount = 0;
+		if(oldCode == null){
+			amount = super.getCount(hql, new String[]{"districtName"}, new String[]{districtName});
+		}else{
+			hql += " and districtCode !=:oldCode";
+			amount = super.getCount(hql, new String[]{"districtName","oldCode"}, new Object[]{districtName,oldCode});
+		}
 		if(amount > 0)
 			return true;
 		else
@@ -62,5 +71,14 @@ public class DistrictDao extends BaseDao<Long, District>{
 			return true;
 		else
 			return false;
+	}
+	
+	/**是否被外键引用
+	 * @param pCode
+	 * */
+	public boolean isPcode(long pCode){
+		String hql = "select count(1) from District where pCode =:pCode";
+		long amount = super.getCount(hql, new String[]{"pCode"}, new Long[]{pCode});
+		return amount > 0 ? true : false;
 	}
 }

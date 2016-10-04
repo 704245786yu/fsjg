@@ -84,16 +84,17 @@
 			<div class="modal-body">
 				<form id="ff" method="post" class="form-horizontal" action="district/save">
 					<input type="hidden" name="pCode"/>
+					<input type="hidden" id="oldCode">
 					<div class="form-group">
-						<label for="districtName" class="col-sm-3 control-label">地区名称</label>
+						<label class="col-sm-3 control-label">地区名称</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="districtName" name="districtName">
+							<input type="text" class="form-control" name="districtName">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="districtCode" class="col-sm-3 control-label">地区编码</label>
+						<label class="col-sm-3 control-label">地区编码</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="districtCode" name="districtCode">
+							<input type="text" class="form-control" name="districtCode">
 						</div>
 					</div>
 					<div class="form-group">

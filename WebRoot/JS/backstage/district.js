@@ -42,7 +42,10 @@ $('#ff').bootstrapValidator({
 					trigger: 'keyup',
 					delay:2000,
 					message: '地区名已存在',
-					url:'district/nameIsExist'
+					url:'district/nameIsExist',
+					data:function(validator){
+						return {oldCode:$('#oldCode').val()};
+					}
 				}
     		}
     	},
@@ -61,8 +64,11 @@ $('#ff').bootstrapValidator({
                 remote : {
 					trigger: 'keyup',
 					delay:2000,
-					message: '编码已存在',
-					url:'district/codeIsExist'
+					message: '编码已存在或被引用',
+					url:'district/codeIsExist',
+					data:function(validator){
+						return {oldCode:$('#oldCode').val()};
+					}
 				}
             }
         }
@@ -84,6 +90,8 @@ function add(){
 //修改
 function modify(id){
 	new BsFormTableExtend().showModifyForm(id, 'district/update');
+	var oldCode = $('input[name="districtCode"]').val();
+	$('#oldCode').val(oldCode);
 }
 
 //删除

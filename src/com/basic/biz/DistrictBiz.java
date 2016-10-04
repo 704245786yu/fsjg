@@ -21,8 +21,6 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 	 * */
 	public Integer batchSaveDistrict1(String proviceName,String provinceCode,List<String[]> data,Integer userId){
 		//JacksonJson.printBeanToJson(data);
-		//TODO something
-		
 		String userIdString=userId.toString();
 		//用来放置符合条件的数据
 		List<String[]> tempData=new ArrayList<>();
@@ -84,7 +82,7 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 	 * @return ArrayList<Integer> errorRowNum 数据有问题的行号
 	 * */
 	public ArrayList<Integer> batchSaveDistrict(String proviceName,String provinceCode,List<String[]> data,Integer userId){
-		System.out.println("一共有"+data.size()+"行记录");
+//		System.out.println("一共有"+data.size()+"行记录");
 		//将已经添加的地区编号加入，做防重复验证(载入文档当中的)
 		List<String> existDistrict = new ArrayList<>();
 		
@@ -198,11 +196,21 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 		return dao.getByNameAndPage(districtName, offset, limit);
 	}
 	
-	public boolean nameIsExist(String districtName){
-		return dao.nameIsExist(districtName);
+	/**判断地区名是否已经存在
+	 * @param oldCode 可为null。原始地区编码，判断是否重复时排除oldCode的记录。
+	 * */
+	public boolean nameIsExist(String districtName,Long oldCode){
+		return dao.nameIsExist(districtName,oldCode);
 	}
 	
 	public boolean codeIsExist(long districtCode){
 		return dao.codeIsExist(districtCode);
+	}
+
+	/**是否被外键引用
+	 * @param pCode
+	 * */
+	public boolean isPcode(long pCode){
+		return dao.isPcode(pCode);
 	}
 }

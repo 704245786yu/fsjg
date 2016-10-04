@@ -94,19 +94,29 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Long,District>{
 	}
 	
 	/**判断地区名是否已经存在
+	 * @param oldCode 可为null。原始地区编码，判断是否重复时排除oldCode的记录。
 	 * */
 	@RequestMapping("nameIsExist")
 	@ResponseBody
-	public ValidVo nameIsExist(String districtName){
-		boolean b = biz.nameIsExist(districtName);
+	public ValidVo nameIsExist(String districtName,Long oldCode){
+		boolean b = biz.nameIsExist(districtName,oldCode);
 		return new ValidVo(!b);
 	}
 	
-	/**判断地区编码是否已经存在
+	/**判断地区编码是否已经存在,并且判断旧编码是否被做外键引用
 	 * */
 	@RequestMapping("codeIsExist")
 	@ResponseBody
-	public ValidVo codeIsExist(long districtCode){
+	public ValidVo codeIsExist(Long districtCode,Long oldCode){
+		//新编码和旧编码相同的情况，表示编码并未修改
+		if(districtCode.equals(oldCode))
+			return new ValidVo(true);
+
+		//判断旧编码是否被做外键引用
+		if(oldCode != null){
+			if(biz.isPcode(oldCode))
+				return new ValidVo(false);
+		}
 		boolean b = biz.codeIsExist(districtCode);
 		return new ValidVo(!b);
 	}
@@ -119,4 +129,12 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Long,District>{
 	public BootTablePageDto<District> getByNameAndPage(String districtName, int offset, int limit){
 		return biz.getByNameAndPage(districtName, offset, limit);
 	}
+
+	@Override
+	public District update(District po, HttpSession session) {
+		int id = UserCtrl.getLoginUser(session).getId();
+		po.setUpdateBy(id);
+		return super.update(po,session);
+	}
+	
 }

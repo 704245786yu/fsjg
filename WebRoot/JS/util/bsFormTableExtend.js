@@ -90,6 +90,7 @@ BsFormTableExtend.prototype.closeFormModal = function(formModalId,otherFun){
 		var $form = $target.find("form");
 		$form.bootstrapValidator('resetForm', true);
 		$form[0].reset();
+		$form.find(":hidden").val('');
 	});
 }
 
