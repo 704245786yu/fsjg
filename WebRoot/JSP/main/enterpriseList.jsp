@@ -17,6 +17,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="plugin/bs_pagination/jquery.bs_pagination.min.css" rel="stylesheet">
 <link href="CSS/enterprise-list.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
@@ -24,7 +25,8 @@
 
 <body>
 <%@ include file="top.jsp" %>
-
+<%@ include file="/JSP/main/common/commonData.jsp" %>
+<span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
 	<!-- <nav class="navbar navbar-default">
 	<div class="navbar-header">
         <span class="navbar-brand glyphicon glyphicon-home"></span>
@@ -33,14 +35,14 @@
 	
 <table style="width:1190px;margin:0 auto;bakcground-color:#FBF8F9;">
 <tr>
-	<td style="width:906px;background-color:#FBF8F9;">
+	<td style="width:906px;background-color:#FBF8F9;vertical-align:top;">
 		<div class="panel panel-default search-panel">
 			<div class="panel-body">
 				<table>
 					<tr>
 						<td><b>产品类别：</b></td>
 						<td style="width:806px;">
-							<p id="costumeCategory" style="float:left;width:90%;height:50px;line-height:25px;overflow:hidden;overflow-x:hidden">
+							<p id="costumeCategory" style="float:left;width:90%;height:75px;line-height:25px;overflow:hidden;overflow-x:hidden">
 								<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
 							</p>
 							<a id="showMoreToggle" type="button" class="btn btn-default btn-xs" style="float:right;color:#337AB7;">更多<span class="glyphicon glyphicon-chevron-down"></span></a>
@@ -110,11 +112,8 @@
 		
 		<!-- 广告 -->
 		<img src="image/ad/ad.png">
-		<span style="display:none;" id="districts">
-			{<c:forEach var="district" items="${districts}">"${district.districtCode}":"${district.districtName}",</c:forEach>}
-		</span>
-		<span style="display:none;" id="costumeCategoryMap">${costumeCategoryMap}</span>
 		
+		<input id="totalRows" type="hidden" value="${result.total}">
 		<div id="enterpriseListDiv">
 			<c:forEach var="enterprise" items="${result.rows}">
 				<!-- 工厂列表 -->
@@ -127,7 +126,7 @@
 						<td style="width:90px;text-align:center;background-color:#E5E5E5">工厂信息：</td>
 						<td style="background-color:white;">
 							<div style="font-size:16px;float:left;">
-								<a href="enterprise/showDetail/${enterprise.id}" style="color:#59BBE7;">${enterprise.enterpriseName}</a>
+								<a href="enterprise/showDetail/${enterprise.id}" target="_blank" style="color:#59BBE7;">${enterprise.enterpriseName}</a>
 							</div>
 							<div style="float:right;">员工人数：${enterprise.staffNumber}人</div>
 							<div style="float:right;margin-right:40px;">
@@ -140,7 +139,7 @@
 						<td style="text-align:center;background-color:#E5E5E5">工厂介绍：</td>
 						<td style="background-color:white;">
 							<span>${enterprise.description}</span>
-							<a href="#" style="color:#59BBE7">更多详情</a>
+							<a href="enterprise/showDetail/${enterprise.id}" target="_blank" style="color:#59BBE7">更多详情</a>
 						</td>
 					</tr>
 					<tr height="40px">
@@ -169,7 +168,7 @@
 				<td style="width:90px;text-align:center;background-color:#E5E5E5">工厂信息：</td>
 				<td class="title" style="background-color:white;">
 					<div style="font-size:16px;float:left;">
-						<a href="enterprise/showDetail/" style="color:#59BBE7;">${enterprise.enterpriseName}</a>
+						<a href="enterprise/showDetail/" target="_blank" style="color:#59BBE7;">${enterprise.enterpriseName}</a>
 					</div>
 					<div class="staffNumber" style="float:right;">员工人数：${enterprise.staffNumber}人</div>
 					<div style="float:right;margin-right:40px;">
@@ -182,7 +181,7 @@
 				<td style="text-align:center;background-color:#E5E5E5">工厂介绍：</td>
 				<td style="background-color:white;">
 					<span name="description">${enterprise.description}</span>
-					<a href="#" style="color:#59BBE7">更多详情</a>
+					<a href="enterprise/showDetail/" target="_blank" style="color:#59BBE7">更多详情</a>
 				</td>
 			</tr>
 			<tr height="40px">
@@ -200,10 +199,39 @@
 				</td>
 			</tr>
 		</table>
+		
+		<div id="bsPagination" style="text-align:center"></div>
 	</td>
 	
 	<!-- 右边栏 -->
 	<td style="width:274px;vertical-align:top;padding-left:10px;background-color:#FBF8F9">
+		<!-- 行业分类 -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 行业分类</h3>
+			</div>
+			<div id="tradeDiv" class="panel-body" style="padding:0px;">
+				<p>
+					<a href="1"><img src="image/fuzhuang.png" align="left">服装</a>
+				</p>
+				<p>
+					<a href="2"><img src="image/fushi.png" align="left">服饰</a>
+				</p>
+				<p>
+					<a href="3"><img src="image/jiafang.png" align="left">家纺</a>
+				</p>
+				<p>
+					<a href="4"><img src="image/mianliao.png" align="left">面料</a>
+				</p>
+				<!-- <ul id="tradeUl" class="nav nav-pills nav-stacked" style="font-size:18px;color:black;">
+					<li><img src="image/fuzhuang.png" align ="left"><a href="1">服装</a></li>
+					<li><img src="image/fushi.png" align ="left"><a href="2">服饰</a></li>
+					<li><img src="image/jiafang.png" align ="left"><a href="3">家纺</a></li>
+					<li><img src="image/mianliao.png" align ="left"><a href="4">面料</a></li>
+				</ul> -->
+			</div><!-- panel-body -->
+		</div><!-- panel -->
+		<!-- 广告 -->
 		<ul class="list-group">
 			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
 			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
@@ -212,6 +240,8 @@
 </tr>
 </table>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugin/bs_pagination/jquery.bs_pagination.min.js"></script>
+<script src="plugin/bs_pagination/localization/en.min.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/main/enterpriseList.js"></script>
 </body>

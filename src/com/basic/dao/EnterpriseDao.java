@@ -87,51 +87,14 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		return super.findByPage(hql, 0, limit, new String[]{}, null, AuthEnterpriseVo.class);
 	}
 	
-	/**模糊匹配企业名称、加工类型、主营产品、工厂描述
-	 * @return id、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品、QQ、企业logo
+	/**工厂搜索
+	 * @param keyword 模糊匹配企业名称、工厂描述
+	 * @param offset
+	 * @param limit
+	 * @return 企业ID、企业logo、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品
 	 * */
-	public BootTablePageDto<Enterprise> search(String keyword, String processType, List<Integer> costumeCategoryCodes){
-		StringBuffer countSql = new StringBuffer("select count(1)");
-		StringBuffer subSql = new StringBuffer(" from basic_enterprise where enterprise_name like :keyword or description like :keyword");
-		List<String> params = new ArrayList<String>();
-		List<Object> values = new ArrayList<Object>();
-		params.add("keyword");
-		values.add("%"+keyword+"%");
-		if(processType != null){
-			subSql.append(" or process_type like :processType");
-			params.add("processType");
-			values.add("%"+processType+"%");
-		}
-		if(costumeCategoryCodes.size() != 0){
-			subSql.append(" or id in (select distinct enterprise_id from basic_enterprise_costume_rela where costume_code in (:costumeCategoryCodes))");
-			params.add("costumeCategoryCodes");
-			values.add(costumeCategoryCodes);
-		}
-		countSql.append(subSql);
-		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
-		long total = bigInt.longValue();
-		
-		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, left(description,150) as description, province, city, county, logo");
-		sql.append(subSql);
-		List<Object[]> scalars = new ArrayList<Object[]>();
-		scalars.add(new Object[]{"id",StandardBasicTypes.INTEGER});
-		scalars.add(new Object[]{"enterpriseName",StandardBasicTypes.STRING});
-		scalars.add(new Object[]{"processType",StandardBasicTypes.STRING});
-		scalars.add(new Object[]{"staffNumber",StandardBasicTypes.INTEGER});
-		scalars.add(new Object[]{"description",StandardBasicTypes.STRING});
-		scalars.add(new Object[]{"province",StandardBasicTypes.LONG});
-		scalars.add(new Object[]{"city",StandardBasicTypes.LONG});
-		scalars.add(new Object[]{"county",StandardBasicTypes.LONG});
-		scalars.add(new Object[]{"logo",StandardBasicTypes.STRING});
-		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 10);
-		return new BootTablePageDto<Enterprise>(total, enterprises);
-	}
-	
-	/**模糊匹配企业名称、加工类型、工厂描述
-	 * 精确匹配省市区县乡镇、服饰类型
-	 * @return 企业logo、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品
-	 * */
-	public BootTablePageDto<Enterprise> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode,String processType,String keyword){
+	public BootTablePageDto<Enterprise> search(Long province,Long city,Long county,Long town, Integer[] costumeCodes,
+			String processType,Integer staffNumber,String keyword,int offset,int limit,Long total){
 		StringBuffer countSql = new StringBuffer("select count(1)");
 		StringBuffer subSql = new StringBuffer(" from basic_enterprise where (enterprise_name like :keyword or description like :keyword)");
 		List<String> params = new ArrayList<String>();
@@ -168,68 +131,10 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 			values.add("%"+processType+"%");
 		}
 		//服饰类型
-		if(costumeCode != null){
-			subSql.append(" and id in (select distinct enterprise_id from basic_enterprise_costume_rela where costume_code in (:costumeCode))");
-			params.add("costumeCode");
-			values.add(costumeCode);
-		}
-		countSql.append(subSql);
-		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
-		long total = bigInt.longValue();
-		
-		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, left(description,150) as description, province, city, county, logo");
-		sql.append(subSql);
-		List<Object[]> scalars = new ArrayList<Object[]>();
-		scalars.add(new Object[]{"id",StandardBasicTypes.INTEGER});
-		scalars.add(new Object[]{"enterpriseName",StandardBasicTypes.STRING});
-		scalars.add(new Object[]{"processType",StandardBasicTypes.STRING});
-		scalars.add(new Object[]{"staffNumber",StandardBasicTypes.INTEGER});
-		scalars.add(new Object[]{"description",StandardBasicTypes.STRING});
-		scalars.add(new Object[]{"province",StandardBasicTypes.LONG});
-		scalars.add(new Object[]{"city",StandardBasicTypes.LONG});
-		scalars.add(new Object[]{"county",StandardBasicTypes.LONG});
-		scalars.add(new Object[]{"logo",StandardBasicTypes.STRING});
-		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 10);
-		return new BootTablePageDto<Enterprise>(total, enterprises);
-	}
-	
-	public BootTablePageDto<Enterprise> search3(Integer costumeCode, Long province, Long city, Long county, Long town, Integer processType, Integer staffNumber){
-		StringBuffer countSql = new StringBuffer("select count(1)");
-		StringBuffer subSql = new StringBuffer(" from basic_enterprise where 1=1");
-		List<String> params = new ArrayList<String>();
-		List<Object> values = new ArrayList<Object>();
-		//服饰类型
-		if(costumeCode != null){
-			subSql.append(" and id in (select distinct enterprise_id from basic_enterprise_costume_rela where costume_code =:costumeCode)");
-			params.add("costumeCode");
-			values.add(costumeCode);
-		}
-		//省市区县乡镇
-		if(province != null){
-			subSql.append(" and province =:province");
-			params.add("province");
-			values.add(province);
-		}
-		if(city != null){
-			subSql.append(" and city =:city");
-			params.add("city");
-			values.add(city);
-		}
-		if(county != null){
-			subSql.append(" and county =:county");
-			params.add("county");
-			values.add(county);
-		}
-		if(town != null){
-			subSql.append(" and town =:town");
-			params.add("town");
-			values.add(town);
-		}
-		//加工类型
-		if(processType != null){
-			subSql.append(" and process_type like :processType");
-			params.add("processType");
-			values.add("%"+processType+"%");
+		if(costumeCodes != null && costumeCodes.length >0){
+			subSql.append(" and id in (select distinct enterprise_id from basic_enterprise_costume_rela where costume_code in (:costumeCodes))");
+			params.add("costumeCodes");
+			values.add(costumeCodes);
 		}
 		//工人数量
 		if(staffNumber != null){
@@ -254,9 +159,12 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 				break;
 			}
 		}
-		countSql.append(subSql);
-		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
-		long total = bigInt.longValue();
+		//若有total表示翻页操作，无须再次查询total
+		if(total == null){
+			countSql.append(subSql);
+			BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
+			total = bigInt.longValue();
+		}
 		
 		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, left(description,150) as description, province, city, county, logo");
 		sql.append(subSql);
@@ -270,7 +178,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		scalars.add(new Object[]{"city",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"county",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"logo",StandardBasicTypes.STRING});
-		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 10);
+		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, offset, limit);
 		return new BootTablePageDto<Enterprise>(total, enterprises);
 	}
 	

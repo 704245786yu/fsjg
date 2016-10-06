@@ -27,7 +27,6 @@ import com.basic.biz.IndentQuoteBiz;
 import com.basic.biz.PersonBiz;
 import com.basic.dto.IndentDto;
 import com.basic.po.BasicUser;
-import com.basic.po.District;
 import com.basic.po.Indent;
 import com.basic.po.UserAbstract;
 import com.basic.vo.ConfirmIndentVo;
@@ -168,13 +167,13 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		BootTablePageDto<IndentDto> result = biz.search(indentKeyword);
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-		List<District> districts =	districtBiz.getProvinceAndCity();
+//		List<District> districts =	districtBiz.getProvinceAndCity();
 		
 		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		mav.addObject("processTypes", processTypes);
-		mav.addObject("districts", districts);
+//		mav.addObject("districts", districts);
 		//保留页面顶部搜索框的状态
 		mav.addObject("tabIndex",0);
 		mav.addObject("indentKeyword",indentKeyword);
@@ -188,13 +187,13 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		BootTablePageDto<IndentDto> result = biz.search2(province,city,county,town,costumeCode,keyword);
 		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
 		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-		List<District> districts =	districtBiz.getProvinceAndCity();
+//		List<District> districts =	districtBiz.getProvinceAndCity();
 		
 		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
 		mav.addObject("costumeCategoryMap", costumeCategoryMap);
 		mav.addObject("processTypes", processTypes);
-		mav.addObject("districts", districts);
+//		mav.addObject("districts", districts);
 		return mav;
 	}
 	

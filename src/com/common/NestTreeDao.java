@@ -181,6 +181,19 @@ public class NestTreeDao<ID extends Serializable,PO extends NestTreePO> extends 
 		return (List<ID>)find("select id from "+super.persistentName+" where lft between ? and ?",list);
 	}
 	
+	/**获取所有后代节点
+	 * @param id 父节点Id
+	 * @return List<PO>
+	 * */
+	@SuppressWarnings("unchecked")
+	public List<PO> getDescendantNode(ID id){
+		PO po = super.findById(id);
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(po.getLft()+1);
+		list.add(po.getRgt());
+		return (List<PO>)find("from "+super.persistentName+" where lft between ? and ?",list);
+	}
+	
 	/**获取整张表的邻接列表模型
 	 * */
 	public List<PO> getAdjTree(){

@@ -152,7 +152,8 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 		return map;
 	}
 	
-	public List<District> getProvinceAndCity(){
+	/*废弃
+	 * public List<District> getProvinceAndCity1(){
 		List<District> district = new ArrayList<District>();
 		String hql = "select new District(districtCode, districtName) from District where pCode is null";
 		List<District> province = dao.find(hql);
@@ -162,6 +163,20 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 		district.addAll(province);
 		district.addAll(city);
 		return district;
+	}*/
+	
+	/**获取省、市的编码、名称键值对
+	 * @return Map<Long,String> key:Code, value:Name
+	 * */
+	public HashMap<Long,String> getProvinceAndCityMap(){
+		String hql ="select new District(districtCode, districtName) from District"
+				+ " where pCode in (select districtCode from District where pCode is null) or pCode is null";
+		List<District> districts = dao.find(hql);
+		HashMap<Long,String> map = new HashMap<Long,String>();
+		for(District d : districts){
+			map.put(d.getDistrictCode(), d.getDistrictName());
+		}
+		return map;
 	}
 	
 	/**根据地区编码获取地区名称,多用于返回用户或订单的省、市、区县、乡镇信息*/

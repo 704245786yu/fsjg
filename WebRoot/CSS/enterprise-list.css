@@ -5,6 +5,11 @@
 	background: url('../image/select-btn.png') no-repeat 90%;
 }
 
+h3.cus-panel-title{
+	font-size:20px;
+	color:#008AE6;
+}
+
 .search-panel td{
 	vertical-align:top;
 	padding-bottom:10px;
@@ -18,4 +23,21 @@
 .search-panel a{
 	margin-right:15px;
 	font-size: 14px;
+}
+
+/*行业分类*/
+#tradeDiv p{
+	padding:10px;
+}
+#tradeDiv p img{
+	width:30px;
+	height:30px;
+}
+#tradeDiv a:link{
+	color:black;
+}
+#tradeDiv a{
+	margin-left:20px;
+	font-size:18px;
+	text-decoration: none;
 }

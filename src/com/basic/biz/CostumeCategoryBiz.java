@@ -1,5 +1,6 @@
 package com.basic.biz;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +27,27 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 		return this.getChildCostumeMap(null);
 	}
 	
+	/**获取行业分类及其服饰类型
+	 * @return List<HashMap<Object,Object>> {tradeCode:tradeName, "children":costumeMap<code,name>}
+	 * */
+	public List<HashMap<Object,Object>> getTradeAndCostume(){
+		List<HashMap<Object,Object>> result = new ArrayList<HashMap<Object,Object>>();
+		List<CostumeCategory> trades = this.getChild(null);
+		for(int i=0; i<trades.size(); i++){
+			CostumeCategory trade = trades.get(i);
+			List<CostumeCategory> costumeList = dao.getDescendantNode(trade.getId());
+			HashMap<Integer,String> costumeMap = new HashMap<Integer,String>();
+			for(int j=0; j<costumeList.size(); j++){
+				costumeMap.put(costumeList.get(j).getCategoryCode(), costumeList.get(j).getCategoryName());
+			}
+			HashMap<Object,Object> map = new HashMap<Object,Object>();
+			map.put(trade.getCategoryCode(), trade.getCategoryName());
+			map.put("children", costumeMap);
+			result.add(map);
+		}
+		return result;
+	}
+	
 	/**获取直接子节点的服饰类型名，服饰类型编码 键值对
 	 * @param id 若为null，表示获取一级节点
 	 * */
@@ -37,11 +59,6 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 		}
 		return map;
 	}
-	
-	/**获取本节点及后代节点的名称、ID 键值对*/
-//	public HashMap<String,Integer> getDescendantOrgMap(int id){
-//		return dao.getDescendantOrgMap(id);
-//	}
 	
 	/**模糊匹配查询服饰类型编码*/
 	@SuppressWarnings("unchecked")
@@ -60,8 +77,10 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 		return map;
 	}
 	
-	/**获取服饰类型编码和类型名称*/
+	/**获取服饰类型编码和类型名称，并按左值排序*/
 	public HashMap<Integer,String> getAllCodeNameMap(){
+//		String hql = "from CostumeCategory order by lft";
+//		List<CostumeCategory> list = dao.find(hql);
 		List<CostumeCategory> list = super.getAll();
 		HashMap<Integer,String> map = new HashMap<Integer,String>();
 		for(int i=1; i<list.size(); i++){

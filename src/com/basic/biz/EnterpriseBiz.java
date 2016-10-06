@@ -377,60 +377,43 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return enterprises;
 	}
 	
-	/**模糊匹配企业名称、加工类型、主营产品、工厂描述
+	/**工厂搜索
+	 * @param keyword 模糊匹配企业名称、工厂描述、加工类型、主营产品
+	 * @param offset
+	 * @param limit
+	 * @param total 可为null
 	 * @return 企业logo、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品
 	 * */
-	public BootTablePageDto<Enterprise> search(String keyword){
-		//为简化查询，不匹配多个加工类型
-		String processType = null;
-		if(keyword.length() > 0){
-			List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
-			if(processTypes.size() != 0){
-				processType = processTypes.get(0).getConstantValue();
+	public BootTablePageDto<Enterprise> search(Long province,Long city,Long county,Long town,
+			Integer[] costumeCodes, Integer processType, Integer staffNumber, String keyword,int offset,int limit,Long total){
+		String processTypeStr = null;//要查询的加工类型编码
+		//判断是否需要根据关键字匹配加工类型
+		if(processType == null){
+			if(keyword.length() > 0){
+				//为简化查询，不匹配多个加工类型
+				List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
+				if(processTypes.size() != 0){
+					processTypeStr = processTypes.get(0).getConstantValue();
+				}
 			}
+		}else{
+			processTypeStr = processType.toString();
 		}
-		List<Integer> costumeCategoryCodes = new ArrayList<Integer>();
-		int endIndex = 0;
-		if(keyword.length() > 0){
-			costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
-			//为保证性能，取前3条服饰类型记录
-			endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
-		}
-		BootTablePageDto<Enterprise> result = dao.search(keyword, processType, costumeCategoryCodes.subList(0, endIndex));
-		List<Enterprise> enterprises = result.getRows();
-		for(int i=0; i<enterprises.size(); i++){
-			Enterprise e = enterprises.get(i);
-			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
-			e.setCostumeCode(costumeCode);
-		}
-		return result; 
-	}
-	
-	/**模糊匹配企业名称、加工类型、工厂描述
-	 * 精确匹配省市区县乡镇、服饰类型
-	 * @return 企业logo、企业名称、加工类型、员工人数、工厂介绍、所在地区、主营产品
-	 * */
-	public BootTablePageDto<Enterprise> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
-		//为简化查询，不匹配多个加工类型
-		String processType = null;
-		if(keyword.length() > 0){
-			List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
-			if(processTypes.size() != 0){
-				processType = processTypes.get(0).getConstantValue();
+		
+		//判断是否需要根据关键字匹配主营产品
+		if(costumeCodes == null || costumeCodes.length == 0){
+			List<Integer> costumeCategoryCodes = new ArrayList<Integer>();
+			int endIndex = 0;
+			if(keyword.length() > 0){
+				costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
+				//为保证性能，取前3条服饰类型记录
+				endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
 			}
+			costumeCodes = costumeCategoryCodes.subList(0, endIndex).toArray(new Integer[]{});
 		}
-		BootTablePageDto<Enterprise> result = dao.search2(province,city,county,town,costumeCode,processType,keyword);
-		List<Enterprise> enterprises = result.getRows();
-		for(int i=0; i<enterprises.size(); i++){
-			Enterprise e = enterprises.get(i);
-			List<Integer> list = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
-			e.setCostumeCode(list);
-		}
-		return result;
-	}
-	
-	public BootTablePageDto<Enterprise> search3(Integer costumeCode, Long province, Long city, Long county, Long town, Integer processType, Integer staffNumber){
-		BootTablePageDto<Enterprise> result = dao.search3(costumeCode, province, city, county, town, processType, staffNumber);
+		
+		BootTablePageDto<Enterprise> result = dao.search(province,city,county,town,
+				costumeCodes,processTypeStr,staffNumber,keyword,offset,limit,total);
 		List<Enterprise> enterprises = result.getRows();
 		for(int i=0; i<enterprises.size(); i++){
 			Enterprise e = enterprises.get(i);

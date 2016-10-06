@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +24,6 @@ import com.basic.biz.DistrictBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.biz.EnterpriseCostumeRelaBiz;
 import com.basic.po.BasicUser;
-import com.basic.po.District;
 import com.basic.po.Enterprise;
 import com.basic.vo.AuthEnterpriseVo;
 import com.basic.vo.StrengthEnterpriseVo;
@@ -125,17 +122,24 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return biz.getNewAuth(6,true);//获取六个工厂
 	}
 	
-	/**页面顶部的全局搜索：搜索工厂*/
-	@RequestMapping("search")
-	public ModelAndView search(String enterpriseKeyword){
-		BootTablePageDto<Enterprise> result = biz.search(enterpriseKeyword);
-		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		List<District> districts =	districtBiz.getProvinceAndCity();
+	/**首页服饰分类链接显示工厂列表*/
+	@RequestMapping("showList/{costumeCode}")
+	public ModelAndView showList(@PathVariable int costumeCode){
+		ModelAndView mav = new ModelAndView("main/enterpriseList");
+		BootTablePageDto<Enterprise> result = biz.getByCostumeCode(costumeCode,0,10);
+		mav.addObject("result", result);
+		return mav;
+	}
+	
+	/**工厂搜索,返回enterpriseList页面
+	 * */
+	@RequestMapping(value="search")
+	public ModelAndView search(Long province,Long city,Long county,Long town, 
+			Integer[] costumeCode, String enterpriseKeyword){
+		BootTablePageDto<Enterprise> result = biz.search(province,city,county,town,costumeCode,null, null,enterpriseKeyword,0,20,null);
 		
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		mav.addObject("result", result);
-		mav.addObject("costumeCategoryMap", costumeCategoryMap);
-		mav.addObject("districts", districts);
 		
 		//保留页面顶部搜索框的状态
 		mav.addObject("tabIndex",1);
@@ -143,24 +147,17 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return mav;
 	}
 	
-	@RequestMapping(value="search2",method=RequestMethod.POST)
-	public ModelAndView search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
-		BootTablePageDto<Enterprise> result = biz.search2(province,city,county,town,costumeCode,keyword);
-		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		List<District> districts =	districtBiz.getProvinceAndCity();
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("result", result);
-		mav.addObject("costumeCategoryMap", costumeCategoryMap);
-		mav.addObject("districts", districts);
-		mav.setViewName("main/enterpriseList");
-		return mav;
-	}
-	
-	@RequestMapping(value="search3")
+	/**工厂搜索,异步访问用
+	 * @param offset
+	 * @param total 可为null
+	 * */
+	@RequestMapping(value="search2")
 	@ResponseBody
-	public BootTablePageDto<Enterprise> search3(Integer costumeCode, Long province, Long city, Long county, Long town, Integer processType, Integer staffNumber){
-		return biz.search3(costumeCode, province, city, county, town, processType, staffNumber);
+	public BootTablePageDto<Enterprise> search2(Long province,Long city,Long county,Long town, 
+			Integer[] costumeCode, Integer processType, Integer staffNumber, String enterpriseKeyword,int offset,Long total){
+		int limit = 20;
+		BootTablePageDto<Enterprise> result = biz.search(province,city,county,town,costumeCode,processType, staffNumber,enterpriseKeyword,offset,limit,total);
+		return result;
 	}
 	
 	/**工厂详情页*/
@@ -192,18 +189,6 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			mav.addObject("costumeNamesList", costumeNamesList);
 			mav.addObject("disctricsList", disctricsList);
 		}
-		return mav;
-	}
-	
-	@RequestMapping("showList/{costumeCode}")
-	public ModelAndView showList(@PathVariable int costumeCode){
-		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		List<District> districts = districtBiz.getProvinceAndCity();
-		ModelAndView mav = new ModelAndView("main/enterpriseList");
-		mav.addObject("costumeCategoryMap", costumeCategoryMap);
-		mav.addObject("districts", districts);
-		BootTablePageDto<Enterprise> result = biz.getByCostumeCode(costumeCode,0,10);
-		mav.addObject("result", result);
 		return mav;
 	}
 	
