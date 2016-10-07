@@ -34,7 +34,7 @@
 			<div class="panel panel-default" style="height:260px">
 				<div class="panel-heading">订单搜索</div>
 				<div class="panel-body">
-					<form class="form-horizontal" action="indent/search2" method="post">
+					<form class="form-horizontal" action="indent/search" method="post">
 						<table>
 							<tr>
 								<td style="width:65px"><label>产品类别</label></td>
@@ -50,7 +50,7 @@
 							</tr>
 							<tr>
 								<td><label>关 键 字</label></td>
-								<td><input type="text" name="keyword" class="form-control" placeholder="请输入关键字"></td>
+								<td><input type="text" name="indentKeyword" class="form-control" placeholder="请输入关键字"></td>
 							</tr>
 							<tr>
 								<td colspan="2"><button type="submit" class="form-control btn btn-primary">搜索</button></td>

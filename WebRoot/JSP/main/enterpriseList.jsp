@@ -27,7 +27,8 @@
 <%@ include file="top.jsp" %>
 <%@ include file="/JSP/main/common/commonData.jsp" %>
 <span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
-	<!-- <nav class="navbar navbar-default">
+	
+<!-- <nav class="navbar navbar-default">
 	<div class="navbar-header">
         <span class="navbar-brand glyphicon glyphicon-home"></span>
     </div>

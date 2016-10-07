@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,8 +34,6 @@ import com.basic.vo.MyQuotedVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
-import com.sys.biz.ConstantDictBiz;
-import com.sys.po.ConstantDict;
 
 @Controller
 @RequestMapping("indent")
@@ -46,8 +43,6 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	private DistrictBiz districtBiz;
 	@Autowired
 	private CostumeCategoryBiz costumeCategoryBiz;
-	@Autowired
-	private ConstantDictBiz constantDictBiz;
 	@Autowired
 	private PersonBiz personBiz;
 	@Autowired
@@ -60,20 +55,14 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	
 	@Override
 	public ModelAndView showDefaultPage(HttpSession session){
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main/indent");
-		mav.addObject("processTypes", processTypes);
+		ModelAndView mav = new ModelAndView("main/indent");
 		return mav;
 	}
 	
 	/**显示发布订单页面*/
 	@RequestMapping("showRelease")
 	public ModelAndView showRelease(){
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main/indentRelease");
-		mav.addObject("processTypes", processTypes);
+		ModelAndView mav = new ModelAndView("main/indentRelease");
 		return mav;
 	}
 	
@@ -156,45 +145,36 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		indent.setCreateBy(basicUser.getId());
 		indent.setCreateUserType(basicUser.getRoleId().byteValue());
 		biz.save(indent);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main/indentReleaseSuccess");
+		ModelAndView mav = new ModelAndView("main/indentReleaseSuccess");
 		return mav;
 	}
 	
-	/**页面顶部的全局搜索：搜索订单*/
+	/**订单搜索,返回indentList页面,不能包括订单状态为2(已接单)和3(已失效)的订单
+	 * @param province..town 接单用户的省市区县乡镇编码
+	 * */
 	@RequestMapping("search")
-	public ModelAndView search(String indentKeyword){
-		BootTablePageDto<IndentDto> result = biz.search(indentKeyword);
-		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-//		List<District> districts =	districtBiz.getProvinceAndCity();
-		
+	public ModelAndView search(Long province,Long city,Long county,Long town, Integer[] costumeCode,String indentKeyword){
+		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,0,20,null);
 		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
-		mav.addObject("costumeCategoryMap", costumeCategoryMap);
-		mav.addObject("processTypes", processTypes);
-//		mav.addObject("districts", districts);
 		//保留页面顶部搜索框的状态
 		mav.addObject("tabIndex",0);
 		mav.addObject("indentKeyword",indentKeyword);
 		return mav;
 	}
 	
-	/**搜索订单，不能包括订单状态为2(已接单)和3(已失效)的订单
+	/**订单搜索,异步访问用,不能包括订单状态为2(已接单)和3(已失效)的订单
+	 * @param province..town 接单用户的省市区县乡镇编码
+	 * @param offset
+	 * @param total 可为null
 	 * */
-	@RequestMapping(value="search2",method=RequestMethod.POST)
-	public ModelAndView search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
-		BootTablePageDto<IndentDto> result = biz.search2(province,city,county,town,costumeCode,keyword);
-		HashMap<Integer,String> costumeCategoryMap = costumeCategoryBiz.getAllCodeNameMap();
-		List<ConstantDict> processTypes = constantDictBiz.findByConstantTypeCode("process_type");
-//		List<District> districts =	districtBiz.getProvinceAndCity();
-		
-		ModelAndView mav = new ModelAndView("main/indentList");
-		mav.addObject("result", result);
-		mav.addObject("costumeCategoryMap", costumeCategoryMap);
-		mav.addObject("processTypes", processTypes);
-//		mav.addObject("districts", districts);
-		return mav;
+	@RequestMapping(value="search2")
+	@ResponseBody
+	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, 
+			Integer processType,Byte saleMarket,String indentKeyword,int offset,Long total){
+		int limit = 20;
+		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,offset,limit,total);
+		return result;
 	}
 	
 	@RequestMapping("detail/{indentNum}")
@@ -207,16 +187,6 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 			costumeCodes.add(Integer.valueOf(costumeCodeStr[i]));
 		}
 		List<String> costumes = costumeCategoryBiz.getNameByCode(costumeCodes);
-		
-		//加工类型
-		Byte processType = indent.getProcessType();
-		ConstantDict dict = new ConstantDict();
-		dict.setConstantTypeCode("process_type");
-		dict.setConstantValue(processType.toString());
-		List<ConstantDict> list = constantDictBiz.findByExample(dict);
-		String processTypeStr = "";
-		if(list.size() == 1)
-			processTypeStr = list.get(0).getConstantName();
 		
 		//接单地区要求
 		List<Long> districtCode = new ArrayList<Long>();
@@ -247,7 +217,6 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		mav.addObject("indent", indent);
 		mav.addObject("costumes", costumes);
 		mav.addObject("districts", districts);
-		mav.addObject("processType", processTypeStr);
 		mav.addObject("quoteNum", quoteNum);
 		mav.addObject("user", userAbstract);
 		mav.addObject("districtNames", districtNames);
@@ -370,6 +339,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return "main/myCenter/myConfirmed";
 	}
 	
+	/**我确认的订单*/
 	@RequestMapping("myConfirmed")
 	@ResponseBody
 	public BootTablePageDto<ConfirmIndentVo> myConfirmed(Long indentNum, String indentName, String beginDate, String endDate,

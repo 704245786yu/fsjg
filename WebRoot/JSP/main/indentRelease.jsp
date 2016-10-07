@@ -49,7 +49,7 @@
 	</table>
 	<div class="panel panel-default">
 		<div class="panel-body" style="padding:30px 0 50px 70px;">
-			<div>
+			<div class="form-group">
 				<div style="float:left;">订单类型：</div>
 				<div class="radio" style="margin:0 100px 0 10px;float:left;">
 					<label><input type="radio" name="indentType" value="1">来图/来样加工定制（按买家提供的款式加工生产）</label>
@@ -65,68 +65,20 @@
 			<h4>订单信息</h4>
 			<table class="mytable">
 				<tr>
-					<td style="width:120px;">订单名称：</td>
+					<td style="width:120px;vertical-align: top">订单名称：</td>
 					<td style="width:290px;">
-						<input type="text" class="form-control" name="indentName">
+						<div class="form-group">
+							<input type="text" class="form-control" name="indentName">
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>产品类别：</td>
 					<td>
-						<button id="costumeBtn" type="button" class="btn btn-default btn-select" data-toggle="modal" data-target="#costumeCategoryModal">选择产品类别</button>
+						<jsp:include page="/JSP/main/common/costumeCategoryModal.jsp">
+							<jsp:param name="isLimitCheck" value="true"/>
+						</jsp:include>
 						<input type="hidden" name="costumeCode"/>
-						<!-- 选择服饰类别模态框 -->
-						<div class="modal fade" id="costumeCategoryModal" tabindex="-1">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-										<h5 class="modal-title" id="myModalLabel">选择服饰类别</h5>
-									</div>
-									<div class="modal-body">
-										<ul class="nav nav-tabs">
-											<li class="active"><a href="#costume_1" data-toggle="tab">服装</a></li>
-											<li><a href="#costume_2" data-toggle="tab">服饰</a></li>
-											<li><a href="#costume_3" data-toggle="tab">家纺</a></li>
-											<li><a href="#costume_4" data-toggle="tab">纺织消费品</a></li>
-											<li><a href="#costume_5" data-toggle="tab">面料/皮革/纱线</a></li>
-											<li><a href="#costume_6" data-toggle="tab">纺织辅料</a></li>
-										</ul>
-										<div class="tab-content">
-											<div class="tab-pane active" id="costume_1">
-												
-											</div>
-											<div class="tab-pane" id="costume_2"></div>
-											<div class="tab-pane" id="costume_3"></div>
-											<div class="tab-pane" id="costume_4"></div>
-											<div class="tab-pane" id="costume_5"></div>
-											<div class="tab-pane" id="costume_6"></div>
-										</div>
-										
-										<table id="template" class="table" style="display:none;">
-											<tr style="display:none;">
-												<!-- 二级类目 -->
-												<td style="width:100px;vertical-align:top;display:none;">
-													<label style="cursor:pointer;">
-														<input type="checkbox" onchange="checkAllSubBox(this)" readonly="readonly"> <span style="font-weight:normal;"></span>
-													</label>
-												</td>
-												<!-- 三级类目 -->
-												<td>
-													<label style="display:none;width:140px;cursor:pointer;margin-right:10px;float:left;">
-														<input type="checkbox" onchange="threeLevelCheck(this)"> <span style="font-weight:normal;"></span>
-													</label>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkCostume()">确定</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-									</div>
-								</div>
-							</div>
-						</div>
 					</td>
 				</tr>
 				<tr>
@@ -145,8 +97,8 @@
 					<td>销售市场：</td>
 					<td>
 						<select class="form-control" name="saleMarket" style="width:50%;">
-							<option value="0">内销</option>
-							<option value="1">外销</option>
+							<option value="1">内销</option>
+							<option value="2">外销</option>
 						</select>
 					</td>
 				</tr>

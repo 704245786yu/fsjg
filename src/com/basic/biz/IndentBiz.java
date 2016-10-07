@@ -32,44 +32,43 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	@Autowired
 	private CostumeCategoryBiz costumeCategoryBiz;
 	
-	/**页面顶部的全局搜索：搜索订单
-	 * 模糊匹配 订单名称、服饰类型、加工类型、订单说明、详细说明
-	 * */
-	public BootTablePageDto<IndentDto> search(String keyword){
-		//为简化查询，不匹配多个加工类型
-		String processType = null;
-		if(keyword.length() > 0){
-			List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
-			if(processTypes.size() != 0){
-				processType = processTypes.get(0).getConstantValue();
-			}
-		}
-		List<Integer> costumeCategoryCodes = new ArrayList<Integer>();
-		int endIndex = 0;
-		if(keyword.length() > 0){
-			costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
-			//为保证性能，取前3条服饰类型记录
-			endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
-		}
-		BootTablePageDto<IndentDto> result = dao.search(processType,keyword,costumeCategoryCodes.subList(0, endIndex));
-		return result;
-	}
-	
-	/**@param province..town 发单用户的省市区县乡镇编码
+	/**@param province..town 接单用户的省市区县乡镇编码
 	 * @param costumeCode[] 服饰类型编码数组 
-	 * @param keyword 模糊订单名称、订单说明、加工类型
+	 * @param keyword 模糊匹配 订单名称、订单说明、详细说明、加工类型、服饰类型
+	 * @param offset
+	 * @param limit
 	 * @return id、订单名称、预计订单数量、预计交货日期、销售市场、订单类型、接单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
 	 * */
-	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, String keyword){
+	public BootTablePageDto<IndentDto> search(Long province,Long city,Long county,Long town, Integer[] costumeCodes, 
+			Integer processType, Byte saleMarket,String keyword,int offset,int limit,Long total){
 		//为简化查询，不匹配多个加工类型
-		String processType = null;
-		if(keyword.length() > 0){
-			List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
-			if(processTypes.size() != 0){
-				processType = processTypes.get(0).getConstantValue();
+		String processTypeStr = null;//要查询的加工类型编码
+		//判断是否需要根据关键字匹配加工类型
+		if(processType == null){
+			if(keyword.length() > 0){
+				//为简化查询，不匹配多个加工类型
+				List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
+				if(processTypes.size() != 0){
+					processTypeStr = processTypes.get(0).getConstantValue();
+				}
 			}
+		}else{
+			processTypeStr = processType.toString();
 		}
-		BootTablePageDto<IndentDto> result = dao.search2(province,city,county,town,costumeCode,processType,keyword);
+		
+		//判断是否需要根据关键字匹配主营产品
+		if(costumeCodes == null || costumeCodes.length == 0){
+			List<Integer> costumeCategoryCodes = new ArrayList<Integer>();
+			int endIndex = 0;
+			if(keyword.length() > 0){
+				costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
+				//为保证性能，取前3条服饰类型记录
+				endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
+			}
+			costumeCodes = costumeCategoryCodes.subList(0, endIndex).toArray(new Integer[]{});
+		}
+		
+		BootTablePageDto<IndentDto> result = dao.search(province,city,county,town,costumeCodes,processTypeStr,saleMarket,keyword,offset,limit,total);
 		return result;
 	}
 

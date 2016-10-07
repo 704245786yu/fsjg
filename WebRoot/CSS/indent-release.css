@@ -18,7 +18,7 @@ table.title{
 	height:50px;
 }
 
-button.btn-select{
+#costumeBtn{
 	width:100%;
 	overflow:hidden;
 	background: url('../image/select-btn.png') no-repeat 90%;

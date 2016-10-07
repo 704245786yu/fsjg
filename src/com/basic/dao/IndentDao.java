@@ -20,12 +20,11 @@ import com.common.dto.BootTablePageDto;
 public class IndentDao extends BaseDao<Integer, Indent>{
 
 	/**页面顶部的全局搜索：搜索订单
-	 * @param processType 加工类型
-	 * @param keyword 模糊匹配 订单名称、服饰类型、加工类型、订单说明
+	 * @param keyword 模糊匹配 订单名称、订单说明、详细说明
 	 * @param costumeCategoryCodes 服饰类型编码数组
 	 * @return id、订单名称、预计订单数量、预计交货日期、销售市场、订单类型、接单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
 	 * */
-	public BootTablePageDto<IndentDto> search(String processType,String keyword,List<Integer> costumeCategoryCodes){
+	/*public BootTablePageDto<IndentDto> search1(String processType,String keyword,List<Integer> costumeCategoryCodes){
 		StringBuffer subSql = new StringBuffer(" from process_indent pi,(select user_id,1 as userType,province,city from basic_person ")
 			.append(" union select user_id,2 as userType,province,city from basic_enterprise ")
 			.append(") as user where pi.create_by = user.user_id and (indent_name like :keyword or description like :keyword)");
@@ -84,62 +83,54 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		scalars.add(new Object[]{"effectiveDate",StandardBasicTypes.DATE});
 		List<IndentDto> indents = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 20, IndentDto.class);
 		return new BootTablePageDto<IndentDto>(total, indents);
-	}
+	}*/
 	
-	/**@param province..town 发单用户的省市区县乡镇编码
+	/**@param province..town 接单用户的省市区县乡镇编码
 	 * @param costumeCode[] 服饰类型编码数组
 	 * @param processType 加工类型
-	 * @param keyword 模糊订单名称、订单说明
+	 * @param keyword 模糊匹配 订单名称、订单说明【、详细说明】
 	 * @return id、订单名称、预计订单数量、预计交货日期、销售市场、订单类型、接单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
 	 * */
-	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode,String processType,String keyword){
-		StringBuffer userQuerySql = new StringBuffer(" where 1=1 ");
+	public BootTablePageDto<IndentDto> search(Long province,Long city,Long county,Long town, 
+			Integer[] costumeCodes,String processType,Byte saleMarket,String keyword,int offset,int limit,Long total){
+		StringBuffer subSql = new StringBuffer(" from process_indent pi,(select user_id,1 as userType,province,city from basic_person ")
+			.append(" union select user_id,2 as userType,province,city from basic_enterprise ")
+			.append(") as user where pi.create_by = user.user_id and (indent_name like :keyword or description like :keyword)");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
-		//发单用户的省市区县乡镇
+		//关键字匹配订单名称、订单说明
+		params.add("keyword");
+		values.add("%"+keyword+"%");
+		
+		//接单用户的省市区县乡镇
 		if(province != null){
-			userQuerySql.append(" and province =:province");
+			subSql.append(" and cond_province =:province");
 			params.add("province");
 			values.add(province);
 		}
 		if(city != null){
-			userQuerySql.append(" and city =:city");
+			subSql.append(" and cond_city =:city");
 			params.add("city");
 			values.add(city);
 		}
 		if(county != null){
-			userQuerySql.append(" and county =:county");
+			subSql.append(" and cond_county =:county");
 			params.add("county");
 			values.add(county);
 		}
 		if(town != null){
-			userQuerySql.append(" and town =:town");
+			subSql.append(" and cond_town =:town");
 			params.add("town");
 			values.add(town);
 		}
-		//判断是否要加入发单地区的筛选
-		StringBuffer subSql = new StringBuffer();
-		StringBuffer subCostumeCode = new StringBuffer();
-		if(costumeCode != null){
-			subCostumeCode.append("costume_code like '%"+costumeCode[0]+"%'");
-			for(int i=1; i<costumeCode.length; i++)
-				subCostumeCode.append(" or costume_code like '%"+costumeCode[i]+"%'");
-		}
-		
-		subSql.append(" from process_indent pi,(select user_id,1 as userType,province,city from basic_person ")
-			.append(userQuerySql)
-			.append(" union select user_id,2 as userType,province,city from basic_enterprise ")
-			.append(userQuerySql)
-			.append(") as user where pi.create_by = user.user_id and (indent_name like :keyword or description like :keyword)");
 		
 		//服饰类型
-		if(subCostumeCode.length() != 0){
+		if(costumeCodes != null && costumeCodes.length>0){
+			StringBuffer subCostumeCode = new StringBuffer(" costume_code like '%"+costumeCodes[0]+"%'");
+			for(int i=1; i<costumeCodes.length; i++)
+				subCostumeCode.append(" or costume_code like '%"+costumeCodes[i]+"%'");
 			subSql.append(" and ("+subCostumeCode.toString()+")");
 		}
-		
-		//关键字匹配订单名称、订单说明
-		params.add("keyword");
-		values.add("%"+keyword+"%");
 		
 		//加工类型
 		if(processType != null){
@@ -148,10 +139,20 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			values.add(processType);
 		}
 		
-		StringBuffer countSql = new StringBuffer("select count(1)");
-		countSql.append(subSql);
-		BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
-		long total = bigInt.longValue();
+		//销售市场
+		if(saleMarket != null){
+			subSql.append(" and sale_market =:saleMarket");
+			params.add("saleMarket");
+			values.add(saleMarket);
+		}
+		
+		//若有total表示翻页操作，无须再次查询total
+		if(total == null){
+			StringBuffer countSql = new StringBuffer("select count(1)");
+			countSql.append(subSql);
+			BigInteger bigInt = (BigInteger)super.findByNativeSql(countSql.toString(), params, values).get(0);
+			total = bigInt.longValue();
+		}
 		
 //		订单编号、订单名称、预计订单数量、预计交货日期、订单类型、发单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
 		StringBuffer sql = new StringBuffer("select indent_num as indentNum, indent_name as indentName, process_type as processType,quantity, sale_market as saleMarket,pre_delivery_date as preDeliveryDate, is_urgency as isUrgency,indent_type as indentType,"
@@ -176,7 +177,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		scalars.add(new Object[]{"condDemand",StandardBasicTypes.STRING});
 		scalars.add(new Object[]{"createTime",StandardBasicTypes.DATE});
 		scalars.add(new Object[]{"effectiveDate",StandardBasicTypes.DATE});
-		List<IndentDto> indents = super.findByNativeSql(sql.toString(), params, values, scalars, 0, 20, IndentDto.class);
+		List<IndentDto> indents = super.findByNativeSql(sql.toString(), params, values, scalars, offset, limit, IndentDto.class);
 		return new BootTablePageDto<IndentDto>(total, indents);
 	}
 	

@@ -12,7 +12,12 @@ var g_district = ${districtMap}
  * @return 有可能返回空串
  */
 function comm_getProcessTypeName(processTypeStr){
+	processTypeStr = processTypeStr.toString();//传入的有可能是整数类型，需转换为string
 	var ary = processTypeStr.split(',');
+	//传入的为''
+	if(ary[0].length==0)
+		return '';
+	
 	var str = null;
 	if(ary.length>0)
 		str = g_processType[ary[0]];
@@ -46,8 +51,12 @@ function comm_getTradeName(tradeStr){
  */
 function comm_getDistrictName(districtStr, sep){
 	var ary = districtStr.split(',');
+	//传入的为''
+	if(ary[0].length==0)
+		return '';
 	if(sep == undefined || sep == null)
 		sep = '';
+	
 	var str = null;
 	if(ary.length>0)
 		str = g_district[ary[0]];
