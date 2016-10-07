@@ -140,7 +140,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		if(basicUser == null){
 			return new ModelAndView("redirect:../login.jsp");
 		}
-		indent.setIndentNum(new Date().getTime());
+		indent.setIndentNum(System.currentTimeMillis());
 		indent.setState((byte)0);
 		indent.setCreateBy(basicUser.getId());
 		indent.setCreateUserType(basicUser.getRoleId().byteValue());

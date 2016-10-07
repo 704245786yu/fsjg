@@ -62,7 +62,7 @@
 	</div>
 	<ul id="indentUL" class="list-group">
 		<li class="list-group-item">
-			<h4>订单信息</h4>
+			<h4 style="margin-bottom:10px;">订单信息</h4>
 			<table class="mytable">
 				<tr>
 					<td style="width:120px;vertical-align: top">订单名称：</td>
@@ -84,13 +84,17 @@
 				<tr>
 					<td>预计订单数量：</td>
 					<td>
-						<input type="text" class="form-control" name="quantity" style="width:50%;">
+						<div class="form-group">
+							<input type="text" class="form-control" name="quantity" style="width:50%;">
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>订单说明：</td>
 					<td>
-						<input type="text" class="form-control" name="description">
+						<div class="form-group">
+							<input type="text" class="form-control" name="description">
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -110,32 +114,40 @@
 				<tr>
 					<td style="width:120px;">加工类型：</td>
 					<td colspan="2">
-						<c:forEach items="${processTypes}" var="processType">
-							<div class="radio" style="margin:0 50px 0 0;float:left;">
-								<label><input type="radio" name="processType" value="${processType.constantValue}">${processType.constantName}</label>
-							</div>
-						</c:forEach>
+						<div class="form-group">
+							<c:forEach items="${processTypes}" var="processType">
+								<div class="radio" style="margin:0 50px 0 0;float:left;">
+									<label><input type="radio" name="processType" value="${processType.constantValue}">${processType.constantName}</label>
+								</div>
+							</c:forEach>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>订单目标价：</td>
 					<td style="width:290px;">
-						<input type="text" class="form-control" name="expectPrice">
+						<div class="form-group">
+							<input type="text" class="form-control" name="expectPrice">
+						</div>
 					</td>
 					<td style="padding-left:10px;">
-						<div class="checkbox">
-							<label><input type="checkbox" name="expectPrice" value="-1">面谈</label>
+						<div class="form-group">
+							<div class="checkbox">
+								<label><input type="checkbox" name="expectPrice" value="-1">面谈</label>
+							</div>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>预计交货日期：</td>
 					<td>
-						<div class='input-group date'>
-			                <input type='text' id="testDate2" class="form-control" name="preDeliveryDate"/>
-			                <span class="input-group-addon">
-			                	<span class="glyphicon glyphicon-calendar"></span>
-			                </span>
+						<div class="form-group">
+							<div class='input-group date'>
+				                <input type='text' id="testDate2" class="form-control" name="preDeliveryDate"/>
+				                <span class="input-group-addon">
+				                	<span class="glyphicon glyphicon-calendar"></span>
+				                </span>
+				            </div>
 			            </div>
 					</td>
 					<td style="padding-left:10px;">
@@ -244,7 +256,9 @@
 				<tr>
 					<td style="padding-top:10px;padding-left:2em;vertical-align:top;">接单条件：</td>
 					<td colspan="2" style="padding-top:10px;width:570px;">
-						<textarea name="condDemand" class="form-control" rows="3"></textarea>
+						<div class="form-group">
+							<textarea name="condDemand" class="form-control" rows="3"></textarea>
+						</div>
 					</td>
 				</tr>
 			</table>
@@ -255,13 +269,17 @@
 				<tr>
 					<td>联系人：</td>
 					<td>
-						<input type="text" class="form-control" style="width:180px;" name="linkman">
+						<div class="form-group">
+							<input type="text" class="form-control" style="width:180px;" name="linkman">
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>联系电话：</td>
 					<td style="width:290px;">
-						<input type="text" class="form-control" name="telephone" value="${loginBasicUser.telephone}">
+						<div class="form-group">
+							<input type="text" class="form-control" name="telephone" value="${loginBasicUser.telephone}">
+						</div>
 					</td>
 				</tr>
 			</table>
@@ -293,8 +311,7 @@
 <script src="plugin/UEditor/lang/zh-cn/zh-cn.js"></script>
 
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/util/treeUtil.js"></script>
-<script src="JS/util/districtCascade.js"></script>
+<script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/main/indentRelease.js"></script>
 </body>
 </html>

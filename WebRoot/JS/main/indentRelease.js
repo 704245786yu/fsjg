@@ -6,6 +6,9 @@ $(function(){
 		format: 'YYYY-MM-DD',
 		locale: 'zh-cn'
     });
+	$('.date').datetimepicker().on('dp.change',function(e){
+		$('#ff').data('bootstrapValidator').updateStatus("preDeliveryDate","VALID");
+	});
 	var val = $(effectiveDateSel).val();
 	var str = moment().add('days',val).format('YYYY-MM-DD');
 	$('#effectiveDateTxt').text(str);
@@ -23,7 +26,7 @@ $('#ff').bootstrapValidator({
     	indentType: {
     		validators: {
     			notEmpty: {
-    				message: '不能为空'
+    				message: '必填'
     			}
     		}
     	},
@@ -38,8 +41,62 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
-    	/*'basicUser.telephone': {
-    		threshold: 11,
+    	quantity:{
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			integer:{
+    				message:'需为整数'
+    			}
+    		}
+    	},
+    	description:{
+    		validators: {
+    			stringLength: {
+    				max: 30,
+    				message: '最多30个字'
+    			}
+    		}
+    	},
+    	processType:{
+    		validators: {
+    			notEmpty: {
+    				message: '必填'
+    			}
+    		}
+    	},
+    	expectPrice:{
+    		validators: {
+	    		integer:{
+					message:'需为整数'
+				}
+    		}
+    	},
+    	preDeliveryDate:{
+    		validators: {
+    			notEmpty: {
+    				message: '必填'
+    			}
+    		}
+    	},
+    	condDemand:{
+    		validators: {
+	    		stringLength: {
+					max: 50,
+					message: '最多50个字'
+				}
+    		}
+    	},
+    	linkman:{
+    		validators: {
+	    		stringLength: {
+					max: 6,
+					message: '最多6个字'
+				}
+    		}
+    	},
+    	telephone:{
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -47,54 +104,9 @@ $('#ff').bootstrapValidator({
     			regexp: {
                     regexp: /^1[3|4|5|7|8]\d{9}$/,
                     message: '手机号码格式不正确'
-                },
-                remote : {
-					trigger: 'keyup',
-					delay:1000,
-					message: '手机号已存在',
-					url:'basicUser/isTeleExist'
-				}
+                }
     		}
-    	},
-    	province:{
-    		validators: {
-    			notEmpty: {
-    				message: '不能为空'
-    			}
-    		}
-    	},
-    	city:{
-    		validators: {
-    			notEmpty: {
-    				message: '不能为空'
-    			}
-    		}
-    	},
-    	county:{
-    		validators: {
-    			notEmpty: {
-    				message: '不能为空'
-    			}
-    		}
-    	},
-    	detailAddr:{
-    		validators: {
-    			notEmpty: {
-    				message: '不能为空'
-    			},
-    			stringLength: {
-    				max: 50,
-    				message: '最多50个字符'
-    			}
-    		}
-    	},
-    	qq:{
-    		validators: {
-    			digits:{
-    				message:'必须为数字'
-    			}
-    		}
-    	}*/
+    	}
     }
 });
 

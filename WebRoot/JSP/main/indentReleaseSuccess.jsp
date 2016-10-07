@@ -43,7 +43,7 @@
 				<tr>
 					<td></td>
 					<td style="padding-top:36px;">
-						<a href="" class="btn btn-warning" style="width:200px;height:40px;font-size:20px;background-color:#FF7623;">查看已发布的订单</a>
+						<a href="basicUser/showMyCenter?index=3" class="btn btn-warning" style="width:200px;height:40px;font-size:20px;background-color:#FF7623;">查看已发布的订单</a>
 						&nbsp;&nbsp;&nbsp;
 						<a href="indent/showRelease" class="btn btn-warning" style="width:180px;height:40px;font-size:20px;background-color:#FF7623;">继续发布订单</a>
 					</td>

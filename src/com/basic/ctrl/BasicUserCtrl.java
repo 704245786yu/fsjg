@@ -83,9 +83,11 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		return new ValidVo( ! biz.teleIsExist(telephone,b.getId()) );
 	}
 	
-	/**显示个人中心*/
+	/**显示个人中心
+	 * @param index 显示个人中心第几个模块，eg:index=3,用在发布订单后，去个人中心查看当前发布的订单
+	 * */
 	@RequestMapping("showMyCenter")
-	public ModelAndView showMineInfo(HttpSession session){
+	public ModelAndView showMyCenter(Integer index, HttpSession session){
 		ModelAndView mav = null;
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
 		UserAbstract userAbstract = null;
@@ -96,13 +98,7 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		}else if(roleId == 2){
 			userAbstract = enterpriseBiz.getByBasicUserId(basicUser.getId());
 		}
-//		List<Long> districtCodes = new ArrayList<Long>();
-//		districtCodes.add(userAbstract.getProvince());
-//		districtCodes.add(userAbstract.getCity());
-//		districtCodes.add(userAbstract.getCounty());
-//		districtCodes.add(userAbstract.getTown());
-//		List<String> districtNames = districtBiz.getNameByCode(districtCodes);
-//		mav.addObject("districtNames", districtNames);
+		mav.addObject("index",index);//显示个人中心第几个模块
 		mav.addObject("userInfo", userAbstract);
 		return mav;
 	}

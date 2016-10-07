@@ -5,6 +5,10 @@ table.title{
 	background-color: #CBEDFC;
 }
 
+.mytable td{
+	vertical-align:top;
+}
+
 #indentUL .list-group-item{
 	padding-left:70px;
 }

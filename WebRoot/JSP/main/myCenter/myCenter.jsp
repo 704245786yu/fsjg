@@ -95,6 +95,7 @@
 	</tr>
 	<tr>
 		<!-- 左边菜单 -->
+		<input type="hidden" name="index" value="${index}">
 		<td style="padding:0px;width:200px;background-color:#FCF9FA;">
 			<ul class="menu_li">
 				<li class="level1">帐号管理</li>
