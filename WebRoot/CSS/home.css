@@ -56,7 +56,7 @@ ul.category-search li.xie_li > a{
 .cat-subcategory{
 	position:absolute;
 	left:230px;
-	padding:10px 20px;
+	padding:10px 0px 10px 20px;
 	z-index:10;
 	border:3px solid #EFEEEC;
 	border-left:0px;
@@ -74,9 +74,10 @@ ul.category-search li.xie_li > a{
 	text-decoration:none;
 }
 .cat-subcategory table table{
-	width:195px;
+	width:220px;
+	margin-bottom:10px;
 }
-.cat-subcategory table tr > td{
+.cat-subcategory > div > table > tbody > tr > td{
 	padding-right:20px;
 }
 .cat-subcategory table table a{
@@ -125,7 +126,16 @@ ul.category-search li.xie_li > a{
 .costumeList{
 	/* height:290px; */
 }
-
+.costumeList h3{
+	margin:0px;
+}
+.costumeList h3 span{
+	background-color:#008CE8;
+	margin-right:8px;
+}
+.costumeList h3 + div{
+	margin:15px 0 0 15px;
+}
 .costumeList > tr > td{
 	width:595px;
 }
