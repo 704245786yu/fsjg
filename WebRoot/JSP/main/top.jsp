@@ -61,7 +61,7 @@
 <nav class="topNav">
 	<div style="width:1190px;margin:0 auto;">
 		<ul class="nav navbar-nav" >
-			<li name="li-home"><a href="home">首页</a></li>
+			<li name="li-home"><a href="home" style="width:230px">首页</a></li>
 			<li name="li-enterprise"><a href="enterprise">加工工厂</a></li>
 			<li name="li-indent"><a href="indent">加工订单</a></li>
 			<li><a href="#">快产专家</a></li>

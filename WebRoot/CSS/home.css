@@ -3,11 +3,92 @@ img{
 	width:100%;
 }
 
+/*左侧导航栏*/
 ul.category-search{
-	width:200px;
+	list-style-type:none;
+	width:230px;
+	padding:0px 10px;
 	background-color:#F8F8F7;
 }
+ul.category-search h5{
+	margin:0px;
+	padding:2px;
+	text-align:center;
+}
+ul.category-search a{
+	color:#8C8C8C;
+	font-size:12px;
+	text-decoration:none;
+}
+ul.category-search span{
+	color:#8C8C8C;
+	padding:3px;
+}
+/*h5 a覆盖上面的a标签样式*/
+ul.category-search h5 a{
+	font-size:16px;
+	color:black;
+}
+ul.category-search a:HOVER{
+	color:#337AB7;
+}
+/*服饰分类a标签间距*/
+ul.category-search li.fushi_li > a{
+	padding:7px;
+}
+/*服饰辅料a标签间距*/
+ul.category-search li.fuliao_li > a{
+	padding:3px;
+}
+/*家纺a标签间距*/
+ul.category-search li.jiafang_li > a{
+	padding:10px;
+}
+/*皮革皮草a标签间距*/
+ul.category-search li.picao_li > a{
+	padding:4px;
+}
+/*鞋类a标签间距*/
+ul.category-search li.xie_li > a{
+	padding:5px;
+}
+/*子菜单*/
+.cat-subcategory{
+	position:absolute;
+	left:230px;
+	padding:10px 20px;
+	z-index:10;
+	border:3px solid #EFEEEC;
+	border-left:0px;
+	background:#fff;
+	display:none;
+}
+.cat-subcategory h5{
+	color:#3C96EB;
+	font-size:16px;
+	margin:0px;
+	padding-bottom:3px;
+	border-bottom: 1px solid #3C96EB;
+}
+.cat-subcategory h5 a{
+	text-decoration:none;
+}
+.cat-subcategory table table{
+	width:195px;
+}
+.cat-subcategory table tr > td{
+	padding-right:20px;
+}
+.cat-subcategory table table a{
+	color:#8C8C8C;
+	font-size:12px;
+	text-decoration:none;
+}
+.cat-subcategory table table a:HOVER{
+	color:#337AB7;
+}
 
+/*轮播(大广告)*/
 #carousel-big-ad img{
 	height:280px;
 }
@@ -23,22 +104,6 @@ ul.category-search{
 .panel-heading span{
 	font-size:20px;
 	color:#008AE6;
-}
-
-.cat-subcategory{
-	position:absolute;
-	left:200px;
-	padding:10px 20px;
-	z-index:10;
-	width:457px;
-	border:3px solid #EFEEEC;
-	border-left:0px;
-	background:#fff;
-	display:none;
-}
-
-.cat-subcategory a{
-	margin-right:20px;
 }
 
 /*实力工厂、认证工厂*/

@@ -1,10 +1,10 @@
 $(function(){
 	$('.carousel').carousel();
-	getCategory();
+//	getCategory();
 	mallCategory();
 });
 
-function getCategory(){
+/*function getCategory(){
 	var pCodes = [101,102,103,104,105,2,3,4,5,6];
 //	var regExp = new RegExp("^"+pCode[1]+"..$");
 //	console.log(regExp.test(10200));
@@ -42,7 +42,7 @@ function getCategory(){
 			}
 		}
 	});
-}
+}*/
 
 function mallCategory(){
 	$( ".category-search li" ).each( function( index ){

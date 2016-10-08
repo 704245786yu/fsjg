@@ -32,30 +32,136 @@
 		<!-- 左边栏 -->
 		<td width="200px;">
 			<div class="mallCategory" style="position:relative;">
-				<ul class="nav nav-pills nav-stacked category-search">
-					<li><a href="enterprise/showList/101">梭织服装</a></li>
-					<li><a href="enterprise/showList/102">针织服装</a></li>
-					<li><a href="enterprise/showList/103">毛衫服装</a></li>
-					<li><a href="enterprise/showList/104">皮革服装</a></li>
-					<li><a href="enterprise/showList/105">裘皮服装</a></li>
-					<li><a href="enterprise/showList/2">服饰</a></li>
-					<li><a href="enterprise/showList/3">家纺</a></li>
-					<li><a href="enterprise/showList/4">纺织消费品</a></li>
-					<li><a href="enterprise/showList/5">面料/皮革/纱线</a></li>
-					<li><a href="enterprise/showList/6">纺织辅料</a></li>
+				<ul class="category-search">
+					<li>
+						<h5><a>针织</a></h5>
+						<a href="enterprise/showList/101">针织内裤</a><span>|</span>
+						<a href="enterprise/showList/101">针织大衣/风衣</a><span>|</span>
+						<a href="enterprise/showList/101">针织便装</a>
+						<a href="enterprise/showList/101">针织裤&nbsp;&nbsp;&nbsp;&nbsp;</a><span>|</span>
+						<a href="enterprise/showList/101" style="padding:0px 13px">针织浴袍</a><span>|</span>
+						<a href="enterprise/showList/101">针织衬衫</a>
+					</li>
+					<li>
+						<h5><a>梭织</a></h5>
+						<a href="enterprise/showList/101">牛仔服装</a><span>|</span>
+						<a href="enterprise/showList/101">真丝服装</a><span>|</span>
+						<a href="enterprise/showList/101">旗袍</a><span>|</span>
+						<a href="enterprise/showList/101">休闲服</a>
+						<a href="enterprise/showList/101">手工定制</a><span>|</span>
+						<a href="enterprise/showList/101">中山装</a><span>|</span>
+						<a href="enterprise/showList/101">唐装</a><span>|</span>
+						<a href="enterprise/showList/101">汉服</a><span>|</span>
+						<a href="enterprise/showList/101">其他</a>
+					</li>
+					<li class="fushi_li">
+						<h5><a>服饰</a></h5>
+						<a href="enterprise/showList/101">帽类</a><span>|</span>
+						<a href="enterprise/showList/101">领带</a><span>|</span>
+						<a href="enterprise/showList/101">围巾类</a><span>|</span>
+						<a href="enterprise/showList/101">手套</a>
+						<a href="enterprise/showList/101">袜子</a><span>|</span>
+						<a href="enterprise/showList/101">阳伞</a><span>|</span>
+						<a href="enterprise/showList/101">工艺品</a><span>|</span>
+						<a href="enterprise/showList/101">箱包</a>
+					</li>
+					<li class="fuliao_li">
+						<h5><a>服饰辅料</a></h5>
+						<a href="enterprise/showList/101">纽扣</a><span>|</span>
+						<a href="enterprise/showList/101">花边</a><span>|</span>
+						<a href="enterprise/showList/101">拉链</a><span>|</span>
+						<a href="enterprise/showList/101">织带/线/绳类</a>
+						<a href="enterprise/showList/101">衣架</a><span>|</span>
+						<a href="enterprise/showList/101">衬料</a><span>|</span>
+						<a href="enterprise/showList/101">腰带</a><span>|</span>
+						<a href="enterprise/showList/101">饰品/配饰</a>
+					</li>
+					<li class="jiafang_li">
+						<h5><a>家纺</a></h5>
+						<a href="enterprise/showList/101">装饰布艺</a><span>|</span>
+						<a href="enterprise/showList/101">浴巾</a><span>|</span>
+						<a href="enterprise/showList/101">毛巾</a>
+						<a href="enterprise/showList/101">沙发套</a><span>|</span>
+						<a href="enterprise/showList/101">汽车垫</a><span>|</span>
+						<a href="enterprise/showList/101">其他家纺</a>
+					</li>
+					<li class="picao_li">
+						<h5><a>皮革皮草</a></h5>
+						<a href="enterprise/showList/101">仿皮服装</a><span>|</span>
+						<a href="enterprise/showList/101">裘皮服装</a><span>|</span>
+						<a href="enterprise/showList/101">仿裘皮服装</a>
+					</li>
+					<li class="xie_li">
+						<h5><a>鞋类</a></h5>
+						<a href="enterprise/showList/101">皮鞋</a><span>|</span>
+						<a href="enterprise/showList/101">童鞋</a><span>|</span>
+						<a href="enterprise/showList/101">运动鞋</a><span>|</span>
+						<a href="enterprise/showList/101">休闲鞋</a>
+						<a href="enterprise/showList/101">拖鞋</a><span>|</span>
+						<a href="enterprise/showList/101">布鞋</a><span>|</span>
+						<a href="enterprise/showList/101">凉鞋&nbsp;&nbsp;&nbsp;&nbsp;</a><span>|</span>
+						<a href="enterprise/showList/101">女靴</a>
+					</li>
 				</ul>
 				<!-- 子菜单 -->
 				<div class="cat-subcategory">
-					<div id="category_101"></div>
-					<div id="category_102"></div>
-					<div id="category_103"></div>
-					<div id="category_104"></div>
-					<div id="category_105"></div>
-					<div id="category_2"></div>
-					<div id="category_3"></div>
-					<div id="category_4"></div>
-					<div id="category_5"></div>
-					<div id="category_6"></div>
+					<div>
+						<table>
+							<tr>
+								<td>
+									<h5><a href="#">针织内衣</a></h5>
+									<table>
+										<tr> <td><a href="aaa">女士文胸</a></td> <td><a href="#">泳装</a></td> <td><a href="#">泳裤</a></td> </tr>
+										<tr> <td><a href="#">打底衫</a></td> <td><a href="#">吊带衫</a></td>	<td><a href="#">保暖内衣</a></td> </tr>
+										<tr> <td><a href="#">保暖内裤</a></td> <td><a href="#">塑身衣</a></td> <td><a href="#">打底裤</a></td>	</tr>
+									</table>
+								</td>
+								<td>
+									<h5><a href="#">针织背心</a></h5>
+									<table>
+										<tr> <td><a href="#">男士背心</a></td> <td><a href="#">女士背心</a></td> </tr>
+									</table>
+								</td>
+								<td>
+									<h5><a href="#">针织睡衣</a></h5>
+									<table>
+										<tr> <td><a href="#">睡衣家居服</a></td> </tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div>
+						<table>
+							<tr>
+								<td>
+									<h5><a href="#">针织T恤衫</a></h5>
+									<table>
+										<tr> <td><a href="#">基本款T恤</a></td> <td><a href="#">开衫</a></td> <td><a href="#">娃娃衫</a></td> </tr>
+									</table>
+								</td>
+								<td>
+									<h5><a href="#">针织休闲衫</a></h5>
+									<table>
+										<tr> <td><a href="aaa">夹克拉链衫</a></td> <td><a href="#"></a></td> <td><a href="#">泳裤</a></td> </tr>
+										<tr> <td><a href="#">打底衫</a></td> <td><a href="#">吊带衫</a></td>	<td><a href="#">保暖内衣</a></td> </tr>
+										<tr> <td><a href="#">保暖内裤</a></td> <td><a href="#">塑身衣</a></td> <td><a href="#">打底裤</a></td>	</tr>
+									</table>
+								</td>
+								<td>
+									<h5><a href="#">针织睡衣</a></h5>
+									<table>
+										<tr> <td><a href="#">睡衣家居服</a></td> </tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
 				</div>
 			</div>
 		</td>
