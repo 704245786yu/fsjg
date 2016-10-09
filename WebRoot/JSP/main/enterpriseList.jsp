@@ -242,7 +242,7 @@
 </table>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/bs_pagination/jquery.bs_pagination.min.js"></script>
-<script src="plugin/bs_pagination/localization/en.min.js"></script>
+<script src="plugin/bs_pagination/localization/en.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/main/enterpriseList.js"></script>
 </body>

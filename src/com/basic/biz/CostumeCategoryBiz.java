@@ -94,4 +94,13 @@ public class CostumeCategoryBiz extends NestTreeBiz<CostumeCategoryDao, Integer,
 		return dao.getNameByCode(codes);
 	}
 
+	/**获取所有后代编码*/
+	@SuppressWarnings("unchecked")
+	public List<Integer> getSubCode(int code){
+		CostumeCategory c = new CostumeCategory();
+		c.setCategoryCode(code);
+		CostumeCategory category = dao.findByExample(c).get(0);
+		String hql = "select categoryCode from CostumeCategory where lft between :lft and :rgt";
+		return (List<Integer>)dao.find(hql, new String[]{"lft","rgt"}, new Integer[]{category.getLft(),category.getRgt()});
+	}
 }

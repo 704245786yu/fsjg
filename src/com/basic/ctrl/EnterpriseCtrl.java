@@ -123,11 +123,17 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	}
 	
 	/**首页服饰分类链接显示工厂列表*/
-	@RequestMapping("showList/{costumeCode}")
-	public ModelAndView showList(@PathVariable int costumeCode){
+	@RequestMapping("showList")
+	public ModelAndView showList(Integer costumeCode,String enterpriseKeyword){
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
-		BootTablePageDto<Enterprise> result = biz.getByCostumeCode(costumeCode,0,10);
+		List<Integer> costumeCodes = costumeCategoryBiz.getSubCode(costumeCode);
+		int endIndex = costumeCodes.size()>3 ? 3 : costumeCodes.size();
+		//获取子类型
+		BootTablePageDto<Enterprise> result = biz.search(null,null,null,null,costumeCodes.subList(0, endIndex).toArray(new Integer[]{}),null, null,enterpriseKeyword,0,20,null);
 		mav.addObject("result", result);
+		//保留页面顶部搜索框的状态
+		mav.addObject("tabIndex",1);
+		mav.addObject("enterpriseKeyword",enterpriseKeyword);
 		return mav;
 	}
 	
@@ -136,6 +142,9 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@RequestMapping(value="search")
 	public ModelAndView search(Long province,Long city,Long county,Long town, 
 			Integer[] costumeCode, String enterpriseKeyword){
+		//针对首页服饰分类链接的请求
+		if(enterpriseKeyword==null)
+			enterpriseKeyword = "";
 		BootTablePageDto<Enterprise> result = biz.search(province,city,county,town,costumeCode,null, null,enterpriseKeyword,0,20,null);
 		
 		ModelAndView mav = new ModelAndView("main/enterpriseList");

@@ -147,25 +147,37 @@ ul.category-search li.xie_li > a{
 .costumeList .td2{
 	padding-left:3px;
 }
-
-.costumeList .table tr:first-child > td:first-child{
+.costumeList .table img{
+	width:125px;
+	height:62px;
+}
+/*覆盖上面的图片样式*/
+.costumeList .table > tbody > tr > td:first-child > img{
+	width:205px;
+	height:290px;
+}
+.costumeList .table > tbody > tr:first-child > td:first-child{
 	width:205px;padding:0;
 }
 
-.costumeList .table tr:first-child > td:first-child + td{
+.costumeList .table > tbody > tr:first-child > td:first-child + td{
 	height:85px;
 }
 
-.costumeList .table tr:first-child + tr > td:first-child{
+.costumeList .table > tbody > tr:first-child + tr > td:first-child{
 	width:240px;
 }
 
-.costumeList .table p{
-	padding:4px 0px;
+.costumeList .table table{
+	width:100%;
 }
-
+.costumeList .table table td{
+	padding-bottom:18px;
+}
 .costumeList .table a{
-	margin-right:5px;
-	color:black;
-	cursor:pointer;
+	color:#8C8C8C;
+	text-decoration:none;
+}
+.costumeList .table a:hover{
+	color:#337AB7;
 }

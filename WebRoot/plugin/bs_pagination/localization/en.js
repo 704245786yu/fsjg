@@ -14,8 +14,12 @@ var rsc_bs_pag = {
     total_pages_abbr_label: '/',
     total_rows_label: 'of',
     rows_info_records: 'records',
-    go_top_text: '&laquo;',
-    go_prev_text: '&larr;',
-    go_next_text: '&rarr;',
-    go_last_text: '&raquo;'
+//    go_top_text: '&laquo;',
+    go_top_text: '首页',
+//    go_prev_text: '&larr;',
+    go_prev_text: '上一页',
+//    go_next_text: '&rarr;',
+    go_next_text: '下一页',
+//    go_last_text: '&raquo;'
+	go_last_text: '尾页'
 };

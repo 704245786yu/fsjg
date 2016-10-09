@@ -1,8 +1,19 @@
+var g_costumeCategory = null;
+
 $(function(){
 	$('.carousel').carousel();
-//	getCategory();
 	mallCategory();
+	initCostumeObj();
 });
+
+function initCostumeObj(){
+	var str = $('#tradeAndCostumeMap').html();
+	var g_tradeAndCostumeMap = $.parseJSON(str);
+	g_costumeCategory = {};
+	for(var i=0; i<g_tradeAndCostumeMap.length; i++){
+		$.extend(g_costumeCategory,g_tradeAndCostumeMap[i].children);
+	}
+}
 
 /*function getCategory(){
 	var pCodes = [101,102,103,104,105,2,3,4,5,6];
@@ -43,6 +54,16 @@ $(function(){
 		}
 	});
 }*/
+
+$('.mallCategory a,.cat-subcategory a,.costumeList table a').click(function(e){
+	e.preventDefault();
+	var categoryName = $(this).html();
+	for(var key in g_costumeCategory){
+		console.log(g_costumeCategory.key);
+		if(g_costumeCategory[key] == categoryName)
+			location.href="enterprise/showList?costumeCode="+key+"&enterpriseKeyword="+g_costumeCategory[key]; 
+	}
+});
 
 function mallCategory(){
 	$( ".category-search li" ).each( function( index ){
