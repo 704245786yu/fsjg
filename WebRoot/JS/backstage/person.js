@@ -1,13 +1,8 @@
-var g_constantType = new Object();//全局变量,常量类型
+var g_auditState = {"1":"待审核","2":"未通过","3":"已通过"};//审核状态
+var g_userState = {"0":"正常","1":"冻结"};	//用户状态
 
 $(function(){
 	new BsFormTableExtend().closeFormModal();//form模态框关闭事件，触发该事件时重置form
-	//获取字典常量类型
-	$("select[name='constantTypeCode'] > option").each(function () {
-        var txt = $(this).text(); //获取单个text
-        var val = $(this).val(); //获取单个value
-        g_constantType[val] = txt;
-    });
 });
 
 function getQueryParams(params){
@@ -17,16 +12,32 @@ function getQueryParams(params){
 	return params;
 }
 
+//显示个人详细信息，隐藏其他面板
 function view(id){
 	var row = $('#dg').bootstrapTable('getRowByUniqueId',id);
-	var pAry = $('#viewModal p');
+	var $viewPanel = $('#viewPanel');
+	var pAry = $viewPanel.find('p');
 	for(var i=0; i<pAry.length; i++){
 		var $p = $(pAry[i]);
 		var name = $p.attr("name");
-		console.log(name);
 		$p.html(row[name]);
 	}
-	$('#viewModal').modal('show');//显示form模态框
+	$viewPanel.find('p[name="userName"]').html(row.basicUser.userName);
+	$viewPanel.find('p[name="telephone"]').html(row.basicUser.telephone);
+	var auditState = g_auditState[row.auditState];
+	if(auditState == undefined)
+		auditState = '无';
+	$viewPanel.find('p[name="auditState"]').html(auditState);
+	$viewPanel.find('p[name="state"]').html(g_userState[row.basicUser.state]);
+	$viewPanel.find('img[name="idFrontPhoto"]').attr('src',"uploadFile/person/"+row.idFrontPhoto);
+	$viewPanel.find('img[name="idBackPhoto"]').attr('src',"uploadFile/person/"+row.idBackPhoto);
+	$('#listPanel').hide();
+	$('#viewPanel').show();
+}
+
+function hideView(){
+	$('#listPanel').show();
+	$('#viewPanel').hide();
 }
 
 //个人实名状态
@@ -36,15 +47,16 @@ function authenFormatter(value,row,index){
 }
 
 //审核状态
-var g_auditState = ['待审核','未通过','已通过'];
 function auditFormatter(value,row,index){
-	return g_auditState[value];
+	var auditState = g_auditState[row.auditState];
+	if(auditState == undefined)
+		auditState = '无';
+	return auditState;
 }
 
 //用户状态
-var g_personState = ['正常','冻结'];
-function personFormatter(value,row,index){
-	return g_personState[value];
+function stateFormatter(value,row,index){
+	return g_userState[value];
 }
 
 //根据常量名称搜索
@@ -52,15 +64,13 @@ function search(){
 	$('#dg').bootstrapTable('selectPage',1);
 }
 
-//查询框回车执行查询操作
-$('#searchText').keydown(function(event){
-	if(event.keyCode == 13){
-		search();
-	}
-});
+//审核处理
+function audit(auditState){
+	
+}
 
 //表单验证
-$('#ff').bootstrapValidator({
+/*$('#ff').bootstrapValidator({
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
         invalid: 'glyphicon glyphicon-remove',
@@ -122,35 +132,19 @@ $('#ff').bootstrapValidator({
     }
 }).on('success.form.bv', function(e) {
 	new BsFormTableExtend().submitFunc(e);
-});
+});*/
 
 //新增
-function add(){
+/*function add(){
 	$('#ff').attr('action','person/save');
-}
+}*/
 
 //修改
-function modify(id){
+/*function modify(id){
 	new BsFormTableExtend().showModifyForm(id, 'person/update');
-}
+}*/
 
 //删除
-function del(index,id){
+/*function del(index,id){
 	new BsFormTableExtend().delRecord(index,id,'person/delete/');
-}
-
-$('#fileupload').fileupload({
-	done: function (e, data) {	//上传请求成功完成后的回调处理方法
-		if(data.result == 1){	//跳转到最后一页，以展示最新数据
-			var opt = $('#dg').bootstrapTable('getOptions');
-//		  		var pageSize = opt.pageSize;
-			var pageNumber = opt.pageNumber;
-			console.log(pageNumber);
-//		  		var totalRows = opt.totalRows;
-//		  		var tzPageNumber = Math.ceil(totalRows/pageSize);
-			$('#dg').bootstrapTable('selectPage',pageNumber);
-		}else{
-			alert('上传文件失败');
-		}
-	}
-});
+}*/

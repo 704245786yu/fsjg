@@ -49,7 +49,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 //			person.setCreateBy(userId);
 //			person.setCreateTime(new Date());
 			person.setAuditState((byte)0);//默认0：待审核
-			person.setPersonState((byte)0);//默认0：正常
+//			person.setPersonState((byte)0);//默认0：正常
 			person.setEmail(temp[15]);
 			person.setQq(NumberTransform.getLong(temp[16]));
 			person.setFixPhone(temp[17]);

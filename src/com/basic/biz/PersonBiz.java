@@ -42,7 +42,6 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 		p.setAuditState(old.getAuditState());
 		p.setAuditBy(old.getAuditBy());
 		p.setAuditTime(old.getAuditTime());
-		p.setPersonState(old.getPersonState());
 		
 		dao.merge(p);
 	}

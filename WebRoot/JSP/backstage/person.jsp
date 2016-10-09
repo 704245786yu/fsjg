@@ -19,51 +19,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 	<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
-	<link href="plugin/jQuery-File-Upload/css/jquery.fileupload.css" rel="stylesheet">
 </head>
   
 <body>
-<div class="panel panel-primary">
+<div id="listPanel" class="panel panel-primary">
 	<div class="panel-heading">
 		个人用户管理
 	</div>
 	<div class="panel-body">
-		<!-- 搜索框、新增按钮 -->
-		<div id="tb" class="row" style="width:100%;padding:10px;">
-			<div class="col-sm-4">
-				<div class="input-group">
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-primary" onclick="search()">
-							<span class="glyphicon glyphicon-search"></span>
-						</button>
-					</span>
-					<input type="text" class="form-control" id="searchText" placeholder="常量名称">
-				</div><!-- /input-group -->
-			</div><!-- /.col-sm-4 -->
-	    
-			<div class="col-sm-1">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" onclick="add()">
-					<span class="glyphicon glyphicon-plus"></span> 添加
-				</button>
+		<!-- 查询条件 -->
+		<div class="form-inline" style="padding-bottom:10px;">
+			<div class="form-group">
+				<label>用户名</label>
+				<input type="text" class="form-control" name="userName">
 			</div>
-		</div><!-- .row -->
+			<div class="form-group">
+				<label>手机号码</label>
+				<input type="text" class="form-control" name="telephone">
+			</div>
+			<div class="form-group">
+				<label>审核状态</label>
+				<select class="form-control" name="auditState">
+					<option value=""></option>
+					<option value="1">待审核</option>
+					<option value="2">未通过</option>
+					<option value="1">已通过</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="startDate">创建日期</label>
+				<div class="input-group date">
+	                <input type="text" class="form-control" name="beginDate"/>
+	                <span class="input-group-addon">
+	                	<span class="glyphicon glyphicon-calendar"></span>
+	                </span>
+	            </div>
+				至
+				<div class="input-group date">
+	                <input type="text" class="form-control" name="endDate"/>
+	                <span class="input-group-addon">
+	                	<span class="glyphicon glyphicon-calendar"></span>
+	                </span>
+	            </div>
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-primary">查询</button>
+			</div>
+	    </div><!-- form-inline -->
 	
 		<!-- 数据表格 -->
 		<table id="dg" data-toggle="table" data-url="person/getAllByPage" data-unique-id="id"
 				data-pagination="true"
 				data-side-pagination="server"
 				data-query-params="getQueryParams"
-				data-page-size="5"
-				data-page-list="[5,10]">
+				data-page-size="10"
+				data-page-list="[10,20]">
 		    <thead>
 		        <tr>
 		        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
-		            <th data-field="userName" data-align="center">用户名</th>
+		            <th data-field="basicUser.userName" data-align="center">用户名</th>
 		            <th data-field="realName" data-align="center">真实姓名</th>
-		            <th data-field="telephone" data-align="center">手机号码</th>
-		            <th data-field="createTime" data-align="center">注册时间</th>
+		            <th data-field="basicUser.telephone" data-align="center">手机号码</th>
+		            <th data-field="basicUser.createTime" data-align="center">注册时间</th>
 		            <th data-field="auditState" data-align="center" data-formatter="auditFormatter">个人实名审核状态</th>
-		            <th data-field="personState" data-align="center" data-formatter="personFormatter">用户状态</th>
+		            <th data-field="basicUser.state" data-align="center" data-formatter="stateFormatter">用户状态</th>
 		            <th data-formatter="operFormatterVUD" class="col-sm-2" data-align="center">操作</th>
 		        </tr>
 		    </thead>
@@ -214,128 +233,98 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div><!-- modal -->
 
 <!-- 查看个人用户 -->
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="dialog" style="width:500px">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h4 class="modal-title">查看个人用户</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="form-group">
-						<label class="col-sm-3 control-label">用户名 </label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="userName"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">真实姓名</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="realName"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">性别</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="gender"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">年龄</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="age"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">省</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="province"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">市</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="city"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">区县</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="county"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">镇/乡/街道</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="town"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">详细地址</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="detailAddr"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">电话</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="telephone"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">实名认证状态</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="authenticationState"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">审核状态</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="auditState"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">用户状态</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="personState"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="email" class="col-sm-3 control-label">电子邮箱</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="email"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="qq" class="col-sm-3 control-label">QQ</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="qq"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="fixPhone" class="col-sm-3 control-label">固定电话</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="fixPhone"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="wechat" class="col-sm-3 control-label">微信</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="wechat"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="idCard" class="col-sm-3 control-label">身份证号</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="idCard"></p>
-						</div>
-					</div>
+<div id="viewPanel" class="panel panel-primary" style="display:none;">
+	<button type="button" class="btn btn-primary" onclick="hideView()" style="width:100px;"><span class="glyphicon glyphicon-step-backward"></span>返回</button>
+	<div class="panel-body">
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label class="col-sm-1 control-label">用户名 ：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="userName"></p>
 				</div>
-			</div><!-- modal-body -->
-		</div><!-- modal-content -->
-	</div><!-- modal-dialog -->
-</div><!-- modal -->
+				<label class="col-sm-1 control-label">真实姓名：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="realName"></p>
+				</div>
+			</div>
+			<!-- <div class="form-group">
+				<label class="col-sm-1 control-label">性别：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="gender"></p>
+				</div>
+				<label class="col-sm-1 control-label">年龄：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="age"></p>
+				</div>
+			</div> -->
+			<div class="form-group">
+				<label class="col-sm-1 control-label">详细地址：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="detailAddr"></p>
+				</div>
+				<label class="col-sm-1 control-label">电话：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="telephone"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">电子邮箱：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="email"></p>
+				</div>
+				<label class="col-sm-1 control-label">QQ：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="qq"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">固定电话：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="fixPhone"></p>
+				</div>
+				<label class="col-sm-1 control-label">微信：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="wechat"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">邮政编码：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="postalCode"></p>
+				</div>
+				<label class="col-sm-1 control-label">身份证号：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="idNum"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">身份证照：</label>
+				<div class="col-sm-5">
+					<p class="form-control-static" name="authenticationState">
+						<img name="idFrontPhoto" style="width:200px;height:150px;margin-right:20px;"/>
+						<img name="idBackPhoto" style="width:200px;height:150px"/>
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">审核状态：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="auditState"></p>
+				</div>
+				<label class="col-sm-1 control-label">用户状态：</label>
+				<div class="col-sm-2">
+					<p class="form-control-static" name="state"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4">
+					<button type="button" class="btn btn-primary" onclick="audit(3)" style="width:100px;">审核通过</button>
+					<button type="button" class="btn btn-primary" onclick="audit(2)" style="width:100px;">审核不通过</button>
+				</div>
+			</div>
+		</div>
+	</div><!-- panel-body -->
+</div><!-- panel -->
 
 </body>
 
@@ -346,9 +335,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-
-<script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>

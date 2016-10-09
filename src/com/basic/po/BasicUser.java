@@ -29,6 +29,8 @@ public class BasicUser {
 	@Column(name="role_id")
 	private Integer roleId;	//角色ID 1：普通用户 2：企业用户
 	
+	private Byte state;	//用户状态 0：正常 1：冻结
+	
 	@Column(name="create_by")
 	private Integer createBy;	//创建人。0：表示用户自行注册，非0表示由平台管理人员录入
 	
@@ -82,6 +84,14 @@ public class BasicUser {
 
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
+	}
+	
+	public Byte getState() {
+		return state;
+	}
+
+	public void setState(Byte state) {
+		this.state = state;
 	}
 
 	public Integer getCreateBy() {

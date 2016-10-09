@@ -17,9 +17,6 @@ public class Person extends UserAbstract{
 	
 	private Byte age;
 	
-	@Column(name="person_state")
-	private Byte personState;	//用户状态 0：正常 1：冻结
-	
 	@Column(name="id_num")
 	private String idNum;	//身份证号
 	
@@ -51,14 +48,6 @@ public class Person extends UserAbstract{
 
 	public void setAge(Byte age) {
 		this.age = age;
-	}
-
-	public Byte getPersonState() {
-		return personState;
-	}
-
-	public void setPersonState(Byte personState) {
-		this.personState = personState;
 	}
 
 	public String getIdNum() {
