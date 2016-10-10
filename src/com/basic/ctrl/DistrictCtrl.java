@@ -130,6 +130,12 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Long,District>{
 		return biz.getByNameAndPage(districtName, offset, limit);
 	}
 
+	@RequestMapping("getNameByCode")
+	@ResponseBody
+	public List<String> getNameByCode(@RequestParam("codes[]") ArrayList<Long> codes){
+		return biz.getNameByCode(codes);
+	}
+	
 	@Override
 	public District update(District po, HttpSession session) {
 		int id = UserCtrl.getLoginUser(session).getId();

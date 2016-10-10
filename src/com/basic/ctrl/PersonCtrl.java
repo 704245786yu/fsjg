@@ -3,6 +3,7 @@ package com.basic.ctrl;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,8 +20,12 @@ import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
 import com.basic.po.Person;
 import com.common.BaseCtrl;
+import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
+import com.sys.ctrl.UserCtrl;
+import com.sys.po.User;
+import com.util.DateTransform;
 import com.util.FileUtil;
 
 @Controller
@@ -49,33 +54,28 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 
 	/**根据搜索条件分页查询数据。searchText用于模糊匹配查询常量名称和常量类型名称。
 	 * @param offset 偏移量，即记录索引位置
-	 * @param pageSize 每页记录数
-	 * @param constantName 要模糊查询的常量名称
+	 * @param limit 每页记录数
+	 * @param total 可为null
 	 * */
-	/*@RequestMapping("findByPageAndParams")
+	@RequestMapping("findByPage")
 	@ResponseBody
-	public BootTablePageDto<ConstantDict> findByPageAndParams(int offset, int pageSize, String constantName){
-		return biz.findByPageAndParams(offset,pageSize,constantName);
-	}*/
+	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,String beginDate,String endDate,int offset, int limit, Long total){
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length()>0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		}
+		return biz.findByPage(userName,telephone,auditState,beginTime,endTime,offset,limit,total);
+	}
 	
-	/**验证照片
-	 * */
-	private String verifyImg(MultipartFile frontPhoto, MultipartFile backPhoto){
-		String errorMsg = "";
-		String contentType = null;
-		if(frontPhoto != null){
-			contentType = frontPhoto.getContentType();
-			if( frontPhoto.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-				errorMsg = "身份证照(正面)不符合上传要求";
-			}
-		}
-		if(backPhoto != null){
-			contentType = backPhoto.getContentType();
-			if( backPhoto.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
-				errorMsg += "身份证照(反面)不符合上传要求";
-			}
-		}
-		return errorMsg;
+	/**实名审核*/
+	@RequestMapping("audit")
+	@ResponseBody
+	public ReturnValueVo audit(int id,byte auditState,HttpSession session){
+		User user = UserCtrl.getLoginUser(session);
+		biz.audit(id, auditState, user.getId());
+		return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
 	}
 	
 	/**更新用户信息。同时刷新session中的信息*/
@@ -143,6 +143,26 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, p);
 	}
 	
+	/**验证照片
+	 * */
+	private String verifyImg(MultipartFile frontPhoto, MultipartFile backPhoto){
+		String errorMsg = "";
+		String contentType = null;
+		if(frontPhoto != null){
+			contentType = frontPhoto.getContentType();
+			if( frontPhoto.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg = "身份证照(正面)不符合上传要求";
+			}
+		}
+		if(backPhoto != null){
+			contentType = backPhoto.getContentType();
+			if( backPhoto.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg += "身份证照(反面)不符合上传要求";
+			}
+		}
+		return errorMsg;
+	}
+	
 	/**保存文件到磁盘
 	 * @param srcFile 原文件
 	 * @param uploadDir 保存路径
@@ -161,8 +181,4 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 		return newFileName;
 	}
 	
-	@RequestMapping("dateRangePickerDemo")
-	public String dateRangePickerDemo(){
-		return "../plugin/bootstrap-daterangepicker/website/index";
-	}
 }

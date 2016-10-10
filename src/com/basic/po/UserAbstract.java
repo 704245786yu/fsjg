@@ -52,7 +52,7 @@ public abstract class UserAbstract {
 	private Byte auditState;	//审核状态。待审核:0 未通过:1 已通过:2
 	
 	@Column(name="audit_by")
-	private Byte auditBy;	//审核人
+	private Integer auditBy;	//审核人
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name="audit_time")
@@ -155,11 +155,11 @@ public abstract class UserAbstract {
 		this.auditState = auditState;
 	}
 
-	public Byte getAuditBy() {
+	public Integer getAuditBy() {
 		return auditBy;
 	}
 
-	public void setAuditBy(Byte auditBy) {
+	public void setAuditBy(Integer auditBy) {
 		this.auditBy = auditBy;
 	}
 

@@ -1,5 +1,7 @@
 package com.basic.biz;
 
+import java.util.Date;
+
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.basic.dao.PersonDao;
 import com.basic.po.BasicUser;
 import com.basic.po.Person;
 import com.common.BaseBiz;
+import com.common.dto.BootTablePageDto;
 
 @Service
 public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
@@ -46,4 +49,14 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 		dao.merge(p);
 	}
 	
+	/**实名审核*/
+	public void audit(int id,byte auditState,int auditBy){
+		String hql = "update Person set auditState =:auditState, auditBy =:auditBy, auditTime =:auditTime where id =:id";
+		dao.executeUpdate(hql, new String[]{"auditState","auditBy","auditTime","id"}, new Object[]{auditState,auditBy,new Date(),id});
+	}
+	
+	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
+//		return biz.findByPageAndParams(offset,pageSize,constantName);
+		return null;
+	}
 }

@@ -20,9 +20,12 @@ import com.basic.po.BasicUser;
 import com.basic.po.UserAbstract;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
+import com.common.vo.ReturnValueVo;
 import com.common.vo.ValidVo;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.ctrl.LoginCtrl;
+import com.sys.ctrl.UserCtrl;
+import com.sys.po.User;
 
 @Controller
 @RequestMapping("basicUser")
@@ -101,6 +104,15 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		mav.addObject("index",index);//显示个人中心第几个模块
 		mav.addObject("userInfo", userAbstract);
 		return mav;
+	}
+	
+	/**用户状态更改：冻结 解冻*/
+	@RequestMapping("modifyState")
+	@ResponseBody
+	public ReturnValueVo modifyState(int id,byte state,HttpSession session){
+		User user = UserCtrl.getLoginUser(session);
+		biz.modifyState(id, state, user.getId());
+		return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
 	}
 	
 	@Override

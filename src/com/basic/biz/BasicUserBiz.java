@@ -89,4 +89,10 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 		}
 		return errorMsg;
 	}
+	
+	/**用户状态更改：冻结 解冻*/
+	public void modifyState(int id,byte state,int updateBy){
+		String hql = "update BasicUser set state =:state, updateBy =:updateBy where id =:id";
+		dao.executeUpdate(hql, new String[]{"state","updateBy","id"}, new Object[]{state,updateBy,id});
+	}
 }
