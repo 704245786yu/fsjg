@@ -39,6 +39,7 @@
 <body>
 <input type="hidden" name="pageName" value="enterprise">
 <%@ include file="top.jsp" %>
+<%@ include file="/JSP/main/common/commonData.jsp" %>
 
 <div style="width:1190px; margin:0 auto;">
 	<!-- 左边栏(主体) -->
@@ -158,6 +159,7 @@
 									</div>
 								</div>
 							</div><!-- panel-body -->
+							<div style="background-color:#779BCA;padding-left:10px;"><span class="glyphicon glyphicon-time" style="color:white;"></span></div>
 						</div><!-- panel -->
 					</div><!-- col-md -->
 				</div><!-- row -->
@@ -173,16 +175,54 @@
 			</div>
 		</div>
 		<!-- 热门区域加工厂 -->
-		<div class="row" style="margin-top:20px;">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-map-marker"></span> 热门区域加工厂</h3>
-					</div>
-					<div class="panel-body">
-					</div><!-- panel-body -->
-				</div><!-- panel -->
-			</div>
+		<div class="hotAreaDiv" class="row" style="margin-top:20px;">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-map-marker"></span> 热门区域加工厂</h3>
+				</div>
+				<div class="panel-body">
+					<table>
+						<tr>
+							<td><a href="province" title="浙江"><img src="image/enterprise/zhejiang.png"></a></td>
+							<td>
+								<a href="#">宁波</a><span>|</span> <a href="#">杭州</a><span>|</span> <a href="#">金华</a><span>|</span> <a href="#">绍兴</a><br/>
+								<a href="#">嘉兴</a><span>|</span> <a href="#">温州</a><span>|</span> <a href="#">湖州</a><span>|</span> <a href="#">台州</a>
+							</td>
+							<td style="padding-left:100px;"><a href="province" title="江苏"><img src="image/enterprise/jiangsu.png"></a></td>
+							<td>
+								<a href="#">苏州</a><span>|</span> <a href="#">南京</a><span>|</span> <a href="#">无锡</a><span>|</span> <a href="#">泰州</a><br/>
+								<a href="#">南通</a><span>|</span> <a href="#">盐城</a><span>|</span> <a href="#">镇江</a><span>|</span> <a href="#">常州</a>
+							</td>
+						</tr>
+						<tr>
+							<td><a href="province" title="广东"><img src="image/enterprise/guangdong.png"></a></td>
+							<td>
+								<a href="#">广州</a><span>|</span> <a href="#">深圳</a><span>|</span> <a href="#">东莞</a><span>|</span> <a href="#">佛山</a><br/>
+								<a href="#">中山</a><span>|</span> <a href="#">汕头</a><span>|</span> <a href="#">惠州</a><span>|</span> <a href="#">江门</a>
+							</td>
+							<td style="padding-left:100px;"><a href="province" title="福建"><img src="image/enterprise/fujian.png"></a></td>
+							<td>
+								<a href="#">福州</a><span>|</span> <a href="#">厦门</a><span>|</span> <a href="#">莆田</a><span>|</span> <a href="#">三明</a><br/>
+								<a href="#">泉州</a><span>|</span> <a href="#">漳州</a><span>|</span> <a href="#">南平</a><span>|</span> <a href="#">宁德</a>
+							</td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td><a href="#">北京</a></td> <td><a href="#">上海</a></td> <td><a href="#">天津</a></td> <td><a href="#">山东</a></td> <td><a href="#">宁夏</a></td>
+							<td><a href="#">辽宁</a></td> <td><a href="#">重庆</a></td> <td><a href="#">云南</a></td> <td><a href="#">新疆</a></td> <td><a href="#">西藏</a></td>
+						</tr>
+						<tr>
+							<td><a href="#">四川</a></td> <td><a href="#">陕西</a></td> <td><a href="#">山西</a></td> <td><a href="#">青海</a></td> <td><a href="#">内蒙古</a></td>
+							<td><a href="#">江西</a></td> <td><a href="#">吉林</a></td> <td><a href="#">湖南</a></td> <td><a href="#">湖北</a></td> <td><a href="#">黑龙江</a></td>
+						</tr>
+						<tr>
+							<td><a href="#">河南</a></td> <td><a href="#">河北</a></td> <td><a href="#">海南</a></td> <td><a href="#">贵州</a></td> <td><a href="#">广西</a></td>
+							<td><a href="#">甘肃</a></td> <td><a href="#">安徽</a></td> <td><a href="#">香港</a></td> <td><a href="#">澳门</a></td> <td><a href="#">台湾</a></td>
+						</tr>
+					</table>
+				</div><!-- panel-body -->
+			</div><!-- panel -->
 		</div>
 	</div><!-- 主体 -->
 	
@@ -273,11 +313,9 @@
 		</div><!-- row -->
 	</div><!-- 右边栏 -->
 </div>
+<%@ include file="/JSP/main/bottom.jsp"%>
 
-<%-- <input type="hidden" id="hiddenCostumeCategory" value={<c:forEach var="costumeCategory" items="${costumeCategoryMap}">"${costumeCategory.key}":"${costumeCategory.value}",</c:forEach>}> --%>
-<!-- <input type="hidden" id="hiddenCostumeCategory" value=${costumeCategoryMap}> -->
 <span style="display:none" id="hiddenCostumeCategory">${costumeCategoryMap}</span>
-<input type="hidden" id="hiddenProcessType" value={<c:forEach var="processType" items="${processTypes}">"${processType.constantValue}":"${processType.constantName}",</c:forEach>}>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>

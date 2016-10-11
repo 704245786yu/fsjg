@@ -37,3 +37,24 @@
 #enterpriseList h4 a{
 	text-decoration:none;
 }
+
+/*热门区域*/
+.hotAreaDiv img{
+	width:130px;
+	height:123px;
+}
+.hotAreaDiv table{
+	width:100%;
+}
+.hotAreaDiv table td{
+	padding:10px;
+}
+.hotAreaDiv a{
+	text-decoration:none;
+	color:#8C8C8C;
+}
+.hotAreaDiv span{
+	color:#8C8C8C;
+	padding:3px;
+	margin:0 10px;
+}

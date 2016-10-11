@@ -292,7 +292,7 @@
 	</form>
 </div>
 
-
+<%@ include file="/JSP/main/bottom.jsp"%>
 
 <c:if test="${loginBasicUser==null}">
 	<%@include file="loginModal.jsp"%>

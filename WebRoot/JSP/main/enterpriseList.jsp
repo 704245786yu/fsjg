@@ -240,6 +240,7 @@
 	</td>
 </tr>
 </table>
+<%@ include file="/JSP/main/bottom.jsp"%>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/bs_pagination/jquery.bs_pagination.min.js"></script>
 <script src="plugin/bs_pagination/localization/en.js"></script>

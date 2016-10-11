@@ -317,6 +317,7 @@
 		</div><!-- row -->
 	</div><!-- 右边栏 -->
 </div>
+<%@ include file="/JSP/main/bottom.jsp"%>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>

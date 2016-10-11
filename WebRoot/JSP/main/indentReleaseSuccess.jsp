@@ -54,6 +54,8 @@
 	</div>
 </div>
 
+<%@ include file="/JSP/main/bottom.jsp"%>
+
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>
 <script src="JS/main/indent.js"></script>

@@ -201,6 +201,7 @@
 	</td>
 </tr>
 </table>
+<%@ include file="/JSP/main/bottom.jsp"%>
 
 <jsp:include page="loginModal.jsp">
 	<jsp:param name="showCloseBtn" value="true"/>

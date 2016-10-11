@@ -1,4 +1,3 @@
-var g_processType = null;	//加工类型
 var g_costumeCategory = null;	//服饰类型
 
 $(function(){
@@ -9,9 +8,6 @@ $(function(){
 });
 
 function init(){
-	var str = $('#hiddenProcessType').val();
-	str = str.replace(/,}/,'}');
-	g_processType = $.parseJSON(str);
 	str = $('#hiddenCostumeCategory').html();
 	g_costumeCategory = $.parseJSON(str);
 }
@@ -42,7 +38,7 @@ function getExcellent(){
 			var enterprise = data[i];
 			var $new = $enterprise.clone().css('display','block');
 			//logo
-			$new.find('img').attr('src','uploadFile/enterprise/'+enterprise.logo);
+			$new.find('img.media-object').attr('src','uploadFile/enterprise/'+enterprise.logo);
 			var $head = $new.find('.media-heading');
 			$head.children('.media-heading > a').text(enterprise.enterpriseName).attr('href','enterprise/showDetail/'+enterprise.id);
 			var $list1 = $head.next().text('员工人数：'+enterprise.staffNumber+'人');
@@ -104,3 +100,30 @@ function getNewAuth(){
 		}
 	});
 }
+
+//热门区域
+$('.hotAreaDiv table:first-child a').click(function(e){
+	e.preventDefault();
+	var href = $(this).attr('href');
+	var name = null;
+	if(href=="province")
+		name = $(this).attr('title');
+	else{
+		href = "city";
+		name = $(this).html();
+	}
+	for(var code in g_district){
+		if(g_district[code].indexOf(name) != -1){
+			location.href="enterprise/search?"+href+"="+code;
+		}
+	}
+});
+$('.hotAreaDiv table:first-child + table a').click(function(e){
+	e.preventDefault();
+	var name = $(this).html();
+	for(var code in g_district){
+		if(g_district[code].indexOf(name) != -1){
+			location.href="enterprise/search?province="+code;
+		}
+	}
+});

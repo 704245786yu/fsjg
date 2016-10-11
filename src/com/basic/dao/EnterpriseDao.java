@@ -96,7 +96,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 	public BootTablePageDto<Enterprise> search(Long province,Long city,Long county,Long town, Integer[] costumeCodes,
 			String processType,Integer staffNumber,String keyword,int offset,int limit,Long total){
 		StringBuffer countSql = new StringBuffer("select count(1)");
-		StringBuffer subSql = new StringBuffer(" from basic_enterprise where (enterprise_name like :keyword or description like :keyword) or 1=1 ");
+		StringBuffer subSql = new StringBuffer(" from basic_enterprise where (enterprise_name like :keyword or description like :keyword) ");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
 		//关键字匹配企业名称、工厂描述

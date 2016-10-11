@@ -181,3 +181,35 @@ ul.category-search li.xie_li > a{
 .costumeList .table a:hover{
 	color:#337AB7;
 }
+
+/*新手指南*/
+.helpTable{
+	margin-top:20px;
+	margin-left:60px;
+}
+.helpTable tr:FIRST-CHILD img{
+	width:23px;
+	height:23px;
+}
+.helpTable h4{
+	margin:0 150px 0 20px;
+}
+.helpTable tr:FIRST-CHILD + tr{
+	vertical-align:top;
+}
+.helpTable tr:FIRST-CHILD + tr img{
+	margin-right:20px;
+}
+/*虚线*/
+.helpTable div{
+	border-right:1px dashed #D8D8D8;
+	width:12px;
+	height:100px;
+}
+.helpTable p{
+	margin-left:20px;
+	color:#666666;
+}
+.helpTable p:FIRST-CHILD {
+	margin-top:10px;
+}
