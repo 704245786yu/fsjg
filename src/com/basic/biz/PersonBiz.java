@@ -56,7 +56,6 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 	}
 	
 	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
-//		return biz.findByPageAndParams(offset,pageSize,constantName);
-		return null;
+		return dao.findByPage(userName, telephone, auditState, beginDate, endDate, offset, limit, total);
 	}
 }

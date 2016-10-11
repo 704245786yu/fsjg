@@ -4,11 +4,7 @@ var g_jqConfirm = new JqConfirmExtend();
 var g_total = null;
 
 $(function(){
-	$('input[name="beginDate"]').datetimepicker({
-		format: 'YYYY-MM-DD',
-		locale: 'zh-cn'
-    });
-	$('input[name="endDate"]').datetimepicker({
+	$('.date').datetimepicker({
 		format: 'YYYY-MM-DD',
 		locale: 'zh-cn'
     });
@@ -217,6 +213,6 @@ function modifyState(id, state){
 }*/
 
 //删除
-/*function del(index,id){
+function del(index,id){
 	new BsFormTableExtend().delRecord(index,id,'person/delete/');
-}*/
+}
