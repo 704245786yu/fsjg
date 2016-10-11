@@ -159,7 +159,7 @@
 									</div>
 								</div>
 							</div><!-- panel-body -->
-							<div style="background-color:#779BCA;padding-left:10px;"><span class="glyphicon glyphicon-time" style="color:white;"></span></div>
+							<div name="schedule" style="background-color:#779BCA;padding-left:10px;"><img src="image/enterprise/clock.png"></div>
 						</div><!-- panel -->
 					</div><!-- col-md -->
 				</div><!-- row -->

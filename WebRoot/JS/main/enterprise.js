@@ -56,6 +56,8 @@ function getExcellent(){
 				costumeStr += g_costumeCategory[costumeCodes[j]]+' ';
 			}
 			$list2.next().text('主营产品：'+costumeStr);
+			//档期
+			$enterprise.find('div[name="schedule"]').append(enterprise.schedule);
 			$enterpriseList.append($new);
 		}
 	});
