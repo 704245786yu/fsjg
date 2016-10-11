@@ -140,7 +140,12 @@
 		<!-- 接单工厂 -->
 		<div class="panel panel-default" style="margin-top:20px;">
 			<div class="panel-heading">
-				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-globe"></span> 接单工厂</h3>
+				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-globe"></span> 接单工厂
+					<div class="pull-right">
+				 		<a href="enterprise/search"><span class="label label-info" style="font-size:14px;">more</span></a>
+					</div>
+				 </h3>
+					 
 			</div>
 			<div class="panel-body">
 				<div id="enterpriseList" class="row">
@@ -152,14 +157,14 @@
 										<img class="media-object" style="width:90px;height:90px;" src="uploadFile/enterprise/default_logo.png">
 									</div>
 									<div class="media-body">
-										<h4 class="media-heading"><a>工厂名称</a></h4>
+										<h4 class="media-heading"><a target="_blank">工厂名称</a></h4>
 										<p class="list-group-item-text">员工人数</p>
 										<p class="list-group-item-text">加工类型</p>
 										<p class="list-group-item-text">主营产品</p>
 									</div>
 								</div>
 							</div><!-- panel-body -->
-							<div name="schedule" style="background-color:#779BCA;padding-left:10px;"><img src="image/enterprise/clock.png"></div>
+							<div name="schedule" style="background-color:#779BCA;color:white;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><img src="image/enterprise/clock.png" style="margin-left:10px;margin-right:10px;"></div>
 						</div><!-- panel -->
 					</div><!-- col-md -->
 				</div><!-- row -->

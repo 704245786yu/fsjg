@@ -57,7 +57,7 @@ function getExcellent(){
 			}
 			$list2.next().text('主营产品：'+costumeStr);
 			//档期
-			$enterprise.find('div[name="schedule"]').append(enterprise.schedule);
+			$new.find('div[name="schedule"]').append(enterprise.schedule);
 			$enterpriseList.append($new);
 		}
 	});
