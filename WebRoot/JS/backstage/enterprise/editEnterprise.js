@@ -147,43 +147,35 @@ $('#ff').bootstrapValidator({
     	}
     }
 }).on('success.form.bv', function(e) {
+	e.preventDefault();
+	var $form = $(e.target);
+	//检查是否选择了主营产品
 	if(!isCostumeCheck()){
-		e.preventDefault();
-		var $form = $(e.target);
 		$form.find(':submit').removeAttr('disabled');
 		alert('请选择主营产品');
+		return;
 	}
-});
-
-var options = {  
-   beforeSubmit: beforeSubmit,  //提交前的回调函数  
-   success: success      //提交后的回调函数  
-}
-
-$('#ff').ajaxForm(options);
-
-function beforeSubmit(formData, jqForm, options){
+	//加入被删的图片
 	for(var i=0; i<g_delImg.length; i++){
 		formData.push({'name':'delImg','value':g_delImg[i]});
 	}
-}
-
-function success(data){
-	var action = $('#ff').attr('action');
-	if(data.status==200){
-		var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
-		if(opt.indexOf("save")!=-1){
-			$('#dg').bootstrapTable('append',data.value);
-		}else if(opt.indexOf("update")!=-1){	//update by unique id
-			$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
+	$form.ajaxSubmit(function(data) {     
+		var action = $form.attr('action');
+		if(data.status==200){
+			var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
+			if(opt.indexOf("save")!=-1){
+				$('#dg').bootstrapTable('append',data.value);
+			}else if(opt.indexOf("update")!=-1){	//update by unique id
+				$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
+			}
+			cancel();
+		}else if(data.status==500){
+			g_jqConfirm.showDialog('保存失败',data.value);
+		}else if(data.status==501){
+			g_jqConfirm.showDialog('保存失败',data.value);
 		}
-		cancel();
-	}else if(data.status==500){
-		g_jqConfirm.showDialog('保存失败',data.value);
-	}else if(data.status==501){
-		g_jqConfirm.showDialog('保存失败',data.value);
-	}
-}
+	});
+});
 
 //显示Form表单，隐藏其他面板
 function showForm(){

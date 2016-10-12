@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<option value="">全部</option>
 					<option value="1">待审核</option>
 					<option value="2">未通过</option>
-					<option value="1">已通过</option>
+					<option value="3">已通过</option>
 				</select>
 			</div>
 			<div class="form-group">

@@ -348,7 +348,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			ex.printStackTrace();
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
 		}
-		biz.update(e);
+//		biz.update(e);
 		
 		//用户修改自身信息成功后，更新session
 		if(basicUser!=null){

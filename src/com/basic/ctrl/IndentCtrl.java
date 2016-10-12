@@ -34,6 +34,7 @@ import com.basic.vo.MyQuotedVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
+import com.util.DateTransform;
 
 @Controller
 @RequestMapping("indent")
@@ -140,13 +141,22 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		if(basicUser == null){
 			return new ModelAndView("redirect:../login.jsp");
 		}
-		indent.setIndentNum(System.currentTimeMillis());
+		indent.setIndentNum(this.generateNumber(basicUser.getTelephone()));
 		indent.setState((byte)0);
 		indent.setCreateBy(basicUser.getId());
 		indent.setCreateUserType(basicUser.getRoleId().byteValue());
 		biz.save(indent);
 		ModelAndView mav = new ModelAndView("main/indentReleaseSuccess");
 		return mav;
+	}
+	
+	/**生成订单编号格式：YYMMddHHmmss + 手机号后5位
+	 * @param telephone 手机号
+	 * */
+	private Long generateNumber(Long telephone){
+		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmss");
+		String numStr = time + telephone.toString().substring(7);
+		return Long.valueOf(numStr);
 	}
 	
 	/**订单搜索,返回indentList页面,不能包括订单状态为2(已接单)和3(已失效)的订单

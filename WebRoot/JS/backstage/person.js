@@ -59,6 +59,7 @@ function view(id){
 		for(var i=0; i<data.length; i++){
 			str += data[i];
 		}
+		var detailAddr = row.detailAddr == null ? '' : row.detailAddr;
 		str += row.detailAddr;
 		$viewPanel.find('p[name="detailAddr"]').html(str);
 	});
