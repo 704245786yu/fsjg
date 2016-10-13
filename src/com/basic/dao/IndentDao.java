@@ -158,7 +158,6 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		StringBuffer sql = new StringBuffer("select indent_num as indentNum, indent_name as indentName, process_type as processType,quantity, sale_market as saleMarket,pre_delivery_date as preDeliveryDate, is_urgency as isUrgency,indent_type as indentType,"
 				+ "userType,province,city,cond_province as condProvince,cond_city as condCity, cond_demand as condDemand, create_time as createTime,effective_date as effectiveDate ");
 		sql.append(subSql);
-		System.out.println(sql);
 		List<Object[]> scalars = new ArrayList<Object[]>();
 		scalars.add(new Object[]{"indentNum",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"indentName",StandardBasicTypes.STRING});

@@ -12,7 +12,7 @@ $(function(){
 	var val = $(effectiveDateSel).val();
 	var str = moment().add('days',val).format('YYYY-MM-DD');
 	$('#effectiveDateTxt').text(str);
-	$(':hidden[name="effectiveDate"]').text(str);
+	$(':hidden[name="effectiveDate"]').val(str);
 });
 
 //表单验证

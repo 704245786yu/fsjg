@@ -183,7 +183,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, 
 			Integer processType,Byte saleMarket,String indentKeyword,int offset,Long total){
 		int limit = 20;
-		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,offset,limit,total);
+		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,processType,saleMarket,indentKeyword,offset,limit,total);
 		return result;
 	}
 	

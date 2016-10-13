@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服务加工网-订单详情</title>
+<title>中国服饰加工网-订单详情</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -160,7 +160,7 @@
 	<td style="width:274px;vertical-align:top;padding-left:10px;background-color:#FBF8F9">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新认证加工厂</h3>
+				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 发单方信息</h3>
 			</div>
 			<div class="panel-body">
 				<c:choose>

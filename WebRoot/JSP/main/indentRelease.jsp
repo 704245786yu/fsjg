@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服务加工网-加工订单</title>
+<title>中国服饰加工网-加工订单</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -115,11 +115,20 @@
 					<td style="width:120px;">加工类型：</td>
 					<td colspan="2">
 						<div class="form-group">
-							<c:forEach items="${processTypes}" var="processType">
+							<%-- <c:forEach items="${processTypes}" var="processType">
 								<div class="radio" style="margin:0 50px 0 0;float:left;">
 									<label><input type="radio" name="processType" value="${processType.constantValue}">${processType.constantName}</label>
 								</div>
-							</c:forEach>
+							</c:forEach> --%>
+							<div class="radio" style="margin:0 50px 0 0;float:left;">
+								<label><input type="radio" name="processType" value="1">清加工</label>
+							</div>
+							<div class="radio" style="margin:0 50px 0 0;float:left;">
+								<label><input type="radio" name="processType" value="2">经销</label>
+							</div>
+							<div class="radio" style="margin:0 50px 0 0;float:left;">
+								<label><input type="radio" name="processType" value="5">其他</label>
+							</div>
 						</div>
 					</td>
 				</tr>

@@ -103,7 +103,7 @@ function query(offset,totalRows){
 					$table.find('img[name="urgencyImg"]').css('display','');
 				//订单名称
 				var $titleA = $table.find('a[name="title"]');
-				$titleA.attr('href',$titleA.attr('href')+indent.id).html(indent.indentName);
+				$titleA.attr('href',$titleA.attr('href')+indent.indentNum).html(indent.indentName);
 				//订单数量
 				var $quantityDiv = $table.find('div[name="quantity"]');
 				$quantityDiv.html('预计订单数量：'+indent.quantity+'件');
@@ -132,7 +132,11 @@ function query(offset,totalRows){
 				}
 				//接单地区
 				var $condDistrict = $table.find('div[name="condDistrict"]');
-				var provinceAndCity = comm_getDistrictName(indent.condProvince+','+indent.condCity,',');
+				var provinceAndCity = '';//默认情况
+				if(indent.condProvince != null)
+					provinceAndCity += comm_getDistrictName(indent.condProvince,' ');
+				if(indent.condCity != null)
+					provinceAndCity += comm_getDistrictName(indent.condCity,' ');
 				$condDistrict.html(provinceAndCity);
 				//接单要求
 				var $condDemandDiv = $condDistrict.next();
@@ -146,7 +150,9 @@ function query(offset,totalRows){
 					userTypeStr = '某工厂';
 				}
 				var $district = $table.find('div[name="district"]');
-				var district = comm_getDistrictName(indent.province+','+indent.city,',');
+				var district = '';//默认情况
+				if(indent.province != null && indent.city != null)
+					district = comm_getDistrictName(indent.province+','+indent.city,',');
 				$district.html(district+userTypeStr);
 				//发单时间
 				$table.find('div[name="createTime"]').html(moment(indent.createTime).format('YYYY-MM-DD'));

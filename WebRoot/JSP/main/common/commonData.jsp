@@ -50,6 +50,7 @@ function comm_getTradeName(tradeStr){
  * @return 有可能返回空串
  */
 function comm_getDistrictName(districtStr, sep){
+	districtStr = districtStr.toString();//传入的有可能是整数类型，需转换为string
 	var ary = districtStr.split(',');
 	//传入的为''
 	if(ary[0].length==0)

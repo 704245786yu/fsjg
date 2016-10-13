@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服务加工网-加工订单</title>
+<title>中国服饰加工网-加工订单</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -85,9 +85,9 @@
 						<td><b>加工类型：</b></td>
 						<td id="processType">
 							<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
-							<c:forEach var="processType" items="${processTypes}">
-								<a href="${processType.constantValue}" onclick="return aClick(this)">${processType.constantName}</a>
-							</c:forEach>
+							<a href="1" onclick="return aClick(this)">清加工</a>
+							<a href="2" onclick="return aClick(this)">经销</a>
+							<a href="5" onclick="return aClick(this)">其他</a>
 						</td>
 					</tr>
 					<tr>
