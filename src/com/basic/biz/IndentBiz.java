@@ -152,4 +152,15 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
 		return dao.myConfirmed(indentNum, indentName, beginTime, endTime, createBy, total, offset, limit);
 	}
+	
+	/**后台分页查询*/
+	public BootTablePageDto<Indent> findByPage(Long indentNum,Byte state,String beginDate,String endDate, int offset, int limit, Long total){
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length() >0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");			
+		}
+		return dao.findByPage(indentNum, state, beginTime, endTime, offset, limit, total);
+	}
 }

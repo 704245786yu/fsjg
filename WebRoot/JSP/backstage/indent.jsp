@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
 	<link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 	<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
@@ -41,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<option value="0">未收到报价</option>
 					<option value="1">已收到报价</option>
 					<option value="2">已接单</option>
-					<option value="3">已实效</option>
+					<option value="3">已失效</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -76,12 +75,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <tr>
 		        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
 		            <th data-field="indentNum" data-align="center">订单编号</th>
-		            <th data-field="userName" data-align="center">发单用户</th>
-		            <th data-field="createUserType" data-align="center">用户类型</th>
+		            <th data-field="createUserType" data-align="center" data-formatter="createUserTypeFmt">用户类型</th>
 		            <th data-field="indentName" data-align="center">订单名称</th>
+		            <th data-field="indentType" data-align="center" data-formatter="indentTypeFmt">订单类型</th>
 		            <th data-field="quantity" data-align="center">订单数量(件)</th>
 		            <th data-field="price" data-align="center">成交价(元)</th>
-		            <th data-field="state" data-align="center">订单状态</th>
+		            <th data-field="state" data-align="center" data-formatter="stateFmt">订单状态</th>
 		            <th data-field="createTime" data-align="center">发布时间</th>
 		            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
 		        </tr>
@@ -101,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="col-sm-3">
 					<p class="form-control-static" name="indentNum"></p>
 				</div>
-				<label class="col-sm-1 control-label">订单类别:</label>
+				<label class="col-sm-1 control-label">订单类型:</label>
 				<div class="col-sm-3">
 					<p class="form-control-static" name="indentType"></p>
 				</div>
@@ -123,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<label class="col-sm-1 control-label">销售市场:</label>
 				<div class="col-sm-3">
-					<p class="form-control-static" name="telephone"></p>
+					<p class="form-control-static" name="saleMarket"></p>
 				</div>
 			</div>
 			<div class="form-group">
@@ -147,38 +146,80 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-1 control-label">发单用户:</label>
+				<div class="col-sm-3">
+					<!-- 此处的userName，工厂用户为工厂名称，普通用户为姓名 -->
+					<p class="form-control-static" name="userName"></p>
+				</div>
+				<label class="col-sm-1 control-label">所在地区:</label>
+				<div class="col-sm-3">
+					<p class="form-control-static" name="district"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">联系人:</label>
+				<div class="col-sm-3">
+					<p class="form-control-static" name="linkman"></p>
+				</div>
+				<label class="col-sm-1 control-label">联系电话:</label>
+				<div class="col-sm-3">
+					<p class="form-control-static" name="telephone"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">接单地区要求:</label>
+				<div class="col-sm-3">
+					<p class="form-control-static" name="condDistrict"></p>
+				</div>
+				<label class="col-sm-1 control-label">员工数量要求:</label>
+				<div class="col-sm-3">
+					<p class="form-control-static" name="condStaffNum"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">接单要求:</label>
+				<div class="col-sm-3">
+					<p class="form-control-static" name="condDemand"></p>
+				</div>
 				<label class="col-sm-1 control-label">有效日期:</label>
 				<div class="col-sm-3">
 					<p class="form-control-static" name="effectiveDate"></p>
 				</div>
-				<label class="col-sm-1 control-label">详情:</label>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">订单状态:</label>
+				<div class="col-sm-3">
+					<p class="form-control-static" name="state"></p>
+				</div>
+				<label class="col-sm-1 control-label">成交价:</label>
+				<div class="col-sm-3">
+					<p class="form-control-static" name="price"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">订单附件:</label>
+				<div class="col-sm-3">
+					<a class="btn btn-default" name="document" style="display:none;"></a>
+				</div>
+				<label class="col-sm-1 control-label">详细说明:</label>
 				<div class="col-sm-3">
 					<p class="form-control-static" name="detail"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-1 control-label">身份证照:</label>
+				<label class="col-sm-1 control-label">样品图:</label>
 				<div class="col-sm-9">
-					<p class="form-control-static" name="authenticationState">
-						<img name="idFrontPhoto" style="width:200px;height:150px;margin-right:20px;"/>
-						<img name="idBackPhoto" style="width:200px;height:150px"/>
+					<p class="form-control-static" name="photo">
+						<!-- <img style="width:200px;height:150px;margin-right:20px;"/> -->
 					</p>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-1 control-label">审核状态:</label>
-				<div class="col-sm-3">
-					<p class="form-control-static" name="auditState"></p>
-				</div>
-				<label class="col-sm-1 control-label">用户状态:</label>
-				<div class="col-sm-3">
-					<p class="form-control-static" name="state"></p>
+					<div style="display:none;">
+						<img style="width:200px;height:150px;margin-right:20px;"/>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4">
-					<button type="button" class="btn btn-primary" onclick="audit(3)" style="width:100px;">审核通过</button>
-					<button type="button" class="btn btn-primary" onclick="audit(2)" style="width:100px;">审核不通过</button>
+					<button type="button" class="btn btn-warning" onclick="del()" style="width:100px;">垃圾处理</button>
 				</div>
 			</div>
 		</div>
@@ -189,8 +230,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-<script src="plugin/jquery.formautofill.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="plugin/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="plugin/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
@@ -201,5 +240,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/backstage/person.js"></script>
+<script src="JS/backstage/indent.js"></script>
 </html>

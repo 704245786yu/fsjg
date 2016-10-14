@@ -452,4 +452,36 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		List<Indent> list = (List<Indent>)super.find(hql, new String[]{"indentNum"}, new Long[]{indentNum});
 		return list.get(0);
 	}
+	
+	/**后台分页查询*/
+	@SuppressWarnings("unchecked")
+	public BootTablePageDto<Indent> findByPage(Long indentNum,Byte state,Date beginDate,Date endDate, int offset, int limit, Long total){
+		StringBuffer hql = new StringBuffer("from Indent where 1=1 ");
+		List<String> paramNames = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		if(indentNum != null){
+			hql.append(" and indentNum=:indentNum");
+			paramNames.add("indentNum");
+			values.add(indentNum);
+		}
+		if(state != null){
+			hql.append(" and state=:state");
+			paramNames.add("state");
+			values.add(state);
+		}
+		if(beginDate != null){
+			hql.append(" and createTime between :beginDate and :endDate");
+			paramNames.add("beginDate");
+			values.add(beginDate);
+			paramNames.add("endDate");
+			values.add(endDate);
+		}
+		if(total == null){
+			total = super.getCount("select count(1) "+hql.toString(), paramNames.toArray(new String[]{}), values.toArray(new Object[]{}));
+			if(total == 0)
+				return new BootTablePageDto<Indent>(total, null);
+		}
+		List<Indent> list = (List<Indent>)super.findByPage(hql.toString(), offset, limit, paramNames.toArray(new String[]{}), values.toArray(new Object[]{}));
+		return new BootTablePageDto<Indent>(total, list);
+	}
 }

@@ -17,6 +17,8 @@ import com.basic.biz.DistrictBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
+import com.basic.po.Enterprise;
+import com.basic.po.Person;
 import com.basic.po.UserAbstract;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
@@ -113,6 +115,33 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		User user = UserCtrl.getLoginUser(session);
 		biz.modifyState(id, state, user.getId());
 		return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
+	}
+	
+	/**后台订单信息详细查看：获取用户基本信息
+	 * @param userType 1:普通用户 2:工厂用户
+	 * @return 用户名称，用户所在地区
+	 * */
+	@RequestMapping("getUserInfo")
+	@ResponseBody
+	public HashMap<String,String> getUserInfo(int userId,int userType){
+		HashMap<String,String> map = new HashMap<String,String>();
+		UserAbstract userAbstract = null;
+		if(userType==1){
+			Person person = personBiz.getByBasicUserId(userId);
+			userAbstract = person;
+			map.put("userName", person.getRealName());
+		}else if(userType==2){
+			Enterprise e = enterpriseBiz.getByBasicUserId(userId);
+			userAbstract = e;
+			map.put("userName", e.getEnterpriseName());
+		}
+		List<String> names = districtBiz.getNameByUser(userAbstract);
+		StringBuffer str = new StringBuffer();
+		for(int i=0; i<names.size(); i++)
+			str.append(names.get(i));
+		str.append(userAbstract.getDetailAddr());
+		map.put("district", str.toString());
+		return map;
 	}
 	
 	@Override

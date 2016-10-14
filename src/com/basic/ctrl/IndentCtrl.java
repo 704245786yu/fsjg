@@ -90,7 +90,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		
 		//通过transferTo()将文件存储到硬件中
 		try {
-			String uploadDir = session.getServletContext().getInitParameter("uploadDir");
+			String uploadDir = session.getServletContext().getResource("uploadFile/indent/").getPath();
 			Date date = new Date();
 			String newFileName = basicUser.getId()+""+date.getTime()+"."+suffix;
 			file.transferTo(new File(uploadDir + newFileName));
@@ -122,7 +122,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		
 		//通过transferTo()将文件存储到硬件中
 		try {
-			String uploadDir = session.getServletContext().getInitParameter("uploadDir");
+			String uploadDir = session.getServletContext().getResource("uploadFile/indent/").getPath();
 			Date date = new Date();
 			String newFileName = basicUser.getId()+""+date.getTime()+"."+suffix;
 			file.transferTo(new File(uploadDir + newFileName));
@@ -356,5 +356,20 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 			Long total, int offset, int limit, HttpSession session){
 		BasicUser user = BasicUserCtrl.getLoginUser(session);
 		return biz.myConfirmed(indentNum, indentName, beginDate, endDate, user.getId(), total, offset, limit);
+	}
+	
+	/**显示后台管理页面*/
+	@RequestMapping("showManage")
+	public ModelAndView showManage(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("backstage/indent");
+		return mav;
+	}
+	
+	/**后台分页查询*/
+	@RequestMapping("findByPage")
+	@ResponseBody
+	public BootTablePageDto<Indent> findByPage(Long indentNum,Byte state,String beginDate,String endDate, int offset, int limit, Long total){
+		return biz.findByPage(indentNum, state, beginDate, endDate, offset, limit, total);
 	}
 }
