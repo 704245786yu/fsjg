@@ -10,8 +10,10 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.basic.dao.IndentDao;
+import com.basic.dao.IndentQuoteDao;
 import com.basic.dto.IndentDto;
 import com.basic.po.Indent;
 import com.basic.vo.ConfirmIndentVo;
@@ -33,6 +35,8 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	private ConstantDictBiz constantDictBiz;
 	@Autowired
 	private CostumeCategoryBiz costumeCategoryBiz;
+	@Autowired
+	private IndentQuoteDao indentQuoteDao;
 	
 	/**@param province..town 接单用户的省市区县乡镇编码
 	 * @param costumeCode[] 服饰类型编码数组 
@@ -182,14 +186,24 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	@SuppressWarnings("unchecked")
 	public List<NewstQuoteIndentVo> getNewstQuote(){
 		String hql = "select indentNum,count(indentNum) from IndentQuote  group by indentNum order by createTime desc";
-		List<Long[]> list1 = (List<Long[]>)dao.findByPage(hql,0,10,new String[]{},new Object[]{});
+		List<Object[]> list1 = (List<Object[]>)dao.findByPage(hql,0,10,new String[]{},new Object[]{});
 		ArrayList<Long> indentNums = new ArrayList<Long>();
-		for(int i=0; i<list1.size(); i++)
-			indentNums.add(list1.get(i)[0]);
-		hql = "select indentNum,indentName,quantity,processType from Indent where indentNum in (:indentNums)";
+		for(int i=0; i<list1.size(); i++){
+			indentNums.add((Long)list1.get(i)[0]);
+		}
+		hql = "select indentNum as indentNum,indentName as indentName,quantity as quantity,processType as processType from Indent where indentNum in (:indentNums)";
 		List<NewstQuoteIndentVo> list = dao.find(hql, new String[]{"indentNums"}, new Object[]{indentNums}, NewstQuoteIndentVo.class);
 		for(int i=0; i<list1.size(); i++)
-			list.get(i).setCountNum(list1.get(i)[1]);
+			list.get(i).setCountNum((Long)list1.get(i)[1]);
 		return list;
 	}
+
+	/**删除订单*/
+	@Transactional
+	public Integer delByIndentNum(long indentNum) {
+		indentQuoteDao.delByIndentNum(indentNum);;
+		dao.delByIndentNum(indentNum);
+		return 200;
+	}
+	
 }

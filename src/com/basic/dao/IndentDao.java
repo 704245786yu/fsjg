@@ -484,4 +484,10 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		List<Indent> list = (List<Indent>)super.findByPage(hql.toString(), offset, limit, paramNames.toArray(new String[]{}), values.toArray(new Object[]{}));
 		return new BootTablePageDto<Indent>(total, list);
 	}
+
+	public void delByIndentNum(long indentNum) {
+		String hql = "delete from Indent where indentNum =:indentNum";
+		super.executeUpdate(hql, new String[]{"indentNum"}, new Long[]{indentNum});
+	}
+	
 }

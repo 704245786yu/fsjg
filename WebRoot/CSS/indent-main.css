@@ -31,15 +31,37 @@
 	padding-left:2em;/*缩进两个字体*/
 }
 
-#personOrder th,#personOrder td,#enterpriseOrder th,#enterpriseOrder td{
+/*热门区域*/
+.hotAreaDiv img{
+	width:130px;
+	height:123px;
+}
+.hotAreaDiv table{
+	width:100%;
+}
+.hotAreaDiv table td{
+	padding:10px;
+}
+.hotAreaDiv a{
+	text-decoration:none;
+	color:#8C8C8C;
+}
+.hotAreaDiv span{
+	color:#8C8C8C;
+	padding:3px;
+	margin:0 10px;
+}
+/*个人、工厂订单*/
+#personIndent th,#personIndent td,#enterpriseIndent th,#enterpriseIndent td{
 	border:0px;
+}
+#personIndent th,#enterpriseIndent th{
+	/* text-align:center; */
 }
 
 .media-heading{
 	color:#4cb6ed;
 }
-
-/*个人、工厂订单*/
-#personOrder th,#enterpriseOrder th{
-	/* text-align:center; */
+#personIndent a,#enterpriseIndent a,#newstQuoteList a{
+	text-decoration:none;
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -26,6 +27,7 @@
 <body>
 <%@ include file="top.jsp" %>
 <input type="hidden" name="pageName" value="indent">
+<%@ include file="/JSP/main/common/commonData.jsp" %>
 
 <div style="width:1190px; margin:0 auto;">
 	<!-- 左边栏(主体) -->
@@ -123,25 +125,25 @@
 				 </h3>
 			</div>
 			<div class="panel-body">
-				<table id="personOrder" class="table">
+				<table id="personIndent" class="table" style="border-collapse:separate;border-spacing:0px 5px;">
 					<tr>
-						<th>产品类别</th> <th style="padding-left:30px;">订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
+						<th>产品类别</th> <th style="padding-left:80px;">订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
 					</tr>
 					<c:forEach items="${personIndents}" var="indent">
-						<tr>
+						<tr style="border-bottom:5px;">
 							<td style="background-color:#fdf4ea;padding:0px;">
 								<div style="width:10px;height:34px;float:left;background-color:#f7b961;margin-right:10px;">&nbsp;</div>
-								<div style="margin-top:8px;">${indent.costumeCode}</div>
+								<div style="margin-top:8px;" name="costumeCodes">${indent.costumeCode}</div>
 							</td>
-							<td>
+							<td style="padding-left:50px;">
 								<input type="hidden" name="isUrgency" value="${indent.isUrgency}">
-								<span style="background-color:red;color:white;padding:3px;visibility:hidden;">急</span>
-								<a href="#">${indent.indentName}</a>
+								<span name="isUrgency" style="background-color:red;color:white;padding:3px;visibility:hidden;">急</span>
+								<a target="_blank" href="indent/detail/${indent.indentNum}">${indent.indentName}</a>
 							</td>
-							<td>${indent.processType}</td>
-							<td>${indent.quantity}</td>
-							<td>山东济南</td>
-							<td>2016-04-24</td>
+							<td name="processType">${indent.processType}</td>
+							<td>${indent.quantity}件</td>
+							<td name="district">${indent.province},${indent.city}</td>
+							<td><fmt:formatDate value="${indent.createTime}"/></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -157,36 +159,87 @@
 				 </h3>
 			</div>
 			<div class="panel-body">
-				<table id="enterpriseOrder" class="table">
+				<table id="enterpriseIndent" class="table" style="border-collapse:separate;border-spacing:0px 5px;">
 					<tr>
-						<th>产品类别</th> <th>订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
+						<th>产品类别</th> <th style="padding-left:80px;">订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
 					</tr>
 					<c:forEach items="${enterpriseIndents}" var="indent">
-						<tr>
+						<tr style="border-bottom:5px;">
 							<td style="background-color:#f0f3e5;padding:0px;">
 								<div style="width:10px;height:34px;float:left;background-color:#99ac4d;margin-right:10px;">&nbsp;</div>
-								<div style="margin-top:8px;">${indent.costumeCode}</div>
+								<div style="margin-top:8px;" name="costumeCodes">${indent.costumeCode}</div>
 							</td>
-							<td>
+							<td style="padding-left:50px;">
 								<input type="hidden" name="isUrgency" value="${indent.isUrgency}">
-								<span style="background-color:red;color:white;padding:3px;visibility:hidden;">急</span>
-								<a href="#">${indent.indentName}</a>
+								<span name="isUrgency" style="background-color:red;color:white;padding:3px;visibility:hidden;">急</span>
+								<a target="_blank" href="indent/detail/${indent.indentNum}">${indent.indentName}</a>
 							</td>
-							<td>${indent.processType}</td>
-							<td>${indent.quantity}</td>
-							<td>山东济南</td>
-							<td>2016-04-24</td>
+							<td name="processType">${indent.processType}</td>
+							<td>${indent.quantity}件</td>
+							<td name="district">${indent.province},${indent.city}</td>
+							<td><fmt:formatDate value="${indent.createTime}"/></td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div><!-- panel-body -->
 		</div><!-- panel -->
+		
+		<!-- 按地区找订单 -->
+		<div class="hotAreaDiv" class="row" style="margin-top:20px;">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-map-marker" style="color:#0096E9;"></span> 按地区找订单</h3>
+				</div>
+				<div class="panel-body">
+					<table>
+						<tr>
+							<td><a href="province" title="浙江"><img src="image/enterprise/zhejiang.png"></a></td>
+							<td>
+								<a href="#">宁波</a><span>|</span> <a href="#">杭州</a><span>|</span> <a href="#">金华</a><span>|</span> <a href="#">绍兴</a><br/>
+								<a href="#">嘉兴</a><span>|</span> <a href="#">温州</a><span>|</span> <a href="#">湖州</a><span>|</span> <a href="#">台州</a>
+							</td>
+							<td style="padding-left:100px;"><a href="province" title="江苏"><img src="image/enterprise/jiangsu.png"></a></td>
+							<td>
+								<a href="#">苏州</a><span>|</span> <a href="#">南京</a><span>|</span> <a href="#">无锡</a><span>|</span> <a href="#">泰州</a><br/>
+								<a href="#">南通</a><span>|</span> <a href="#">盐城</a><span>|</span> <a href="#">镇江</a><span>|</span> <a href="#">常州</a>
+							</td>
+						</tr>
+						<tr>
+							<td><a href="province" title="广东"><img src="image/enterprise/guangdong.png"></a></td>
+							<td>
+								<a href="#">广州</a><span>|</span> <a href="#">深圳</a><span>|</span> <a href="#">东莞</a><span>|</span> <a href="#">佛山</a><br/>
+								<a href="#">中山</a><span>|</span> <a href="#">汕头</a><span>|</span> <a href="#">惠州</a><span>|</span> <a href="#">江门</a>
+							</td>
+							<td style="padding-left:100px;"><a href="province" title="福建"><img src="image/enterprise/fujian.png"></a></td>
+							<td>
+								<a href="#">福州</a><span>|</span> <a href="#">厦门</a><span>|</span> <a href="#">莆田</a><span>|</span> <a href="#">三明</a><br/>
+								<a href="#">泉州</a><span>|</span> <a href="#">漳州</a><span>|</span> <a href="#">南平</a><span>|</span> <a href="#">宁德</a>
+							</td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td><a href="#">北京</a></td> <td><a href="#">上海</a></td> <td><a href="#">天津</a></td> <td><a href="#">山东</a></td> <td><a href="#">宁夏</a></td>
+							<td><a href="#">辽宁</a></td> <td><a href="#">重庆</a></td> <td><a href="#">云南</a></td> <td><a href="#">新疆</a></td> <td><a href="#">西藏</a></td>
+						</tr>
+						<tr>
+							<td><a href="#">四川</a></td> <td><a href="#">陕西</a></td> <td><a href="#">山西</a></td> <td><a href="#">青海</a></td> <td><a href="#">内蒙古</a></td>
+							<td><a href="#">江西</a></td> <td><a href="#">吉林</a></td> <td><a href="#">湖南</a></td> <td><a href="#">湖北</a></td> <td><a href="#">黑龙江</a></td>
+						</tr>
+						<tr>
+							<td><a href="#">河南</a></td> <td><a href="#">河北</a></td> <td><a href="#">海南</a></td> <td><a href="#">贵州</a></td> <td><a href="#">广西</a></td>
+							<td><a href="#">甘肃</a></td> <td><a href="#">安徽</a></td> <td><a href="#">香港</a></td> <td><a href="#">澳门</a></td> <td><a href="#">台湾</a></td>
+						</tr>
+					</table>
+				</div><!-- panel-body -->
+			</div><!-- panel -->
+		</div>
 	</div><!-- 主体 -->
 	
 	<!-- 右边栏 -->
 	<div style="width:280px;float:right;">
-		<!-- 如何找到合适的工厂 -->
-		<img style="margin-bottom:10px;" src="image/ad/orderForm/publish_order.png"/>
+		<!-- 立即发布订单 -->
+		<a href="indent/showRelease"><img style="margin-bottom:10px;" src="image/ad/orderForm/publish_order.png"/></a>
 		<!-- 最新接到报价的订单 -->
 		<div class="row">
 			<div class="col-md-12">
@@ -194,20 +247,21 @@
 					<div class="panel-heading">
 						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新接到报价的订单</h3>
 					</div>
-					<div class="panel-body" style="padding:0px;">
-						<ul id="newEnterpriseList" class="list-group">
-							<li class="list-group-item enterprise" style="display:none;">
-								<div class="media">
-									<div class="media-left">
-										<img class="media-object" src="image/new.png">
-									</div>
-									<div class="media-body">
-										<h4 class="media-heading">工厂名称</h4>
-										<p class="list-group-item-text">主营产品</p>
-									</div>
-								</div>
-							</li>
-						</ul>
+					<div id="newstQuoteList" class="panel-body" style="padding:0px;">
+						<c:forEach items="${newstQuotes}" var="newstQuote">
+						<table style="width:100%;border-bottom:1px solid #DDDDDD;">
+							<tr>
+								<td style="text-align:center;width:100px;"><span style="color:red;font-size:26px;">${newstQuote.countNum}</span>人<br/>报价中</td>
+								<td style="vertical-align:center;padding-top:10px;">
+									<p><a href="indent/detail/${newstQuote.indentNum}">${newstQuote.indentName}</a></p>
+									<p>
+										<span name="processType">${newstQuote.processType}</span>
+										<span style="margin-left:10px;">${newstQuote.quantity}件</span>
+									</p>
+								</td>
+							</tr>
+						</table>
+						</c:forEach>
 					</div><!-- panel-body -->
 				</div><!-- panel -->
 			</div><!-- col-md -->

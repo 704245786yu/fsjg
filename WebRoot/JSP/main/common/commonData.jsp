@@ -63,8 +63,12 @@ function comm_getDistrictName(districtStr, sep){
 		str = g_district[ary[0]];
 	else
 		return '';
-	for(var i=1;i<ary.length;i++)
-		str += sep+g_district[ary[i]];
+	for(var i=1;i<ary.length;i++){
+		var district = g_district[ary[i]];
+		if(district == undefined)
+			district = '';
+		str += sep+district;
+	}
 	return str;
 }
 </script>

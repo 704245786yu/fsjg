@@ -63,10 +63,10 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		ModelAndView mav = new ModelAndView("main/indent");
 		List<IndentDistVo> personIndents = biz.getNewstByUserType((byte)1);
 		List<IndentDistVo> enterpriseIndents = biz.getNewstByUserType((byte)2);
-//		List<NewstQuoteIndentVo> newstQuote = biz.getNewstQuote();
+		List<NewstQuoteIndentVo> newstQuotes = biz.getNewstQuote();
 		mav.addObject("personIndents", personIndents);
 		mav.addObject("enterpriseIndents", enterpriseIndents);
-//		mav.addObject("newstQuote", newstQuote);
+		mav.addObject("newstQuotes", newstQuotes);
 		return mav;
 	}
 	
@@ -386,4 +386,11 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	public BootTablePageDto<Indent> findByPage(Long indentNum,Byte state,String beginDate,String endDate, int offset, int limit, Long total){
 		return biz.findByPage(indentNum, state, beginDate, endDate, offset, limit, total);
 	}
+
+	@RequestMapping("delByIndentNum")
+	@ResponseBody
+	public Integer delByIndentNum(long indentNum, HttpSession session) {
+		return biz.delByIndentNum(indentNum);
+	}
+	
 }

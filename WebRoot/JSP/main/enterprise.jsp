@@ -183,7 +183,7 @@
 		<div class="hotAreaDiv" class="row" style="margin-top:20px;">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-map-marker"></span> 热门区域加工厂</h3>
+					 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-map-marker" style="color:#0096E9;"></span> 热门区域加工厂</h3>
 				</div>
 				<div class="panel-body">
 					<table>
@@ -276,7 +276,7 @@
 			</div><!-- col-md -->
 		</div><!-- row -->
 		<!-- 成功案列 -->
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -293,10 +293,10 @@
 								<p>我们公司是一家服装贸易公司，有几家固定合作的服装加工厂，但是现在单子不稳定，工厂也不稳定，所以一有急单或者是工厂忙的时候，单子就很难发出去。这次就是</p>
 							</div>
 						</div>
-					</div><!-- panel-body -->
-				</div><!-- panel -->
-			</div><!-- col-md -->
-		</div><!-- row -->
+					</div>
+				</div>
+			</div>
+		</div> -->
 		<!-- 最新认证加工厂 -->
 		<div class="row">
 			<div class="col-md-12">

@@ -18,4 +18,9 @@ public class IndentQuoteDao extends BaseDao<Integer, IndentQuote>{
 		String hql = "select e.id as id, e.enterpriseName as enterpriseName, e.linkman as linkman, e.basicUser.telephone as telephone, i.quote as quote, i.createTime as quoteDate, e.staffNumber as staffNumber from Enterprise e, IndentQuote i where i.indentNum =:indentNum and e.id = i.enterpriseId)";
 		return super.find(hql, new String[]{"indentNum"}, new Long[]{indentNum},QuoteEnterpriseVo.class);
 	}
+	
+	public void delByIndentNum(long indentNum){
+		String hql = "delete from IndentQuote where indentNum =:indentNum";
+		super.executeUpdate(hql, new String[]{"indentNum"}, new Long[]{indentNum});
+	}
 }

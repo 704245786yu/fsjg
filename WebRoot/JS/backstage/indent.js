@@ -122,24 +122,33 @@ function indentTypeFmt(value,row,index){
 
 function operFormatter(value,row,index){
 	var viewBtn = "<button type='button' class='btn btn-default btn-xs' title='查看' onclick='view("+row.id+")'><span class='text-primary glyphicon glyphicon-eye-open'></span></button>";
-	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='垃圾处理' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
+	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='垃圾处理' onclick='del("+row.id+","+row.indentNum+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
 	return viewBtn + delBtn;
 }
 
-//垃圾订单处理
-function del(){
-	var id = $('#viewPanel :hidden[name="id"]').val();
-	$.post('person/audit',{'id':id,'auditState':auditState},function(data){
-		if(data.status==200){
-			var row = $('#dg').bootstrapTable('getRowByUniqueId',id);
-			row.auditState = auditState;
-			$('#dg').bootstrapTable('updateByUniqueId',{'id':row.id,'row':row});
-			g_jqConfirm.autoClose('操作成功');
+//删除
+function del(id,indentNum){
+	if(indentNum == undefined){
+		id = $('#viewPanel :hidden[name="id"]').val();
+		indentNum = $('#viewPanel p[name="indentNum"]').html();
+	}
+    //显示confirm弹出框
+	$.confirm({
+		title: false,
+		content: "确定处理该条记录么？",
+		confirmButton: '确定',
+		cancelButton: '取消',
+		confirmButtonClass: 'btn-danger',
+		cancelButtonClass: 'btn-primary',
+		confirm: function(){
+			$.get('indent/delByIndentNum',{'indentNum':indentNum},function(result){
+				if(result == 200){
+					$('#dg').bootstrapTable("removeByUniqueId", id);//删除数据行
+					g_jqConfirm.autoClose('操作成功');
+				}
+				$('#listPanel').show();
+				$('#viewPanel').hide();
+			});
 		}
 	});
-}
-
-//删除
-function del(index,id){
-	new BsFormTableExtend().delRecord(index,id,'person/delete/');
 }

@@ -147,6 +147,17 @@ function checkCostumeByCodes(codes){
 	$('#costumeBtn').html(str);
 }
 
+function getNameByCodes(codesStr){
+	var str = '';
+	var codes = codesStr.split(',');
+	var $c = $('#costumeCategoryModal');
+	for(var i=0; i<codes.length; i++){
+		var $check = $c.find(':checkbox[value="'+codes[i]+'"]');
+		str += $check.next().html()+' ';
+	}
+	return str;
+}
+
 /**重置模态框*/
 function resetModal(){
 	$('#costumeCategoryModal #costumeBtn').html('选择产品类别');
