@@ -142,7 +142,7 @@
 			<div class="panel-heading">
 				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-globe"></span> 接单工厂
 					<div class="pull-right">
-				 		<a href="enterprise/search"><span class="label label-info" style="font-size:14px;">more</span></a>
+				 		<a href="enterprise/search"><span class="label label-info" style="font-size:14px;">更多</span></a>
 					</div>
 				 </h3>
 					 

@@ -26,6 +26,6 @@ margin:30px auto 10px auto;
 		<a target="_blank" href="http://www.miibeian.gov.cn/"><img src="image/bottom/beian.png"></a>
 		<a target="_blank" href="http://gsj.zj.gov.cn/zjaic/?spm=6146"><img src="image/bottom/gongshang.png"></a>
 		<a target="_blank" href="http://zjnet.zjaic.gov.cn/sign/addSignOnline.action"><img src="image/bottom/lianmeng.png"></a>
-		<a target="_blank" href="https://credit.szfw.orgCX20160725011867130318.html"><img src="image/bottom/kexin.png"></a>
+		<a target="_blank" href="https://credit.cecdc.com/cx20160725011867130318.html"><img src="image/bottom/kexin.png"></a>
 	</div>
 </div>

@@ -38,3 +38,8 @@
 .media-heading{
 	color:#4cb6ed;
 }
+
+/*个人、工厂订单*/
+#personOrder th,#enterpriseOrder th{
+	/* text-align:center; */
+}

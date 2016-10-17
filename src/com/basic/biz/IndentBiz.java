@@ -15,8 +15,10 @@ import com.basic.dao.IndentDao;
 import com.basic.dto.IndentDto;
 import com.basic.po.Indent;
 import com.basic.vo.ConfirmIndentVo;
+import com.basic.vo.IndentDistVo;
 import com.basic.vo.IndentVo;
 import com.basic.vo.MyQuotedVo;
+import com.basic.vo.NewstQuoteIndentVo;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
 import com.sys.biz.ConstantDictBiz;
@@ -162,5 +164,32 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");			
 		}
 		return dao.findByPage(indentNum, state, beginTime, endTime, offset, limit, total);
+	}
+	
+	/**根据发单用户类型获取最新的10条记录，订单主页使用
+	 * */
+	public List<IndentDistVo> getNewstByUserType(byte createUserType){
+		String hql = null;
+		if(createUserType == 1){
+			hql = "select i.indentNum as indentNum, i.indentName as indentName, i.costumeCode as costumeCode, i.processType as processType, i.isUrgency as isUrgency , i.quantity as quantity, i.createTime as createTime, p.province as province, p.city as city from Indent i,Person p where i.createBy = p.basicUser.id and i.createUserType =:createUserType order by i.createTime desc";
+		}else if(createUserType == 2){
+			hql = "select i.indentNum as indentNum, i.indentName as indentName, i.costumeCode as costumeCode, i.processType as processType, i.isUrgency as isUrgency , i.quantity as quantity, i.createTime as createTime, e.province as province, e.city as city from Indent i,Enterprise e where i.createBy = e.basicUser.id and i.createUserType =:createUserType order by i.createTime desc";
+		}
+		return dao.findByPage(hql, 0, 10, new String[]{"createUserType"}, new Byte[]{createUserType},IndentDistVo.class);
+	}
+	
+	/**取前10条最新报价*/
+	@SuppressWarnings("unchecked")
+	public List<NewstQuoteIndentVo> getNewstQuote(){
+		String hql = "select indentNum,count(indentNum) from IndentQuote  group by indentNum order by createTime desc";
+		List<Long[]> list1 = (List<Long[]>)dao.findByPage(hql,0,10,new String[]{},new Object[]{});
+		ArrayList<Long> indentNums = new ArrayList<Long>();
+		for(int i=0; i<list1.size(); i++)
+			indentNums.add(list1.get(i)[0]);
+		hql = "select indentNum,indentName,quantity,processType from Indent where indentNum in (:indentNums)";
+		List<NewstQuoteIndentVo> list = dao.find(hql, new String[]{"indentNums"}, new Object[]{indentNums}, NewstQuoteIndentVo.class);
+		for(int i=0; i<list1.size(); i++)
+			list.get(i).setCountNum(list1.get(i)[1]);
+		return list;
 	}
 }

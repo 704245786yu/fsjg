@@ -29,8 +29,10 @@ import com.basic.po.BasicUser;
 import com.basic.po.Indent;
 import com.basic.po.UserAbstract;
 import com.basic.vo.ConfirmIndentVo;
+import com.basic.vo.IndentDistVo;
 import com.basic.vo.IndentVo;
 import com.basic.vo.MyQuotedVo;
+import com.basic.vo.NewstQuoteIndentVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
@@ -54,9 +56,17 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	private static final long imgMaxSize = 200000;//图片最大200kb
 	private static final long docMaxSize = 500000;//文档最大500kb
 	
+	/**返回最新发布的个人订单、工厂订单、最新接到报价的订单
+	 * */
 	@Override
 	public ModelAndView showDefaultPage(HttpSession session){
 		ModelAndView mav = new ModelAndView("main/indent");
+		List<IndentDistVo> personIndents = biz.getNewstByUserType((byte)1);
+		List<IndentDistVo> enterpriseIndents = biz.getNewstByUserType((byte)2);
+//		List<NewstQuoteIndentVo> newstQuote = biz.getNewstQuote();
+		mav.addObject("personIndents", personIndents);
+		mav.addObject("enterpriseIndents", enterpriseIndents);
+//		mav.addObject("newstQuote", newstQuote);
 		return mav;
 	}
 	
@@ -164,6 +174,8 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	 * */
 	@RequestMapping("search")
 	public ModelAndView search(Long province,Long city,Long county,Long town, Integer[] costumeCode,String indentKeyword){
+		if(indentKeyword == null)
+			indentKeyword = "";
 		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,0,20,null);
 		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
@@ -182,6 +194,8 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	@ResponseBody
 	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, 
 			Integer processType,Byte saleMarket,String indentKeyword,int offset,Long total){
+		if(indentKeyword == null)
+			indentKeyword = "";
 		int limit = 20;
 		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,processType,saleMarket,indentKeyword,offset,limit,total);
 		return result;

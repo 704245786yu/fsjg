@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -115,153 +116,71 @@
 		<!-- 个人发布的订单 -->
 		<div class="panel panel-default" style="margin-top:20px;">
 			<div class="panel-heading">
-				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-user"></span> 个人发布的订单</h3>
+				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-user"></span> 个人发布的订单
+				 	<div class="pull-right">
+				 		<a href="indent/search"><span class="label label-info" style="font-size:14px;">更多</span></a>
+					</div>
+				 </h3>
 			</div>
 			<div class="panel-body">
 				<table id="personOrder" class="table">
 					<tr>
-						<th>产品类别</th> <th>订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
+						<th>产品类别</th> <th style="padding-left:30px;">订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
 					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5;">上衣</td>
-						<td>经销单</td>
-						<td>10000件</td>
-						<td>山东济南</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
-					<tr>
-						<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-						<td style="color:#008EE5">婴儿马甲背心</td>
-						<td>经销单</td>
-						<td>500件</td>
-						<td>广东广州</td>
-						<td>2016-04-24</td>
-					</tr>
+					<c:forEach items="${personIndents}" var="indent">
+						<tr>
+							<td style="background-color:#fdf4ea;padding:0px;">
+								<div style="width:10px;height:34px;float:left;background-color:#f7b961;margin-right:10px;">&nbsp;</div>
+								<div style="margin-top:8px;">${indent.costumeCode}</div>
+							</td>
+							<td>
+								<input type="hidden" name="isUrgency" value="${indent.isUrgency}">
+								<span style="background-color:red;color:white;padding:3px;visibility:hidden;">急</span>
+								<a href="#">${indent.indentName}</a>
+							</td>
+							<td>${indent.processType}</td>
+							<td>${indent.quantity}</td>
+							<td>山东济南</td>
+							<td>2016-04-24</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div><!-- panel-body -->
 		</div>
 		<!-- 工厂外放的订单 -->
-		<div class="row" style="margin-top:20px;">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-globe"></span> 工厂外放的订单</h3>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-globe"></span> 工厂外放的订单
+				 	<div class="pull-right">
+				 		<a href="indent/search"><span class="label label-info" style="font-size:14px;">更多</span></a>
 					</div>
-					<div class="panel-body">
-						<table id="enterpriseOrder" class="table">
-							<tr>
-								<th>产品类别</th> <th>订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
-							</tr>
-							<tr>
-								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-								<td style="color:#008EE5;">上衣</td>
-								<td>经销单</td>
-								<td>10000件</td>
-								<td>山东济南</td>
-								<td>2016-04-24</td>
-							</tr>
-							<tr>
-								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-								<td style="color:#008EE5">婴儿马甲背心</td>
-								<td>经销单</td>
-								<td>500件</td>
-								<td>广东广州</td>
-								<td>2016-04-24</td>
-							</tr>
-							<tr>
-								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-								<td style="color:#008EE5">婴儿马甲背心</td>
-								<td>经销单</td>
-								<td>500件</td>
-								<td>广东广州</td>
-								<td>2016-04-24</td>
-							</tr>
-							<tr>
-								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-								<td style="color:#008EE5">婴儿马甲背心</td>
-								<td>经销单</td>
-								<td>500件</td>
-								<td>广东广州</td>
-								<td>2016-04-24</td>
-							</tr>
-							<tr>
-								<td><div style="padding:3px;background-color:#fdf4ea;">针织服饰</div></td>
-								<td style="color:#008EE5">婴儿马甲背心</td>
-								<td>经销单</td>
-								<td>500件</td>
-								<td>广东广州</td>
-								<td>2016-04-24</td>
-							</tr>
-						</table>
-					</div><!-- panel-body -->
-				</div><!-- panel -->
+				 </h3>
 			</div>
-		</div>
+			<div class="panel-body">
+				<table id="enterpriseOrder" class="table">
+					<tr>
+						<th>产品类别</th> <th>订单名称</th> <th>订单类型</th> <th>订单数量</th> <th>发单地区</th> <th>发布日期</th>
+					</tr>
+					<c:forEach items="${enterpriseIndents}" var="indent">
+						<tr>
+							<td style="background-color:#f0f3e5;padding:0px;">
+								<div style="width:10px;height:34px;float:left;background-color:#99ac4d;margin-right:10px;">&nbsp;</div>
+								<div style="margin-top:8px;">${indent.costumeCode}</div>
+							</td>
+							<td>
+								<input type="hidden" name="isUrgency" value="${indent.isUrgency}">
+								<span style="background-color:red;color:white;padding:3px;visibility:hidden;">急</span>
+								<a href="#">${indent.indentName}</a>
+							</td>
+							<td>${indent.processType}</td>
+							<td>${indent.quantity}</td>
+							<td>山东济南</td>
+							<td>2016-04-24</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div><!-- panel-body -->
+		</div><!-- panel -->
 	</div><!-- 主体 -->
 	
 	<!-- 右边栏 -->
@@ -294,7 +213,7 @@
 			</div><!-- col-md -->
 		</div><!-- row -->
 		<!-- 成功案列 -->
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -311,10 +230,10 @@
 								<p>我们公司是一家服装贸易公司，有几家固定合作的服装加工厂，但是现在单子不稳定，工厂也不稳定，所以一有急单或者是工厂忙的时候，单子就很难发出去。这次就是</p>
 							</div>
 						</div>
-					</div><!-- panel-body -->
-				</div><!-- panel -->
-			</div><!-- col-md -->
-		</div><!-- row -->
+					</div>
+				</div>
+			</div>
+		</div> -->
 	</div><!-- 右边栏 -->
 </div>
 <%@ include file="/JSP/main/bottom.jsp"%>
