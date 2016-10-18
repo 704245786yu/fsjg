@@ -126,6 +126,51 @@ function operFormatter(value,row,index){
 			" <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
 }
 
+/*========================面板操作============================*/
+
+/**显示添加表单面板*/
+BsFormTableExtend.prototype.showAddPanel = function(){
+	$('#tablePanel').hide();
+	$('#editPanel').show();
+}
+
+/**显示修改表单模态框。表单要加载的数据来自Bootstrap table插件。表单的模态框来自Bootstrap Modal插件。
+ * @param {Number,required} id form要填充数据Id,必要参数
+ * @param {String,required} action form表单要提交的地址
+ * @param {String} datagridId form要填充数据所在的datagrid，默认值：dg
+ * @param {String} formId 默认值ff
+ * @param {String} editPanelId form所在模态框Id，默认值editPanel
+ * */
+BsFormTableExtend.prototype.showModifyPanel = function(id, action, datagridId, formId, formPanelId){
+	//设置datagrid、form、formModal的id
+	var dg = datagridId == undefined ? 'dg':datagridId;
+	var ff = formId == undefined ? 'ff':formId;
+	var formPanelId = formPanelId == undefined ? 'editPanel':formPanelId;
+	//根据Id获取对应行数据
+	var data = $('#'+dg).bootstrapTable('getRowByUniqueId',id);
+	$('#'+ff).attr('action',action);//设置form表单action
+	$('#'+ff).autofill( data,{restrict:true} );//填充form表单
+
+	$('#tablePanel').hide();
+	$('#'+formPanelId).show();//显示编辑面板
+}
+
+/**取消编辑，隐藏编辑模板,重置表单，显示列表
+ * */
+BsFormTableExtend.prototype.cancelEdit = function(){
+	$('#tablePanel').show();
+	var $editPanel = $('#editPanel');
+	
+	var $form = $editPanel.find('form');
+	$form.bootstrapValidator('resetForm');
+	$form[0].reset();
+	$form.find(":hidden").val('');
+	
+	$editPanel.hide();
+}
+
+var g_bsFormTableExtend = new BsFormTableExtend();
+
 $.fn.serializeObject = function(){    
    var o = {};    
    var a = this.serializeArray();    

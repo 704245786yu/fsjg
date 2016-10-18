@@ -213,3 +213,19 @@ ul.category-search li.xie_li > a{
 .helpTable p:FIRST-CHILD {
 	margin-top:10px;
 }
+
+/*公告*/
+ul.affiche{
+	list-style-type:none;
+	padding:0px;
+}
+ul.affiche li{
+	line-height: 25px;
+}
+ul.affiche a{
+	text-decoration:none;
+	color:black;
+}
+ul.affiche a:hover{
+	color:#337AB7;
+}

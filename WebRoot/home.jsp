@@ -560,10 +560,16 @@
 						<a class="btn btn-default btn-lg" href="JSP/signUp.jsp" style="width:47%"><i class="fa fa-pencil"></i>注册</a>
 					</div>
 					<h5>公告</h5>
-					<p>[公告]B2B的春天正在到来</p>
-					<p>[公告]海外尖货频道上线</p>
-					<p>[公告]海外尖货频道上线</p>
-					<p>[公告]开启拳王诚心通时代</p>
+					<ul class="affiche">
+						
+					    <!-- <li>[公告]B2B的春天正在到来</li>
+					    <li>[公告]海外尖货频道上线</li>
+					    <li>[公告]开启拳王诚心通时代</li>
+					    <li>[公告]海外尖货频道上线</li> -->
+					</ul>
+					<div id="afficheDemo" style="display:none">
+						<li><a>[公告]B2B的春天正在到来</a></li>
+					</div>
 					<img src="image/ad/home_small_ad.png" width="100%">
 					<img src="image/ad/home_small_ad.png" width="100%">
 				</div>
@@ -919,7 +925,7 @@
 <%@ include file="/JSP/main/bottom.jsp"%>
 </div>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugin/advanced-news-ticker/jquery.newsTicker.min.js"></script>
 <script src="JS/main/home.js"></script>
 </body>
 </html>
-
