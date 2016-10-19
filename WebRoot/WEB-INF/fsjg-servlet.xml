@@ -15,9 +15,24 @@
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/JSP/" p:suffix=".jsp" />
 
-	<mvc:annotation-driven></mvc:annotation-driven>
-
+	<mvc:annotation-driven>
+		<!-- <mvc:message-converters register-defaults="false">
+			<bean id="mappingJacksonHttpMessageConverter"
+		        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		        <property name="supportedMediaTypes">
+		            <list>
+		                <value>text/html;charset=UTF-8</value>
+		                <value>text/json;charset=UTF-8</value>
+						<value>application/json;charset=UTF-8</value>
+		            </list>
+		        </property>
+		    </bean>
+		</mvc:message-converters> -->
+	</mvc:annotation-driven>
+	
 	<mvc:default-servlet-handler />
+
+	
 	
 	 <!-- 文件上传
 	 	defaultEncoding:请求的编码格式，默认为ISO-8859-1。该值必须和用户JSP的pageEncoding属性一致,以便正确读取表单的内容。

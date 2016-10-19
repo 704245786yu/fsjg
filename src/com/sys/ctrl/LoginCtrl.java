@@ -135,6 +135,9 @@ public class LoginCtrl {
 		if(basicUser == null){
 			mav.setViewName("../login");
 			mav.addObject("errorMsg", "用户名或密码错误");
+		}else if(basicUser.getState() == 1){
+			mav.setViewName("../login");
+			mav.addObject("errorMsg", "您的帐号已冻结请联系客服");
 		}else{
 			session.setAttribute(loginBasicUser, basicUser);
 //			mav.setViewName("../home");//此种方式会导致显示home.jsp页面，刷新时登录表单会重复提交

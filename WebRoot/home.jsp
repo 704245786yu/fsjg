@@ -534,12 +534,12 @@
 					</div>
 				</div>
 				<!-- Controls -->
-				<a class="left carousel-control" href="#carousel-big-ad" data-slide="prev">
+				<!-- <a class="left carousel-control" href="#carousel-big-ad" data-slide="prev">
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</a>
 				<a class="right carousel-control" href="#carousel-big-ad" data-slide="next">
 					<span class="glyphicon glyphicon-chevron-right"></span>
-				</a>
+				</a> -->
 			</div>
 		</td>
 		<!-- 右边栏 -->

@@ -49,7 +49,7 @@ public abstract class UserAbstract {
 	private String email;	//电子邮箱
 
 	@Column(name="audit_state")
-	private Byte auditState;	//审核状态。待审核:0 未通过:1 已通过:2
+	private Byte auditState;	//审核状态。0:待审核 1:未通过 2:已通过
 	
 	@Column(name="audit_by")
 	private Integer auditBy;	//审核人
