@@ -140,6 +140,7 @@ BsFormTableExtend.prototype.showAddPanel = function(){
  * @param {String} datagridId form要填充数据所在的datagrid，默认值：dg
  * @param {String} formId 默认值ff
  * @param {String} editPanelId form所在模态框Id，默认值editPanel
+ * @return 返回行记录数据
  * */
 BsFormTableExtend.prototype.showModifyPanel = function(id, action, datagridId, formId, formPanelId){
 	//设置datagrid、form、formModal的id
@@ -153,6 +154,7 @@ BsFormTableExtend.prototype.showModifyPanel = function(id, action, datagridId, f
 
 	$('#tablePanel').hide();
 	$('#'+formPanelId).show();//显示编辑面板
+	return data;
 }
 
 /**取消编辑，隐藏编辑模板,重置表单，显示列表

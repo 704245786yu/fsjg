@@ -1,6 +1,7 @@
 var g_costumeCategory = null;
 
 $(function(){
+	initAd();
 	$('.carousel').carousel();
 	mallCategory();
 	initCostumeObj();
@@ -13,6 +14,29 @@ function initCostumeObj(){
 	g_costumeCategory = {};
 	for(var i=0; i<g_tradeAndCostumeMap.length; i++){
 		$.extend(g_costumeCategory,g_tradeAndCostumeMap[i].children);
+	}
+}
+
+//广告
+function initAd(){
+	var adPositions = $.parseJSON($('#adPositions').html());
+	var $carouselBigAd = $('#carousel-big-ad');//大轮播图
+	var $carouselSampleLi = $('#carousel-big-ad sample li');
+	var $carouselSampleItem = $('#carousel-big-ad sample div.item');
+	for(var i=0;i<adPositions.length;i++){
+		var ad = adPositions[i];
+		if(ad=='home_big_caro'){
+			var $tempLi = $carouselSampleLi.clone();
+			var $tempItem = $carouselSampleItem.clone();
+			var $a = $tempItem.children('a');
+			if(ad.linkType==0)//外部链接
+				$a.attr('href',ad.link);
+			else if(ad.linkType==1)//工厂详情页
+				$a.attr('href','enterprise/showDetail/'+ad.link);
+			$a.children('img').attr('src',ad.img);
+			$carouselBigAd.find('ol').append($carouselBigAd);
+			$carouselBigAd.find('.carousel-inner').append($carouselBigAd);
+		}
 	}
 }
 

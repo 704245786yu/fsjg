@@ -28,6 +28,7 @@
 
 <div class="main-body" style="width:1190px; margin:0 auto;">
 <span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
+<span style="display:none;" id="adPositions">${adPositions}</span>
 <table id="table1">
 	<tr>
 		<!-- 左边栏 -->
@@ -517,18 +518,26 @@
 			<div id="carousel-big-ad" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
-					<li data-target="#carousel-big-ad" data-slide-to="0" class="active"></li>
-					<li data-target="#carousel-big-ad" data-slide-to="1"></li>
+					<!-- <li data-target="#carousel-big-ad" data-slide-to="0" class="active"></li> -->
 				</ol>
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner">
-					<div class="item active">
-						<img src="image/ad/big_ad1.jpg">
+					<!-- <div class="item active">
+						<a><img src="image/ad/big_ad1.jpg"></a>
 						<div class="carousel-caption">
 						</div>
 					</div>
 					<div class="item">
 						<img src="image/ad/big_ad2.jpg">
+						<div class="carousel-caption">
+						</div>
+					</div> -->
+				</div>
+				<div name="sample" style="display:none">
+					<li data-target="#carousel-big-ad" data-slide-to="1"></li>
+					
+					<div class="item">
+						<a target="_blank"><img src="image/ad/big_ad2.jpg"></a>
 						<div class="carousel-caption">
 						</div>
 					</div>

@@ -7,11 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ad.biz.AdPositionBiz;
 import com.ad.biz.BlogrollBiz;
+import com.ad.po.AdPosition;
 import com.ad.po.Blogroll;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.vo.AuthEnterpriseVo;
 import com.basic.vo.StrengthEnterpriseVo;
+import com.util.JacksonJson;
 
 @Controller
 public class MainCtrl {
@@ -20,6 +23,8 @@ public class MainCtrl {
 	private EnterpriseBiz enterpriseBiz;
 	@Autowired
 	private BlogrollBiz blogrollBiz;
+	@Autowired
+	private AdPositionBiz adPositionBiz;
 	
 	@RequestMapping({"/","home"})
 	public String home(Model model){
@@ -32,6 +37,9 @@ public class MainCtrl {
 		//友情链接
 		List<Blogroll> blogrolls = blogrollBiz.getAll();
 		model.addAttribute("blogrolls", blogrolls);
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("home");
+		model.addAttribute("adPositions", JacksonJson.beanToJson(adPositions));
 		return "../home";
-	} 
+	}
 }
