@@ -32,10 +32,16 @@ function setAdhrefAndImg($a,ad){
 function initAd(){
 	var adPositions = $.parseJSON($('#adPositions').html());
 	var $a = $('.ad');
-	setAdhrefAndImg($a,adPositions[0]);
+	setAdhrefAndImg($a,adPositions.shift());
+	
+	//按年龄从小到大排序
+	adPositions.sort(function(a,b){
+		return a.sort-b.sort
+	});
+	
 	var $ul = $('#adUl');
 	var $li = $('div[name="sample"] li');
-	for(var i=1;i<adPositions.length;i++){
+	for(var i=0;i<adPositions.length;i++){
 		var $tempLi = $li.clone();
 		$a = $tempLi.children('a');
 		setAdhrefAndImg($a,adPositions[i]);
