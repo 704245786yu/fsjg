@@ -40,6 +40,7 @@
 <input type="hidden" name="pageName" value="enterprise">
 <%@ include file="top.jsp" %>
 <%@ include file="/JSP/main/common/commonData.jsp" %>
+<span style="display:none;" id="adPositions">${adPositions}</span>
 
 <div style="width:1190px; margin:0 auto;">
 	<!-- 左边栏(主体) -->

@@ -229,3 +229,22 @@ ul.affiche a{
 ul.affiche a:hover{
 	color:#337AB7;
 }
+
+/*中间广告*/
+table.mid_ad_table td{
+	width:595px;
+}
+table.mid_ad_table td:FIRST-CHILD{
+	padding-right:3px;
+}
+table.mid_ad_table td:FIRST-CHILD + td{
+	padding-left:3px
+}
+a.mid_ad img{
+	height:90px;
+}
+
+/*左边栏广告*/
+a.left_big_ad > img{
+	width:100%;
+}

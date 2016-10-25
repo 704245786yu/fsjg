@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ad.biz.AdPositionBiz;
+import com.ad.po.AdPosition;
 import com.basic.biz.BasicUserBiz;
 import com.basic.biz.CostumeCategoryBiz;
 import com.basic.biz.DistrictBiz;
@@ -34,6 +36,7 @@ import com.common.vo.ValidVo;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 import com.util.FileUtil;
+import com.util.JacksonJson;
 import com.util.MicroOfficeFile;
 
 @Controller
@@ -48,6 +51,8 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	private EnterpriseCostumeRelaBiz enterpriseCostumeRelaBiz;
 	@Autowired
 	private DistrictBiz districtBiz;
+	@Autowired
+	private AdPositionBiz adPositionBiz;
 	
 	private static final long logoImgMaxSize = 50000;//logo图片最大50kb
 	private static final long imgMaxSize = 200000;//文档最大200kb
@@ -61,6 +66,9 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		List<StrengthEnterpriseVo> enterprises = biz.getStrength(12);
 		ModelAndView mav = new ModelAndView(defaultPage);
 		mav.addObject("enterprises",enterprises);
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("home");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
 		return mav;
 	}
 	

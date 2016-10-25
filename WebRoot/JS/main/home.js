@@ -3,6 +3,8 @@ var g_costumeCategory = null;
 $(function(){
 	initAd();
 	$('.carousel').carousel();
+	$("#carousel-small-ad .picScroll").slide({ mainCell:"ul",autoPlay:true,effect:"left", vis:5, scroll:2, autoPage:true, pnLoop:false });
+	$("#bottom_carousel .picScroll").slide({ mainCell:"ul",autoPlay:true,effect:"left", vis:8, scroll:2, autoPage:true, pnLoop:false });
 	mallCategory();
 	initCostumeObj();
 	initAffiche();
@@ -17,27 +19,118 @@ function initCostumeObj(){
 	}
 }
 
-//广告
+//设置链接地址和图片，供initAdd()方法调用
+function setAdhrefAndImg($a,ad){
+	if(ad.linkType==0)//外部链接
+		$a.attr('href','http://'+ad.link);
+	else if(ad.linkType==1)//工厂详情页
+		$a.attr('href','enterprise/showDetail/'+ad.link);
+	
+	$a.children('img').attr('src','uploadFile/ad/'+ad.img);
+}
+
+function setAdHref($a,ad){
+	$a.html(ad.title);
+	if(ad.linkType==0)//外部链接
+		$a.attr('href','http://'+ad.link);
+	else if(ad.linkType==1)//工厂详情页
+		$a.attr('href','enterprise/showDetail/'+ad.link);
+}
+
 function initAd(){
 	var adPositions = $.parseJSON($('#adPositions').html());
-	var $carouselBigAd = $('#carousel-big-ad');//大轮播图
-	var $carouselSampleLi = $('#carousel-big-ad sample li');
-	var $carouselSampleItem = $('#carousel-big-ad sample div.item');
+	
+	//大轮播图
+	var $carouselBigAd = $('#carousel-big-ad');
+	var $carouselSampleLi = $('#carousel-big-ad div[name="sample"] li');
+	var $carouselSampleItem = $('#carousel-big-ad div[name="sample"] div.item');
+	
+	//顶部小轮播图
+	var $picScrollUl = $('#carousel-small-ad ul');
+	var $picScrollLi = $('#carousel-small-ad div[name="sample"] li');
+	
+	//底部轮播图
+	var $bottomCaroUl = $('#bottom_carousel ul');
+	var $bottomCaroLi = $('#bottom_carousel div[name="sample"] li');
+	
+	//左侧大图
+	var leftAdIndex = 0;
+	//文字广告
+	var textAdIndex = 0;
+	//表格小广告
+	var tableSmAdIndex = 0;
 	for(var i=0;i<adPositions.length;i++){
 		var ad = adPositions[i];
-		if(ad=='home_big_caro'){
+		if(ad.code=='home_left_big_ad'){
+			var $a = $($('a.left_big_ad')[leftAdIndex]);
+			leftAdIndex++;
+			setAdhrefAndImg($a,ad);
+		}
+		if(ad.code=='home_text_ad'){
+			var $a = $($('a.text_ad')[textAdIndex]);
+			textAdIndex++;
+			setAdhrefAndImg($a,ad);
+		}
+		//首页表格小广告
+		if(ad.code=='home_table_sm_ad'){
+			console.log(ad.code);
+			var $a = $($('a.table_sm_ad')[tableSmAdIndex]);
+			tableSmAdIndex++;
+			setAdhrefAndImg($a,ad);
+		}
+		//大轮播图
+		if(ad.code=='home_big_caro'){
 			var $tempLi = $carouselSampleLi.clone();
 			var $tempItem = $carouselSampleItem.clone();
 			var $a = $tempItem.children('a');
-			if(ad.linkType==0)//外部链接
-				$a.attr('href',ad.link);
-			else if(ad.linkType==1)//工厂详情页
-				$a.attr('href','enterprise/showDetail/'+ad.link);
-			$a.children('img').attr('src',ad.img);
-			$carouselBigAd.find('ol').append($carouselBigAd);
-			$carouselBigAd.find('.carousel-inner').append($carouselBigAd);
+			setAdhrefAndImg($a,ad);
+			$carouselBigAd.find('ol').append($tempLi);
+			$carouselBigAd.find('.carousel-inner').append($tempItem);
+		}else if(ad.code=='home_top_sm_caro'){
+			var $tempLi = $picScrollLi.clone();
+			var $a = $tempLi.children('a');
+			setAdhrefAndImg($a,ad);
+			$picScrollUl.append($tempLi);
+		}else if(ad.code=='home_right_top_1'){
+			var $a = $($('a[name="right_top_ad"]')[0]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_right_top_2'){
+			var $a = $($('a[name="right_top_ad"]')[1]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_mid_1'){
+			var $a = $($('a.mid_ad')[0]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_mid_2'){
+			var $a = $($('a.mid_ad')[1]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_mid_3'){
+			var $a = $($('a.mid_ad')[2]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_mid_4'){
+			var $a = $($('a.mid_ad')[3]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_mid_5'){
+			var $a = $($('a.mid_ad')[4]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_mid_6'){
+			var $a = $($('a.mid_ad')[5]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code='home_bottom_caro'){
+			var $tempLi = $picScrollLi.clone();
+			var $a = $bottomCaroLi.children('a');
+			setAdhrefAndImg($a,ad);
+			$bottomCaroUl.append($tempLi);
 		}
 	}
+	var $bigAdLis = $carouselBigAd.find('ol li');
+	var $bigAdDivs = $carouselBigAd.find('div.carousel-inner .item');
+	$($bigAdLis[0]).attr({'data-slide-to':0,'class':'active'});
+	$($bigAdDivs[0]).addClass('active');
+	for(var i=1;i<adPositions.length;i++){
+		$($bigAdLis[i]).attr('data-slide-to',i);
+	}
+	
+	
 }
 
 //公告
@@ -61,7 +154,7 @@ function initAffiche(){
 	});
 }
 
-$('.mallCategory a,.cat-subcategory a,.costumeList table a').click(function(e){
+$('.mallCategory a,.cat-subcategory a,.costumeList table table a').click(function(e){
 	e.preventDefault();
 	var categoryName = $(this).html();
 	for(var key in g_costumeCategory){

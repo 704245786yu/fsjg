@@ -17,6 +17,7 @@
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="plugin/bootstrap-login-form/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="plugin/superSlide/superSlide.css" rel="stylesheet">
 <link href="CSS/home.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
@@ -534,7 +535,7 @@
 					</div> -->
 				</div>
 				<div name="sample" style="display:none">
-					<li data-target="#carousel-big-ad" data-slide-to="1"></li>
+					<li data-target="#carousel-big-ad" data-slide-to="0"></li>
 					
 					<div class="item">
 						<a target="_blank"><img src="image/ad/big_ad2.jpg"></a>
@@ -549,6 +550,18 @@
 				<a class="right carousel-control" href="#carousel-big-ad" data-slide="next">
 					<span class="glyphicon glyphicon-chevron-right"></span>
 				</a> -->
+			</div>
+			<div id="carousel-small-ad" class="picScroll">
+				<div class="tempWrap" style="overflow:hidden; position:relative; width:670px">
+					<ul style="width: 1206px; left: -9.62442px; position: relative; overflow: hidden; padding: 0px; margin: 0px;">
+						<!-- <li style="float:left; width:122px;"><a target="_blank"><img src="images/pic1.jpg"></a></li> -->
+					</ul>
+				</div>
+				<div name="sample" style="display:none;">
+					<li style="float:left; width:122px;"><a target="_blank"><img src="images/pic1.jpg"></a></li>
+				</div>
+				<a class="prev prevStop"><span class="glyphicon glyphicon-chevron-left"></span></a> 
+				<a class="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			</div>
 		</td>
 		<!-- 右边栏 -->
@@ -570,7 +583,6 @@
 					</div>
 					<h5>公告</h5>
 					<ul class="affiche">
-						
 					    <!-- <li>[公告]B2B的春天正在到来</li>
 					    <li>[公告]海外尖货频道上线</li>
 					    <li>[公告]开启拳王诚心通时代</li>
@@ -579,10 +591,22 @@
 					<div id="afficheDemo" style="display:none">
 						<li><a>[公告]B2B的春天正在到来</a></li>
 					</div>
-					<img src="image/ad/home_small_ad.png" width="100%">
-					<img src="image/ad/home_small_ad.png" width="100%">
+					<a name="right_top_ad" target="_blank"><img width="100%"></a>
+					<a name="right_top_ad" target="_blank"><img width="100%"></a>
 				</div>
 			</div>
+		</td>
+	</tr>
+</table>
+
+<!-- 服饰分类栏下方广告 -->
+<table class="mid_ad_table" style="margin-bottom:10px;">
+	<tr>
+		<td>
+			<a class="mid_ad" target="_blank"><img></a>
+		</td>
+		<td>
+			<a class="mid_ad" target="_blank"><img></a>
 		</td>
 	</tr>
 </table>
@@ -595,7 +619,7 @@
 				<div class="panel-heading"><span>实力工厂</span></div>
 				<div class="panel-body">
 					<div class="col-md-4 ad">
-						<img src="image/ad/front_ad.png">
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
 					</div>
 					<div class="col-md-8">
 						<c:forEach var="enterprise" items="${strengths}">
@@ -616,7 +640,7 @@
 				<div class="panel-heading"><span>认证工厂</span></div>
 				<div class="panel-body">
 					<div class="col-md-4 ad">
-						<img src="image/ad/front_ad2.png">
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
 					</div>
 					<div class="col-md-8">
 						<c:forEach var="enterprise" items="${auths}">
@@ -635,13 +659,13 @@
 </table>
 
 <!-- 中间广告 -->
-<table style="margin-bottom:20px;">
+<table class="mid_ad_table" style="margin-bottom:20px;">
 	<tr>
-		<td style="width:595px;padding-right:3px">
-			<img width="100%" src="image/ad/home_mid_ad1.png"/>
+		<td>
+			<a class="mid_ad" target="_blank"><img></a>
 		</td>
-		<td style="width:595px;padding-left:3px">
-			<img width="100%" src="image/ad/home_mid_ad2.png"/>
+		<td>
+			<a class="mid_ad" target="_blank"><img></a>
 		</td>
 	</tr>
 </table>
@@ -653,14 +677,14 @@
 			<table class="table table-bordered">
 				<tr>
 					<td rowspan="2">
-						<img src="image/ad/home_costume_ad1.png"/>
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:291px;"></a>
 					</td>
 					<td colspan="2">
 						<div style="float:left;">
 							<h3><span>&nbsp;</span>针织</h3>
-							<div>工厂广告名称</div>
+							<div><a target="_blank" class="text_ad"></a></div>
 						</div>
-						<img src="image/ad/home_ad_small.png" style="width:139px;float:right;"/>
+						<a class="table_sm_ad" target="_blank"><img style="width:139px;float:right;"/></a>
 					</td>
 				</tr>
 				<tr>
@@ -684,9 +708,9 @@
 						</table>
 					</td>
 					<td>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
 					</td>
 				</tr>
 			</table>
@@ -695,14 +719,14 @@
 			<table class="table table-bordered">
 				<tr>
 					<td rowspan="2">
-						<img src="image/ad/home_costume_ad2.png"/>
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:291px;"></a>
 					</td>
 					<td colspan="2">
 						<div style="float:left;">
 							<h3><span>&nbsp;</span>梭织</h3>
-							<div>工厂广告名称</div>
+							<div><a target="_blank" class="text_ad"></a></div>
 						</div>
-						<img src="image/ad/home_ad_small.png" style="width:139px;float:right;"/>
+						<a class="table_sm_ad" target="_blank"><img style="width:139px;float:right;"/></a>
 					</td>
 				</tr>
 				<tr>
@@ -726,9 +750,9 @@
 						</table>
 					</td>
 					<td>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
 					</td>
 				</tr>
 			</table>
@@ -742,14 +766,14 @@
 			<table class="table table-bordered">
 				<tr>
 					<td rowspan="2">
-						<img src="image/ad/home_costume_ad3.png"/>
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:291px;"></a>
 					</td>
 					<td colspan="2">
 						<div style="float:left;">
 							<h3><span>&nbsp;</span>服饰</h3>
-							<div>工厂广告名称</div>
+							<div><a target="_blank" class="text_ad"></a></div>
 						</div>
-						<img src="image/ad/home_ad_small.png" style="width:139px;float:right;"/>
+						<a class="table_sm_ad" target="_blank"><img style="width:139px;float:right;"/></a>
 					</td>
 				</tr>
 				<tr>
@@ -773,9 +797,9 @@
 						</table>
 					</td>
 					<td>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
 					</td>
 				</tr>
 			</table>
@@ -784,14 +808,14 @@
 			<table class="table table-bordered">
 				<tr>
 					<td rowspan="2">
-						<img src="image/ad/home_costume_ad4.png"/>
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:291px;"></a>
 					</td>
 					<td colspan="2">
 						<div style="float:left;">
 							<h3><span>&nbsp;</span>家纺</h3>
-							<div>工厂广告名称</div>
+							<div><a target="_blank" class="text_ad"></a></div>
 						</div>
-						<img src="image/ad/home_ad_small.png" style="width:139px;float:right;"/>
+						<a class="table_sm_ad" target="_blank"><img style="width:139px;float:right;"/></a>
 					</td>
 				</tr>
 				<tr>
@@ -812,9 +836,9 @@
 						</table>
 					</td>
 					<td>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
 					</td>
 				</tr>
 			</table>
@@ -828,14 +852,14 @@
 			<table class="table table-bordered">
 				<tr>
 					<td rowspan="2">
-						<img src="image/ad/home_costume_ad5.png"/>
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:291px;"></a>
 					</td>
 					<td colspan="2">
 						<div style="float:left;">
 							<h3><span>&nbsp;</span>皮革皮草</h3>
-							<div>工厂广告名称</div>
+							<div><a target="_blank" class="text_ad"></a></div>
 						</div>
-						<img src="image/ad/home_ad_small.png" style="width:139px;float:right;"/>
+						<a class="table_sm_ad" target="_blank"><img style="width:139px;float:right;"/></a>
 					</td>
 				</tr>
 				<tr>
@@ -856,9 +880,9 @@
 						</table>
 					</td>
 					<td>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
 					</td>
 				</tr>
 			</table>
@@ -867,14 +891,14 @@
 			<table class="table table-bordered">
 				<tr>
 					<td rowspan="2">
-						<img src="image/ad/home_costume_ad5.png"/>
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:291px;"></a>
 					</td>
 					<td colspan="2">
 						<div style="float:left;">
 							<h3><span>&nbsp;</span>鞋</h3>
-							<div>工厂广告名称</div>
+							<div><a target="_blank" class="text_ad"></a></div>
 						</div>
-						<img src="image/ad/home_ad_small.png" style="width:139px;float:right;"/>
+						<a class="table_sm_ad" target="_blank"><img style="width:139px;float:right;"/></a>
 					</td>
 				</tr>
 				<tr>
@@ -892,15 +916,43 @@
 						</table>
 					</td>
 					<td>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
-						<img src="image/ad/home_ad_small.png"/>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
+						<a class="table_sm_ad" target="_blank"><img></a>
 					</td>
 				</tr>
 			</table>
 		</td>
 	</tr>
 </table>
+
+<table class="mid_ad_table" style="margin-bottom:20px;">
+	<tr>
+		<td style="width:980px;">
+			<a class="mid_ad" target="_blank"><img></a>
+		</td>
+		<td style="width:210px;">
+			<a class="mid_ad" target="_blank"><img></a>
+		</td>
+	</tr>
+</table>
+
+<!-- 品牌加盟 -->
+<div id="bottom_carousel">
+	<p style="border:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;">品牌加盟</p>
+	<div class="picScroll">
+		<div class="tempWrap" style="overflow:hidden; position:relative; width:1100px">
+			<ul style="width: 1206px; left: -9.62442px; position: relative; overflow: hidden; padding: 0px; margin: 0px;">
+				<!-- <li style="float:left; width:122px;"><a target="_blank"><img src="images/pic1.jpg"></a></li> -->
+			</ul>
+		</div>
+		<div name="sample" style="display:none;">
+			<li style="float:left; width:122px;margin-right:10px"><a target="_blank"><img></a></li>
+		</div>
+		<a class="prev prevStop"><span class="glyphicon glyphicon-chevron-left"></span></a> 
+		<a class="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	</div>
+</div>
 
 <div style="font-size:16px;">友情链接</div>
 <p style="border-top:2px solid grey;padding:5px 10px;line-height:30px;">
@@ -935,6 +987,7 @@
 </div>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/advanced-news-ticker/jquery.newsTicker.min.js"></script>
+<script src="plugin/superSlide/jquery.SuperSlide.js"></script>
 <script src="JS/main/home.js"></script>
 </body>
 </html>
