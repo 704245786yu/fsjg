@@ -62,6 +62,10 @@ function initAd(){
 	for(var i=0;i<adPositions.length;i++){
 		var ad = adPositions[i];
 		if(ad.code=='home_left_big_ad'){
+			var $a = $('#topAd');
+			setAdhrefAndImg($a,ad);
+		}
+		if(ad.code=='home_left_big_ad'){
 			var $a = $($('a.left_big_ad')[leftAdIndex]);
 			leftAdIndex++;
 			setAdhrefAndImg($a,ad);

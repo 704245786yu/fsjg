@@ -3,6 +3,7 @@ var g_costumeCategory = null;
 
 $(function(){
 	initTradeAndCostumeObj();
+	initAd();
 	setCostumeCategoryDiv(0);
 	initIndentList();
 	initPagination();//初始化分页
@@ -16,6 +17,32 @@ function initTradeAndCostumeObj(){
 		$.extend(g_costumeCategory,g_tradeAndCostumeMap[i].children);
 	}
 	setCostumeCategoryDiv(0);
+}
+
+//设置链接地址和图片，供initAdd()方法调用
+function setAdhrefAndImg($a,ad){
+	if(ad.linkType==0)//外部链接
+		$a.attr('href','http://'+ad.link);
+	else if(ad.linkType==1)//工厂详情页
+		$a.attr('href','enterprise/showDetail/'+ad.link);
+	
+	$a.children('img').attr('src','uploadFile/ad/'+ad.img);
+}
+
+function initAd(){
+	var adPositions = $.parseJSON($('#adPositions').html());
+	var $a = $('.ad');
+	setAdhrefAndImg($a,adPositions[0]);
+	var $ul = $('#adUl');
+	var $li = $('div[name="sample"] li');
+	for(var i=1;i<adPositions.length;i++){
+		var $tempLi = $li.clone();
+		$a = $tempLi.children('a');
+		setAdhrefAndImg($a,adPositions[i]);
+		var $div = $tempLi.children('div');
+		$div.html(adPositions[i].title);
+		$ul.append($tempLi);
+	}
 }
 
 //行业分类a点击事件

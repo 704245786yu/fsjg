@@ -67,7 +67,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		ModelAndView mav = new ModelAndView(defaultPage);
 		mav.addObject("enterprises",enterprises);
 		//广告位
-		List<AdPosition> adPositions = adPositionBiz.getByCode("home");
+		List<AdPosition> adPositions = adPositionBiz.getByCode("enterprise_main");
 		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
 		return mav;
 	}
@@ -157,6 +157,10 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		mav.addObject("result", result);
+		
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("enterprise_list");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
 		
 		//保留页面顶部搜索框的状态
 		mav.addObject("tabIndex",1);

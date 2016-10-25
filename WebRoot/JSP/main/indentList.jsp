@@ -28,6 +28,7 @@
 <input type="hidden" name="pageName" value="indent">
 <%@ include file="/JSP/main/common/commonData.jsp" %>
 <span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
+<span style="display:none;" id="adPositions">${adPositions}</span>
 
 <table style="width:1190px;margin:0 auto;bakcground-color:#FBF8F9;">
 <tr>
@@ -103,7 +104,7 @@
 		</div>
 		
 		<!-- 广告 -->
-		<img src="image/ad/ad.png">
+		<a class="ad" target="_blank"><img style="width:100%;height:90px;"></a>
 		
 		<input id="totalRows" type="hidden" value="${result.total}">
 		<table class="table" style="font-size:18px;">
@@ -219,10 +220,17 @@
 				</p>
 			</div><!-- panel-body -->
 		</div><!-- panel -->
-		<ul class="list-group">
-			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
-			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
+		<!-- 广告 -->
+		<ul id="adUl" class="list-group">
+			<!-- <li class="list-group-item">
+				<a><img width="100%" src="image/mianliao.png"></a>
+			</li> -->
 		</ul>
+		<div name="sample" style="display:none;">
+			<li class="list-group-item">
+				<a target="_blank"><img width="100%"></a>
+			</li>
+		</div>
 	</td>
 </tr>
 </table>

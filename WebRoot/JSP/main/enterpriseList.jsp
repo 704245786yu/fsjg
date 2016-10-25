@@ -27,7 +27,8 @@
 <%@ include file="top.jsp" %>
 <%@ include file="/JSP/main/common/commonData.jsp" %>
 <span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
-	
+<span style="display:none;" id="adPositions">${adPositions}</span>
+
 <!-- <nav class="navbar navbar-default">
 	<div class="navbar-header">
         <span class="navbar-brand glyphicon glyphicon-home"></span>
@@ -111,8 +112,8 @@
 			</div>
 		</div><!-- panel -->
 		
-		<!-- 广告 -->
-		<img src="image/ad/ad.png">
+		<!-- 广告位 -->
+		<a class="ad" target="_blank"><img style="width:100%;height:90px;"></a>
 		
 		<input id="totalRows" type="hidden" value="${result.total}">
 		<div id="enterpriseListDiv">
@@ -233,10 +234,18 @@
 			</div><!-- panel-body -->
 		</div><!-- panel -->
 		<!-- 广告 -->
-		<ul class="list-group">
-			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
-			<li class="list-group-item"><img width="100%" src="image/ad/guanggao.png"/></li>
+		<ul id="adUl" class="list-group">
+			<!-- <li class="list-group-item">
+				<a><img width="100%" src="image/mianliao.png"></a>
+				<div style="text-align:center;">工厂广告</div>
+			</li> -->
 		</ul>
+		<div name="sample" style="display:none;">
+			<li class="list-group-item">
+				<a target="_blank"><img width="100%"></a>
+				<div style="text-align:center;">工厂广告</div>
+			</li>
+		</div>
 	</td>
 </tr>
 </table>

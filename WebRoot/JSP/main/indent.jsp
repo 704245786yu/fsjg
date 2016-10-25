@@ -28,6 +28,7 @@
 <%@ include file="top.jsp" %>
 <input type="hidden" name="pageName" value="indent">
 <%@ include file="/JSP/main/common/commonData.jsp" %>
+<span style="display:none;" id="adPositions">${adPositions}</span>
 
 <div style="width:1190px; margin:0 auto;">
 	<!-- 左边栏(主体) -->
@@ -113,7 +114,7 @@
 		</div>
 		
 		<!-- 广告位 -->
-		<img style="width:100%;"src="image/ad/ad.png">
+		<a class="ad" target="_blank"><img style="width:100%;height:90px;"></a>
 		
 		<!-- 个人发布的订单 -->
 		<div class="panel panel-default" style="margin-top:20px;">

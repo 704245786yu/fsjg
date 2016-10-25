@@ -2,6 +2,7 @@ var g_costumeCategory = null;	//服饰类型
 
 $(function(){
 	init();
+	initAd();
 	getExcellent();
 	getNewest();
 	getNewAuth();
@@ -10,6 +11,25 @@ $(function(){
 function init(){
 	str = $('#hiddenCostumeCategory').html();
 	g_costumeCategory = $.parseJSON(str);
+}
+
+//设置链接地址和图片，供initAdd()方法调用
+function setAdhrefAndImg($a,ad){
+	if(ad.linkType==0)//外部链接
+		$a.attr('href','http://'+ad.link);
+	else if(ad.linkType==1)//工厂详情页
+		$a.attr('href','enterprise/showDetail/'+ad.link);
+	
+	$a.children('img').attr('src','uploadFile/ad/'+ad.img);
+}
+
+function initAd(){
+	var adPositions = $.parseJSON($('#adPositions').html());
+	var $aAds = $('a.ad');
+	for(var i=0;i<adPositions.length;i++){
+		var $a = $($aAds[i]);
+		setAdhrefAndImg($a,adPositions[i]);
+	}
 }
 
 //确定选择地区

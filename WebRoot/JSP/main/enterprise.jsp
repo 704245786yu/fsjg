@@ -136,7 +136,7 @@
 			</div>
 		</div>
 		<!-- 广告位 -->
-		<img style="width:100%;"src="image/ad/ad.png">
+		<a class="ad" target="_blank"><img style="width:100%;height:90px;"></a>
 		
 		<!-- 接单工厂 -->
 		<div class="panel panel-default" style="margin-top:20px;">
@@ -174,10 +174,10 @@
 		<!-- 招商热线 -->
 		<div style="height:110px">
 			<div style="width:595px;float:left;">
-				<img style="width:100%;height:110px"src="image/ad/enterprise-logo.png">
+				<a class="ad" target="_blank"><img style="width:100%;height:110px"></a>
 			</div>
 			<div style="width:295px;float:right;">
-				<img style="width:100%;height:110px"src="image/ad/enterprise-logo.png">
+				<a class="ad" target="_blank"><img style="width:100%;height:110px"></a>
 			</div>
 		</div>
 		<!-- 热门区域加工厂 -->

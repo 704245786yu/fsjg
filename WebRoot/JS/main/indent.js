@@ -4,6 +4,7 @@ var g_processType = {'1':'清加工','2':'经销单','3':'其他'};
 $(function(){
 	initTable('#personIndent');
 	initTable('#enterpriseIndent');
+	initAd();
 	initNewstQuoteList();
 });
 
@@ -40,6 +41,22 @@ function initNewstQuoteList(){
 		var processType = $processType.html();
 		$processType.html(g_processType[processType]);
 	}
+}
+
+//设置链接地址和图片，供initAdd()方法调用
+function setAdhrefAndImg($a,ad){
+	if(ad.linkType==0)//外部链接
+		$a.attr('href','http://'+ad.link);
+	else if(ad.linkType==1)//工厂详情页
+		$a.attr('href','enterprise/showDetail/'+ad.link);
+	
+	$a.children('img').attr('src','uploadFile/ad/'+ad.img);
+}
+
+function initAd(){
+	var adPositions = $.parseJSON($('#adPositions').html());
+	var $a = $('.ad');
+	setAdhrefAndImg($a,adPositions[0]);
 }
 
 //确定选择地区

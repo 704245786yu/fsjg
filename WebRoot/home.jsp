@@ -25,6 +25,7 @@
 
 <body>
 <input type="hidden" name="pageName" value="home">
+<a id="topAd" target="_blank;"><img style="height:90px;widht:100%;"></a>
 <%@ include file="JSP/main/top.jsp" %>
 
 <div class="main-body" style="width:1190px; margin:0 auto;">

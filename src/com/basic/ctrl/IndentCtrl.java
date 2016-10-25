@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ad.biz.AdPositionBiz;
+import com.ad.po.AdPosition;
 import com.basic.biz.CostumeCategoryBiz;
 import com.basic.biz.DistrictBiz;
 import com.basic.biz.EnterpriseBiz;
@@ -37,6 +39,7 @@ import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.util.DateTransform;
+import com.util.JacksonJson;
 
 @Controller
 @RequestMapping("indent")
@@ -52,6 +55,8 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	private EnterpriseBiz enterpriseBiz;
 	@Autowired
 	private IndentQuoteBiz indentQuoteBiz;
+	@Autowired
+	private AdPositionBiz adPositionBiz;
 	
 	private static final long imgMaxSize = 200000;//图片最大200kb
 	private static final long docMaxSize = 500000;//文档最大500kb
@@ -67,6 +72,10 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		mav.addObject("personIndents", personIndents);
 		mav.addObject("enterpriseIndents", enterpriseIndents);
 		mav.addObject("newstQuotes", newstQuotes);
+		
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("indent_main");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
 		return mav;
 	}
 	
@@ -179,6 +188,11 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,0,20,null);
 		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
+		
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("indent_list");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
+		
 		//保留页面顶部搜索框的状态
 		mav.addObject("tabIndex",0);
 		mav.addObject("indentKeyword",indentKeyword);
