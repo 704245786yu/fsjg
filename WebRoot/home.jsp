@@ -31,6 +31,7 @@
 <div class="main-body" style="width:1190px; margin:0 auto;">
 <span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
 <span style="display:none;" id="adPositions">${adPositions}</span>
+
 <table id="table1">
 	<tr>
 		<!-- 左边栏 -->
