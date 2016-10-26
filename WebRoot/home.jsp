@@ -559,7 +559,7 @@
 					</ul>
 				</div>
 				<div name="sample" style="display:none;">
-					<li style="float:left; width:122px;"><a target="_blank"><img src="images/pic1.jpg"></a></li>
+					<li style="float:left; width:118px;"><a target="_blank"><img src="images/pic1.jpg"></a></li>
 				</div>
 				<a class="prev prevStop"><span class="glyphicon glyphicon-chevron-left"></span></a> 
 				<a class="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -590,10 +590,10 @@
 					    <li>[公告]海外尖货频道上线</li> -->
 					</ul>
 					<div id="afficheDemo" style="display:none">
-						<li><a>[公告]B2B的春天正在到来</a></li>
+						<li style="width:183px;"><a>[公告]B2B的春天sdfsf正在到来</a></li>
 					</div>
-					<a name="right_top_ad" target="_blank"><img width="100%"></a>
-					<a name="right_top_ad" target="_blank"><img width="100%"></a>
+					<a name="right_top_ad" target="_blank"><img width="100%" height="88px"></a>
+					<a name="right_top_ad" target="_blank"><img width="100%" height="88px"></a>
 				</div>
 			</div>
 		</td>

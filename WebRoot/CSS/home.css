@@ -107,6 +107,13 @@ ul.category-search li.xie_li > a{
 	color:#008AE6;
 }
 
+/*公告*/
+ul.affiche li{
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
 /*实力工厂、认证工厂*/
 #table2 .col-md-8 div{
 	white-space:nowrap;

@@ -77,5 +77,7 @@ function modify(id){
 	var img = data.img;
 	if(img!=null && img!=''){
 		$('#editPanel img').attr('src','uploadFile/ad/'+img);
+	}else{
+		$('#editPanel img').removeAttr('src');
 	}
 }

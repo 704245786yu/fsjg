@@ -3,7 +3,7 @@ var g_costumeCategory = null;
 $(function(){
 	initAd();
 	$('.carousel').carousel();
-	$("#carousel-small-ad .picScroll").slide({ mainCell:"ul",autoPlay:true,effect:"left", vis:5, scroll:2, autoPage:true, pnLoop:false });
+	$("#carousel-small-ad").slide({ mainCell:"ul",autoPlay:true,effect:"left", vis:5, scroll:2, autoPage:true, pnLoop:false });
 	$("#bottom_carousel .picScroll").slide({ mainCell:"ul",autoPlay:true,effect:"left", vis:8, scroll:2, autoPage:true, pnLoop:false });
 	mallCategory();
 	initCostumeObj();
@@ -61,7 +61,7 @@ function initAd(){
 	var tableSmAdIndex = 0;
 	for(var i=0;i<adPositions.length;i++){
 		var ad = adPositions[i];
-		if(ad.code=='home_left_big_ad'){
+		if(ad.code=='home_top_ad'){
 			var $a = $('#topAd');
 			setAdhrefAndImg($a,ad);
 		}
@@ -145,7 +145,7 @@ function initAffiche(){
 		for(var i=0;i<data.length;i++){
 			var $temp = $li.clone();
 			var $a = $temp.children('a');
-			$a.attr('href','affiche/showDetail/'+data[i][0]).html('[公告]'+data[i][1]);
+			$a.attr('href','affiche/showDetail/'+data[i][0]).html(data[i][1]);
 			$ul.append($temp);
 		}
 		if(data.length > 4){
