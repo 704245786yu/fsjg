@@ -46,7 +46,15 @@
 	</div>
 </nav>
 
-<table style="width:1190px;margin:15px auto;background-color:#FBF8F9">
+<table style="width:1190px;margin:0px auto;background-color:#FBF8F9">
+<tr>
+	<td colspan="2" style="background-color:white;">
+		<div class="crumb">
+			<span class="glyphicon glyphicon-home"></span>
+			当前位置：<a href="enterprise">加工工厂</a> > <a href="enterprise/search">工厂列表页</a> > 工厂详情页
+		</div>
+	</td>
+</tr>
 <tr>
 	<td style="width:280px;padding-right:5px;vertical-align:top;">
 		<!-- 左边栏 -->

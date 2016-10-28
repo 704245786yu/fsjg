@@ -5,6 +5,21 @@ html,body,div,ul,p,span,button{
 	font-family:微软雅黑;
 }
 
+/*面包屑*/
+.crumb{
+	border:1px solid #DDD;
+	padding:5px;
+	margin-bottom:10px;
+}
+.crumb span.glyphicon{
+	font-size:16px;
+	color:#4EB8ED;
+	margin-right:10px;
+}
+.crumb a:hover{
+	text-decoration:none;
+}
+
 #detail-head{
 	height:150px;
 	padding:0px 50px;

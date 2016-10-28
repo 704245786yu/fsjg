@@ -73,7 +73,7 @@ function initAd(){
 		if(ad.code=='home_text_ad'){
 			var $a = $($('a.text_ad')[textAdIndex]);
 			textAdIndex++;
-			setAdhrefAndImg($a,ad);
+			setAdHref($a,ad);
 		}
 		//首页表格小广告
 		if(ad.code=='home_table_sm_ad'){
@@ -148,10 +148,10 @@ function initAffiche(){
 			$a.attr('href','affiche/showDetail/'+data[i][0]).html(data[i][1]);
 			$ul.append($temp);
 		}
-		if(data.length > 4){
+		if(data.length > 3){
 			var nt_example1 = $ul.newsTicker({
 				row_height: 25,
-				max_rows: 4,
+				max_rows: 3,
 				duration: 4000
 			});
 		}

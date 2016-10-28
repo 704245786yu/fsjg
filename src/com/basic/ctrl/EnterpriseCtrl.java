@@ -65,7 +65,10 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		//实力工厂
 		List<StrengthEnterpriseVo> enterprises = biz.getStrength(12);
 		ModelAndView mav = new ModelAndView(defaultPage);
-		mav.addObject("enterprises",enterprises);
+		mav.addObject("strengths",enterprises);
+		//认证工厂
+		List<AuthEnterpriseVo> authEnters = biz.getNewAuth(6,false);
+		mav.addObject("auths",authEnters);
 		//广告位
 		List<AdPosition> adPositions = adPositionBiz.getByCode("enterprise_main");
 		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
@@ -139,6 +142,11 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		//获取子类型
 		BootTablePageDto<Enterprise> result = biz.search(null,null,null,null,costumeCodes.subList(0, endIndex).toArray(new Integer[]{}),null, null,enterpriseKeyword,0,20,null);
 		mav.addObject("result", result);
+		
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("enterprise_list");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
+
 		//保留页面顶部搜索框的状态
 		mav.addObject("tabIndex",1);
 		mav.addObject("enterpriseKeyword",enterpriseKeyword);

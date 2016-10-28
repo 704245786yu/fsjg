@@ -1,4 +1,19 @@
 @CHARSET "UTF-8";
+/*面包屑*/
+.crumb{
+	border:1px solid #DDD;
+	padding:5px;
+	margin-bottom:10px;
+}
+.crumb span.glyphicon{
+	font-size:16px;
+	color:#4EB8ED;
+	margin-right:10px;
+}
+.crumb a:hover{
+	text-decoration:none;
+}
+
 #districtBtn{
 	width:320px;
 	overflow:hidden;

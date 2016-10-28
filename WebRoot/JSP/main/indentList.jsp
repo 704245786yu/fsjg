@@ -32,6 +32,14 @@
 
 <table style="width:1190px;margin:0 auto;bakcground-color:#FBF8F9;">
 <tr>
+	<td colspan="2">
+		<div class="crumb">
+			<span class="glyphicon glyphicon-home"></span>
+			当前位置：<a href="indent">加工订单</a> > 订单列表页
+		</div>
+	</td>
+</tr>
+<tr>
 	<td style="width:906px;background-color:#FBF8F9;vertical-align:top;">
 		<div class="panel panel-default search-panel">
 			<div class="panel-body">

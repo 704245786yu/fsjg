@@ -190,7 +190,10 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				}else{
 					enterprise.setDescription(description);
 				}
-				enterprise.setAuditState((byte)0);
+				//审核状态
+				enterprise.setAuditState((byte)2);
+				enterprise.setAuditBy(userId);
+				enterprise.setAuditTime(new Date());
 				
 				enterpriseList.add(enterprise);
 			}catch(Exception e){

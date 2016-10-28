@@ -29,13 +29,15 @@
 <span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
 <span style="display:none;" id="adPositions">${adPositions}</span>
 
-<!-- <nav class="navbar navbar-default">
-	<div class="navbar-header">
-        <span class="navbar-brand glyphicon glyphicon-home"></span>
-    </div>
-	</nav> -->
-	
 <table style="width:1190px;margin:0 auto;bakcground-color:#FBF8F9;">
+<tr>
+	<td colspan="2">
+		<div class="crumb">
+			<span class="glyphicon glyphicon-home"></span>
+			当前位置：<a href="enterprise">加工工厂</a> > 工厂列表页
+		</div>
+	</td>
+</tr>
 <tr>
 	<td style="width:906px;background-color:#FBF8F9;vertical-align:top;">
 		<div class="panel panel-default search-panel">

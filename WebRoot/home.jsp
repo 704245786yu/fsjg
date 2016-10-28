@@ -593,8 +593,8 @@
 					<div id="afficheDemo" style="display:none">
 						<li style="width:183px;"><a>[公告]B2B的春天sdfsf正在到来</a></li>
 					</div>
-					<a name="right_top_ad" target="_blank"><img width="100%" height="88px"></a>
-					<a name="right_top_ad" target="_blank"><img width="100%" height="88px"></a>
+					<a name="right_top_ad" target="_blank"><img width="100%" height="80px"></a>
+					<a name="right_top_ad" target="_blank"><img width="100%" height="80px"></a>
 				</div>
 			</div>
 		</td>
@@ -618,7 +618,12 @@
 		<td style="width:595px;padding-right:3px">
 			<!-- 实力工厂 -->
 			<div class="panel panel-default">
-				<div class="panel-heading"><span>实力工厂</span></div>
+				<div class="panel-heading">
+					<span>实力工厂</span>
+					<div class="pull-right">
+				 		<a href="enterprise/search" style="text-decoration:none;"><span class="label label-info" style="font-size:14px;color:white;">更多</span></a>
+					</div>
+				</div>
 				<div class="panel-body">
 					<div class="col-md-4 ad">
 						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
@@ -639,7 +644,12 @@
 		<td style="width:595px;padding-left:3px">
 			<!-- 认证工厂 -->
 			<div class="panel panel-default">
-				<div class="panel-heading"><span>认证工厂</span></div>
+				<div class="panel-heading">
+					<span>认证工厂</span>
+					<div class="pull-right">
+				 		<a href="enterprise/search" style="text-decoration:none;"><span class="label label-info" style="font-size:14px;color:white;">更多</span></a>
+					</div>
+				</div>
 				<div class="panel-body">
 					<div class="col-md-4 ad">
 						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>

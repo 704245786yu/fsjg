@@ -28,6 +28,14 @@
 <%@ include file="top.jsp" %>
 <table style="width:1190px;margin:0 auto;">
 <tr>
+	<td colspan="2">
+		<div class="crumb">
+			<span class="glyphicon glyphicon-home"></span>
+			当前位置：<a href="indent">加工订单</a> > <a href="indent/search">订单列表页</a> > 订单详情页
+		</div>
+	</td>
+</tr>
+<tr>
 	<td style="width:906px;">
 		<table id="indentInfo" class="table table-bordered" >
 			<tr>

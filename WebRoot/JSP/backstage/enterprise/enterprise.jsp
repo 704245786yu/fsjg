@@ -81,7 +81,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				data-page-list="[10,20]">
 		    <thead>
 		        <tr>
-		        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
+		        	<th data-formatter="seqnumFormatter" data-align="center">序号</th>
+		        	<th data-field="id" data-align="center">ID</th>
 		            <th data-field="basicUser.userName" data-align="center">用户名</th>
 		            <th data-field="number" data-align="center">工厂编号</th>
 		            <th data-field="enterpriseName" data-align="center">工厂名称</th>
