@@ -236,6 +236,12 @@ function modify(id){
 			$div.after($divTemp);
 		}
 	}
+	//认证审核
+	if(data.auditState==1)
+		$('input[name="isAudit"]').eq(0).attr('checked',true);
+	else if(data.auditState==2)
+		$('input[name="isAudit"]').eq(1).attr('checked',true);
+		
 	$('#ff').attr('action','enterprise/updateEnterprise');
 	showForm();
 }
@@ -313,6 +319,7 @@ function cancel(){
 	$form.find('input[name="licensePic"] ~ div').css('display','none');//licensePic工厂营业执照
 	$form.find(':hidden[name="enterpriseImg"] ~ div:first').nextAll().remove();//移除展示的工厂图片
 	$form.find('input[type="hidden"]').val('');
+	$form.find('input[type="radio"]').attr('checked',false);
 	$form.bootstrapValidator('resetForm', true);
 	resetModal();//重置costumeCategoryModal
 	$form[0].reset();

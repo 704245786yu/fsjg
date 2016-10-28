@@ -152,7 +152,7 @@ public class LoginCtrl {
 	@ResponseBody
 	public boolean asyLogin(String userName, String password, HttpSession session){
 		BasicUser basicUser = basicUserBiz.login(userName, password);
-		if(basicUser == null){
+		if(basicUser == null || basicUser.getState() == 1){
 			return false;
 		}else{
 			session.setAttribute(loginBasicUser, basicUser);

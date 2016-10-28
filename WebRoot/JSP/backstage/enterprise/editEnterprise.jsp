@@ -203,6 +203,15 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td><label>认证审核</label></td>
+					<td>
+						<div class="form-group" style="padding-top:5px;">
+							<label class="radio-inline"><input type="radio" name="isAudit" value="0">不通过</label>
+							<label class="radio-inline"><input type="radio" name="isAudit" value="1">通过</label>
+						</div>
+					</td>
+				</tr>
 			</table>
 			<div style="margin-top:20px;text-align:right;padding-right:100px;">
 				<button type="submit" name="save" class="btn btn-primary" style="width:80px;margin-right:10px;">保存</button>

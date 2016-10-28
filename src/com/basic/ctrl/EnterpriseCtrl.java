@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,6 +36,7 @@ import com.common.vo.ReturnValueVo;
 import com.common.vo.ValidVo;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
+import com.util.DateTransform;
 import com.util.FileUtil;
 import com.util.JacksonJson;
 import com.util.MicroOfficeFile;
@@ -81,6 +83,23 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("backstage/enterprise/enterprise");
 		return mav;
+	}
+	
+	/**根据搜索条件分页查询数据。
+	 * @param offset 偏移量，即记录索引位置
+	 * @param limit 每页记录数
+	 * @param total 可为null
+	 * */
+	@RequestMapping("findByPage")
+	@ResponseBody
+	public BootTablePageDto<Enterprise> findByPage(String enterpriseName,Byte auditState,String beginDate,String endDate,int offset, int limit, Long total){
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length()>0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		}
+		return biz.findByPage(enterpriseName,auditState,beginTime,endTime,offset,limit,total);
 	}
 	
 	/**批量导入工厂信息
@@ -297,6 +316,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@ResponseBody
 	public ReturnValueVo updateEnterprise(
 			Enterprise e,
+			Byte isAudit,
 			String[] delImg,
 			@RequestParam(value="logoImg",required=false)MultipartFile logoImg,
 			@RequestParam(value="licensePic",required=false)MultipartFile licensePic,
@@ -368,7 +388,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 			ex.printStackTrace();
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
 		}
-		biz.update(e);
+		biz.update(e,isAudit);
 		
 		//用户修改自身信息成功后，更新session
 		if(basicUser!=null){
@@ -537,4 +557,16 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		}
 		return errorMsg;
 	}
+
+	@Override
+	public List<Enterprise> getAll() {
+		return null;
+	}
+
+	@Override
+	public BootTablePageDto<Enterprise> getAllByPage(Long total, int offset,int limit) {
+		return null;
+	}
+	
+	
 }

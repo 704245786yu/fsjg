@@ -1,6 +1,7 @@
 var g_processType = new Object();
 var g_auditState = {0:'待审核',1:'未通过',2:'已通过'};
 var g_processType = {1:'清加工',2:'经销',3:'来料加工',4:'自营出口',5:'其他'};
+var g_total = null;
 
 $(function(){
 	//初始化g_processType，供table的processType格式化显示用
@@ -8,23 +9,32 @@ $(function(){
 	$.each(processTypes, function(i,n){
 		g_processType[n.value] = n.text; 
 	});
-	$('input[name="beginDate"]').datetimepicker({
+	$('#listPanel .date').datetimepicker({
 		format: 'YYYY-MM-DD',
-		locale: 'zh-cn',
-		defaultDate:moment().subtract(1,'months')
-    });
-	$('input[name="endDate"]').datetimepicker({
-		format: 'YYYY-MM-DD',
-		locale: 'zh-cn',
-		defaultDate:moment()
+		locale: 'zh-cn'
     });
 	//启用Tooltips工具提示
 	$("[data-toggle='tooltip']").tooltip();
 });
 
-function getQueryParams(params){
-//	var searchText = $('#searchText').val().trim();
-//	params.constantName = searchText;
+$('#dg').bootstrapTable({
+	onPageChange:function(number,size){
+		g_total = $('#dg').bootstrapTable('getOptions').totalRows;
+	}
+});
+
+function queryParams(params){
+	var enterpriseName = $('#listPanel input[name="enterpriseName"]').val();
+	var auditState = $('#listPanel select[name="auditState"]').val();
+	var beginDate = $('#listPanel input[name="beginDate"]').val();
+	var endDate = $('#listPanel input[name="endDate"]').val();
+	params.enterpriseName = enterpriseName;
+	params.auditState = auditState;
+	params.beginDate = beginDate;
+	params.endDate = endDate;
+	
+	params.total = g_total;//g_total可能为null
+	
 	delete params.order;
 	return params;
 }
@@ -51,17 +61,11 @@ function dateFormatter(value,row,index){
 	return new Date(value).format("yyyy-MM-dd hh:mm:ss");
 }
 
-//根据常量名称搜索
+//查询
 function search(){
+	g_total = null;//设置为null，使后台重新计算total值
 	$('#dg').bootstrapTable('selectPage',1);
 }
-
-//查询框回车执行查询操作
-$('#searchText').keydown(function(event){
-	if(event.keyCode == 13){
-		search();
-	}
-});
 
 //删除
 function del(index,id){

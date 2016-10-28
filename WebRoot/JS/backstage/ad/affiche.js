@@ -125,5 +125,14 @@ function modify(id){
 
 //删除
 function del(index,id){
-	g_bsFormTableExtend.delRecord(index,id,'affiche/delete/');
+	var jqConfirmExtend = new JqConfirmExtend();
+	if(confirm("确定要清空数据吗？")){
+		$.get('affiche/delete/'+id,function(result){
+			if(result == 1){
+				$('#dg').bootstrapTable("removeByUniqueId", id);//删除数据行
+			}else
+				jqConfirmExtend.autoClose();
+		});
+	 }
+//	g_bsFormTableExtend.delRecord(index,id,'affiche/delete/');
 }

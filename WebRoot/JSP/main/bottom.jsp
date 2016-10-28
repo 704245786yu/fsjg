@@ -17,9 +17,8 @@ margin:30px auto 10px auto;
 }
 </style>
 <div id="bottomDiv">
-	<p>网络备案号：浙ICP备09055575号-1   广告咨询热线：400-168-1978</p>
-	<p>公司地址：浙江省台州市黄岩区东城街道劳动南路398号上海商会一单元1101室 | 邮编：310000</p>
-	<p>Copyright©2009-2019 FSJGW.com. All Rights Reserved</p>
+	<p>关于我们&nbsp;&nbsp;|&nbsp;&nbsp;诚聘英才&nbsp;&nbsp;|&nbsp;&nbsp;广告咨询热线：400-168-1978</p>
+	<p>浙ICP备09055575号-1&nbsp;&nbsp;&nbsp;Copyright©2009-2019 FSJGW.com. 版权所有</p>
 	<div style="margin-top:20px;text-align:center;">
 		<img style="width:49px;" src="image/bottom/police.png">
 		<a target="_blank" href="http://www.12377.cn/"><img src="image/bottom/jubao.png"></a>

@@ -29,7 +29,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 查询条件 -->
 		<div class="form-inline" style="padding-bottom:10px;">
 			<div class="form-group">
-				<label for="startDate">发布日期</label>
+				<div class="form-group">
+					<label>工厂名称</label>
+					<input type="text" class="form-control" name="enterpriseName">
+				</div>
+				<div class="form-group">
+				<label>认证状态</label>
+					<select class="form-control" name="auditState">
+						<option value="">全部</option>
+						<option value="0">待审核</option>
+						<option value="1">未通过</option>
+						<option value="2">已通过</option>
+					</select>
+				</div>
+				<label for="startDate">创建日期</label>
 				<div class="input-group date">
 	                <input type="text" class="form-control" name="beginDate"/>
 	                <span class="input-group-addon">
@@ -45,16 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 			</div>
 			<div class="form-group">
-				<label for="workerAmount">员工数量</label>
-				<input type="text" class="form-control" name="workerAmount">
-			</div>
-			<div class="form-group">
-				<label for="processYear">加工年限</label>
-				<input type="text" class="form-control" name="processYear">
-			</div>
-			<div class="form-group">
-				<button type="button" class="btn btn-primary">查询</button>
-				<button type="button" class="btn btn-primary">清空</button>
+				<button type="button" class="btn btn-primary" onclick="search()">查询</button>
 			</div>
 	    </div><!-- form-inline -->
 	    
@@ -73,10 +77,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 		<!-- 数据表格 -->
-		<table id="dg" data-toggle="table" data-url="enterprise/getAllByPage" data-unique-id="id"
+		<table id="dg" data-toggle="table" data-url="enterprise/findByPage" data-unique-id="id"
 				data-pagination="true"
 				data-side-pagination="server"
-				data-query-params="getQueryParams"
+				data-query-params="queryParams"
 				data-page-size="10"
 				data-page-list="[10,20]">
 		    <thead>
@@ -89,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="auditState" data-align="center" data-formatter="auditStateFormatter">审核状态</th>
 		            <th data-field="processType" data-align="center" data-formatter="processTypeFormatter">加工类型</th>
 		            <th data-field="basicUser.createTime" data-align="center">注册时间</th>
-		            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
+		            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
 		        </tr>
 		    </thead>
 		</table>

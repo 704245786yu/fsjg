@@ -3,6 +3,7 @@ package com.basic.dao;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.type.StandardBasicTypes;
@@ -207,5 +208,36 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 				imgs[i] = "";
 		}
 		return imgs;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public BootTablePageDto<Enterprise> findByPage(String enterpriseName,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
+		StringBuffer hql = new StringBuffer("from Enterprise where 1=1");
+		List<String> params = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		if(enterpriseName.length()>0){
+			hql.append(" and enterpriseName like :enterpriseName");
+			params.add("enterpriseName");
+			values.add("%"+enterpriseName+"%");
+		}
+		if(auditState!=null){
+			hql.append(" and auditState =:auditState");
+			params.add("auditState");
+			values.add(auditState);
+		}
+		if(beginDate!=null && endDate!=null){
+			hql.append(" and basicUser.createTime between :beginDate and :endDate");
+			params.add("beginDate");
+			values.add(beginDate);
+			params.add("endDate");
+			values.add(endDate);
+		}
+		if(total==null){
+			StringBuffer countSql = new StringBuffer("select count(1) ");
+			countSql.append(hql);
+			total = super.getCount(countSql.toString(), params.toArray(new String[]{}), values.toArray(new Object[]{}));
+		}
+		List<Enterprise> list = (List<Enterprise>)super.findByPage(hql.toString(), offset, limit, params.toArray(new String[]{}), values.toArray(new Object[]{}));
+		return new BootTablePageDto<Enterprise>(total,list);
 	}
 }

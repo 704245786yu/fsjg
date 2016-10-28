@@ -77,7 +77,6 @@ function initAd(){
 		}
 		//首页表格小广告
 		if(ad.code=='home_table_sm_ad'){
-			console.log(ad.code);
 			var $a = $($('a.table_sm_ad')[tableSmAdIndex]);
 			tableSmAdIndex++;
 			setAdhrefAndImg($a,ad);
@@ -162,7 +161,6 @@ $('.mallCategory a,.cat-subcategory a,.costumeList table table a').click(functio
 	e.preventDefault();
 	var categoryName = $(this).html();
 	for(var key in g_costumeCategory){
-		console.log(g_costumeCategory.key);
 		if(g_costumeCategory[key] == categoryName)
 			location.href="enterprise/showList?costumeCode="+key+"&enterpriseKeyword="+g_costumeCategory[key]; 
 	}

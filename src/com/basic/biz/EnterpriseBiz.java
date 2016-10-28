@@ -47,6 +47,17 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return dao.isExsit(enterpriseName, enterpriseId);
 	}
 	
+	public BootTablePageDto<Enterprise> findByPage(String enterpriseName,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
+		BootTablePageDto<Enterprise> bt = dao.findByPage(enterpriseName, auditState, beginDate, endDate, offset, limit, total);
+		List<Enterprise> enterprises = bt.getRows();
+		for(int i=0; i<enterprises.size(); i++){
+			Enterprise e = enterprises.get(i);
+			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
+			e.setCostumeCode(costumeCode);
+		}
+		return bt;
+	}
+	
 	public ReturnValueVo batchSaveEnterprise(List<String[]> data,Integer userId){
 		HashMap<String,Integer> tradeMap = costumeCategoryBiz.getTrade();	//行业类型为服饰类型的一级分类
 		HashMap<String,Integer> costumeMap = costumeCategoryBiz.getAllNameCodeMap();	//服饰类型
@@ -314,18 +325,6 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return errorInfo;
 	}
 	
-	@Override
-	public BootTablePageDto<Enterprise> getAllByPage(Long total, int offset,int limit) {
-		BootTablePageDto<Enterprise> bt = super.getAllByPage(total, offset, limit);
-		List<Enterprise> enterprises = bt.getRows();
-		for(int i=0; i<enterprises.size(); i++){
-			Enterprise e = enterprises.get(i);
-			List<Integer> costumeCode = enterpriseCostumeRelaDao.getCostumeCode(e.getId());
-			e.setCostumeCode(costumeCode);
-		}
-		return bt;
-	}
-
 	/**获取加工企业的主营产品类型*/
 	public List<Integer> getCostumeCode(int enterpriseId){
 		return enterpriseCostumeRelaDao.getCostumeCode(enterpriseId);
@@ -472,9 +471,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	}
 	
 	/**先更新基本用户信息，后更新企业信息*/
-	@Override
 	@Transactional
-	public void update(Enterprise e) {
+	public void update(Enterprise e,Byte isAudit) {
 		BasicUser tempBasicUser = e.getBasicUser();
 		BasicUser basicUser = basicUserDao.findById(tempBasicUser.getId());
 		basicUser.setUserName(tempBasicUser.getUserName());
@@ -484,9 +482,17 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		basicUserDao.update(basicUser);
 		
 		Enterprise old = this.getByBasicUserId(tempBasicUser.getId());
-		e.setAuditState(old.getAuditState());
-		e.setAuditBy(old.getAuditBy());
-		e.setAuditTime(old.getAuditTime());
+		Byte oldAuditState = old.getAuditState();
+		//审核状态
+		if(isAudit==null || ((Integer)(isAudit+1)).equals(oldAuditState)){
+			e.setAuditState(oldAuditState);
+			e.setAuditBy(old.getAuditBy());
+			e.setAuditTime(old.getAuditTime());
+		}else{
+			e.setAuditState((byte)(isAudit+1));
+			e.setAuditBy(e.getBasicUser().getUpdateBy());
+			e.setAuditTime(new Date());
+		}
 		
 		//更新主营产品
 		List<Integer> newCodes = new ArrayList<Integer>(e.getCostumeCode().size()); 

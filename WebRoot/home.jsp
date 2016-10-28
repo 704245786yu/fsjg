@@ -980,7 +980,7 @@
 		<td><img src="image/home/icon_sm2.png"></td>
 		<td><h4>认证优势</h4></td>
 		<td><img src="image/home/icon_sm3.png"></td>
-		<td><h4>帮助中心</h4></td>
+		<td><h4>服务中心</h4></td>
 		<td><img src="image/home/icon_sm4.png"></td>
 		<td><h4>关注我们</h4></td>
 	</tr>
@@ -990,7 +990,7 @@
 		<td><div></div></td>
 		<td><p>个人实名</p><p>企业资质认证</p></td>
 		<td><div></div></td>
-		<td><p>关于我们</p><p>广告服务</p><p>诚聘英才</p></td>
+		<td><p>广告服务</p><p>认证服务</p></td>
 		<td><div></div></td>
 		<td><p><img style="width:48px;" src="image/home/wechat.png"><img style="width:48px;" src="image/home/qq.png"><img style="width:90px;" src="image/home/qrCode.png"></p></td>
 	</tr>
