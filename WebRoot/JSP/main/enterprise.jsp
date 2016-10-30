@@ -116,18 +116,18 @@
 				<div class="panel-body">
 					<table>
 						<tr>
-							<c:forEach var="enterprise" items="${enterprises}" end="3">
+							<c:forEach var="enterprise" items="${strengths}" end="3">
 								<td><img style="width:90px;height:90px;" src="uploadFile/enterprise/${enterprise.logo}"><div><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
 							</c:forEach>
 						</tr>
 						<tr style="height:40px;">
 							<!-- 省略号样式 -->
-							<c:forEach var="enterprise" items="${enterprises}" begin="4" end="7">
+							<c:forEach var="enterprise" items="${strengths}" begin="4" end="7">
 								<td><div style="width:119.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
 							</c:forEach>
 						</tr>
 						<tr>
-							<c:forEach var="enterprise" items="${enterprises}" begin="8" end="11">
+							<c:forEach var="enterprise" items="${strengths}" begin="8" end="11">
 								<td><div style="width:119.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
 							</c:forEach>
 						</tr>
