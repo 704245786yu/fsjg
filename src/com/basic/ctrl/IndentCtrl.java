@@ -185,7 +185,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	public ModelAndView search(Long province,Long city,Long county,Long town, Integer[] costumeCode,String indentKeyword){
 		if(indentKeyword == null)
 			indentKeyword = "";
-		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,0,20,null);
+		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,null,null,0,20,null);
 		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
 		
@@ -201,17 +201,19 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	
 	/**订单搜索,异步访问用,不能包括订单状态为2(已接单)和3(已失效)的订单
 	 * @param province..town 接单用户的省市区县乡镇编码
+	 * @param sortMark 排序标志,所有都按从大到小
+	 * @param isUrgency 只看急单
 	 * @param offset
 	 * @param total 可为null
 	 * */
 	@RequestMapping(value="search2")
 	@ResponseBody
 	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, 
-			Integer processType,Byte saleMarket,String indentKeyword,int offset,Long total){
+			Integer processType,Byte saleMarket,String indentKeyword,Byte sortMark, Boolean isUrgency, int offset,Long total){
 		if(indentKeyword == null)
 			indentKeyword = "";
 		int limit = 20;
-		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,processType,saleMarket,indentKeyword,offset,limit,total);
+		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,processType,saleMarket,indentKeyword,sortMark,isUrgency,offset,limit,total);
 		return result;
 	}
 	

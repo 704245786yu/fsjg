@@ -40,6 +40,25 @@ h3.cus-panel-title{
 	font-size: 14px;
 }
 
+/*订单排序*/
+#tableSort{
+	border:1px solid #E7E6E3;
+}
+#tableSort td{
+	border:1px solid #E7E6E3;
+	padding:5px;
+}
+#tableSort td span{
+	font-size:10px;
+}
+#tableSort td a{
+	text-decoration:none;
+	color:black;
+}
+#tableSort td a:hover{
+	color:#4EB1E5;
+}
+
 /*订单列表*/
 #indentDiv table{
 	border: 1px solid #E6E4E1;

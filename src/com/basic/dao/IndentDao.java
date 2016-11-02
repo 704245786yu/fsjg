@@ -19,6 +19,8 @@ import com.common.dto.BootTablePageDto;
 @Repository
 public class IndentDao extends BaseDao<Integer, Indent>{
 
+	//最新发布日期、有效日期、预计订单数量、预计交货日期
+	private static final String[] sortMarkAry = {"create_time","effective_date","quantity","pre_delivery_date"};
 	/**页面顶部的全局搜索：搜索订单
 	 * @param keyword 模糊匹配 订单名称、订单说明、详细说明
 	 * @param costumeCategoryCodes 服饰类型编码数组
@@ -89,10 +91,12 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	 * @param costumeCode[] 服饰类型编码数组
 	 * @param processType 加工类型
 	 * @param keyword 模糊匹配 订单名称、订单说明【、详细说明】
+  	 * @param sortMark 排序标志,所有都按从大到小
+	 * @param isUrgency 只看急单
 	 * @return id、订单名称、预计订单数量、预计交货日期、销售市场、订单类型、接单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
 	 * */
 	public BootTablePageDto<IndentDto> search(Long province,Long city,Long county,Long town, 
-			Integer[] costumeCodes,String processType,Byte saleMarket,String keyword,int offset,int limit,Long total){
+			Integer[] costumeCodes,String processType,Byte saleMarket,String keyword,Byte sortMark, Boolean isUrgency,int offset,int limit,Long total){
 		StringBuffer subSql = new StringBuffer(" from process_indent pi,(select user_id,1 as userType,province,city from basic_person ")
 			.append(" union select user_id,2 as userType,province,city from basic_enterprise ")
 			.append(") as user where pi.create_by = user.user_id and (indent_name like :keyword or description like :keyword)");
@@ -146,6 +150,11 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			values.add(saleMarket);
 		}
 		
+		//只看急单
+		if(Boolean.TRUE.equals(isUrgency)){
+			subSql.append(" and is_urgency = 1 ");
+		}
+		
 		//若有total表示翻页操作，无须再次查询total
 		if(total == null){
 			StringBuffer countSql = new StringBuffer("select count(1)");
@@ -154,10 +163,14 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			total = bigInt.longValue();
 		}
 		
+		//按sortMark排序
+		if(sortMark==null)
+			sortMark=0;//默认按最新发布时间排序
+		
 //		订单编号、订单名称、预计订单数量、预计交货日期、订单类型、发单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
 		StringBuffer sql = new StringBuffer("select indent_num as indentNum, indent_name as indentName, process_type as processType,quantity, sale_market as saleMarket,pre_delivery_date as preDeliveryDate, is_urgency as isUrgency,indent_type as indentType,"
 				+ "userType,province,city,cond_province as condProvince,cond_city as condCity, cond_demand as condDemand, create_time as createTime,effective_date as effectiveDate ");
-		sql.append(subSql);
+		sql.append(subSql).append(" order by ").append(sortMarkAry[sortMark]).append(" desc");
 		List<Object[]> scalars = new ArrayList<Object[]>();
 		scalars.add(new Object[]{"indentNum",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"indentName",StandardBasicTypes.STRING});

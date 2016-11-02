@@ -58,6 +58,17 @@ $('#tradeDiv a').click(function(e){
 	setCostumeCategoryDiv(href-1);
 });
 
+//排序a点击事件
+$('#tableSort a').click(function(e){
+	e.preventDefault();
+	$('#tableSort a').css('color','black');
+	var $a = $(this);
+	$a.css('color','#4EB1E5');
+	var href = $a.attr('href');
+	$('input[name="sortMark"]').val(href);
+	query();
+});
+
 function setCostumeCategoryDiv(index){
 	//默认显示第一个行业分类下的服饰类型
 	var costumeCategory = g_tradeAndCostumeMap[index].children;
@@ -112,6 +123,10 @@ function query(offset,totalRows){
 	processType = processType == 0 ? null : processType;
 	var saleMarket = $('#saleMarket a.label').attr('href');
 	saleMarket = saleMarket == 0 ? null : saleMarket;
+	//排序
+	var sortMark = $('input[name="sortMark"]').val();
+	//只看急单
+	var isUrgency = $('#tableSort input[type="checkbox"]').prop('checked');
 	var $div = $('#indentDiv');
 	$div.empty();
 	//顶部搜索框
@@ -120,7 +135,7 @@ function query(offset,totalRows){
 	$keyword.val(indentKeyword);//清除空白符
 	$.get('indent/search2',
 		{'costumeCode':costumeCode, 'province':province, 'city':city, 'county':county, 'town':town,
-		'processType':processType, 'saleMarket':saleMarket,'indentKeyword':indentKeyword,'offset':offset,'total':totalRows},
+		'processType':processType, 'saleMarket':saleMarket,'indentKeyword':indentKeyword,'sortMark':sortMark,'isUrgency':isUrgency,'offset':offset,'total':totalRows},
 		function(data){
 			//isResetPagination为true需重新初始化分页控件
 			if(totalRows==undefined){

@@ -115,7 +115,18 @@
 		<a class="ad" target="_blank"><img style="width:100%;height:90px;"></a>
 		
 		<input id="totalRows" type="hidden" value="${result.total}">
-		<table class="table" style="font-size:18px;">
+		<!-- 结果排序 -->
+		<input name="sortMark" type="hidden">
+		<table id="tableSort">
+			<tr>
+				<td><a href="0">最新发布<span class="glyphicon glyphicon-arrow-down"></span></a></td>
+				<td><a href="1">有效日期<span class="glyphicon glyphicon-arrow-down"></span></a></td>
+				<td><a href="2">订单数量<span class="glyphicon glyphicon-arrow-down"></span></a></td>
+				<td><a href="3">预计交货日期<span class="glyphicon glyphicon-arrow-down"></span></a></td>
+				<td><input type="checkbox" onclick="query()"> 只看急单</td>
+			</tr>
+		</table>
+		<table class="table" style="font-size:18px;margin-bottom:0px;background-color:white;">
 			<tr>
 				<th style="width:280px;">订单信息</th>
 				<th style="width:120px;">订单类型</th>
