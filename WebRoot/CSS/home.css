@@ -260,8 +260,9 @@ a.left_big_ad > img{
 	width:50%;
 	padding:5px 10px;
 }
-#tradeNews td div{
+#tradeNews td p{
 	color:grey;
 	float:right;
 	margin-right:10px;
+	margin-bottom:0px;
 }

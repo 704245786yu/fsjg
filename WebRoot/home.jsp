@@ -972,7 +972,17 @@
 	<p style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">行业资讯</p>
 	<table style="width:100%;">
 		<tr>
-			<td><img/></td>
+			<td>
+				<div class="media">
+  					<a class="media-left">
+						<img>
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">${tradeNews[0].title}</h4>
+						${tradeNews[0].content}
+					</div>
+				</div>
+			</td>
 			<td>${tradeNews[1].title}</td>
 		</tr>
 		<tr>
@@ -980,16 +990,16 @@
 			<td>${tradeNews[1].title}</td>
 		</tr>
 		<tr>
-			<td>${tradeNews[4].title}<div><fmt:formatDate value="${tradeNews[4].updateTime}"/></div></td>
-			<td>${tradeNews[5].title}<div><fmt:formatDate value="${tradeNews[5].updateTime}"/></div></td>
+			<td>${tradeNews[4].title}<p><fmt:formatDate value="${tradeNews[4].updateTime}"/></p></td>
+			<td>${tradeNews[5].title}<p><fmt:formatDate value="${tradeNews[5].updateTime}"/></p></td>
 		</tr>
 		<tr>
-			<td>${tradeNews[6].title}<div><fmt:formatDate value="${tradeNews[6].updateTime}"/></div></td>
-			<td>${tradeNews[7].title}<div><fmt:formatDate value="${tradeNews[7].updateTime}"/></div></td>
+			<td>${tradeNews[6].title}<p><fmt:formatDate value="${tradeNews[6].updateTime}"/></p></td>
+			<td>${tradeNews[7].title}<p><fmt:formatDate value="${tradeNews[7].updateTime}"/></p></td>
 		</tr>
 		<tr>
-			<td>${tradeNews[8].title}<div><fmt:formatDate value="${tradeNews[8].updateTime}"/></div></td>
-			<td>${tradeNews[9].title}<div><fmt:formatDate value="${tradeNews[9].updateTime}"/></div></td>
+			<td>${tradeNews[8].title}<p><fmt:formatDate value="${tradeNews[8].updateTime}"/></p></td>
+			<td>${tradeNews[9].title}<p><fmt:formatDate value="${tradeNews[9].updateTime}"/></p></td>
 		</tr>
 	</table>
 </div>
