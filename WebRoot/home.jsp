@@ -974,37 +974,84 @@
 		<tr>
 			<td>
 				<div class="media">
-  					<a class="media-left">
-						<img>
+  					<a class="media-left" target="_blank" href="tradeNews/showDetail/${tradeNews[0].id}">
+						<img src=""/>
 					</a>
 					<div class="media-body">
-						<h4 class="media-heading">${tradeNews[0].title}</h4>
-						${tradeNews[0].content}
+						<a target="_blank" href="tradeNews/showDetail/${tradeNews[0].id}"><h4 class="media-heading">${tradeNews[0].title}</h4></a>
+						<span>${tradeNews[0].content}</span>
 					</div>
 				</div>
 			</td>
-			<td>${tradeNews[1].title}</td>
+			<td>
+				<div class="media">
+  					<a class="media-left" target="_blank" href="tradeNews/showDetail/${tradeNews[1].id}">
+						<img src=""/>
+					</a>
+					<div class="media-body">
+						<a target="_blank" href="tradeNews/showDetail/${tradeNews[1].id}"><h4 class="media-heading">${tradeNews[1].title}</h4></a>
+						<span>${tradeNews[1].content}</span>
+					</div>
+				</div>
+			</td>
 		</tr>
 		<tr>
-			<td>${tradeNews[0].title}</td>
-			<td>${tradeNews[1].title}</td>
+			<td>
+				<div class="media">
+  					<a class="media-left" target="_blank" href="tradeNews/showDetail/${tradeNews[2].id}">
+						<img src=""/>
+					</a>
+					<div class="media-body">
+						<a target="_blank" href="tradeNews/showDetail/${tradeNews[2].id}"><h4 class="media-heading">${tradeNews[2].title}</h4></a>
+						<span>${tradeNews[2].content}</span>
+					</div>
+				</div>
+			</td>
+			<td>
+				<div class="media">
+  					<a class="media-left" target="_blank" href="tradeNews/showDetail/${tradeNews[3].id}">
+						<img src=""/>
+					</a>
+					<div class="media-body">
+						<a target="_blank" href="tradeNews/showDetail/${tradeNews[3].id}"><h4 class="media-heading">${tradeNews[3].title}</h4></a>
+						<span>${tradeNews[3].content}</span>
+					</div>
+				</div>
+			</td>
 		</tr>
 		<tr>
-			<td>${tradeNews[4].title}<p><fmt:formatDate value="${tradeNews[4].updateTime}"/></p></td>
-			<td>${tradeNews[5].title}<p><fmt:formatDate value="${tradeNews[5].updateTime}"/></p></td>
+			<td>
+				<a target="_blank" href="tradeNews/showDetail/${tradeNews[4].id}">${tradeNews[4].title}</a>
+				<p><fmt:formatDate value="${tradeNews[4].updateTime}"/></p>
+			</td>
+			<td>
+				<a target="_blank" href="tradeNews/showDetail/${tradeNews[5].id}">${tradeNews[5].title}</a>
+				<p><fmt:formatDate value="${tradeNews[5].updateTime}"/></p>
+			</td>
 		</tr>
 		<tr>
-			<td>${tradeNews[6].title}<p><fmt:formatDate value="${tradeNews[6].updateTime}"/></p></td>
-			<td>${tradeNews[7].title}<p><fmt:formatDate value="${tradeNews[7].updateTime}"/></p></td>
+			<td>
+				<a target="_blank" href="tradeNews/showDetail/${tradeNews[6].id}">${tradeNews[6].title}</a>
+				<p><fmt:formatDate value="${tradeNews[6].updateTime}"/></p>
+			</td>
+			<td>
+				<a target="_blank" href="tradeNews/showDetail/${tradeNews[7].id}">${tradeNews[7].title}</a>
+				<p><fmt:formatDate value="${tradeNews[7].updateTime}"/></p></td>
 		</tr>
 		<tr>
-			<td>${tradeNews[8].title}<p><fmt:formatDate value="${tradeNews[8].updateTime}"/></p></td>
-			<td>${tradeNews[9].title}<p><fmt:formatDate value="${tradeNews[9].updateTime}"/></p></td>
+			<td>
+				<a target="_blank" href="tradeNews/showDetail/${tradeNews[8].id}">${tradeNews[8].title}</a>
+				<p><fmt:formatDate value="${tradeNews[8].updateTime}"/></p>
+			</td>
+			<td>
+				<a target="_blank" href="tradeNews/showDetail/${tradeNews[9].id}">${tradeNews[9].title}</a>
+				<p><fmt:formatDate value="${tradeNews[9].updateTime}"/></p>
+			</td>
 		</tr>
 	</table>
 </div>
 
-<div style="font-size:16px;">友情链接</div>
+<div style="font-size:16px;margin-top:20px;">友情链接</div>
 <p style="border-top:2px solid grey;padding:5px 10px;line-height:30px;">
 	<c:forEach items="${blogrolls}" var="blogroll">
 		<a style="color:black;margin-right:20px;" href="${blogroll.url}" target="_blank">${blogroll.name}</a>

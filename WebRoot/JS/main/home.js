@@ -8,6 +8,7 @@ $(function(){
 	mallCategory();
 	initCostumeObj();
 	initAffiche();
+	initTradeNews();
 });
 
 function initCostumeObj(){
@@ -155,6 +156,28 @@ function initAffiche(){
 			});
 		}
 	});
+}
+
+//行业咨询
+function initTradeNews(){
+	var $imgs = $('#tradeNews .media-left > img');
+	var $spans = $('#tradeNews span');
+	for(var i=0; i<$spans.length; i++){
+		var $span = $spans.eq(i);
+		var str = $span.html();
+		var re = /<img[^>]+>/g;  
+		var imgs = str.match(re);//截取图片
+		if(imgs!=null){
+			var src = $(imgs[0]).attr('src');
+			$imgs.eq(i).attr('src',src);
+		}
+		str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+		str = str.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+		//str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+		str=str.replace(/&nbsp;/ig,'');//去掉&nbsp;
+		str=str.replace(/\s/g,''); //将空格去掉
+		$span.html(str.substr(0,100));
+	}
 }
 
 $('.mallCategory a,.cat-subcategory a,.costumeList table table a').click(function(e){

@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="panel-body">
 	    
 	<!-- 数据表格 -->
-	<table id="dg" data-toggle="table" data-url="adPosition/getAll" data-unique-id="id"
+	<table id="dg" data-toggle="table" data-url="adPosition/getAll" data-cache="false" data-unique-id="id"
 		data-search="true" data-search-on-enter-key="true" data-search-align="left">
 	    <thead>
 	        <tr>

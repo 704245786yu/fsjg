@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>	    
 	<!-- 数据表格 -->
-	<table id="dg" data-toggle="table" data-url="tradeNews/findByParam" data-unique-id="id" data-query-params="queryParams">
+	<table id="dg" data-toggle="table" data-url="tradeNews/findByParam" data-cache="false" data-unique-id="id" data-query-params="queryParams">
 	    <thead>
 	        <tr>
 	            <th data-field="title" data-align="center">咨询标题</th>
