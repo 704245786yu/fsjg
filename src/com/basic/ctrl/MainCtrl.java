@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ad.biz.AdPositionBiz;
 import com.ad.biz.BlogrollBiz;
+import com.ad.biz.TradeNewsBiz;
 import com.ad.po.AdPosition;
 import com.ad.po.Blogroll;
+import com.ad.po.TradeNews;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.vo.AuthEnterpriseVo;
 import com.basic.vo.StrengthEnterpriseVo;
@@ -25,6 +27,8 @@ public class MainCtrl {
 	private BlogrollBiz blogrollBiz;
 	@Autowired
 	private AdPositionBiz adPositionBiz;
+	@Autowired
+	private TradeNewsBiz tradeNewsBiz;
 	
 	@RequestMapping({"/","home"})
 	public String home(Model model){
@@ -40,6 +44,9 @@ public class MainCtrl {
 		//广告位
 		List<AdPosition> adPositions = adPositionBiz.getByCode("home");
 		model.addAttribute("adPositions", JacksonJson.beanToJson(adPositions));
+		//行业资讯
+		List<TradeNews> tradeNews = tradeNewsBiz.getTen();
+		model.addAttribute("tradeNews", tradeNews);
 		return "../home";
 	}
 }

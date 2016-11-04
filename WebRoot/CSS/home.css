@@ -255,3 +255,13 @@ a.mid_ad img{
 a.left_big_ad > img{
 	width:100%;
 }
+
+#tradeNews td{
+	width:50%;
+	padding:5px 10px;
+}
+#tradeNews td div{
+	color:grey;
+	float:right;
+	margin-right:10px;
+}

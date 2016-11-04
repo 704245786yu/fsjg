@@ -1,7 +1,7 @@
 /*!
  * UEditor
  * version: ueditor
- * build: Thu Jun 16 2016 12:38:04 GMT+0800 (CST)
+ * build: Wed Aug 10 2016 11:06:16 GMT+0800 (CST)
  */
 
 (function(){
@@ -23974,10 +23974,7 @@ UE.plugin.register('autosave', function (){
             },
 
             'contentchange': function () {
-            	 //新增加的代码
-                if (!me.getOpt('enableAutoSave')) {
-                    return;
-                }
+
                 if ( !saveKey ) {
                     return;
                 }

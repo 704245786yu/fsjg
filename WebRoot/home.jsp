@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -964,6 +965,33 @@
 		<a class="prev prevStop"><span class="glyphicon glyphicon-chevron-left"></span></a> 
 		<a class="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 	</div>
+</div>
+
+<!-- 行业资讯 -->
+<div id="tradeNews" style="border:1px solid #DDDDDD;">
+	<p style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">行业资讯</p>
+	<table style="width:100%;">
+		<tr>
+			<td><img/></td>
+			<td>${tradeNews[1].title}</td>
+		</tr>
+		<tr>
+			<td>${tradeNews[0].title}</td>
+			<td>${tradeNews[1].title}</td>
+		</tr>
+		<tr>
+			<td>${tradeNews[4].title}<div><fmt:formatDate value="${tradeNews[4].updateTime}"/></div></td>
+			<td>${tradeNews[5].title}<div><fmt:formatDate value="${tradeNews[5].updateTime}"/></div></td>
+		</tr>
+		<tr>
+			<td>${tradeNews[6].title}<div><fmt:formatDate value="${tradeNews[6].updateTime}"/></div></td>
+			<td>${tradeNews[7].title}<div><fmt:formatDate value="${tradeNews[7].updateTime}"/></div></td>
+		</tr>
+		<tr>
+			<td>${tradeNews[8].title}<div><fmt:formatDate value="${tradeNews[8].updateTime}"/></div></td>
+			<td>${tradeNews[9].title}<div><fmt:formatDate value="${tradeNews[9].updateTime}"/></div></td>
+		</tr>
+	</table>
 </div>
 
 <div style="font-size:16px;">友情链接</div>
