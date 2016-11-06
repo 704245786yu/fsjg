@@ -119,9 +119,9 @@ function initAd(){
 		}else if(ad.code=='home_mid_6'){
 			var $a = $($('a.mid_ad')[5]);
 			setAdhrefAndImg($a,ad);
-		}else if(ad.code='home_bottom_caro'){
-			var $tempLi = $picScrollLi.clone();
-			var $a = $bottomCaroLi.children('a');
+		}else if(ad.code=='home_bottom_caro'){
+			var $tempLi = $bottomCaroLi.clone();
+			var $a = $tempLi.children('a');
 			setAdhrefAndImg($a,ad);
 			$bottomCaroUl.append($tempLi);
 		}
@@ -161,7 +161,7 @@ function initAffiche(){
 //行业咨询
 function initTradeNews(){
 	var $imgs = $('#tradeNews .media-left > img');
-	var $spans = $('#tradeNews span');
+	var $spans = $('#tradeNews .media-body > span');
 	for(var i=0; i<$spans.length; i++){
 		var $span = $spans.eq(i);
 		var str = $span.html();

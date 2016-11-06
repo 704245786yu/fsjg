@@ -40,7 +40,7 @@ text-decoration:none;
 	</ul> -->
 	<a href="#person" data-toggle="tab">个人注册</a> <a href="#enterprise" data-toggle="tab" style="margin-left:20px;">工厂注册</a>
 	<div style="float:right;">
-	<a href="login.jsp">登录</a>
+		<a href="login.jsp">登录</a>
 	</div>
 	<!-- Tab panes -->
 	<input type="hidden" name="userType" value="${param.userType}">
@@ -76,7 +76,7 @@ text-decoration:none;
 				</div>
 				<br/>
 				<div class="row">
-					<div class="col-sm-7 col-sm-offset-3">
+					<div class="col-sm-12">
 						<button type="submit" class="btn btn-primary btn-lg">立即注册</button>
 					</div>
 				</div>
@@ -116,7 +116,7 @@ text-decoration:none;
 				</div>
 				<br/>
 				<div class="row">
-					<div class="col-sm-7 col-sm-offset-3">
+					<div class="col-sm-12">
 						<button type="submit" class="btn btn-primary btn-lg">立即注册</button>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-var g_auditState = {"1":"待审核","2":"未通过","3":"已通过"};//审核状态
+var g_auditState = {"0":"待审核","1":"未通过","2":"已通过"};//审核状态
 var g_userState = {"0":"正常","1":"冻结"};	//用户状态
 var g_jqConfirm = new JqConfirmExtend();
 var g_total = null;

@@ -121,6 +121,11 @@ $('#ff').bootstrapValidator({
     		validators: {
     			digits:{
     				message:'必须为数字'
+    			},
+    			stringLength: {
+    				min:5,
+    				max: 10,
+    				message: '5~10个字符'
     			}
     		}
     	},

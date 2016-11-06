@@ -20,8 +20,8 @@ $('#ff').bootstrapValidator({
     				message: '不能为空'
     			},
     			stringLength: {
-    				max: 20,
-    				message: '最多20个字'
+    				max: 30,
+    				message: '最多30个字'
     			}
     		}
     	}

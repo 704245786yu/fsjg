@@ -61,8 +61,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td><label>发单地区</label></td>
-								<td><button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择发单地区</button></td>
+								<td><label>所在地区</label></td>
+								<td><button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择所在地区</button></td>
 							</tr>
 							<tr>
 								<td><label>关 键 字</label></td>
@@ -251,12 +251,12 @@
 				</div>
 			</div>
 		</div>
-		<!-- 最新入住的工厂 -->
+		<!-- 最新入驻的工厂 -->
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新入住的工厂</h3>
+						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新入驻的工厂</h3>
 					</div>
 					<div class="panel-body" style="padding:0px;">
 						<ul id="newEnterpriseList" class="list-group">

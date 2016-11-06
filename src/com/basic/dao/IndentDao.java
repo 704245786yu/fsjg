@@ -133,7 +133,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			StringBuffer subCostumeCode = new StringBuffer(" costume_code like '%"+costumeCodes[0]+"%'");
 			for(int i=1; i<costumeCodes.length; i++)
 				subCostumeCode.append(" or costume_code like '%"+costumeCodes[i]+"%'");
-			subSql.append(" and ("+subCostumeCode.toString()+")");
+			subSql.append(" or ("+subCostumeCode.toString()+")");
 		}
 		
 		//加工类型

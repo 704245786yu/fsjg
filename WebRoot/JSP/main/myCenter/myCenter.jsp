@@ -53,9 +53,13 @@
 						</tr>
 						<tr>
 							<td colspan="3" class="auth">
-								<span><img src="image/enterpriseDetail/email_tg.png">邮箱认证</span>
+								<c:if test="${userInfo.email==null}">
+									<span><img src="image/enterpriseDetail/email_tg.png">邮箱认证</span>
+								</c:if>
 								<span><img src="image/enterpriseDetail/telephone_tg.png">手机认证</span>
-								<span><img src="image/enterpriseDetail/realname_tg.png">实名认证</span>
+								<c:if test="${userInfo.auditState==2}">
+									<span><img src="image/enterpriseDetail/realname_tg.png">实名认证</span>
+								</c:if>
 							</td>
 						</tr>
 					</table>
@@ -83,9 +87,13 @@
 						</tr>
 						<tr>
 							<td colspan="3" class="auth">
-								<span><img src="image/enterpriseDetail/email_tg.png">邮箱认证</span>
+								<c:if test="${userInfo.email==null}">
+									<span><img src="image/enterpriseDetail/email_tg.png">邮箱认证</span>
+								</c:if>
 								<span><img src="image/enterpriseDetail/telephone_tg.png">手机认证</span>
-								<span><img src="image/enterpriseDetail/qualification_tg.png">资质认证</span>
+								<c:if test="${userInfo.auditState==2}">
+									<span><img src="image/enterpriseDetail/qualification_tg.png">资质认证</span>
+								</c:if>
 							</td>
 						</tr>
 					</table>

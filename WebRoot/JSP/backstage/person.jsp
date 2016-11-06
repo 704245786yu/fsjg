@@ -42,9 +42,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label>审核状态</label>
 				<select class="form-control" name="auditState">
 					<option value="">全部</option>
-					<option value="1">待审核</option>
-					<option value="2">未通过</option>
-					<option value="3">已通过</option>
+					<option value="0">待审核</option>
+					<option value="1">未通过</option>
+					<option value="2">已通过</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -320,8 +320,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4">
-					<button type="button" class="btn btn-primary" onclick="audit(3)" style="width:100px;">审核通过</button>
-					<button type="button" class="btn btn-primary" onclick="audit(2)" style="width:100px;">审核不通过</button>
+					<button type="button" class="btn btn-primary" onclick="audit(2)" style="width:100px;">审核通过</button>
+					<button type="button" class="btn btn-primary" onclick="audit(1)" style="width:100px;">审核不通过</button>
 				</div>
 			</div>
 		</div>

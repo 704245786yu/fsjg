@@ -1,6 +1,7 @@
 package com.basic.ctrl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +83,14 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Long,District>{
 	 * */
 	@RequestMapping("getCascade")
 	@ResponseBody
-	public Map<String, List<District>> getCascade(long province, long city, long county){
+	public Map<String, List<District>> getCascade(long province, Long city, Long county){
 		List<District> cityList = biz.getNameAndCodeByPcode(province);
-		List<District> countyList = biz.getNameAndCodeByPcode(city);
-		List<District> townList = biz.getNameAndCodeByPcode(county);
+		List<District> countyList = new ArrayList<District>();
+		if(city != null)
+			countyList = biz.getNameAndCodeByPcode(city);
+		List<District> townList = new ArrayList<District>();
+		if(county != null)
+				biz.getNameAndCodeByPcode(county);
 		Map<String, List<District>> map = new HashMap<String, List<District>>();
 		map.put("cityList", cityList);
 		map.put("countyList", countyList);
@@ -140,6 +145,7 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Long,District>{
 	public District update(District po, HttpSession session) {
 		int id = UserCtrl.getLoginUser(session).getId();
 		po.setUpdateBy(id);
+		po.setUpdateTime(new Date());
 		return super.update(po,session);
 	}
 	

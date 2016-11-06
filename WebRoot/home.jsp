@@ -954,13 +954,13 @@
 <div id="bottom_carousel">
 	<p style="border:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;">品牌加盟</p>
 	<div class="picScroll">
-		<div class="tempWrap" style="overflow:hidden; position:relative; width:1100px">
-			<ul style="width: 1206px; left: -9.62442px; position: relative; overflow: hidden; padding: 0px; margin: 0px;">
-				<!-- <li style="float:left; width:122px;"><a target="_blank"><img src="images/pic1.jpg"></a></li> -->
+		<div class="tempWrap" style="overflow:hidden; position:relative; width:100%">
+			<ul style="left: -9.62442px; position: relative; overflow: hidden; padding: 0px; margin: 0px;">
+				<!-- <li style="float:left; width:124px;display:none;"><a target="_blank"><img src="images/pic2.jpg"></a></li> -->
 			</ul>
 		</div>
 		<div name="sample" style="display:none;">
-			<li style="float:left; width:122px;margin-right:10px"><a target="_blank"><img></a></li>
+			<li style="float:left; width:124px;margin-right:10px"><a target="_blank"><img></a></li>
 		</div>
 		<a class="prev prevStop"><span class="glyphicon glyphicon-chevron-left"></span></a> 
 		<a class="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -1052,9 +1052,9 @@
 </div>
 
 <div style="font-size:16px;margin-top:20px;">友情链接</div>
-<p style="border-top:2px solid grey;padding:5px 10px;line-height:30px;">
+<p class="blogroll" style="border-top:2px solid grey;padding:5px 10px;line-height:30px;">
 	<c:forEach items="${blogrolls}" var="blogroll">
-		<a style="color:black;margin-right:20px;" href="${blogroll.url}" target="_blank">${blogroll.name}</a>
+		<a style="margin-right:20px;" href="${blogroll.url}" target="_blank">${blogroll.name}</a>
 	</c:forEach>
 </p>
 

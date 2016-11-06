@@ -28,7 +28,11 @@
 </div>
 <div class="background_div">
 	<div class="col-sm-3 col-sm-offset-8 form-box">
-		<h4>用户登录</h4>
+		<h4>用户登录
+			<div style="float:right;font-size:14px;">
+				<a href="JSP/signUp.jsp">注册</a>
+			</div>
+		</h4>
 		<form class="form-group" action="login/login" method="post">
 			<h4 id="signUpStatus" style="color:#008FDE">
 				<c:if test="${param.signUpStatus == 200}">
@@ -57,7 +61,6 @@
 				<label>
 					<input type="checkbox"> 记住密码
 				</label>
-				<div style="float:right;"><a href="JSP/signUp.jsp">注册</a></div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
