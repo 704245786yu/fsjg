@@ -29,7 +29,10 @@
 <div class="panel panel-default" style="margin-bottom:0px;">
 	<div id="detail-head" class="panel-body" style="background-color:#FCFCFC">
 		<h2>
-			${enterprise.enterpriseName}<small><span class="label" style="margin-left:10px;background-color:#FF842F">资质认证</span></small>
+			${enterprise.enterpriseName}
+			<c:if test="${enterprise.auditState==2}">
+				<small><span class="label" style="margin-left:10px;background-color:#FF842F">资质认证</span></small>
+			</c:if>
 		</h2>
 		<div class="pull-right">
 			<button type="button" class="btn btn-primary" style="background-color:#4fb3e8">QQ在线交流</button>
@@ -174,7 +177,7 @@
 			<div class="panel-body">
 				<div id="enterpriseList" class="row">
 					<c:forEach items="${enterpriseList}" var="enterprise" varStatus="status">
-						<div class="enterprise" style="width:300px;padding:0 15px;float:left;">
+						<div class="enterprise" style="width:300px;padding:0 3px;float:left;">
 							<div class="panel panel-default">
 								<div class="panel-body">
 							    	<div class="media">
@@ -182,12 +185,12 @@
 											<img class="media-object" style="width:90px;height:90px;" src="uploadFile/enterprise/default_logo.png">
 										</div>
 										<div class="media-body">
-											<h5 class="media-heading"><a>${enterprise.enterpriseName}</a></h5>
-											<p class="list-group-item-text">员工人数：${enterprise.staffNumber}人</p>
-											<p class="list-group-item-text">加工类型：<input type="hidden" name="processType" value="${enterprise.processType}"></p>
-											<p class="list-group-item-text">所在地区：<c:forEach items="${disctricsList[status.count-1]}" var="disctric">${disctric} </c:forEach></p>
+											<a target="_blank" href="enterprise/showDetail/${enterprise.id}"><h5 class="media-heading" style="font-weight:bold;">${enterprise.enterpriseName}</h5></a>
+											<p class="list-group-item-text" style="font-size:12px;">员工人数：${enterprise.staffNumber}人</p>
+											<p class="list-group-item-text" style="font-size:12px;">加工类型：<input type="hidden" name="processType" value="${enterprise.processType}"></p>
+											<p class="list-group-item-text" style="font-size:12px;">所在地区：<c:forEach items="${disctricsList[status.count-1]}" var="disctric">${disctric} </c:forEach></p>
 										</div>
-										<p style="margin-top:10px;text-align:center;">主营产品：<c:forEach items="${costumeNamesList[status.count-1]}" var="costume">${costume} </c:forEach></p>
+										<p style="margin-top:10px;text-align:center;font-size:12px;">主营产品：<c:forEach items="${costumeNamesList[status.count-1]}" var="costume">${costume} </c:forEach></p>
 									</div>
 								</div><!-- panel-body -->
 							</div><!-- panel -->
@@ -202,7 +205,7 @@
 			<div class="panel-body">
 				<p>免责声明：</p>
 				<p>
-					以上展示的信息由企业自行提供，内容的真实性、准确性和合法性由发布企业负责，服饰加工网对此不承担任何责任。如果发现虚假信息，欢迎到商圈举报，或直接致电客服热线：400-826-1700向我们反馈。
+					以上展示的信息由企业自行提供，内容的真实性、准确性和合法性由发布企业负责，服饰加工网对此不承担任何责任。如果发现虚假信息，欢迎到商圈举报，或直接致电客服热线：400-168-1978向我们反馈。
 				</p>
 			</div>
 		</div>

@@ -117,18 +117,18 @@
 					<table>
 						<tr>
 							<c:forEach var="enterprise" items="${strengths}" end="3">
-								<td><img style="width:90px;height:90px;" src="uploadFile/enterprise/${enterprise.logo}"><div><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
+								<td><img style="width:90px;height:90px;" src="uploadFile/enterprise/${enterprise.logo}"><div><a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
 							</c:forEach>
 						</tr>
 						<tr style="height:40px;">
 							<!-- 省略号样式 -->
 							<c:forEach var="enterprise" items="${strengths}" begin="4" end="7">
-								<td><div style="width:119.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
+								<td><div style="width:119.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
 							</c:forEach>
 						</tr>
 						<tr>
 							<c:forEach var="enterprise" items="${strengths}" begin="8" end="11">
-								<td><div style="width:119.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
+								<td><div style="width:119.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a></div></td>
 							</c:forEach>
 						</tr>
 					</table>
@@ -266,7 +266,7 @@
 										<img class="media-object" src="image/new.png">
 									</div>
 									<div class="media-body">
-										<h4 class="media-heading">工厂名称</h4>
+										<h4 class="media-heading"><a target="_blank">工厂名称</a></h4>
 										<p class="list-group-item-text">主营产品</p>
 									</div>
 								</div>
@@ -308,7 +308,7 @@
 					<div class="panel-body" style="padding:0px;">
 						<ul id="newAuthEnterpriseList" class="list-group">
 							<li class="list-group-item enterprise" style="display:none;">
-								<h4 class="media-heading">工厂名称</h4>
+								<h4 class="media-heading"><a target="_blank">工厂名称</a></h4>
 								<p class="list-group-item-text"></p>
 								<h4><span class="label" style="background-color:#ff6717">已通过资质认证</span></h4>
 							</li>

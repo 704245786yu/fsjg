@@ -125,7 +125,7 @@ text-decoration:none;
   </div>
 </div>
 </div>
-
+<%@ include file="/JSP/main/bottom.jsp"%>
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>

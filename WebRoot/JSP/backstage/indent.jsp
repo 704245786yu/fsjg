@@ -219,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4">
-					<button type="button" class="btn btn-warning" onclick="del()" style="width:100px;">垃圾处理</button>
+					<button type="button" class="btn btn-warning" onclick="del()" style="width:100px;">删除</button>
 				</div>
 			</div>
 		</div>

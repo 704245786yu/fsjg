@@ -122,7 +122,7 @@ function indentTypeFmt(value,row,index){
 
 function operFormatter(value,row,index){
 	var viewBtn = "<button type='button' class='btn btn-default btn-xs' title='查看' onclick='view("+row.id+")'><span class='text-primary glyphicon glyphicon-eye-open'></span></button>";
-	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='垃圾处理' onclick='del("+row.id+","+row.indentNum+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
+	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+row.id+","+row.indentNum+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
 	return viewBtn + delBtn;
 }
 

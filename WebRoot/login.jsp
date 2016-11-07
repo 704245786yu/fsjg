@@ -70,6 +70,7 @@
 		</form>
 	</div>
 </div>
+<%@ include file="/JSP/main/bottom.jsp"%>
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="JS/main/login.js"></script>

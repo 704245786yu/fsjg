@@ -19,6 +19,7 @@
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="plugin/bootstrap-login-form/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <link href="plugin/superSlide/superSlide.css" rel="stylesheet">
+<link href="CSS/common/default.css" rel="stylesheet">
 <link href="CSS/home.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
@@ -27,6 +28,7 @@
 <body>
 <input type="hidden" name="pageName" value="home">
 <a id="topAd" target="_blank;"><img style="height:90px;widht:100%;"></a>
+<br/>
 <%@ include file="JSP/main/top.jsp" %>
 
 <div class="main-body" style="width:1190px; margin:0 auto;">
@@ -634,7 +636,7 @@
 							<div class="col-md-4">
 								<img src="uploadFile/enterprise/${enterprise.logo}">
 								<div>
-									<a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
+									<a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
 								</div>
 							</div>
 						</c:forEach>
@@ -660,7 +662,7 @@
 							<div class="col-md-4">
 								<img src="uploadFile/enterprise/${enterprise.logo}">
 								<div>
-									<a href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
+									<a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
 								</div>
 							</div>
 						</c:forEach>

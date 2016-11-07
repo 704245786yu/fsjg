@@ -35,3 +35,8 @@ html,body,div,ul,p,span,button{
 	height:60px;
 	line-height:20px;
 }
+
+/*感兴趣的工厂*/
+#enterpriseList a{
+	text-decoration:none;
+}

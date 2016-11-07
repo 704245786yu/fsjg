@@ -91,7 +91,9 @@ function getNewest(){
 		for(var i=0; i<data.length; i++){
 			var enterprise = data[i];
 			var $new = $enterprise.clone().css('display','block');
-			var $head = $new.find('.media-heading').text(enterprise.enterpriseName);
+			var $head = $new.find('.media-heading');
+			var $a = $head.children('a')
+			$a.attr('href','enterprise/showDetail/'+enterprise.id).html(enterprise.enterpriseName);
 			var costumeCodes = enterprise.costumeCode;
 			var costumeStr = '';
 			for(j=0; j<costumeCodes.length; j++){
@@ -111,7 +113,9 @@ function getNewAuth(){
 		for(var i=0; i<data.length; i++){
 			var enterprise = data[i];
 			var $new = $enterprise.clone().css('display','block');
-			var $head = $new.find('.media-heading').text(enterprise.enterpriseName);
+			var $head = $new.find('.media-heading');
+			var $a = $head.children('a')
+			$a.attr('href','enterprise/showDetail/'+enterprise.id).html(enterprise.name);
 			var costumeCodes = enterprise.costumeCode;
 			var costumeStr = '';
 			for(j=0; j<costumeCodes.length; j++){

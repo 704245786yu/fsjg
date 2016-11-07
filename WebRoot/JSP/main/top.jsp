@@ -18,17 +18,18 @@
 		<c:if test="${loginBasicUser != null}">
 			<a href="basicUser/showMyCenter">我的服饰网</a>
 		</c:if>
-		<!-- <span>我的关注</span> -->
-		<span><a href="login/logout">退出</a></span>
+		<c:if test="${loginBasicUser != null}">
+			<span><a href="login/logout">退出</a></span>
+		</c:if>
 		<span><span class="glyphicon glyphicon-earphone"></span> <b>400-168-1978</b></span>
 	</div>
 </div>
 
 <!-- banner -->
-<div class="banner">
+<div class="banner" style="height:82px;">
 	<div class="row">
 		<div class="col-md-3" style="width:275px;">
-			<img src="image/logo.png">
+			<img src="image/logo.png" style="width:354px;height:82px;">
 		</div>
 		<div class="col-md-6 col-md-offset-1 searchBox">
 			<!-- 判断搜索框tab的选中状态 -->

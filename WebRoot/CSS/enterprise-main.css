@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+#newEnterpriseList a,#newAuthEnterpriseList a{
+	text-decoration:none;
+}
 /*工厂搜索*/
 .form-horizontal > table td{
 	padding-bottom:15px;
