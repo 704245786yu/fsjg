@@ -185,7 +185,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	public ModelAndView search(Long province,Long city,Long county,Long town, Integer[] costumeCode,String indentKeyword){
 		if(indentKeyword == null)
 			indentKeyword = "";
-		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,null,null,0,20,null);
+		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,null,null,indentKeyword,null,null,null,0,20,null);
 		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
 		
@@ -209,11 +209,11 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	@RequestMapping(value="search2")
 	@ResponseBody
 	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, 
-			Integer processType,Byte saleMarket,String indentKeyword,Byte sortMark, Boolean isUrgency, int offset,Long total){
+			Integer processType,Byte saleMarket,String indentKeyword,Byte sortMark, Byte userType, Boolean isUrgency, int offset,Long total){
 		if(indentKeyword == null)
 			indentKeyword = "";
 		int limit = 20;
-		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,processType,saleMarket,indentKeyword,sortMark,isUrgency,offset,limit,total);
+		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,processType,saleMarket,indentKeyword,sortMark,userType,isUrgency,offset,limit,total);
 		return result;
 	}
 	

@@ -107,6 +107,14 @@
 							<a href="2" onclick="return aClick(this)">外销</a>
 						</td>
 					</tr>
+					<tr>
+						<td><b>发单客户：</b></td>
+						<td id="userType">
+							<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
+							<a href="1" onclick="return aClick(this)">个人</a>
+							<a href="2" onclick="return aClick(this)">工厂</a>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>

@@ -259,8 +259,8 @@
 						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新入驻的工厂</h3>
 					</div>
 					<div class="panel-body" style="padding:0px;">
-						<ul id="newEnterpriseList" class="list-group">
-							<li class="list-group-item enterprise" style="display:none;">
+						<ul id="newEnterpriseList" class="list-group" style="margin-bottom:0px;">
+							<li class="list-group-item enterprise" style="display:none;border-bottom:0px;border-left:0px;border-right:0px;">
 								<div class="media">
 									<div class="media-left">
 										<img class="media-object" src="image/new.png">
@@ -306,8 +306,8 @@
 						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新认证加工厂</h3>
 					</div>
 					<div class="panel-body" style="padding:0px;">
-						<ul id="newAuthEnterpriseList" class="list-group">
-							<li class="list-group-item enterprise" style="display:none;">
+						<ul id="newAuthEnterpriseList" class="list-group" style="margin-bottom:0px;">
+							<li class="list-group-item enterprise" style="display:none;border-bottom:0px;border-left:0px;border-right:0px;">
 								<h4 class="media-heading"><a target="_blank">工厂名称</a></h4>
 								<p class="list-group-item-text"></p>
 								<h4><span class="label" style="background-color:#ff6717">已通过资质认证</span></h4>

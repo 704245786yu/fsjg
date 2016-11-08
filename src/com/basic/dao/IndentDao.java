@@ -96,7 +96,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	 * @return id、订单名称、预计订单数量、预计交货日期、销售市场、订单类型、接单省、城市、接单企业省、市、接单要求、发单企业、发布日期、有效日期
 	 * */
 	public BootTablePageDto<IndentDto> search(Long province,Long city,Long county,Long town, 
-			Integer[] costumeCodes,String processType,Byte saleMarket,String keyword,Byte sortMark, Boolean isUrgency,int offset,int limit,Long total){
+			Integer[] costumeCodes,String processType,Byte saleMarket,String keyword,Byte sortMark,Byte userType,Boolean isUrgency,int offset,int limit,Long total){
 		StringBuffer subSql = new StringBuffer(" from process_indent pi,(select user_id,1 as userType,province,city from basic_person ")
 			.append(" union select user_id,2 as userType,province,city from basic_enterprise ")
 			.append(") as user where pi.create_by = user.user_id and (indent_name like :keyword or description like :keyword)");
@@ -148,6 +148,13 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			subSql.append(" and sale_market =:saleMarket");
 			params.add("saleMarket");
 			values.add(saleMarket);
+		}
+		
+		//发单用户
+		if(userType != null){
+			subSql.append(" and create_user_type =:userType");
+			params.add("userType");
+			values.add(userType);
 		}
 		
 		//只看急单

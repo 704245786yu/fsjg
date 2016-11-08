@@ -16,7 +16,16 @@
 			<span style="color:#00AEE3">欢迎你,游客</span>
 		</c:if>
 		<c:if test="${loginBasicUser != null}">
-			<a href="basicUser/showMyCenter">我的服饰网</a>
+			<a href="basicUser/showMyCenter">
+				<c:choose>
+					<c:when test="${loginBasicUser.userName!=null}">
+						${loginBasicUser.userName}
+					</c:when>
+					<c:when test="${loginBasicUser.telephone!=null}">
+						${loginBasicUser.telephone}
+					</c:when>
+				</c:choose>
+			</a>
 		</c:if>
 		<c:if test="${loginBasicUser != null}">
 			<span><a href="login/logout">退出</a></span>

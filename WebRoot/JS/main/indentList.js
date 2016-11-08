@@ -123,6 +123,9 @@ function query(offset,totalRows){
 	processType = processType == 0 ? null : processType;
 	var saleMarket = $('#saleMarket a.label').attr('href');
 	saleMarket = saleMarket == 0 ? null : saleMarket;
+	//发单用户
+	var userType = $('#userType a.label').attr('href');
+	userType = userType == 0 ? null : userType;
 	//排序
 	var sortMark = $('input[name="sortMark"]').val();
 	//只看急单
@@ -135,7 +138,7 @@ function query(offset,totalRows){
 	$keyword.val(indentKeyword);//清除空白符
 	$.get('indent/search2',
 		{'costumeCode':costumeCode, 'province':province, 'city':city, 'county':county, 'town':town,
-		'processType':processType, 'saleMarket':saleMarket,'indentKeyword':indentKeyword,'sortMark':sortMark,'isUrgency':isUrgency,'offset':offset,'total':totalRows},
+		'processType':processType, 'saleMarket':saleMarket,'indentKeyword':indentKeyword,'sortMark':sortMark,'userType':userType,'isUrgency':isUrgency,'offset':offset,'total':totalRows},
 		function(data){
 			//isResetPagination为true需重新初始化分页控件
 			if(totalRows==undefined){
