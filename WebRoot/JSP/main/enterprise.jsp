@@ -241,9 +241,9 @@
 					<div class="panel-heading">
 						 <h3 class="panel-title cus-panel-title">如何找到合适的工厂?</h3>
 					</div>
-					<div class="panel-body">
-						<p>1.从产品类别，发单地区进行初步筛选服装工厂</p>
-						<p>2.利用高级搜索中的员工总数条件缩小范围</p>
+					<div class="panel-body" style="padding-bottom:10px;">
+						<p>1.从产品类别，所在地区进行初步筛选服装工厂</p>
+						<p>2.利用搜索关键字缩小找工厂范围</p>
 						<p>3.优先查看资质认证，实名认证的企业</p>
 						<p>4.价格比较敏感的订单可以考虑有当期愿意以优惠价格成交工厂</p>
 						<p>5.通过QQ在线进行交流，获取价格</p>
