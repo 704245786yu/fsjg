@@ -2,6 +2,9 @@ jQuery(document).ready(function() {
 	//Fullscreen background
     $.backstretch("plugin/bootstrap-login-form/img/login_bg.jpg");
     
+    if(window != top)
+		top.location.href = location.href;
+    
     $("input").focus(function(){
     	$(this).removeClass('input-error');
 		$("#errorMsg").fadeOut();

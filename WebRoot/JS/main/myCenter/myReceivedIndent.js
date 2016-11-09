@@ -1,16 +1,10 @@
 var g_total = null;
 
 $(function(){
-	$('input[name="beginDate"]').datetimepicker({
+	$('.date').datetimepicker({
 		format: 'YYYY-MM-DD',
-		locale: 'zh-cn',
-		defaultDate:moment().subtract(1,'months')
-    });
-	$('input[name="endDate"]').datetimepicker({
-		format: 'YYYY-MM-DD',
-		locale: 'zh-cn',
-		defaultDate:moment()
-    });
+		locale: 'zh-cn'
+	});
 	$('input[name="indentNum"').mask('#');
 	
 	var options = $('#dg').bootstrapTable('getOptions');

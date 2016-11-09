@@ -11,8 +11,7 @@ $(function(){
 	var $effectiveDate = $('#effectiveDate');
 	var effectiveDate = $effectiveDate.html().split(' ')[0];
 	var date = moment(effectiveDate);
-	var now = moment();
-	var days = date.get('date')-now.get('date')+1;
+	var days = date.diff(moment(),'days');
 	days = days<0 ? 0 : days; 
 	
 	$effectiveDate.html(effectiveDate+'&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red;font-size:16px;">仅剩'+days+'天</strong>');
@@ -27,6 +26,8 @@ $(function(){
 	var $photo = $('.photo');
 	var photoAry = $(':hidden[name="photo"]').val().split(',');
 	for(var i=0; i<photoAry.length; i++){
+		if(photoAry[i]=='')
+			break;
 		var $temp = $photo.clone();
 		$temp.css('display','inline');
 		$temp.attr('src', $temp.attr('src')+photoAry[i]);

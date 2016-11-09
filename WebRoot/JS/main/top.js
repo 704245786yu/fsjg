@@ -3,7 +3,8 @@ $(function(){
 	if(pageName=="home"){
 		$('li[name="li-home"] a').text("服饰分类");
 	}
-	$('li[name="li-'+pageName+'"]').css("background-image","url('image/nav-orange.png')");
+//	$('li[name="li-'+pageName+'"]').css("background-image","url('image/nav-orange.png')");
+	$('li[name="li-'+pageName+'"]').css("background-color","#1b72ce");
 	
 	//通用头部搜索切换
     $('#search-hd .search-input').on('input propertychange',function(){

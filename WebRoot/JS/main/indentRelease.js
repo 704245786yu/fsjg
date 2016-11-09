@@ -83,8 +83,8 @@ $('#ff').bootstrapValidator({
     	condDemand:{
     		validators: {
 	    		stringLength: {
-					max: 50,
-					message: '最多50个字'
+					max: 100,
+					message: '最多100个字'
 				}
     		}
     	},
@@ -113,6 +113,7 @@ $('#ff').bootstrapValidator({
 function initUEditor(){
 	var ue = UE.getEditor('editor', {
 	    autoFloatEnabled: true,
+	    elementPathEnabled:false,
 	    toolbars: [
 		    [
 		        'undo', //撤销

@@ -74,4 +74,9 @@ public class EnterpriseTest {
 	public void getStrength(){
 		JacksonJson.printBeanToJson(enterpriseBiz.getStrength(8));
 	}
+	
+	@Test
+	public void getName(){
+		System.out.println(enterpriseDao.getName(310));
+	}
 }

@@ -241,4 +241,12 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		List<Enterprise> list = (List<Enterprise>)super.findByPage(hql.toString(), offset, limit, params.toArray(new String[]{}), values.toArray(new Object[]{}));
 		return new BootTablePageDto<Enterprise>(total,list);
 	}
+	
+	/**根据企业ID获取企业名称
+	 * @param id 企业ID
+	 * @return enterpriseName
+	 * */
+	public String getName(int id){
+		return (String)super.find("select enterpriseName from Enterprise where id =:id",new String[]{"id"},new Integer[]{id}).get(0);
+	}
 }

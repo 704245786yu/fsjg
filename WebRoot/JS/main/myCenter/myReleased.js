@@ -2,16 +2,19 @@ var g_state = {0:'未收到报价',1:'已收到报价',2:'已接单',3:'已失�
 var g_total = null;
 
 $(function(){
-	$('input[name="beginDate"]').datetimepicker({
+//	$('input[name="beginDate"]').datetimepicker({
+//		format: 'YYYY-MM-DD',
+//		locale: 'zh-cn',
+//    });
+//	$('input[name="endDate"]').datetimepicker({
+//		format: 'YYYY-MM-DD',
+//		locale: 'zh-cn',
+//		defaultDate:moment()
+//    });
+	$('.date').datetimepicker({
 		format: 'YYYY-MM-DD',
-		locale: 'zh-cn',
-		defaultDate:moment().subtract(1,'months')
-    });
-	$('input[name="endDate"]').datetimepicker({
-		format: 'YYYY-MM-DD',
-		locale: 'zh-cn',
-		defaultDate:moment()
-    });
+		locale: 'zh-cn'
+	});
 	$('input[name="indentNum"').mask('#');
 	
 	var options = $('#dg').bootstrapTable('getOptions');

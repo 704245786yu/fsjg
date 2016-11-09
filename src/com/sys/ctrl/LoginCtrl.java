@@ -180,7 +180,7 @@ public class LoginCtrl {
 	public ModelAndView mngLogout(HttpSession session){
 		session.removeAttribute(loginMngUser);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:../login.jsp");
+		mav.setViewName("redirect:../backstage");
 		return mav;
 	}
 	

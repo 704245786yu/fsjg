@@ -43,19 +43,20 @@ public class SMS {
 	
 	/**发送短信通知:收到报价
 	 * @param indentName 订单名称
+	 * @param enterpriseName 报价工厂名称
 	 * @param telephone 手机号
 	 * @return 返回验证码发送状态
 	 * */
 	@SuppressWarnings("unchecked")
-	public static HashMap<String,LinkedHashMap<String,Object>> sendQuoteNotice(String indentName,String telephone){
+	public static HashMap<String,LinkedHashMap<String,Object>> sendQuoteNotice(String indentName,String enterpriseName,String telephone){
 		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
 		AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
 		req.setExtend("");
 		req.setSmsType(smsType);
 		req.setSmsFreeSignName(freeSignName);
-		req.setSmsParamString("{indentName:'"+indentName+"'}");
+		req.setSmsParamString("{indentName:'"+indentName+"',enterpriseName:'"+enterpriseName+"'}");
 		req.setRecNum(telephone);
-		req.setSmsTemplateCode("SMS_16675931");
+		req.setSmsTemplateCode("SMS_25745336");
 		AlibabaAliqinFcSmsNumSendResponse rsp = null;
 		try {
 			rsp = client.execute(req);
@@ -81,7 +82,7 @@ public class SMS {
 		req.setSmsFreeSignName(freeSignName);
 		req.setSmsParamString("{indentName:'"+indentName+"'}");
 		req.setRecNum(tele);
-		req.setSmsTemplateCode("SMS_16706105");
+		req.setSmsTemplateCode("SMS_25665147");
 		AlibabaAliqinFcSmsNumSendResponse rsp = null;
 		try {
 			rsp = client.execute(req);

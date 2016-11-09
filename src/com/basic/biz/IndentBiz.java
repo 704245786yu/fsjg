@@ -103,8 +103,12 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	 * */
 	public BootTablePageDto<Indent> getMyReleased(Long indentNum, String indentName, Byte state, String beginDate, String endDate,
 			int createBy, Long total, int offset, int limit){
-		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
-		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length() >0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");			
+		}
 		return dao.getMyReleased(indentNum, indentName, state, beginTime, endTime, createBy, total, offset, limit);
 	}
 	
@@ -121,24 +125,36 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	 * */
 	public BootTablePageDto<MyQuotedVo> getMyQuoted(Long indentNum, String indentName, Byte state, String beginDate, String endDate,
 			int enterpriseId, Long total, int offset, int limit){
-		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
-		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length() >0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");			
+		}
 		return dao.getMyQuoted(indentNum, indentName, state, beginTime, endTime, enterpriseId, total, offset, limit);
 	}
 	
 	/**个人中心-我收到报价的订单*/
 	public BootTablePageDto<IndentVo> myReceivedQuote(Long indentNum, String indentName, String beginDate, String endDate,
 			int createBy, Long total, int offset, int limit){
-		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
-		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length() >0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");			
+		}
 		return dao.myReceivedQuote(indentNum, indentName, beginTime, endTime, createBy, total, offset, limit);
 	}
 	
 	/**个人中心-我收到的订单*/
 	public BootTablePageDto<MyQuotedVo> myReceivedIndent(Long indentNum, String indentName, String beginDate, String endDate,
 			int enterpriseId, Long total, int offset, int limit){
-		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
-		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length() >0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");			
+		}
 		return dao.myReceivedIndent(indentNum, indentName, beginTime, endTime, enterpriseId, total, offset, limit);
 	}
 	
@@ -156,8 +172,12 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	/**我确认的订单*/
 	public BootTablePageDto<ConfirmIndentVo> myConfirmed(Long indentNum, String indentName, String beginDate, String endDate,
 			int createBy, Long total, int offset, int limit){
-		Date beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
-		Date endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length() >0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");			
+		}
 		return dao.myConfirmed(indentNum, indentName, beginTime, endTime, createBy, total, offset, limit);
 	}
 	

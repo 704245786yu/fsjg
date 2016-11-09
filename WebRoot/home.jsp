@@ -572,7 +572,7 @@
 		<!-- 右边栏 -->
 		<td width="230px">
 			<div class="panel panel-default" style="margin-bottom:5px;">
-				<div class="panel-body">
+				<div class="panel-body" style="padding:20px 0 0 0;">
 					<div class="media">
 						<div class="media-left">
 							<img class="media-object" src="image/touxiang.png">
@@ -582,11 +582,17 @@
 							<p>欢迎来到服饰加工网</p>
 						</div>
 					</div>
-					<div class="btn-group btn-group-justified">
-						<a class="btn btn-default btn-lg" href="login.jsp" style="width:49%"><i class="fa fa-key"></i>登录</a>
-						<a class="btn btn-default btn-lg" href="JSP/signUp.jsp" style="width:47%"><i class="fa fa-pencil"></i>注册</a>
-					</div>
-					<h5>公告</h5>
+					<table class="loginButtonGrp">
+						<tr>
+							<td>
+								<a href="login.jsp"><i class="fa fa-key"></i>登录</a>
+							</td>
+							<td>
+								<a href="JSP/signUp.jsp" ><i class="fa fa-pencil"></i>注册</a>
+							</td>
+						</tr>
+					</table>
+					<h5 style="padding:0 10px;">公告</h5>
 					<ul class="affiche">
 					    <!-- <li>[公告]B2B的春天正在到来</li>
 					    <li>[公告]海外尖货频道上线</li>

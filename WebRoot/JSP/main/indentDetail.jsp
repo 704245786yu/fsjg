@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -66,7 +67,7 @@
 							</c:if>
 							<c:if test="${indent.document != ''}">
 								<div style="text-align:center;margin-bottom:10px;">订单有附件可以下载，更详细！</div>
-								<div style="text-align:center;"><a class="btn btn-warning" href="http://localhost:8080/indent/${indent.document}" style="width:170px;background-color:#ff5719;">立即下载</a></div>
+								<div style="text-align:center;"><a class="btn btn-warning" href="uploadFile/indent/${indent.document}" style="width:170px;background-color:#ff5719;">立即下载</a></div>
 							</c:if>
 						</c:when>
 					</c:choose>
@@ -88,7 +89,7 @@
 			</tr>
 			<tr>
 				<td>预计数量：</td><td>${indent.quantity}件</td>
-				<td>目标价：</td><td id="expectPrice">${indent.expectPrice}</td>
+				<td>目标价：</td><td id="expectPrice"><fmt:formatNumber type="currency" value="${indent.expectPrice}"></fmt:formatNumber></td>
 			</tr>
 			<tr>
 				<td>有效日期：</td><td id="effectiveDate">${indent.effectiveDate}</td>
@@ -97,7 +98,7 @@
 			<c:if test="${loginBasicUser != null}">
 				<tr>
 					<td colspan="5">
-						<img class="photo" src="http://localhost:8080/indent/" width="120px" height="120px" style="display:none;margin-left:10px;border:1px solid #DDDDDD"/>
+						<img class="photo" src="uploadFile/indent/" width="120px" height="120px" style="display:none;margin-left:10px;border:1px solid #DDDDDD"/>
 						<input type="hidden" name="photo" value="${indent.photo}"/>
 					</td>
 				</tr>
