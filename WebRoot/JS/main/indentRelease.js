@@ -164,6 +164,12 @@ function initFileUpload(){
 			var fileName = file.name;
 			var size = file.size;
 			var type = file.type;
+			var $imgNamesDiv = $('#imgNames div');
+			console.log($imgNamesDiv.length);
+			if($imgNamesDiv.length >=5){
+				new JqConfirmExtend().autoClose("最多上传5张图片");
+				return false;
+			}
 			if(type!="image/png" && type!="image/jpeg"){
 				new JqConfirmExtend().autoClose("请上传jpg或png格式图片");
 				return false;

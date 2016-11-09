@@ -295,7 +295,7 @@
 		</li>
 		<li class="list-group-item" style="padding:30px 0 50px 70px;">
 			<button type="submit" class="btn btn-info" style="width:340px;height:40px;font-size:20px;background-color:#00A1E8;">确认发布</button>
-			<button type="button" class="btn btn-warning" style="width:180px;height:40px;font-size:20px;background-color:#FF7623;">取消</button>
+			<a type="button" onClick="javascript:history.back(-1);" class="btn btn-warning" style="width:180px;height:40px;font-size:20px;background-color:#FF7623;">取消</a>
 		</li>
 	</ul>
 	</form>
