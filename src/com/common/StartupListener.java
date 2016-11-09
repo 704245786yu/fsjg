@@ -51,9 +51,9 @@ public class StartupListener implements ServletContextListener {
 		HashMap<String,String> processTypeMap = constantDictBiz.getValueNameMap("process_type");
 		sc.setAttribute("processTypeMap", JacksonJson.beanToJson(processTypeMap));
 		
-		//省、市 的编码、名称键值对
+		//全国地区的编码、名称键值对
 		DistrictBiz districtBiz = wac.getBean(DistrictBiz.class);
-		HashMap<Long,String> districtMap = districtBiz.getProvinceAndCityMap();
+		HashMap<Long,String> districtMap = districtBiz.getAllMap();
 		sc.setAttribute("districtMap", JacksonJson.beanToJson(districtMap));
 	}
 	

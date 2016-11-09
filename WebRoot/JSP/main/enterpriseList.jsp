@@ -191,7 +191,7 @@
 			<tr height="40px">
 				<td style="text-align:center;background-color:white;">所在地区：</td>
 				<td style="background-color:white;">
-					<span name="disctrict">[${enterprise.province},${enterprise.city}]</span>
+					<span name="disctrict">[${enterprise.province},${enterprise.city},${enterprise.county},${enterprise.town}]</span>
 					<span style="margin-left:180px;color:red;">
 						主营产品:
 						<span name="costumeName">${enterprise.costumeCode}</span>

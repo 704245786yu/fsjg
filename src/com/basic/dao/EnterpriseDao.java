@@ -167,7 +167,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 			total = bigInt.longValue();
 		}
 		
-		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, left(description,150) as description, province, city, county, logo");
+		StringBuffer sql = new StringBuffer("select id, enterprise_name as enterpriseName, process_type as processType, staff_number as staffNumber, left(description,150) as description, province, city, county, town, logo");
 		sql.append(subSql);
 		List<Object[]> scalars = new ArrayList<Object[]>();
 		scalars.add(new Object[]{"id",StandardBasicTypes.INTEGER});
@@ -178,6 +178,7 @@ public class EnterpriseDao extends BaseDao<Integer, Enterprise>{
 		scalars.add(new Object[]{"province",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"city",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"county",StandardBasicTypes.LONG});
+		scalars.add(new Object[]{"town",StandardBasicTypes.LONG});
 		scalars.add(new Object[]{"logo",StandardBasicTypes.STRING});
 		List<Enterprise> enterprises = super.findByNativeSql(sql.toString(), params, values, scalars, offset, limit);
 		return new BootTablePageDto<Enterprise>(total, enterprises);
