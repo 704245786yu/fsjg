@@ -92,6 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 数据表格 -->
 <div style="padding:0px 10px;">
 	<table id="dg" data-toggle="table" data-unique-id="id"
+			data-cache="false"
 			data-pagination="true"
 			data-side-pagination="server"
 			data-query-params="queryParams"
