@@ -93,6 +93,7 @@ public class LoginCtrl {
 			return mav;
 		}
 
+		basicUser.setState((byte)0);
 		errorMsg = basicUserBiz.signUp(basicUser, enterpriseName);
 		if(errorMsg != null){
 			mav.setViewName(redirectSignUp);
