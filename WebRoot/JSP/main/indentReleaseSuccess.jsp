@@ -24,7 +24,7 @@
 
 <div style="width:1190px; margin:0 auto;">
 	<div class="panel panel-default">
-		<div class="panel-body" style="padding-top:110px;padding-left:60px;">
+		<div class="panel-body" style="padding-left:60px;">
 			<table style="margin:70px auto 68px auto;">
 				<tr>
 					<td style="padding-right:10px;">

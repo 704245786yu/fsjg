@@ -93,7 +93,7 @@
 			</tr>
 			<tr>
 				<td>有效日期：</td><td id="effectiveDate">${indent.effectiveDate}</td>
-				<td>加工类型：</td><td>${processType}</td>
+				<td>加工类型：</td><td><input type="hidden" name="processType" value="${indent.processType}"></td>
 			</tr>
 			<c:if test="${loginBasicUser != null}">
 				<tr>

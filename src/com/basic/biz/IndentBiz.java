@@ -207,7 +207,7 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	/**取前10条最新报价*/
 	@SuppressWarnings("unchecked")
 	public List<NewstQuoteIndentVo> getNewstQuote(){
-		String hql = "select indentNum,count(indentNum) from IndentQuote  group by indentNum order by createTime desc";
+		String hql = "select indentNum,count(indentNum) from IndentQuote group by indentNum order by createTime desc";
 		List<Object[]> list1 = (List<Object[]>)dao.findByPage(hql,0,10,new String[]{},new Object[]{});
 		ArrayList<Long> indentNums = new ArrayList<Long>();
 		for(int i=0; i<list1.size(); i++){

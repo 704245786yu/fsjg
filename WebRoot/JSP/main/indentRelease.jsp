@@ -115,11 +115,6 @@
 					<td style="width:120px;">加工类型：</td>
 					<td colspan="2">
 						<div class="form-group">
-							<%-- <c:forEach items="${processTypes}" var="processType">
-								<div class="radio" style="margin:0 50px 0 0;float:left;">
-									<label><input type="radio" name="processType" value="${processType.constantValue}">${processType.constantName}</label>
-								</div>
-							</c:forEach> --%>
 							<div class="radio" style="margin:0 50px 0 0;float:left;">
 								<label><input type="radio" name="processType" value="1">清加工</label>
 							</div>

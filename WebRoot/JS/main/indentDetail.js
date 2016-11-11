@@ -1,3 +1,5 @@
+var g_processType = {'1':'清加工','2':'经销','3':'其他'};
+
 $(function(){
 	$('#loginModal').modal('hide');
 	//目标价
@@ -22,6 +24,9 @@ $(function(){
 	}else if(indentType==2){
 		$indentType.html('看款下单');
 	}
+	//加工类型
+	var $processType = $(':hidden[name="processType"]');
+	$processType.after(g_processType[$processType.val()]);
 	
 	var $photo = $('.photo');
 	var photoAry = $(':hidden[name="photo"]').val().split(',');

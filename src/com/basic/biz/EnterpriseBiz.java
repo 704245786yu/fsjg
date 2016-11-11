@@ -251,6 +251,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		String[] processTypeAry = processType.split("，");	//中文逗号分割
 		for(int i=0; i<processTypeAry.length; i++){
 			String processTypeValue = processTypeMap.get(processTypeAry[i]);
+			if(processTypeValue==null)
+				return "";
 			processCodeBuf.append(processTypeValue).append(',');
 		}
 		return processCodeBuf.toString().substring(0, processCodeBuf.length()-1);

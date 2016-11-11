@@ -24,7 +24,7 @@ $('#dg').bootstrapTable({
 });
 
 function queryParams(params){
-	var enterpriseName = $('#listPanel input[name="enterpriseName"]').val();
+	var enterpriseName = $('#listPanel input[name="enterpriseName"]').val().trim();
 	var auditState = $('#listPanel select[name="auditState"]').val();
 	var beginDate = $('#listPanel input[name="beginDate"]').val();
 	var endDate = $('#listPanel input[name="endDate"]').val();
