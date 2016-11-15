@@ -23,6 +23,8 @@ public class AdPosition {
 	
 	private String code;//广告位编码
 	
+	private String size;//尺寸
+	
 	private Byte sort;//广告位排序
 	
 	private String title;//广告标题
@@ -70,6 +72,14 @@ public class AdPosition {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 	public Byte getSort() {

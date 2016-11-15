@@ -34,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-align="center" data-formatter="seqnumFormatter">序号</th>
 	            <th data-field="name" data-align="center">广告名称</th>
 	            <th data-field="code" data-align="center">广告编码</th>
+	            <th data-field="size" data-align="center">尺寸</th>
 	            <th data-field="sort" data-align="center">排序号</th>
 	            <th data-field="title" data-align="center">广告标题</th>
 	            <th data-field="img" data-align="center" data-formatter="imgFmt">广告图片</th>
@@ -62,6 +63,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label class="col-sm-1 control-label">广告编码</label>
 				<div class="col-sm-3">
 					<input type="text" class="form-control" name="code" readonly="readonly">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">尺寸</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="size">
 				</div>
 			</div>
 			<div class="form-group">
