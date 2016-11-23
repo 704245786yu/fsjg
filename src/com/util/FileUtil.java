@@ -1,6 +1,12 @@
 package com.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.parser.MediaType;
 
 public class FileUtil {
 
@@ -27,4 +33,32 @@ public class FileUtil {
 		}
 		return true;
 	}
+	
+	/**下 载文件
+	 
+	public void download(HttpServletResponse response, String path, String fileName, String actualName) {
+        File f = new File(path,fileName);  
+        if (!f.exists()) {
+    		try {
+    			response.setContentType("text/html;charset=UTF-8"); 
+//    			response.getWriter().write("<script>alert('无法下载该文件 !');window.history.back(-1);</script>");
+    			response.getWriter().write("<script>alert('无法下载该文件 !');</script>");
+				return;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+         }
+        byte b[] = null;
+		try(InputStream in = new FileInputStream(f)){
+			b =new byte[(int)f.length()];//创建合适文件大小的数组  
+			in.read(b);
+			    response.setContentType(MediaType.parseMediaType());
+                response.setHeader("Content-disposition", "attachment; filename=\""+new String(name.getBytes(), "iso-8859-1")+"\"");
+                FileCopyUtils.copy(b, response.getOutputStream());
+            	in.close(); 
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}  		
+	}*/
+	
 }

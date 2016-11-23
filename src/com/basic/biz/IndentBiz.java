@@ -209,6 +209,8 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	public List<NewstQuoteIndentVo> getNewstQuote(){
 		String hql = "select indentNum,count(indentNum) from IndentQuote group by indentNum order by createTime desc";
 		List<Object[]> list1 = (List<Object[]>)dao.findByPage(hql,0,10,new String[]{},new Object[]{});
+		if(list1.size() == 0)
+			return null;
 		ArrayList<Long> indentNums = new ArrayList<Long>();
 		for(int i=0; i<list1.size(); i++){
 			indentNums.add((Long)list1.get(i)[0]);
