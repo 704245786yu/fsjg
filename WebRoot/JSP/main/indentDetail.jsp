@@ -10,7 +10,7 @@
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服饰加工网-订单详情</title>
+<title>服饰加工网-订单详情</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -67,7 +67,7 @@
 							</c:if>
 							<c:if test="${indent.document != ''}">
 								<div style="text-align:center;margin-bottom:10px;">订单有附件可以下载，更详细！</div>
-								<div style="text-align:center;"><a class="btn btn-warning" href="uploadFile/indent/${indent.document}" style="width:170px;background-color:#ff5719;">立即下载</a></div>
+								<div style="text-align:center;"><a class="btn btn-warning" href="indent/downloadRes?document=${indent.document}" style="width:170px;background-color:#ff5719;">立即下载</a></div>
 							</c:if>
 						</c:when>
 					</c:choose>

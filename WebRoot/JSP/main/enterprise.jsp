@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服饰加工网-加工工厂</title>
+<title>服饰加工网-加工工厂</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -161,7 +161,7 @@
 										<h4 class="media-heading"><a target="_blank">工厂名称</a></h4>
 										<p class="list-group-item-text">员工人数</p>
 										<p class="list-group-item-text">加工类型</p>
-										<p class="list-group-item-text">主营产品</p>
+										<p class="list-group-item-text" style="width:290px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">主营产品</p>
 									</div>
 								</div>
 							</div><!-- panel-body -->

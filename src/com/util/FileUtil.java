@@ -1,12 +1,6 @@
 package com.util;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.parser.MediaType;
 
 public class FileUtil {
 

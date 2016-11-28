@@ -27,7 +27,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2 text">
-						<h1>中国服饰加工平台管理平台</h1>
+						<h1>服饰加工平台管理平台</h1>
 						<div class="description">
 							<p>
 								<b>Chinese apparel processing network platform management background</b>

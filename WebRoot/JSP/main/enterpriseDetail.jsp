@@ -9,7 +9,7 @@
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>中国服饰加工网-加工工厂</title>
+<title>服饰加工网-加工工厂</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">

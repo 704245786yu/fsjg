@@ -38,7 +38,9 @@
 <div class="banner" style="height:82px;">
 	<div class="row">
 		<div class="col-md-3" style="width:275px;">
-			<img src="image/logo.png" style="width:354px;height:82px;">
+			<a href="">
+				<img src="image/logo.png" style="width:354px;height:82px;">
+			</a>
 		</div>
 		<div class="col-md-6 col-md-offset-1 searchBox">
 			<!-- 判断搜索框tab的选中状态 -->
@@ -72,10 +74,10 @@
 	<div style="width:1190px;margin:0 auto;">
 		<ul class="nav navbar-nav" >
 			<li name="li-home"><a href="home" style="width:230px">首页</a></li>
-			<li name="li-enterprise"><a href="enterprise">加工工厂</a></li>
-			<li name="li-indent"><a href="indent">加工订单</a></li>
-			<li><a href="#">快产专家</a></li>
-			<li><a href="#">服饰样品</a></li>
+			<li name="li-enterprise"><a target="_blank" href="enterprise">加工工厂</a></li>
+			<li name="li-indent"><a target="_blank" href="indent">加工订单</a></li>
+			<li><a target="_blank" href="#">快产专家</a></li>
+			<li><a target="_blank" href="#">服饰样品</a></li>
 		</ul>
 	</div>
 </nav>

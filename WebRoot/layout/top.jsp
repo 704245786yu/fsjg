@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<div style="margin:0">
 		<h3>
-  			中国服饰加工网后台管理
+  			服饰加工网后台管理
 	   		<div style="float:right;margin-right:20px;font-weight:normal;font-size:16px;">
 	   			<span class="label label-primary" style="font-size:14px;margin-right:20px;">${loginMngUser.realName}</span>
 		   		<a href="login/mngLogout" style="text-decoration:none;">退出</a>

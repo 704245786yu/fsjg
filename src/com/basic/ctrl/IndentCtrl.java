@@ -1,7 +1,11 @@
 package com.basic.ctrl;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -147,7 +151,7 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 			Date date = new Date();
 			String newFileName = basicUser.getId()+""+date.getTime()+"."+suffix;
 			file.transferTo(new File(uploadDir + newFileName));
-			return new ReturnValueVo(ReturnValueVo.SUCCESS, newFileName);
+			return new ReturnValueVo(ReturnValueVo.SUCCESS, fileName+","+newFileName);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION, null);
@@ -412,10 +416,30 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	}
 	
 	@RequestMapping("downloadRes")
-	public String downloadRes(HttpSession session,HttpServletResponse response){
+	public void downloadRes(HttpSession session,HttpServletResponse response,String document){
+		String[] fileNames = document.split(",");
 		try {
 			String uploadDir = session.getServletContext().getResource("uploadFile/indent/").getPath();
+			File file = new File(uploadDir,fileNames[1]);
+			if(file.exists()){
+				response.setContentType("application/octet-stream");
+				String fileName = new String(fileNames[0].getBytes("utf-8"),"iso-8859-1");
+				response.addHeader("Content-Disposition", "attachment;filename="+fileName);
+				byte[] buffer = new byte[1024];
+				try( BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file)) ){
+					OutputStream os = response.getOutputStream();
+					int i = bis.read(buffer);
+					while(i != -1){
+						os.write(buffer, 0, i);
+						i = bis.read(buffer);
+					}
+				}catch(IOException ex){
+					ex.printStackTrace();
+				}
+			}
 		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
