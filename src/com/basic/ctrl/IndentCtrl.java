@@ -2,10 +2,12 @@ package com.basic.ctrl;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -409,4 +411,12 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		return biz.delByIndentNum(indentNum);
 	}
 	
+	@RequestMapping("downloadRes")
+	public String downloadRes(HttpSession session,HttpServletResponse response){
+		try {
+			String uploadDir = session.getServletContext().getResource("uploadFile/indent/").getPath();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+	}
 }

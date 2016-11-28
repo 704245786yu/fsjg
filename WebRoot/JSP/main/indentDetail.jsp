@@ -88,8 +88,19 @@
 				<td>订单类型：</td><td id="indentType">${indent.indentType}</td>
 			</tr>
 			<tr>
-				<td>预计数量：</td><td>${indent.quantity}件</td>
-				<td>目标价：</td><td id="expectPrice"><fmt:formatNumber type="currency" value="${indent.expectPrice}"></fmt:formatNumber></td>
+				<td>预计数量：</td>
+				<td>${indent.quantity}件</td>
+				<td>目标价：</td>
+				<td id="expectPrice">
+					<c:choose>
+						<c:when test="${indent.expectPrice==-1}">
+							面谈
+						</c:when>
+						<c:when test="${indent.expectPrice!=-1}">
+							<fmt:formatNumber type="currency" value="${indent.expectPrice}"></fmt:formatNumber>
+						</c:when>
+					</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td>有效日期：</td><td id="effectiveDate">${indent.effectiveDate}</td>
@@ -98,7 +109,7 @@
 			<c:if test="${loginBasicUser != null}">
 				<tr>
 					<td colspan="5">
-						<img class="photo" src="uploadFile/indent/" width="120px" height="120px" style="display:none;margin-left:10px;border:1px solid #DDDDDD"/>
+						<img class="photo" src="uploadFile/indent/" width="115px" height="120px" style="display:none;margin-left:10px;border:1px solid #DDDDDD"/>
 						<input type="hidden" name="photo" value="${indent.photo}"/>
 					</td>
 				</tr>
