@@ -64,3 +64,6 @@ nav.topNav li a:hover{
 	/* background-image: url("../image/nav-orange.png"); */
 	background-color: #1b72ce;
 }
+nav.topNav li a:visited {
+	background-color:#3089e7;
+}
