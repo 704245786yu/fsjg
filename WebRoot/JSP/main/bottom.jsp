@@ -15,9 +15,19 @@ margin:30px auto 10px auto;
 	width:124px;
 	height:54px;
 }
+#bottomDiv a{
+	color:#666666;
+	text-decoration:none;
+}
+#bottomDiv a:hover{
+	color:#337AB7;
+}
 </style>
 <div id="bottomDiv">
-	<p>关于我们&nbsp;&nbsp;|&nbsp;&nbsp;诚聘英才&nbsp;&nbsp;|&nbsp;&nbsp;广告咨询热线：400-168-1978</p>
+	<p>
+		<a target="_blank" href="JSP/main/note.jsp?index=gywm">关于我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a target="_blank" href="JSP/main/note.jsp?index=cpyc">诚聘英才</a>&nbsp;&nbsp;|&nbsp;&nbsp;广告咨询热线：400-168-1978
+		</p>
 	<p>浙ICP备09055575号-1&nbsp;&nbsp;&nbsp;Copyright©2009-2019 FSJGW.com. 版权所有</p>
 	<div style="margin-top:20px;text-align:center;">
 		<img style="width:49px;" src="image/bottom/police.png">

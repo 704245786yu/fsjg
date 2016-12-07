@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 	<link href="plugin/jQuery-File-Upload/css/jquery.fileupload.css" rel="stylesheet">
-	<link href="plugin/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	<link href="plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 </head>
   
 <body>
@@ -29,20 +29,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 查询条件 -->
 		<div class="form-inline" style="padding-bottom:10px;">
 			<div class="form-group">
-				<label for="startDate">发布日期</label>
-				<input type="text" class="form-control" style="width:270px;" id="daterange" name="daterange">
+				<div class="form-group">
+					<label>用户名</label>
+					<input type="text" class="form-control" name="userName">
+				</div>
+				<div class="form-group">
+					<label>手机号码</label>
+					<input type="text" class="form-control" name="telephone">
+				</div>
+				<div class="form-group">
+					<label>审核状态</label>
+					<select class="form-control" name="auditState">
+						<option value="">全部</option>
+						<option value="0">待审核</option>
+						<option value="1">未通过</option>
+						<option value="2">已通过</option>
+					</select>
+				</div>
+				<label for="startDate">创建日期</label>
+				<div class="input-group date">
+	                <input type="text" class="form-control" name="beginDate"/>
+	                <span class="input-group-addon">
+	                	<span class="glyphicon glyphicon-calendar"></span>
+	                </span>
+	            </div>
+				至
+				<div class="input-group date">
+	                <input type="text" class="form-control" name="endDate"/>
+	                <span class="input-group-addon">
+	                	<span class="glyphicon glyphicon-calendar"></span>
+	                </span>
+	            </div>
 			</div>
 			<div class="form-group">
-				<label for="workerAmount">员工数量</label>
-				<input type="text" class="form-control" name="workerAmount">
-			</div>
-			<div class="form-group">
-				<label for="processYear">加工年限</label>
-				<input type="text" class="form-control" name="processYear">
-			</div>
-			<div class="form-group">
-				<button type="button" class="btn btn-primary">查询</button>
-				<button type="button" class="btn btn-primary">清空</button>
+				<button type="button" class="btn btn-primary" onclick="search()">查询</button>
 			</div>
 	    </div><!-- form-inline -->
 	    
@@ -82,130 +102,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div><!-- panel-body -->
 </div><!-- panel -->
 
-<!-- 查看快产专家
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="dialog" style="width:500px">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-				<h4 class="modal-title">查看快产专家</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="form-group">
-						<label class="col-sm-3 control-label">用户名 </label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="userName"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">真实姓名</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="realName"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">性别</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="gender"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">年龄</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="age"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">省</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="province"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">市</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="city"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">区县</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="county"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">镇/乡/街道</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="town"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">详细地址</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="detailAddr"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">电话</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="telephone"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">实名认证状态</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="authenticationState"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">审核状态</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="auditState"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">用户状态</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="personState"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="email" class="col-sm-3 control-label">电子邮箱</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="email"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="qq" class="col-sm-3 control-label">QQ</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="qq"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="fixPhone" class="col-sm-3 control-label">固定电话</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="fixPhone"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="wechat" class="col-sm-3 control-label">微信</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="wechat"></p>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="idCard" class="col-sm-3 control-label">身份证号</label>
-						<div class="col-sm-9">
-							<p class="form-control-static" name="idCard"></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
- -->
 <script src="plugin/jquery.min.js"></script>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/jquery-confirm/jquery-confirm.min.js"></script>
@@ -215,8 +111,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <script src="plugin/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 
-<script src="plugin/bootstrap-daterangepicker/moment.min.js"></script>
-<script src="plugin/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
+<script src="plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="plugin/jquery.mask.min.js"></script>
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>

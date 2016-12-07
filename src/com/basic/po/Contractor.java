@@ -34,6 +34,9 @@ public class Contractor {
 	@Column(name="process_desc")
 	private String processDesc;	//加工说明
 
+	@Column(name="costume_code")
+	private String costumeCode;//服饰类型编码,多个编码之间用,分隔
+	
 	@Column(name="create_by")
 	private Integer createBy; //创建人。0：表示用户自行注册，非0表示由平台管理人员录入
 	
@@ -134,6 +137,14 @@ public class Contractor {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getCostumeCode() {
+		return costumeCode;
+	}
+
+	public void setCostumeCode(String costumeCode) {
+		this.costumeCode = costumeCode;
 	}
 	
 }

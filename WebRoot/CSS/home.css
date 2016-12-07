@@ -2,10 +2,10 @@
 img{
 	width:100%;
 }
-.loginButtonGrp a,#tradeNews a,.blogroll a{
+.loginButtonGrp a,#tradeNews a,.blogroll a,.helpTable a{
 	color:black;
 }
-.loginButtonGrp a:hover,#tradeNews a:hover,.blogroll a:HOVER{
+.loginButtonGrp a:hover,#tradeNews a:hover,.blogroll a:HOVER,.helpTable a:hover{
 	text-decoration:none;
 	color:#337AB7;
 }

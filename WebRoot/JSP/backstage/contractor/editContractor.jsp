@@ -1,147 +1,169 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
+<style>
+#ff table tr{
+	height:45px;
+}
+#ff table td{
+	vertical-align:top;
+}
 
+#ff table td:first + td{
+	width:520px;
+}
+
+#ff > table select{
+	width:180px;
+}
+
+/*此处需要使用直接子类，否则会对选择服饰类别模态框中的样式产生影响*/
+#ff > table > tbody > tr >td > label{
+	width:90px;
+	margin-top:7px;
+	margin-right:7px;
+}
+#ff > table > tbody > tr > td > label span{
+	color:red;
+}
+#costumeBtn{
+	width:400px;
+	overflow:hidden;
+	background: url('image/select-btn.png') no-repeat 90%;
+}
+</style>
+<div class="panel">
 <div id="editPanel" class="panel panel-primary" style="display:none;">
-	<div class="panel-heading">编辑快产专家</div>
 	<div class="panel-body">
-		<form id="ff" method="post" enctype="multipart/form-data" class="form-horizontal">
-			<%-- 快产专家的个人信息 --%>
-			<input type="hidden" name="person.id"/>
-			
-			<div class="form-group">
-				<label for="userName" class="col-sm-1 control-label">用户名 </label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="userName" name="person.userName">
-				</div>
-				<label for="realName" class="col-sm-1 control-label">真实姓名</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="realName" name="person.realName">
-				</div>
-				<label for="gender" class="col-sm-1 control-label">性别</label>
-				<div class="col-sm-2">
-					<select class="form-control" id="gender" name="person.gender">
-						<option value="男">男</option>
-						<option value="女">女</option>
-					</select>
-				</div>
-				<label for="age" class="col-sm-1 control-label">年龄</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="age" name="person.age">
-				</div>
+		<form id="ff" method="post" enctype="multipart/form-data" class="form-inline">
+			<input type="hidden" name="id"/>
+			<input type="hidden" name="basicUser.id"/>
+			<table id="districtContainer">
+				<tr>
+					<td><label><span>*</span>用户名 </label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.userName" value="${userInfo.basicUser.userName}"></div></td>
+					<td><label>姓名 </label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="realName" value="${userInfo.realName}"></div></td>
+				</tr>
+				<tr>
+					<td><label><span>*</span>省</label></td>
+					<td>
+						<div class="form-group"><select class="form-control" id="province" name="province"></select></div>
+					</td>
+					<td><label><span>*</span>手机号码 </label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.telephone" value="${userInfo.basicUser.telephone}"></div></td>
+				</tr>
+				<tr>
+					<td><label><span>*</span>市</label></td>
+					<td>
+						<div class="form-group"><select class="form-control" id="city" name="city"></select></div>
+					</td>
+					<td><label>电子邮箱 </label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="email" value="${userInfo.email}"></div></td>
+				</tr>
+				<tr>
+					<td><label><span>*</span>区县</label></td>
+					<td>
+						<div class="form-group"><select class="form-control" id="county" name="county"></select></div>
+					</td>
+					<td><label>QQ</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="qq" value="${userInfo.qq}"></div></td>
+				</tr>
+				<tr>
+					<td><label>镇/乡/街道</label></td>
+					<td>
+						<div class="form-group"><select class="form-control" id="town" name="town"></select></div>
+					</td>
+					<td><label>固定电话</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="fixPhone" value="${userInfo.fixPhone}"></div></td>
+				</tr>
+				<tr>
+					<td><label><span>*</span>详细地址</label></td>
+					<td>
+						<div class="form-group"><input type="text" class="form-control" name="detailAddr" style="width:350px;" value="${userInfo.detailAddr}"></div>
+					</td>
+					<td><label>微信</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="wechat" value="${userInfo.wechat}"></div></td>
+				</tr>
+				<tr>
+					<td><label>邮政编码</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="postalCode" value="${userInfo.postalCode}"></div></td>
+					<td><label>身份证号</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="idNum" value="${userInfo.idNum}"></div></td>
+				</tr>
+				<tr>
+					<td><label>身份证照(正)</label></td>
+					<td>
+						<input type="hidden" name="idFrontPhoto" value="${userInfo.idFrontPhoto}">
+						<input type="file" name="frontPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
+						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+						<div style="display:none;">
+							<img style="width:150px;height:100px" src="">
+						</div>
+					</td>
+					<td><label>身份证照(反)</label></td>
+					<td>
+						<input type="hidden" name="idBackPhoto" value="${userInfo.idBackPhoto}">
+						<input type="file" name="backPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
+						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+						<div style="display:none;">
+							<img style="width:150px;height:100px" src="">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label><span>*</span>加工类型</label></td>
+					<td>
+						<div class="form-group">
+							<c:forEach var="constantDict" items="${processTypes}">
+								<label class="checkbox-inline"><input type="checkbox" name="processType" value="${constantDict.constantValue}">${constantDict.constantName}</label>
+							</c:forEach>
+						</div>
+					</td>
+					<td><label><span>*</span>主营产品</label></td>
+					<td>
+						<div class="form-group">
+							<%@include file="/JSP/main/common/costumeCategoryModal.jsp"%>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label>加工年限</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="processYear"></div></td>
+					<td><label>工人数量</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="workerAmount"></div></td>
+				</tr>
+				<tr>
+					<td><label>报价</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="quote"></div></td>
+					<td><label>生产设备</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="equipment"></div></td>
+				</tr>
+				<tr>
+					<td><label>加工说明</label></td>
+					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="processDesc" style="width:100%;"></div></td>
+				</tr>
+				<tr>
+					<td><label>认证审核</label></td>
+					<td>
+						<div class="form-group" style="padding-top:5px;">
+							<label class="radio-inline"><input type="radio" name="isAudit" value="0">不通过</label>
+							<label class="radio-inline"><input type="radio" name="isAudit" value="1">通过</label>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div style="margin-top:20px;text-align:right;padding-right:100px;">
+				<button type="submit" name="save" class="btn btn-primary" style="width:80px;margin-right:10px;">保存</button>
+				<button type="button" class="btn btn-default" onclick="cancel()" style="width:80px;">取消</button>
 			</div>
-			<div id="districtDiv" class="form-group">
-				<label for="province" class="col-sm-1 control-label">省</label>
-				<div class="col-sm-2">
-					<select class="form-control" id="province" name="person.province"></select>
-				</div>
-				<label for="city" class="col-sm-1 control-label">市</label>
-				<div class="col-sm-2">
-					<select class="form-control" id="city" name="person.city"></select>
-				</div>
-				<label for="county" class="col-sm-1 control-label">区县</label>
-				<div class="col-sm-2">
-					<select class="form-control" id="county" name="person.county"></select>
-				</div>
-				<label for="town" class="col-sm-1 control-label">镇/乡/街道</label>
-				<div class="col-sm-2">
-					<select class="form-control" id="town" name="person.town"></select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="detailAddr" class="col-sm-1 control-label">详细地址</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="detailAddr" name="person.detailAddr">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="telephone" class="col-sm-1 control-label">电话</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="telephone" name="person.telephone">
-				</div>
-				<label for="email" class="col-sm-1 control-label">电子邮箱</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="email" name="person.email">
-				</div>
-				<label for="qq" class="col-sm-1 control-label">QQ</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="qq" name="person.qq">
-				</div>
-				<label for="fixPhone" class="col-sm-1 control-label">固定电话</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="fixPhone" name="person.fixPhone">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="wechat" class="col-sm-1 control-label">微信</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="wechat" name="person.wechat">
-				</div>
-				<label for="postalCode" class="col-sm-1 control-label">邮政编码</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="postalCode" name="person.postalCode">
-				</div>
-				<label for="idCard" class="col-sm-1 control-label">身份证号</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="idCard" name="person.idCard">
-				</div>
-				<label for="idCardPhoto" class="col-sm-1 control-label">身份证号</label>
-				<div class="col-sm-2">
-					<span class="btn btn-success fileinput-button">
-					<i class="glyphicon glyphicon-upload"></i>
-					<span>上传照片</span>
-				</span>
-					<input id="idCardPhoto" type="file" name="files" multiple>
-				</div>
-			</div>
-			
-			<%-- 快产专家-承包信息 --%>
-			<input type="hidden" name="contractor.id"/>
-			<div class="form-group">
-				<label for="auditState" class="col-sm-1 control-label">加工类型</label>
-				<div class="col-sm-2">
-					<select class="form-control" id="processType" name="contractor.processType">
-						<c:forEach var="constantDict" items="${processTypes}">
-							<option value="${constantDict.constantValue}">${constantDict.constantName}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<label for="processYear" class="col-sm-1 control-label">加工年限</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="processYear" name="contractor.processYear">
-				</div>
-				<label for="workerAmount" class="col-sm-1 control-label">工人数量</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="workerAmount" name="contractor.workerAmount">
-				</div>
-				<label for="quote" class="col-sm-1 control-label">报价</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="quote" name="contractor.quote">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="equipment" class="col-sm-1 control-label">生产设备</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="equipment" name="contractor.equipment">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="processDesc" class="col-sm-1 control-label">加工说明</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="processDesc" name="contractor.processDesc">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-4 col-sm-offset-8" style="text-align:right">
-					<button type="submit" name="save" class="btn btn-primary">保存</button>
-					<button type="button" class="btn btn-default" onclick="cancel()">取消</button>
-				</div>
-			</div>
-			
 		</form>
 	</div><!-- panel-body -->
 </div><!-- panel -->
 
-<script src="plugin/jquery.form.min.js"></script>
+</div>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-<script src="plugin/jquery.formFill.js"></script>
-<script src="JS/backstage/contractor/editContractor.js"></script>
+<script src="plugin/jquery.form.min.js"></script>
+<script src="plugin/jquery.formautofill.min.js"></script>
+<script src="JS/main/common/districtCascade.js"></script>
+<script src="JS/util/treeUtil.js"></script>
+<script src="JS/backstage/enterprise/editEnterprise.js"></script>

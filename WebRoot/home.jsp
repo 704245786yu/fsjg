@@ -1079,11 +1079,18 @@
 	</tr>
 	<tr>
 		<td><div></div></td>
-		<td><p>发单指南</p><p>接单宝典</p></td>
+		<td>
+			<p><a target="_blank" href="JSP/main/note.jsp?index=fdzn">发单指南</a></p>
+			<p><a target="_blank" href="JSP/main/note.jsp?index=jdbd">接单宝典</a></p>
+		</td>
 		<td><div></div></td>
-		<td><p>个人实名</p><p>企业资质认证</p></td>
+		<td>
+			<p><a target="_blank" href="JSP/main/note.jsp?index=grsm">个人实名</a></p>
+			<p><a target="_blank" href="JSP/main/note.jsp?index=qyzzrz">企业资质认证</a></p></td>
 		<td><div></div></td>
-		<td><p>广告服务</p><p>认证服务</p></td>
+		<td>
+			<p><a target="_blank" href="JSP/main/note.jsp?index=ggfw">广告服务</a></p>
+			<p><a target="_blank" href="JSP/main/note.jsp?index=rzfw">认证服务</a></p></td>
 		<td><div></div></td>
 		<td><p><img style="width:48px;" src="image/home/wechat.png"><img style="width:48px;" src="image/home/qq.png"><img style="width:90px;" src="image/home/qrCode.png"></p></td>
 	</tr>
