@@ -1,5 +1,4 @@
 var g_jqConfirm = new JqConfirmExtend();
-var g_delImg = new Array();
 
 //表单验证
 $('#ff').bootstrapValidator({
@@ -20,7 +19,7 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
-    	enterpriseName: {
+    	realName: {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -28,17 +27,6 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 30,
     				message: '最多30个字符'
-    			}
-    		}
-    	},
-    	linkman: {
-    		validators: {
-    			notEmpty: {
-    				message: '不能为空'
-    			},
-    			stringLength: {
-    				max: 10,
-    				message: '最多10个字符'
     			}
     		}
     	},
@@ -86,34 +74,10 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
-    	trade:{
-    		validators: {
-    			notEmpty: {
-    				message: '必选'
-    			}
-    		}
-    	},
     	processType:{
     		validators: {
     			notEmpty: {
     				message: '必选'
-    			}
-    		}
-    	},
-    	saleMarket:{
-    		validators: {
-    			notEmpty: {
-    				message: '必选'
-    			}
-    		}
-    	},
-    	staffNumber:{
-    		validators: {
-    			notEmpty: {
-    				message: '必选'
-    			},
-    			integer:{
-    				message:'必须为数字'
     			}
     		}
     	},
@@ -126,27 +90,6 @@ $('#ff').bootstrapValidator({
     				min:5,
     				max: 10,
     				message: '5~10个字符'
-    			}
-    		}
-    	},
-    	highSpeedStaffNumber:{
-    		validators: {
-    			integer:{
-    				message:'必须为数字'
-    			}
-    		}
-    	},
-    	otherStaffNumber:{
-    		validators: {
-    			integer:{
-    				message:'必须为数字'
-    			}
-    		}
-    	},
-    	enterpriseAge:{
-    		validators: {
-    			integer:{
-    				message:'必须为数字'
     			}
     		}
     	}
@@ -164,10 +107,20 @@ $('#ff').bootstrapValidator({
 		var action = $form.attr('action');
 		if(data.status==200){
 			var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
+			var value = data.value;
+			var contractor = new Object();
+			contractor.id = value.person.id;
+			contractor.userName = value.person.basicUser.userName;
+			contractor.realName = value.person.realName;
+			contractor.telephone = value.person.basicUser.telephone;
+			contractor.state = value.person.basicUser.state;
+			contractor.processType = value.contractor.processType;
+			contractor.auditState = value.person.auditState;
+			contractor.createTime = value.person.createTime;
 			if(opt.indexOf("save")!=-1){
-				$('#dg').bootstrapTable('append',data.value);
+				$('#dg').bootstrapTable('append',contractor);
 			}else if(opt.indexOf("update")!=-1){	//update by unique id
-				$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
+				$('#dg').bootstrapTable('updateByUniqueId',{'id':contractor.id,'row':contractor});
 			}
 			cancel();
 		}else if(data.status==500){
@@ -186,7 +139,7 @@ function showForm(){
 
 //新增，该方法由主页面的add按钮触发
 function add(){
-	$('#ff').attr('action','enterprise/saveEnterprise');
+	$('#ff').attr('action','contractor/saveData');
 	showForm();
 }
 
@@ -242,7 +195,7 @@ function modify(id){
 	else if(data.auditState==2)
 		$('input[name="isAudit"]').eq(1).attr('checked',true);
 		
-	$('#ff').attr('action','enterprise/updateEnterprise');
+	$('#ff').attr('action','contractor/updateData');
 	showForm();
 }
 

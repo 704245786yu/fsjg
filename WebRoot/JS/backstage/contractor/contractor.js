@@ -1,10 +1,9 @@
-var g_processType = new Object();
+var g_auditState = {0:'待审核',1:'未通过',2:'已通过'};
+var g_processType = {1:'清加工',2:'经销',3:'来料加工',4:'自营出口',5:'其他'};
+var g_userState = {"0":"正常","1":"冻结"};	//用户状态
+var g_total = null;
+
 $(function(){
-	//初始化g_processType，供table的processType格式化显示用
-	var processTypes = $('#processType option');
-	$.each(processTypes, function(i,n){
-		g_processType[n.value] = n.text; 
-	});
 	$('input[name="telephone"').mask('#');
 	$('.date').datetimepicker({
 		format: 'YYYY-MM-DD',
@@ -12,7 +11,7 @@ $(function(){
     });
 });
 
-function getQueryParams(params){
+function queryParams(params){
 //	var searchText = $('#searchText').val().trim();
 //	params.constantName = searchText;
 	delete params.order;
@@ -31,9 +30,26 @@ function view(id){
 	$('#viewModal').modal('show');//显示form模态框
 }
 
+//审核状态
+function auditStateFormatter(value,row,index){
+	return g_auditState[value];
+}
+
+//用户状态
+function stateFormatter(value,row,index){
+	return g_userState[value];
+}
+
 //加工类型
-function processFormatter(value,row,index){
-	return g_processType[value];
+function processTypeFormatter(value,row,index){
+	if(value==null)
+		return;
+	var str = '';
+	var processAry = value.split(',');
+	for(var i=0; i<processAry.length; i++){
+		str += g_processType[processAry[i]]+' ';
+	}
+	return str;
 }
 
 //日期格式化

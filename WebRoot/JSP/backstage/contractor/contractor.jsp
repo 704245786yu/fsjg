@@ -84,16 +84,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table id="dg" data-toggle="table" data-url="contractor/findByPageAndParams" data-unique-id="id"
 				data-pagination="true"
 				data-side-pagination="server"
-				data-query-params="getQueryParams"
-				data-page-size="5"
-				data-page-list="[5,10]">
+				data-query-params="queryParams"
+				data-page-size="10"
+				data-page-list="[10,20]">
 		    <thead>
 		        <tr>
 		        	<th data-formatter="seqnumFormatter" class="col-xs-1" data-align="center">序号</th>
+		            <th data-field="userName" data-align="center">用户名</th>
 		            <th data-field="realName" data-align="center">姓名</th>
-		            <th data-field="processType" data-align="center" data-formatter="processFormatter">加工类型 </th>
-		            <th data-field="processYear" data-align="center">加工年限(年)</th>
-		            <th data-field="workerAmount" data-align="center">工人数量</th>
+		            <th data-field="telephone" data-align="center">手机号</th>
+		            <th data-field="processType" data-align="center" data-formatter="processTypeFormatter">加工类型 </th>
+		            <th data-field="auditState" data-align="center" data-formatter="auditStateFormatter">审核状态</th>
+		            <th data-field="state" data-align="center" data-formatter="stateFormatter">用户状态</th>
 		            <th data-field="createTime" data-align="center" data-formatter="dateFormatter">创建时间</th>
 		            <th data-formatter="operFormatterVUD" class="col-sm-2" data-align="center">操作</th>
 		        </tr>

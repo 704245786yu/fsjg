@@ -1,5 +1,10 @@
 package com.basic.ctrl;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +23,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.basic.biz.ContractorBiz;
 import com.basic.dto.ContractorDto;
 import com.basic.po.Contractor;
+import com.basic.po.Person;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
+import com.common.vo.ReturnValueVo;
 import com.sys.biz.ConstantDictBiz;
+import com.sys.ctrl.UserCtrl;
 import com.sys.po.ConstantDict;
 import com.sys.po.User;
+import com.util.DateTransform;
+import com.util.JacksonJson;
 import com.util.MicroOfficeFile;
 
 @Controller
@@ -31,6 +41,8 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
+	
+	private static final long imgMaxSize = 200000;//文档最大200kb
 	
 	public ContractorCtrl(){
 		defaultPage = "backstage/contractor/contractor";
@@ -49,12 +61,12 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 
 	@RequestMapping("uploadExcel")
 	@ResponseBody
-	public Integer uploadExcel(@RequestParam("files")MultipartFile file,HttpSession httpSession){
+	public Integer uploadExcel(@RequestParam("files")MultipartFile file,HttpSession session){
 		try{
 			MicroOfficeFile mof = new MicroOfficeFile();
 			Workbook wb = mof.readExcel(file);
 			List<String[]> data = mof.getAllData(wb,0);
-			User loginUser = (User)httpSession.getAttribute("loginUser");
+			User loginUser = UserCtrl.getLoginUser(session);
 			biz.batchSaveContractor(data.subList(2, data.size()),1);
 			return 1;
 		}catch(Exception e){
@@ -63,19 +75,62 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 		}
 	}
 	
-	/***/
+	/**新建只有后台管理人员用*/
 	@RequestMapping("saveData")
 	@ResponseBody
-	public Contractor saveData(@RequestParam("files")MultipartFile[] files, Contractor contractor,HttpSession httpSession){
-		for(int i=0; i<files.length; i++){
-			System.out.println(files[i].getOriginalFilename());
+	public ReturnValueVo saveData(Person person,Contractor contractor,
+			@RequestParam(value="frontPhoto",required=false)MultipartFile frontPhoto,
+			@RequestParam(value="backPhoto",required=false)MultipartFile backPhoto,
+			HttpSession session){
+		JacksonJson.printBeanToJson(person);
+		JacksonJson.printBeanToJson(contractor);
+		//检查是否登录
+		Integer createBy = null;
+		User user = UserCtrl.getLoginUser(session);
+		if(user!=null)
+			createBy = user.getId();
+		else
+			return new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
+
+		//验证文件类型、大小是否符合
+		String errorMsg = this.verifyImg(frontPhoto,backPhoto);
+		if(errorMsg.length() > 0)
+			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		String uploadDir = null;
+		try {
+			uploadDir = session.getServletContext().getResource("uploadFile/person/").getPath();
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
 		}
-		return null;
+		
+		//转储图片
+		try{
+			if(frontPhoto != null){
+				person.setIdFrontPhoto(this.transferFile(frontPhoto,uploadDir,"front"));
+			}
+			if(backPhoto != null){
+				person.setIdBackPhoto(this.transferFile(backPhoto,uploadDir,"back"));
+			}
+		} catch (IllegalStateException | IOException ex) {
+			ex.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
+		}
+		
+		person.getBasicUser().setCreateBy(createBy);
+		biz.save(person, contractor);
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("person", person);
+		map.put("contractor", contractor);
+		return new ReturnValueVo(ReturnValueVo.SUCCESS,map);
 	}
 	
-	@Override
-	public Contractor update(Contractor contractor,HttpSession httpSession){
-		biz.update(contractor);
+	@RequestMapping("updateData")
+	@ResponseBody
+	public Contractor updateData(Person person,Contractor contractor,HttpSession session){
+		JacksonJson.printBeanToJson(person);
+		JacksonJson.printBeanToJson(contractor);
+//		biz.update(contractor);
 		return contractor;
 	}
 	
@@ -86,14 +141,59 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 		return biz.getById(id);
 	}
 	
-	/**分页查询
+	/**根据搜索条件分页查询数据。
 	 * @param offset 偏移量，即记录索引位置
-	 * @param limit 每页需要显示的记录数
+	 * @param limit 每页记录数
+	 * @param total 可为null
 	 * @return 返回contractor的部分属性，以及Person的realName属性
 	 * */
-	@RequestMapping("findByPageAndParams")
+	@RequestMapping("findByPage")
 	@ResponseBody
-	public BootTablePageDto<Map<String,Object>> findByPageAndParams(int offset, int limit){
-		return biz.findByPageAndParams(offset,limit);
+	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,String beginDate,String endDate,int offset, int limit, Long total){
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length()>0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		}
+		return biz.findByPage(userName,telephone,auditState,beginTime,endTime,offset,limit,total);
+	}
+	
+	/**验证照片
+	 * */
+	private String verifyImg(MultipartFile frontPhoto, MultipartFile backPhoto){
+		String errorMsg = "";
+		String contentType = null;
+		if(frontPhoto != null){
+			contentType = frontPhoto.getContentType();
+			if( frontPhoto.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg = "身份证照(正面)不符合上传要求";
+			}
+		}
+		if(backPhoto != null){
+			contentType = backPhoto.getContentType();
+			if( backPhoto.getSize()>imgMaxSize || (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) ){
+				errorMsg += "身份证照(反面)不符合上传要求";
+			}
+		}
+		return errorMsg;
+	}
+	
+	/**保存文件到磁盘
+	 * @param srcFile 原文件
+	 * @param uploadDir 保存路径
+	 * @return 返回新文件名
+	 * @throws IOException 
+	 * @throws IllegalStateException */
+	private String transferFile(MultipartFile srcFile, String uploadDir, String newName) throws IllegalStateException, IOException{
+		String suffix = null;
+		String fileName = srcFile.getOriginalFilename();//获取上传文件的原名
+		String ary[] = fileName.split("\\.");
+		suffix = ary[ary.length-1];
+		//通过transferTo()将文件存储到硬件中
+		long time = System.currentTimeMillis();
+		String newFileName = time+newName+"."+suffix;
+		srcFile.transferTo(new File(uploadDir + newFileName));
+		return newFileName;
 	}
 }

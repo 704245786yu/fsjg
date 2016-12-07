@@ -1,13 +1,9 @@
 package com.basic.po;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**个人承包商，快产专家
  * */
@@ -16,10 +12,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Contractor {
 
 	@Id
-	private Integer id;	//该主键从Person表获得
+	@Column(name="person_id")
+	private Integer personId;	//该主键从Person表获得
 	
 	@Column(name="process_type")
-	private Byte processType;	//加工类型 0：清加工 1：经销 2：自营出口 3：其它
+	private String processType;	//加工类型
 	
 	@Column(name="process_year")
 	private Short processYear;	//加工年限
@@ -37,33 +34,20 @@ public class Contractor {
 	@Column(name="costume_code")
 	private String costumeCode;//服饰类型编码,多个编码之间用,分隔
 	
-	@Column(name="create_by")
-	private Integer createBy; //创建人。0：表示用户自行注册，非0表示由平台管理人员录入
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name="create_time")
-	private Date createTime; //创建时间(注册时间)
-	
-	@Column(name="update_by")
-	private Integer updateBy; //更改人。0：表示用户自行更改，非0表示由平台管理人员更改
-	
-	@Column(name="update_time")
-	private Date updateTime; //更改时间
-	
-	
-	public Integer getId() {
-		return id;
+	public Integer getPersonId() {
+		return personId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setPersonId(Integer personId) {
+		this.personId = personId;
 	}
 
-	public Byte getProcessType() {
+	public String getProcessType() {
 		return processType;
 	}
 
-	public void setProcessType(Byte processType) {
+	public void setProcessType(String processType) {
 		this.processType = processType;
 	}
 
@@ -105,38 +89,6 @@ public class Contractor {
 
 	public void setProcessDesc(String processDesc) {
 		this.processDesc = processDesc;
-	}
-
-	public Integer getCreateBy() {
-		return createBy;
-	}
-
-	public void setCreateBy(Integer createBy) {
-		this.createBy = createBy;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Integer getUpdateBy() {
-		return updateBy;
-	}
-
-	public void setUpdateBy(Integer updateBy) {
-		this.updateBy = updateBy;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 
 	public String getCostumeCode() {

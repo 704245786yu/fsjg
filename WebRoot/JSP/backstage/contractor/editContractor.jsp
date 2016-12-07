@@ -36,13 +36,14 @@
 	<div class="panel-body">
 		<form id="ff" method="post" enctype="multipart/form-data" class="form-inline">
 			<input type="hidden" name="id"/>
+			<input type="hidden" name="personId"/>
 			<input type="hidden" name="basicUser.id"/>
 			<table id="districtContainer">
 				<tr>
 					<td><label><span>*</span>用户名 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.userName" value="${userInfo.basicUser.userName}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.userName"></div></td>
 					<td><label>姓名 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="realName" value="${userInfo.realName}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="realName"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>省</label></td>
@@ -50,7 +51,7 @@
 						<div class="form-group"><select class="form-control" id="province" name="province"></select></div>
 					</td>
 					<td><label><span>*</span>手机号码 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.telephone" value="${userInfo.basicUser.telephone}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.telephone"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>市</label></td>
@@ -58,7 +59,7 @@
 						<div class="form-group"><select class="form-control" id="city" name="city"></select></div>
 					</td>
 					<td><label>电子邮箱 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="email" value="${userInfo.email}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="email"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>区县</label></td>
@@ -66,7 +67,7 @@
 						<div class="form-group"><select class="form-control" id="county" name="county"></select></div>
 					</td>
 					<td><label>QQ</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="qq" value="${userInfo.qq}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="qq"></div></td>
 				</tr>
 				<tr>
 					<td><label>镇/乡/街道</label></td>
@@ -74,26 +75,26 @@
 						<div class="form-group"><select class="form-control" id="town" name="town"></select></div>
 					</td>
 					<td><label>固定电话</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="fixPhone" value="${userInfo.fixPhone}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="fixPhone"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>详细地址</label></td>
 					<td>
-						<div class="form-group"><input type="text" class="form-control" name="detailAddr" style="width:350px;" value="${userInfo.detailAddr}"></div>
+						<div class="form-group"><input type="text" class="form-control" name="detailAddr" style="width:350px;"></div>
 					</td>
 					<td><label>微信</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="wechat" value="${userInfo.wechat}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="wechat"></div></td>
 				</tr>
 				<tr>
 					<td><label>邮政编码</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="postalCode" value="${userInfo.postalCode}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="postalCode"></div></td>
 					<td><label>身份证号</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="idNum" value="${userInfo.idNum}"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="idNum"></div></td>
 				</tr>
 				<tr>
 					<td><label>身份证照(正)</label></td>
 					<td>
-						<input type="hidden" name="idFrontPhoto" value="${userInfo.idFrontPhoto}">
+						<input type="hidden" name="idFrontPhoto">
 						<input type="file" name="frontPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="display:none;">
@@ -102,7 +103,7 @@
 					</td>
 					<td><label>身份证照(反)</label></td>
 					<td>
-						<input type="hidden" name="idBackPhoto" value="${userInfo.idBackPhoto}">
+						<input type="hidden" name="idBackPhoto">
 						<input type="file" name="backPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="display:none;">
@@ -134,9 +135,11 @@
 				</tr>
 				<tr>
 					<td><label>报价</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="quote"></div></td>
+					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="quote" style="width:100%;"></div></td>
+				</tr>
+				<tr>
 					<td><label>生产设备</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="equipment"></div></td>
+					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="equipment" style="width:100%;"></div></td>
 				</tr>
 				<tr>
 					<td><label>加工说明</label></td>
@@ -165,5 +168,4 @@
 <script src="plugin/jquery.form.min.js"></script>
 <script src="plugin/jquery.formautofill.min.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
-<script src="JS/util/treeUtil.js"></script>
-<script src="JS/backstage/enterprise/editEnterprise.js"></script>
+<script src="JS/backstage/contractor/editContractor.js"></script>
