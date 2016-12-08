@@ -11,9 +11,27 @@ $(function(){
     });
 });
 
+$('#dg').bootstrapTable({
+	onPageChange:function(number,size){
+		g_total = $('#dg').bootstrapTable('getOptions').totalRows;
+	}
+});
+
 function queryParams(params){
-//	var searchText = $('#searchText').val().trim();
-//	params.constantName = searchText;
+	var userName = $('#listPanel input[name="userName"]').val().trim();
+	var telephone = $('#listPanel input[name="telephone"]').val().trim();
+	var auditState = $('#listPanel select[name="auditState"]').val();
+	var beginDate = $('#listPanel input[name="beginDate"]').val();
+	var endDate = $('#listPanel input[name="endDate"]').val();
+	params.userName = userName;
+	params.telephone = telephone;
+	params.auditState = auditState;
+	params.beginDate = beginDate;
+	params.endDate = endDate;
+	
+	params.total = g_total;//g_total可能为null
+	
+	delete params.order;
 	delete params.order;
 	return params;
 }

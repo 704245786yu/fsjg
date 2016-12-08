@@ -6,7 +6,6 @@ import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +23,7 @@ import com.basic.biz.ContractorBiz;
 import com.basic.dto.ContractorDto;
 import com.basic.po.Contractor;
 import com.basic.po.Person;
+import com.basic.vo.ContractorVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
@@ -45,7 +45,7 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 	private static final long imgMaxSize = 200000;//文档最大200kb
 	
 	public ContractorCtrl(){
-		defaultPage = "backstage/contractor/contractor";
+		defaultPage = "main/contractorList";
 	}
 	
 	/**后台快产专家管理页面
@@ -145,11 +145,10 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 	 * @param offset 偏移量，即记录索引位置
 	 * @param limit 每页记录数
 	 * @param total 可为null
-	 * @return 返回contractor的部分属性，以及Person的realName属性
 	 * */
 	@RequestMapping("findByPage")
 	@ResponseBody
-	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,String beginDate,String endDate,int offset, int limit, Long total){
+	public BootTablePageDto<ContractorVo> findByPage(String userName,Long telephone,Byte auditState,String beginDate,String endDate,int offset, int limit, Long total){
 		Date beginTime = null;
 		Date endTime = null;
 		if(beginDate.length()>0 && endDate.length()>0){

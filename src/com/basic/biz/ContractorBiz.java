@@ -3,7 +3,6 @@ package com.basic.biz;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +13,7 @@ import com.basic.dao.PersonDao;
 import com.basic.dto.ContractorDto;
 import com.basic.po.Contractor;
 import com.basic.po.Person;
+import com.basic.vo.ContractorVo;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
 import com.util.NumberTransform;
@@ -92,7 +92,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 		return dto;
 	}
 	
-	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
+	public BootTablePageDto<ContractorVo> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
 		return dao.findByPage(userName, telephone, auditState, beginDate, endDate, offset, limit, total);
 	}
 }
