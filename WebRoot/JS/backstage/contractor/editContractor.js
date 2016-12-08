@@ -16,7 +16,15 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 20,
     				message: '最多20个字符'
-    			}
+    			},remote : {
+					trigger: 'keyup',
+					delay:2000,
+					message: '用户名已存在',
+					url:'basicUser/isNameExist2',
+					data:function(validator){
+						return {id:$(':hidden[name="basicUser.id"]').val()};
+					}
+				}
     		}
     	},
     	realName: {
@@ -39,7 +47,15 @@ $('#ff').bootstrapValidator({
     			regexp: {
                     regexp: /^1[3|4|5|7|8]\d{9}$/,
                     message: '手机号码格式不正确'
-                }
+                },remote : {
+					trigger: 'keyup',
+					delay:2000,
+					message: '手机号已存在',
+					url:'basicUser/isTeleExist2',
+					data:function(validator){
+						return {id:$(':hidden[name="basicUser.id"]').val()};
+					}
+				}
     		}
     	},
     	province:{
@@ -143,60 +159,56 @@ function add(){
 	showForm();
 }
 
-//新增，该方法由主页面的add按钮触发
-var g_basicUserId = null;//该全局变量用于验证用户名或手机号是否重复
 function modify(id){
-	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
-	g_basicUserId = data.basicUser.id;
-	$("#ff").autofill(data);
-	checkCostumeByCodes(data.costumeCode);//设置“选择产品类别”button的显示文字
-	
-	fillDistrict(data.province, data.city, data.county, data.town);
-	$('input[name="basicUser.id"]').val(data.basicUser.id);
-	$('input[name="basicUser.userName"]').val(data.basicUser.userName);
-	$('input[name="basicUser.telephone"]').val(data.basicUser.telephone);
-	//填充行业分类
-	var trade = data.trade;
-	if( trade != null && trade != ''){
-		trade = trade.split(',');
-		for(var i=0; i<trade.length; i++){
-			$(':checkbox[name="trade"][value="'+trade[i]+'"]').prop('checked','checked');
-		}
-	}
-	//填充加工类型
-	var processType = data.processType;
-	if(processType != null && processType != ''){
-		var processType = processType.split(',');
-		for(var i=0; i<processType.length; i++){
-			$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
-		}
-	}
-	//显示图片
-	if(data.logo!='' && data.logo!='default_logo.png'){
-		var $div = $('input[name="logoImg"] ~ div').css('display','');
-		$div.children('img').attr('src','uploadFile/enterprise/'+data.logo);
-	}
-	if(data.licenseImg !=null && data.licenseImg!=''){
-		var $div = $('input[name="licensePic"] ~ div').css('display','');
-		$div.children('img').attr('src','uploadFile/enterprise/'+data.licenseImg);
-	}
-	if(data.enterpriseImg!=null && data.enterpriseImg!=''){
-		var imgs = data.enterpriseImg.split(',');
-		var $div = $('input[name="enterprisePic"] ~ div');
-		for(var i=0; i<imgs.length; i++){
-			var $divTemp = $div.clone().css('display','');
-			$divTemp.children('img').attr('src','uploadFile/enterprise/'+imgs[i]);
-			$div.after($divTemp);
-		}
-	}
-	//认证审核
-	if(data.auditState==1)
-		$('input[name="isAudit"]').eq(0).attr('checked',true);
-	else if(data.auditState==2)
-		$('input[name="isAudit"]').eq(1).attr('checked',true);
+	$.get('contractor/getById/'+id,function(data){
+		$("#ff").fill(data);
+		var person = data.person;
+		var contractor = data.contractor;
+		var costumeCode = contractor.costumeCode;
+		var codes = costumeCode.split(',');
+		checkCostumeByCodes(codes);//设置“选择产品类别”button的显示文字
+		fillDistrict(person.province, person.city, person.county, person.town);
 		
-	$('#ff').attr('action','contractor/updateData');
-	showForm();
+		$('#ff').attr('action','contractor/updateData');
+		showForm();
+	});
+	
+//	$('input[name="basicUser.id"]').val(data.basicUser.id);
+//	$('input[name="basicUser.userName"]').val(data.basicUser.userName);
+//	$('input[name="basicUser.telephone"]').val(data.basicUser.telephone);
+	//填充加工类型
+//	var processType = data.processType;
+//	if(processType != null && processType != ''){
+//		var processType = processType.split(',');
+//		for(var i=0; i<processType.length; i++){
+//			$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
+//		}
+//	}
+//	//显示图片
+//	if(data.logo!='' && data.logo!='default_logo.png'){
+//		var $div = $('input[name="logoImg"] ~ div').css('display','');
+//		$div.children('img').attr('src','uploadFile/enterprise/'+data.logo);
+//	}
+//	if(data.licenseImg !=null && data.licenseImg!=''){
+//		var $div = $('input[name="licensePic"] ~ div').css('display','');
+//		$div.children('img').attr('src','uploadFile/enterprise/'+data.licenseImg);
+//	}
+//	if(data.enterpriseImg!=null && data.enterpriseImg!=''){
+//		var imgs = data.enterpriseImg.split(',');
+//		var $div = $('input[name="enterprisePic"] ~ div');
+//		for(var i=0; i<imgs.length; i++){
+//			var $divTemp = $div.clone().css('display','');
+//			$divTemp.children('img').attr('src','uploadFile/enterprise/'+imgs[i]);
+//			$div.after($divTemp);
+//		}
+//	}
+	//认证审核
+//	if(data.auditState==1)
+//		$('input[name="isAudit"]').eq(0).attr('checked',true);
+//	else if(data.auditState==2)
+//		$('input[name="isAudit"]').eq(1).attr('checked',true);
+		
+	
 }
 
 //上传文件验证,不兼容IE9及以下浏览器

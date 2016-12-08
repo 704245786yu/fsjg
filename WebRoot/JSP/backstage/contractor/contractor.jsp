@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="auditState" data-align="center" data-formatter="auditStateFormatter">审核状态</th>
 		            <th data-field="state" data-align="center" data-formatter="stateFormatter">用户状态</th>
 		            <th data-field="createTime" data-align="center" data-formatter="dateFormatter">创建时间</th>
-		            <th data-formatter="operFormatterVUD" class="col-sm-2" data-align="center">操作</th>
+		            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
 		        </tr>
 		    </thead>
 		</table>

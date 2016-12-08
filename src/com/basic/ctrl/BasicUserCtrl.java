@@ -88,6 +88,18 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		return new ValidVo( ! biz.teleIsExist(telephone,b.getId()) );
 	}
 	
+	@RequestMapping(value="isNameExist2")
+	@ResponseBody
+	public ValidVo isNameExist2(Integer id,String userName){
+		return new ValidVo( ! biz.nameIsExist(userName,id) );
+	}
+	
+	@RequestMapping(value="isTeleExist2")
+	@ResponseBody
+	public ValidVo isTeleExist2(Integer id,Long telephone){
+		return new ValidVo( ! biz.teleIsExist(telephone,id) );
+	}
+	
 	/**显示个人中心
 	 * @param index 显示个人中心第几个模块，eg:index=3,用在发布订单后，去个人中心查看当前发布的订单
 	 * */

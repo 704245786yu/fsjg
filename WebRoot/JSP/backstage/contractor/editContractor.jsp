@@ -41,9 +41,9 @@
 			<table id="districtContainer">
 				<tr>
 					<td><label><span>*</span>用户名 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.userName"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.basicUser.userName"></div></td>
 					<td><label>姓名 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="realName"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.realName"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>省</label></td>
@@ -166,6 +166,6 @@
 </div>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.form.min.js"></script>
-<script src="plugin/jquery.formautofill.min.js"></script>
+<script src="plugin/jquery.formFill.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/backstage/contractor/editContractor.js"></script>

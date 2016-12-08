@@ -86,7 +86,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 	/**根据ID获取快产专家DTO，快产专家信息同时包括Person信息和自身信息*/
 	public ContractorDto getById(int id){
 		Person person = personDao.findById(id);
-//		person.setPassword(null);	//不允许返回password
+		person.getBasicUser().setPassword(null);//不允许返回password
 		Contractor contractor = dao.findById(id);
 		ContractorDto dto = new ContractorDto(person, contractor);
 		return dto;
