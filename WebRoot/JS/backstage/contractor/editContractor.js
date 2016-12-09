@@ -161,7 +161,9 @@ function add(){
 
 function modify(id){
 	$.get('contractor/getById/'+id,function(data){
-		$("#ff").fill(data);
+		data.qq = 123456;
+		$('#ff input[name="person.realName"]').val('sdf');
+		$("#ff").autofill(data,{ findbyname:true});
 		var person = data.person;
 		var contractor = data.contractor;
 		var costumeCode = contractor.costumeCode;
