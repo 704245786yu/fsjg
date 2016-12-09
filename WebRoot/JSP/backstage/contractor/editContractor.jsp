@@ -35,66 +35,67 @@
 <div id="editPanel" class="panel panel-primary" style="display:none;">
 	<div class="panel-body">
 		<form id="ff" method="post" enctype="multipart/form-data" class="form-inline">
-			<input type="hidden" name="id"/>
-			<input type="hidden" name="personId"/>
-			<input type="hidden" name="basicUser.id"/>
+			<input type="hidden" name="person.id"/>
+			<input type="hidden" name="contractor.personId"/>
+			<input type="hidden" name="person.basicUser.id"/>
+			<input type="hidden" name="person.basicUser.state"/>
 			<table id="districtContainer">
 				<tr>
 					<td><label><span>*</span>用户名 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="userName"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.basicUser.userName"></div></td>
 					<td><label>姓名 </label></td>
 					<td><div class="form-group"><input type="text" class="form-control" name="person.realName"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>省</label></td>
 					<td>
-						<div class="form-group"><select class="form-control" id="province" name="province"></select></div>
+						<div class="form-group"><select class="form-control" id="province" name="person.province"></select></div>
 					</td>
 					<td><label><span>*</span>手机号码 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="basicUser.telephone"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.basicUser.telephone"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>市</label></td>
 					<td>
-						<div class="form-group"><select class="form-control" id="city" name="city"></select></div>
+						<div class="form-group"><select class="form-control" id="city" name="person.city"></select></div>
 					</td>
 					<td><label>电子邮箱 </label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="email"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.email"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>区县</label></td>
 					<td>
-						<div class="form-group"><select class="form-control" id="county" name="county"></select></div>
+						<div class="form-group"><select class="form-control" id="county" name="person.county"></select></div>
 					</td>
 					<td><label>QQ</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="qq"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.qq"></div></td>
 				</tr>
 				<tr>
 					<td><label>镇/乡/街道</label></td>
 					<td>
-						<div class="form-group"><select class="form-control" id="town" name="town"></select></div>
+						<div class="form-group"><select class="form-control" id="town" name="person.town"></select></div>
 					</td>
 					<td><label>固定电话</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="fixPhone"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.fixPhone"></div></td>
 				</tr>
 				<tr>
 					<td><label><span>*</span>详细地址</label></td>
 					<td>
-						<div class="form-group"><input type="text" class="form-control" name="detailAddr" style="width:350px;"></div>
+						<div class="form-group"><input type="text" class="form-control" name="person.detailAddr" style="width:350px;"></div>
 					</td>
 					<td><label>微信</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="wechat"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.wechat"></div></td>
 				</tr>
 				<tr>
 					<td><label>邮政编码</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="postalCode"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.postalCode"></div></td>
 					<td><label>身份证号</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="idNum"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.idNum"></div></td>
 				</tr>
 				<tr>
 					<td><label>身份证照(正)</label></td>
 					<td>
-						<input type="hidden" name="idFrontPhoto">
+						<input type="hidden" name="person.idFrontPhoto">
 						<input type="file" name="frontPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="display:none;">
@@ -103,7 +104,7 @@
 					</td>
 					<td><label>身份证照(反)</label></td>
 					<td>
-						<input type="hidden" name="idBackPhoto">
+						<input type="hidden" name="person.idBackPhoto">
 						<input type="file" name="backPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="display:none;">
@@ -116,7 +117,7 @@
 					<td>
 						<div class="form-group">
 							<c:forEach var="constantDict" items="${processTypes}">
-								<label class="checkbox-inline"><input type="checkbox" name="processType" value="${constantDict.constantValue}">${constantDict.constantName}</label>
+								<label class="checkbox-inline"><input type="checkbox" name="contractor.processType" value="${constantDict.constantValue}">${constantDict.constantName}</label>
 							</c:forEach>
 						</div>
 					</td>
@@ -129,28 +130,28 @@
 				</tr>
 				<tr>
 					<td><label>加工年限</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="processYear"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="contractor.processYear"></div></td>
 					<td><label>工人数量</label></td>
-					<td><div class="form-group"><input type="text" class="form-control" name="workerAmount"></div></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="contractor.workerAmount"></div></td>
 				</tr>
 				<tr>
 					<td><label>报价</label></td>
-					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="quote" style="width:100%;"></div></td>
+					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.quote" style="width:100%;"></div></td>
 				</tr>
 				<tr>
 					<td><label>生产设备</label></td>
-					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="equipment" style="width:100%;"></div></td>
+					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.equipment" style="width:100%;"></div></td>
 				</tr>
 				<tr>
 					<td><label>加工说明</label></td>
-					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="processDesc" style="width:100%;"></div></td>
+					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.processDesc" style="width:100%;"></div></td>
 				</tr>
 				<tr>
 					<td><label>认证审核</label></td>
 					<td>
 						<div class="form-group" style="padding-top:5px;">
-							<label class="radio-inline"><input type="radio" name="isAudit" value="0">不通过</label>
-							<label class="radio-inline"><input type="radio" name="isAudit" value="1">通过</label>
+							<label class="radio-inline"><input type="radio" name="person.auditState" value="1">不通过</label>
+							<label class="radio-inline"><input type="radio" name="person.auditState" value="2">通过</label>
 						</div>
 					</td>
 				</tr>
@@ -166,6 +167,6 @@
 </div>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.form.min.js"></script>
-<script src="plugin/jquery.formautofill.min.js"></script>
+<script src="plugin/jquery.formFill.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/backstage/contractor/editContractor.js"></script>

@@ -8,7 +8,7 @@ $('#ff').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-    	'basicUser.userName': {
+    	'person.basicUser.userName': {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -22,12 +22,12 @@ $('#ff').bootstrapValidator({
 					message: '用户名已存在',
 					url:'basicUser/isNameExist2',
 					data:function(validator){
-						return {id:$(':hidden[name="basicUser.id"]').val()};
+						return {id:$(':hidden[name="person.basicUser.id"]').val()};
 					}
 				}
     		}
     	},
-    	realName: {
+    	'person.realName': {
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -38,7 +38,7 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
-    	'basicUser.telephone': {
+    	'person.basicUser.telephone': {
     		threshold: 11,
     		validators: {
     			notEmpty: {
@@ -53,33 +53,33 @@ $('#ff').bootstrapValidator({
 					message: '手机号已存在',
 					url:'basicUser/isTeleExist2',
 					data:function(validator){
-						return {id:$(':hidden[name="basicUser.id"]').val()};
+						return {id:$(':hidden[name="person.basicUser.id"]').val()};
 					}
 				}
     		}
     	},
-    	province:{
+    	'person.province':{
     		validators: {
     			notEmpty: {
     				message: '不能为空'
     			}
     		}
     	},
-    	city:{
+    	'person.city':{
     		validators: {
     			notEmpty: {
     				message: '不能为空'
     			}
     		}
     	},
-    	county:{
+    	'person.county':{
     		validators: {
     			notEmpty: {
     				message: '不能为空'
     			}
     		}
     	},
-    	detailAddr:{
+    	'person.detailAddr':{
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -90,14 +90,14 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
-    	processType:{
+    	'contractor.processType':{
     		validators: {
     			notEmpty: {
     				message: '必选'
     			}
     		}
     	},
-    	qq:{
+    	'person.qq':{
     		validators: {
     			digits:{
     				message:'必须为数字'
@@ -161,49 +161,37 @@ function add(){
 
 function modify(id){
 	$.get('contractor/getById/'+id,function(data){
-		data.qq = 123456;
-		$('#ff input[name="person.realName"]').val('sdf');
-		$("#ff").autofill(data,{ findbyname:true});
 		var person = data.person;
 		var contractor = data.contractor;
-		var costumeCode = contractor.costumeCode;
-		var codes = costumeCode.split(',');
-		checkCostumeByCodes(codes);//设置“选择产品类别”button的显示文字
+		//填充加工类型
+		var processType = contractor.processType;
+		processType = processType.split(',');
+		contractor.processType = processType;
+		console.log(new Date());
+		$("#ff").fill(person);
+		$("#ff").fill(contractor);
+		console.log(new Date());
+		//服饰类型
+//		var costumeCode = contractor.costumeCode;
+//		var codes = costumeCode.split(',');
+//		checkCostumeByCodes(codes);//设置“选择产品类别”button的显示文字
 		fillDistrict(person.province, person.city, person.county, person.town);
+		//显示图片
+		var idFrontPhoto = person.idFrontPhoto;
+		var idBackPhoto = person.idBackPhoto;
+		if(idFrontPhoto!=null && idFrontPhoto!=''){
+			var $div = $('input[name="person.idFrontPhoto"] ~ div').css('display','');
+			$div.children('img').attr('src','uploadFile/person/'+idFrontPhoto);
+		}
+		if(idBackPhoto!=null && idBackPhoto!=''){
+			var $div = $('input[name="person.idBackPhoto"] ~ div').css('display','');
+			$div.children('img').attr('src','uploadFile/person/'+idBackPhoto);
+		}
 		
 		$('#ff').attr('action','contractor/updateData');
 		showForm();
 	});
-	
-//	$('input[name="basicUser.id"]').val(data.basicUser.id);
-//	$('input[name="basicUser.userName"]').val(data.basicUser.userName);
-//	$('input[name="basicUser.telephone"]').val(data.basicUser.telephone);
-	//填充加工类型
-//	var processType = data.processType;
-//	if(processType != null && processType != ''){
-//		var processType = processType.split(',');
-//		for(var i=0; i<processType.length; i++){
-//			$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
-//		}
-//	}
-//	//显示图片
-//	if(data.logo!='' && data.logo!='default_logo.png'){
-//		var $div = $('input[name="logoImg"] ~ div').css('display','');
-//		$div.children('img').attr('src','uploadFile/enterprise/'+data.logo);
-//	}
-//	if(data.licenseImg !=null && data.licenseImg!=''){
-//		var $div = $('input[name="licensePic"] ~ div').css('display','');
-//		$div.children('img').attr('src','uploadFile/enterprise/'+data.licenseImg);
-//	}
-//	if(data.enterpriseImg!=null && data.enterpriseImg!=''){
-//		var imgs = data.enterpriseImg.split(',');
-//		var $div = $('input[name="enterprisePic"] ~ div');
-//		for(var i=0; i<imgs.length; i++){
-//			var $divTemp = $div.clone().css('display','');
-//			$divTemp.children('img').attr('src','uploadFile/enterprise/'+imgs[i]);
-//			$div.after($divTemp);
-//		}
-//	}
+
 	//认证审核
 //	if(data.auditState==1)
 //		$('input[name="isAudit"]').eq(0).attr('checked',true);

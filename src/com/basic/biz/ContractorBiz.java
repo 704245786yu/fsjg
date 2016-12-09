@@ -83,6 +83,15 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 		dao.save(c);
 	}
 	
+	@Transactional
+	public void update(Person p,Contractor c) {
+		p.getBasicUser().setRoleId(3);
+		personDao.persist(p);
+		
+		c.setPersonId(p.getId());
+		dao.save(c);
+	}
+	
 	/**根据ID获取快产专家DTO，快产专家信息同时包括Person信息和自身信息*/
 	public ContractorDto getById(int id){
 		Person person = personDao.findById(id);

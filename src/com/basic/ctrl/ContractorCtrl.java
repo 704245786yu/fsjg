@@ -32,6 +32,7 @@ import com.sys.ctrl.UserCtrl;
 import com.sys.po.ConstantDict;
 import com.sys.po.User;
 import com.util.DateTransform;
+import com.util.FileUtil;
 import com.util.JacksonJson;
 import com.util.MicroOfficeFile;
 
@@ -78,12 +79,15 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 	/**新建只有后台管理人员用*/
 	@RequestMapping("saveData")
 	@ResponseBody
-	public ReturnValueVo saveData(Person person,Contractor contractor,
+	public ReturnValueVo saveData(ContractorDto contractorDto,
+			String costumeCode,
 			@RequestParam(value="frontPhoto",required=false)MultipartFile frontPhoto,
 			@RequestParam(value="backPhoto",required=false)MultipartFile backPhoto,
 			HttpSession session){
-		JacksonJson.printBeanToJson(person);
-		JacksonJson.printBeanToJson(contractor);
+		JacksonJson.printBeanToJson(contractorDto);
+		Person person = contractorDto.getPerson();
+		Contractor contractor = contractorDto.getContractor();
+		
 		//检查是否登录
 		Integer createBy = null;
 		User user = UserCtrl.getLoginUser(session);
@@ -118,20 +122,68 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 		}
 		
 		person.getBasicUser().setCreateBy(createBy);
+		contractor.setCostumeCode(costumeCode);
 		biz.save(person, contractor);
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("person", person);
-		map.put("contractor", contractor);
-		return new ReturnValueVo(ReturnValueVo.SUCCESS,map);
+		return new ReturnValueVo(ReturnValueVo.SUCCESS,contractorDto);
 	}
 	
 	@RequestMapping("updateData")
 	@ResponseBody
-	public Contractor updateData(Person person,Contractor contractor,HttpSession session){
-		JacksonJson.printBeanToJson(person);
-		JacksonJson.printBeanToJson(contractor);
-//		biz.update(contractor);
-		return contractor;
+	public ReturnValueVo updateData(ContractorDto contractorDto,
+			String costumeCode,
+			@RequestParam(value="frontPhoto",required=false)MultipartFile frontPhoto,
+			@RequestParam(value="backPhoto",required=false)MultipartFile backPhoto,
+			HttpSession session){
+		Person person = contractorDto.getPerson();
+		Contractor contractor = contractorDto.getContractor();
+		
+		//检查是否登录
+		Integer createBy = null;
+		User user = UserCtrl.getLoginUser(session);
+		if(user!=null)
+			createBy = user.getId();
+		else
+			return new ReturnValueVo(ReturnValueVo.ERROR, "请先登录");
+
+		//验证文件类型、大小是否符合
+		String errorMsg = this.verifyImg(frontPhoto,backPhoto);
+		if(errorMsg.length() > 0)
+			return  new ReturnValueVo(ReturnValueVo.ERROR, errorMsg);
+		
+		String uploadDir = null;
+		try {
+			uploadDir = session.getServletContext().getResource("uploadFile/person/").getPath();
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+		
+		//转储图片
+		try{
+			if(frontPhoto != null){
+				//删除旧图片
+				String front = person.getIdFrontPhoto();
+				if(front!=null && front.length()!=0){
+					FileUtil.delImg(uploadDir, front);
+				}
+				person.setIdFrontPhoto(this.transferFile(frontPhoto,uploadDir,"front"));
+			}
+			if(backPhoto != null){
+				//删除旧图片
+				String back = person.getIdBackPhoto();
+				if(back!=null && back.length()!=0){
+					FileUtil.delImg(uploadDir, back);
+				}
+				person.setIdBackPhoto(this.transferFile(backPhoto,uploadDir,"back"));
+			}
+		} catch (IllegalStateException | IOException ex) {
+			ex.printStackTrace();
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
+		}
+		
+		person.getBasicUser().setUpdateBy(createBy);
+		contractor.setCostumeCode(costumeCode);
+		biz.save(person, contractor);
+		return new ReturnValueVo(ReturnValueVo.SUCCESS,contractorDto);
 	}
 	
 	/**根据ID获取快产专家DTO，快产专家信息同时包括Person信息和自身信息*/

@@ -95,7 +95,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="telephone" data-align="center">手机号</th>
 		            <th data-field="processType" data-align="center" data-formatter="processTypeFormatter">加工类型 </th>
 		            <th data-field="auditState" data-align="center" data-formatter="auditStateFormatter">审核状态</th>
-		            <th data-field="state" data-align="center" data-formatter="stateFormatter">用户状态</th>
 		            <th data-field="createTime" data-align="center" data-formatter="dateFormatter">创建时间</th>
 		            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
 		        </tr>

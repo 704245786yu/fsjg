@@ -1,6 +1,5 @@
 var g_auditState = {0:'待审核',1:'未通过',2:'已通过'};
 var g_processType = {1:'清加工',2:'经销',3:'来料加工',4:'自营出口',5:'其他'};
-var g_userState = {"0":"正常","1":"冻结"};	//用户状态
 var g_total = null;
 
 $(function(){
@@ -51,11 +50,6 @@ function view(id){
 //审核状态
 function auditStateFormatter(value,row,index){
 	return g_auditState[value];
-}
-
-//用户状态
-function stateFormatter(value,row,index){
-	return g_userState[value];
 }
 
 //加工类型
