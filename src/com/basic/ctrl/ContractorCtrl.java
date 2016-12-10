@@ -3,8 +3,8 @@ package com.basic.ctrl;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,10 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ad.biz.AdPositionBiz;
+import com.ad.po.AdPosition;
 import com.basic.biz.ContractorBiz;
+import com.basic.biz.CostumeCategoryBiz;
+import com.basic.biz.DistrictBiz;
 import com.basic.dto.ContractorDto;
 import com.basic.po.Contractor;
 import com.basic.po.Person;
+import com.basic.vo.ContractorSimpleVo;
 import com.basic.vo.ContractorVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
@@ -42,11 +47,25 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
+	@Autowired
+	private CostumeCategoryBiz costumeCategoryBiz;
+	@Autowired
+	private DistrictBiz districtBiz;
+	@Autowired
+	private AdPositionBiz adPositionBiz;
 	
 	private static final long imgMaxSize = 200000;//文档最大200kb
 	
 	public ContractorCtrl(){
 		defaultPage = "main/contractorList";
+	}
+	
+	public ModelAndView showDefaultPage(HttpSession session){
+		ModelAndView mav = new ModelAndView(defaultPage);
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("contractor_list");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
+		return mav;
 	}
 	
 	/**后台快产专家管理页面
@@ -60,6 +79,31 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 		return mav;
 	}
 
+	@RequestMapping("showDetail/{id}")
+	public ModelAndView showDetail(@PathVariable int id){
+		ModelAndView mav = new ModelAndView("main/contractorDetail");
+		ContractorDto contractorDto = biz.getById(id);
+		String[] codes = contractorDto.getContractor().getCostumeCode().split(",");
+		ArrayList<Integer> codeAry = new ArrayList<Integer>(codes.length);
+		for(int i=0;i<codes.length;i++){
+			codeAry.add(Integer.parseInt(codes[i]));
+		}
+		List<String> costumeNames = costumeCategoryBiz.getNameByCode(codeAry);
+		StringBuilder sb = new StringBuilder(costumeNames.get(0));
+		for(int i=1;i<costumeNames.size();i++){
+			sb.append(",").append(costumeNames.get(i));
+		}
+		contractorDto.getContractor().setCostumeCode(sb.toString());
+		List<String> districts = districtBiz.getNameByUser(contractorDto.getPerson());
+		sb = new StringBuilder();
+		for(int i=0;i<districts.size();i++){
+			sb.append(districts.get(i));
+		}
+		mav.addObject("contractorDto", contractorDto);
+		mav.addObject("district", sb.toString());
+		return mav;
+	}
+	
 	@RequestMapping("uploadExcel")
 	@ResponseBody
 	public Integer uploadExcel(@RequestParam("files")MultipartFile file,HttpSession session){
@@ -182,7 +226,7 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 		
 		person.getBasicUser().setUpdateBy(createBy);
 		contractor.setCostumeCode(costumeCode);
-		biz.save(person, contractor);
+		biz.update(person, contractor);
 		return new ReturnValueVo(ReturnValueVo.SUCCESS,contractorDto);
 	}
 	
@@ -191,6 +235,15 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 	@ResponseBody
 	public ContractorDto getById(@PathVariable int id){
 		return biz.getById(id);
+	}
+	
+	@RequestMapping("search")
+	@ResponseBody
+	public BootTablePageDto<ContractorSimpleVo> search(Long province,Long city,Long county,Long town, 
+			Integer[] costumeCode,Byte processYear,int offset,Long total){
+		int limit = 20;
+		BootTablePageDto<ContractorSimpleVo> result = biz.search(province, city, county, town, costumeCode, processYear, offset, limit, total);
+		return result;
 	}
 	
 	/**根据搜索条件分页查询数据。

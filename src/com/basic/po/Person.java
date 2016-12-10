@@ -16,6 +16,9 @@ public class Person extends UserAbstract{
 	private String gender;
 	
 	private Byte age;
+
+	@Column(name="head_pic")
+	private String headPic;//头像
 	
 	@Column(name="id_num")
 	private String idNum;	//身份证号
@@ -72,6 +75,14 @@ public class Person extends UserAbstract{
 
 	public void setIdBackPhoto(String idBackPhoto) {
 		this.idBackPhoto = idBackPhoto;
+	}
+
+	public String getHeadPic() {
+		return headPic;
+	}
+
+	public void setHeadPic(String headPic) {
+		this.headPic = headPic;
 	}
 
 }

@@ -28,7 +28,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	<!-- 数据表格 -->
 	<table id="dg" data-toggle="table" data-url="adPosition/getAll" data-cache="false" data-unique-id="id"
-		data-search="true" data-search-on-enter-key="true" data-search-align="left">
+		data-search="true" data-search-on-enter-key="true" data-search-align="left"
+		data-pagination="true"
+		data-page-size="20"
+		data-page-list="[10,20]">
 	    <thead>
 	        <tr>
 				<th data-align="center" data-formatter="seqnumFormatter">序号</th>

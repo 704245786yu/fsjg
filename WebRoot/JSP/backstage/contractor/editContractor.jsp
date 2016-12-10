@@ -36,9 +36,11 @@
 	<div class="panel-body">
 		<form id="ff" method="post" enctype="multipart/form-data" class="form-inline">
 			<input type="hidden" name="person.id"/>
+			<input type="hidden" name="person.headPic"/>
 			<input type="hidden" name="contractor.personId"/>
 			<input type="hidden" name="person.basicUser.id"/>
 			<input type="hidden" name="person.basicUser.state"/>
+			<input type="hidden" name="person.basicUser.password"/>
 			<table id="districtContainer">
 				<tr>
 					<td><label><span>*</span>用户名 </label></td>
@@ -136,7 +138,9 @@
 				</tr>
 				<tr>
 					<td><label>报价</label></td>
-					<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.quote" style="width:100%;"></div></td>
+					<td><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.quote" style="width:100%;"></div></td>
+					<td><label>专业技能</label></td>
+					<td><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.skill" style="width:100%;"></div></td>
 				</tr>
 				<tr>
 					<td><label>生产设备</label></td>

@@ -77,7 +77,7 @@
 			<li name="li-enterprise"><a target="_blank" href="enterprise">加工工厂</a></li>
 			<li name="li-indent"><a target="_blank" href="indent">加工订单</a></li>
 			<li name="li-contractor"><a target="_blank" href="contractor">快产专家</a></li>
-			<li><a target="_blank" href="#">服饰样品</a></li>
+			<li name="li-costumeSample"><a target="_blank" href="JSP/main/costumeSample.jsp">服饰样品</a></li>
 		</ul>
 	</div>
 </nav>

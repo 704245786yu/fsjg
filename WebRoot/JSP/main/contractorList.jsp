@@ -41,6 +41,8 @@
 </tr>
 <tr>
 	<td style="width:906px;background-color:#FBF8F9;vertical-align:top;">
+		<!-- 广告 -->
+		<a class="ad" target="_blank"><img style="width:100%;height:260px;margin-bottom:10px;"></a>
 		<div class="panel panel-default search-panel">
 			<div class="panel-body">
 				<table>
@@ -96,17 +98,14 @@
 							<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
 							<a href="1" onclick="return aClick(this)">1-5年</a>
 							<a href="2" onclick="return aClick(this)">5-10年</a>
-							<a href="3" onclick="return aClick(this)">10-15年</a>
-							<a href="4" onclick="return aClick(this)">15-20年</a>
-							<a href="6" onclick="return aClick(this)">20年以上</a>
+							<a href="3" onclick="return aClick(this)">11-15年</a>
+							<a href="4" onclick="return aClick(this)">16-20年</a>
+							<a href="5" onclick="return aClick(this)">20年以上</a>
 						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
-		
-		<!-- 广告 -->
-		<a class="ad" target="_blank"><img style="width:100%;height:90px;"></a>
 		
 		<!-- 结果排序 -->
 		<!-- <input name="sortMark" type="hidden">
@@ -119,7 +118,7 @@
 				<td><input type="checkbox" onclick="query()"> 只看急单</td>
 			</tr>
 		</table> -->
-		<table class="table" style="font-size:18px;margin-bottom:0px;background-color:white;">
+		<table id="contractorTable" class="table" style="font-size:18px;margin-bottom:0px;background-color:white;">
 			<tr>
 				<th>姓名</th>
 				<th>年龄</th>
@@ -131,45 +130,6 @@
 				<th>发布日期</th>
 			</tr>
 		</table>
-		<div style="display:none;">
-			<table class="table template" style="background-color:white;">
-				<tr>
-					<td style="padding-right:0px;width:30px;vertical-align:top;">
-						<img name="urgencyImg" src="image/indentRelease/urgency.png" style="display:none">
-					</td>
-					<td style="width:250px;">
-						<label style="font-size:16px"><a name="title" href="indent/detail/" target="_blank" style="color:#4eb1e5;"></a></label>
-						<div name="quantity">预计订单数量：件</div>
-						<div>预计交货日期：</div>
-						<div>销售市场：</div>
-					</td>
-					<td style="width:120px;">
-						<!-- 加工类型 -->
-						<div name="processType"></div>
-						<!-- 订单类型 -->
-						<div></div>
-					</td>
-					<td style="width:180px">
-						<!-- 接单地区 -->
-						<div name="condDistrict"></div>
-						<!-- 接单要求 -->
-						<div></div>
-					</td>
-					<td style="width:120px">
-						<!-- 用户类型 -->
-						<!-- 发单用户所在地 -->
-						<div name="district"></div>
-					</td>
-					<td style="width:100px">
-						<div name="createTime"></div>
-					</td>
-					<td style="width:100px">
-						<!-- 发单日期 -->
-						<div name="effectiveDate"></div>
-					</td>
-				</tr>
-			</table>
-		</div>
 		<div id="bsPagination" style="text-align:center"></div>
 	</td>
 	
@@ -195,12 +155,11 @@
 				</p>
 			</div><!-- panel-body -->
 		</div><!-- panel -->
+		
 		<!-- 广告 -->
-		<ul id="adUl" class="list-group">
-			<!-- <li class="list-group-item">
-				<a><img width="100%" src="image/mianliao.png"></a>
-			</li> -->
-		</ul>
+		<a class="ad" target="_blank"><img width="100%" style="margin-bottom:10px;"></a>
+		<a class="ad" target="_blank"><img width="100%"></a>
+		
 		<div name="sample" style="display:none;">
 			<li class="list-group-item">
 				<a target="_blank"><img width="100%"></a>
@@ -217,7 +176,7 @@
 <script src="plugin/bs_pagination/localization/en.js"></script>
 <script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
-<script src="JS/main/indentList.js"></script>
+<script src="JS/main/contractorList.js"></script>
 </body>
 </html>
 

@@ -172,9 +172,9 @@ function modify(id){
 		$("#ff").fill(contractor);
 		console.log(new Date());
 		//服饰类型
-//		var costumeCode = contractor.costumeCode;
-//		var codes = costumeCode.split(',');
-//		checkCostumeByCodes(codes);//设置“选择产品类别”button的显示文字
+		var costumeCode = contractor.costumeCode;
+		var codes = costumeCode.split(',');
+		checkCostumeByCodes(codes);//设置“选择产品类别”button的显示文字
 		fillDistrict(person.province, person.city, person.county, person.town);
 		//显示图片
 		var idFrontPhoto = person.idFrontPhoto;
@@ -190,15 +190,7 @@ function modify(id){
 		
 		$('#ff').attr('action','contractor/updateData');
 		showForm();
-	});
-
-	//认证审核
-//	if(data.auditState==1)
-//		$('input[name="isAudit"]').eq(0).attr('checked',true);
-//	else if(data.auditState==2)
-//		$('input[name="isAudit"]').eq(1).attr('checked',true);
-		
-	
+	});	
 }
 
 //上传文件验证,不兼容IE9及以下浏览器

@@ -13,6 +13,7 @@ import com.basic.dao.PersonDao;
 import com.basic.dto.ContractorDto;
 import com.basic.po.Contractor;
 import com.basic.po.Person;
+import com.basic.vo.ContractorSimpleVo;
 import com.basic.vo.ContractorVo;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
@@ -23,6 +24,8 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 
 	@Autowired
 	private PersonDao personDao;
+	@Autowired
+	private DistrictBiz districtBiz;
 	
 	private static final String defaultPassword = "123456";
 	
@@ -86,19 +89,37 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 	@Transactional
 	public void update(Person p,Contractor c) {
 		p.getBasicUser().setRoleId(3);
-		personDao.persist(p);
-		
-		c.setPersonId(p.getId());
-		dao.save(c);
+		if(p.getAuditState()==null)
+			p.setAuditState((byte)0);
+		personDao.update(p);
+		dao.update(c);
 	}
 	
 	/**根据ID获取快产专家DTO，快产专家信息同时包括Person信息和自身信息*/
 	public ContractorDto getById(int id){
 		Person person = personDao.findById(id);
-		person.getBasicUser().setPassword(null);//不允许返回password
+//		person.getBasicUser().setPassword(null);//不允许返回password
 		Contractor contractor = dao.findById(id);
 		ContractorDto dto = new ContractorDto(person, contractor);
 		return dto;
+	}
+	
+	public BootTablePageDto<ContractorSimpleVo> search(Long province,Long city,Long county,Long town,
+			Integer[] costumeCodes, Byte processYear, int offset,int limit,Long total){
+		BootTablePageDto<ContractorSimpleVo> result = dao.search(province, city, county, town, costumeCodes, processYear, offset, limit, total);
+		if(result.getTotal()!=0){
+			List<ContractorSimpleVo> list = result.getRows();
+			for(int i=0;i<list.size();i++){
+				ContractorSimpleVo c = list.get(i);
+				List<String> names = districtBiz.getNameByCode(c.getProvince(), c.getCity(), c.getCounty(), c.getTown());
+				StringBuilder sb = new StringBuilder();
+				for(int j=0;j<names.size();j++){
+					sb.append(names.get(j));
+				}
+				c.setDistrict(sb.toString());
+			}
+		}
+		return result;
 	}
 	
 	public BootTablePageDto<ContractorVo> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){

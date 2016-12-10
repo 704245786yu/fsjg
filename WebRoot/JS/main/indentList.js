@@ -19,7 +19,7 @@ function initTradeAndCostumeObj(){
 	setCostumeCategoryDiv(0);
 }
 
-//设置链接地址和图片，供initAdd()方法调用
+//设置链接地址和图片，供initAd()方法调用
 function setAdhrefAndImg($a,ad){
 	if(ad.linkType==0)//外部链接
 		$a.attr('href','http://'+ad.link);

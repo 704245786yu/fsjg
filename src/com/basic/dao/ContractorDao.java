@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.basic.po.Contractor;
+import com.basic.vo.ContractorSimpleVo;
 import com.basic.vo.ContractorVo;
 import com.common.BaseDao;
 import com.common.dto.BootTablePageDto;
@@ -14,6 +15,77 @@ import com.common.dto.BootTablePageDto;
 @Repository
 public class ContractorDao extends BaseDao<Integer, Contractor>{
 
+	public BootTablePageDto<ContractorSimpleVo> search(Long province,Long city,Long county,Long town, Integer[] costumeCodes,
+			Byte processYear,int offset,int limit,Long total){
+		StringBuffer countSql = new StringBuffer("select count(1)");
+		StringBuffer subSql = new StringBuffer(" from Person p,Contractor c where p.id = c.personId ");
+		List<String> params = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		//省市区县乡镇
+		if(province != null){
+			subSql.append(" and p.province =:province");
+			params.add("province");
+			values.add(province);
+		}
+		if(city != null){
+			subSql.append(" and p.city =:city");
+			params.add("city");
+			values.add(city);
+		}
+		if(county != null){
+			subSql.append(" and p.county =:county");
+			params.add("county");
+			values.add(county);
+		}
+		if(town != null){
+			subSql.append(" and p.town =:town");
+			params.add("town");
+			values.add(town);
+		}
+		//服饰类型
+		if(costumeCodes != null && costumeCodes.length>0){
+			StringBuffer subCostumeCode = new StringBuffer(" c.costumeCode like '%"+costumeCodes[0]+"%'");
+			for(int i=1; i<costumeCodes.length; i++)
+				subCostumeCode.append(" or c.costumeCode like '%"+costumeCodes[i]+"%'");
+			subSql.append(" and ("+subCostumeCode.toString()+")");
+		}
+		//加工年限
+		if(processYear != null){
+			switch(processYear){
+			case 1:
+				subSql.append(" and c.processYear < 5");
+				break;
+			case 2:
+				subSql.append(" and c.processYear between 5 and 10");
+				break;
+			case 3:
+				subSql.append(" and c.processYear between 11 and 15");
+				break;
+			case 4:
+				subSql.append(" and c.processYear between 16 and 20");
+				break;
+			case 5:
+				subSql.append(" and c.processYear > 20");
+				break;
+			}
+		}
+		String[] paramsAry = new String[params.size()];
+		params.toArray(paramsAry);
+		Object[] valuesAry = values.toArray();
+		//若有total表示翻页操作，无须再次查询total
+		if(total == null){
+			countSql.append(subSql);
+			total = super.getCount(countSql.toString(), paramsAry, valuesAry);
+			if(total==0)
+				return new BootTablePageDto<ContractorSimpleVo>(0L,new ArrayList<ContractorSimpleVo>());
+		}
+		
+		StringBuffer sql = new StringBuffer("select p.id as id, p.realName as realName, p.age as age, c.processYear as processYear, c.workerAmount as workerAmount, p.province as province, p.city as city, p.county as county, p.town as town, c.costumeCode as costumeCode, c.skill as skill, p.basicUser.createTime as createTime");
+		sql.append(subSql).append(" order by p.basicUser.createTime desc");
+		List<ContractorSimpleVo> contractors = super.findByPage(sql.toString(), offset, limit, paramsAry, valuesAry, ContractorSimpleVo.class);
+		return new BootTablePageDto<ContractorSimpleVo>(total, contractors);
+	}
+	
 	public BootTablePageDto<ContractorVo> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
 		StringBuffer hql = new StringBuffer("from Contractor c, Person p where c.personId = p.id");
 		List<String> params = new ArrayList<String>();

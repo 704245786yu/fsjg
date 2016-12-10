@@ -24,6 +24,8 @@ public class Contractor {
 	@Column(name="worker_amount")
 	private Short workerAmount;	//工人数量
 	
+	private String skill;	//专业技能
+	
 	private String quote;	//报价，填写接单价格规则
 	
 	private String equipment;	//生产设备
@@ -97,6 +99,14 @@ public class Contractor {
 
 	public void setCostumeCode(String costumeCode) {
 		this.costumeCode = costumeCode;
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
 	}
 	
 }

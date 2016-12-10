@@ -72,11 +72,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" onclick="add()">
 					<span class="glyphicon glyphicon-plus"></span> 添加
 				</button>
-				<span class="btn btn-success fileinput-button">
+				<!-- <span class="btn btn-success fileinput-button">
 					<i class="glyphicon glyphicon-upload"></i>
 					<span>批量导入</span>
 					<input id="fileupload" type="file" name="file" data-url="contractor/uploadExcel">
-				</span>
+				</span> -->
 			</div>
 		</div><!-- .row -->
 	
