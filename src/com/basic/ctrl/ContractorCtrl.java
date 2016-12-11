@@ -106,17 +106,21 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 	
 	@RequestMapping("uploadExcel")
 	@ResponseBody
-	public Integer uploadExcel(@RequestParam("files")MultipartFile file,HttpSession session){
+	public ReturnValueVo uploadExcel(@RequestParam("file")MultipartFile file,HttpSession session){
 		try{
 			MicroOfficeFile mof = new MicroOfficeFile();
 			Workbook wb = mof.readExcel(file);
-			List<String[]> data = mof.getAllData(wb,0);
+			List<String[]> data = mof.getAllData(wb,0);//data是从第二行读取的
+			if(data.size() < 4){
+				List<String> errorInfo = new ArrayList<String>();
+				errorInfo.add("读取文件出错，文件内容可能有误");
+				return new ReturnValueVo(ReturnValueVo.ERROR,errorInfo);
+			}
 			User loginUser = UserCtrl.getLoginUser(session);
-			biz.batchSaveContractor(data.subList(2, data.size()),1);
-			return 1;
+			return biz.batchSaveContractor(data.subList(2, data.size()),loginUser.getId());
 		}catch(Exception e){
 			e.printStackTrace();
-			return 0;
+			return new ReturnValueVo(ReturnValueVo.EXCEPTION,"读取文件发生错误，请与管理员联系");
 		}
 	}
 	

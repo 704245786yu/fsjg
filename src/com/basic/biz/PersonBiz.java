@@ -55,6 +55,13 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 		dao.executeUpdate(hql, new String[]{"auditState","auditBy","auditTime","id"}, new Object[]{auditState,auditBy,new Date(),id});
 	}
 	
+	@Override
+	public void deleteById(Integer id) {
+		Person person = new Person();
+		person.setId(id);
+		super.delete(person);
+	}
+
 	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
 		return dao.findByPage(userName, telephone, auditState, beginDate, endDate, offset, limit, total);
 	}

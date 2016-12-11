@@ -131,15 +131,15 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label>加工年限</label></td>
+					<td><label><span>*</span>加工年限</label></td>
 					<td><div class="form-group"><input type="text" class="form-control" name="contractor.processYear"></div></td>
-					<td><label>工人数量</label></td>
+					<td><label><span>*</span>工人数量</label></td>
 					<td><div class="form-group"><input type="text" class="form-control" name="contractor.workerAmount"></div></td>
 				</tr>
 				<tr>
 					<td><label>报价</label></td>
 					<td><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.quote" style="width:100%;"></div></td>
-					<td><label>专业技能</label></td>
+					<td><label><span>*</span>专业技能</label></td>
 					<td><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.skill" style="width:100%;"></div></td>
 				</tr>
 				<tr>

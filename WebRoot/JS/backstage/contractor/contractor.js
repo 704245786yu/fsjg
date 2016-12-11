@@ -83,21 +83,29 @@ $('#searchText').keydown(function(event){
 
 //删除
 function del(index,id){
-	new BsFormTableExtend().delRecord(index,id,'person/delete/');
+	new BsFormTableExtend().delRecord(index,id,'contractor/delete/');
 }
 
 $('#fileupload').fileupload({
 	done: function (e, data) {	//上传请求成功完成后的回调处理方法
-		if(data.result == 1){	//跳转到最后一页，以展示最新数据
+		var status = data.result.status;
+		var value = data.result.value;
+		if(status == 200){	//跳转到最后一页，以展示最新数据
 			var opt = $('#dg').bootstrapTable('getOptions');
-//		  		var pageSize = opt.pageSize;
 			var pageNumber = opt.pageNumber;
-			console.log(pageNumber);
-//		  		var totalRows = opt.totalRows;
-//		  		var tzPageNumber = Math.ceil(totalRows/pageSize);
-			$('#dg').bootstrapTable('selectPage',pageNumber);
-		}else{
-			alert('上传文件失败');
+			var totalRows = opt.totalRows;
+	  		if(totalRows==0)
+	  			$('#dg').bootstrapTable('refresh');
+	  		else
+	  			$('#dg').bootstrapTable('selectPage',pageNumber);
+		}else if(status == 500){
+			var errorInfo = "";
+			for(var i=0; i<value.length; i++){
+				errorInfo += value[i]+'<br/>';
+			}
+			new JqConfirmExtend().showDialog('上传错误',errorInfo);
+		}else if(status == 501){
+			new JqConfirmExtend().showDialog('上传错误',value);
 		}
 	}
 });

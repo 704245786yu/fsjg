@@ -89,6 +89,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 					basicUser.setTelephone(telephone);
 					basicUser.setPassword(defaultPassword);
 					basicUser.setRoleId(2);
+					basicUser.setState((byte)0);
 					basicUser.setCreateBy(userId);
 				}catch(Exception e){
 					e.printStackTrace();

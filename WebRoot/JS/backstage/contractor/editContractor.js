@@ -16,11 +16,13 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 20,
     				message: '最多20个字符'
-    			},remote : {
+    			},
+    			remote : {
 					trigger: 'keyup',
 					delay:2000,
 					message: '用户名已存在',
 					url:'basicUser/isNameExist2',
+					name:'userName',
 					data:function(validator){
 						return {id:$(':hidden[name="person.basicUser.id"]').val()};
 					}
@@ -33,8 +35,8 @@ $('#ff').bootstrapValidator({
     				message: '不能为空'
     			},
     			stringLength: {
-    				max: 30,
-    				message: '最多30个字符'
+    				max: 5,
+    				message: '最多5个字符'
     			}
     		}
     	},
@@ -47,11 +49,13 @@ $('#ff').bootstrapValidator({
     			regexp: {
                     regexp: /^1[3|4|5|7|8]\d{9}$/,
                     message: '手机号码格式不正确'
-                },remote : {
+                },
+                remote : {
 					trigger: 'keyup',
 					delay:2000,
 					message: '手机号已存在',
 					url:'basicUser/isTeleExist2',
+					name:'telephone',
 					data:function(validator){
 						return {id:$(':hidden[name="person.basicUser.id"]').val()};
 					}
@@ -106,6 +110,69 @@ $('#ff').bootstrapValidator({
     				min:5,
     				max: 10,
     				message: '5~10个字符'
+    			}
+    		}
+    	},
+    	'contractor.processYear':{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			},
+    			digits:{
+    				message:'必须为数字'
+    			},
+    			stringLength: {
+    				max: 3,
+    				message: '最多3个数字'
+    			}
+    		}
+    	},
+    	'contractor.workerAmount':{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			},
+    			digits:{
+    				message:'必须为数字'
+    			},
+    			stringLength: {
+    				max: 5,
+    				message: '最多5个数字'
+    			}
+    		}
+    	},
+    	'contractor.quote':{
+    		validators: {
+    			stringLength: {
+    				max: 30,
+    				message: '最多30个字符'
+    			}
+    		}
+    	},
+    	'contractor.skill':{
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			stringLength: {
+    				max: 20,
+    				message: '最多20个字符'
+    			}
+    		}
+    	},
+    	'contractor.equipment':{
+    		validators: {
+    			stringLength: {
+    				max: 100,
+    				message: '最多100个字符'
+    			}
+    		}
+    	},
+    	'contractor.processDesc':{
+    		validators: {
+    			stringLength: {
+    				max: 100,
+    				message: '最多100个字符'
     			}
     		}
     	}

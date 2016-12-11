@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.basic.po.Contractor;
+import com.basic.po.Person;
 import com.basic.vo.ContractorSimpleVo;
 import com.basic.vo.ContractorVo;
 import com.common.BaseDao;
@@ -15,6 +18,20 @@ import com.common.dto.BootTablePageDto;
 @Repository
 public class ContractorDao extends BaseDao<Integer, Contractor>{
 
+	@Autowired
+	private PersonDao personDao;
+	
+	@Transactional
+	public void saveBatchEntity(List<Person> personList, List<Contractor> contractorList){
+		for(int i=0; i<personList.size(); i++){
+			Person person = personList.get(i);
+			Contractor c = contractorList.get(i);
+			personDao.persist(person);
+			c.setPersonId(person.getId());
+			super.save(c);
+		}
+	}
+	
 	public BootTablePageDto<ContractorSimpleVo> search(Long province,Long city,Long county,Long town, Integer[] costumeCodes,
 			Byte processYear,int offset,int limit,Long total){
 		StringBuffer countSql = new StringBuffer("select count(1)");
