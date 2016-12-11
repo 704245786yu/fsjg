@@ -41,4 +41,9 @@ public class PersonTest {
 		endTime = DateTransform.String2Date("2016-10-10"+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
 		JacksonJson.printBeanToJson(personDao.findByPage("", null, null, beginTime, endTime, 0, 10, null));
 	}
+	
+	@Test
+	public void test3(){
+		personDao.deleteById(7);
+	}
 }
