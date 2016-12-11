@@ -135,7 +135,11 @@
 	
 	<!-- 右边栏 -->
 	<td style="width:274px;vertical-align:top;padding-left:10px;background-color:#FBF8F9">
-	<!-- 行业分类 -->
+		<!-- 广告 -->
+		<a class="ad" target="_blank"><img width="100%" style="margin-bottom:10px;"></a>
+		<a class="ad" target="_blank"><img width="100%" style="margin-bottom:10px;"></a>
+		
+		<!-- 行业分类 -->
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 行业分类</h3>
@@ -155,10 +159,6 @@
 				</p>
 			</div><!-- panel-body -->
 		</div><!-- panel -->
-		
-		<!-- 广告 -->
-		<a class="ad" target="_blank"><img width="100%" style="margin-bottom:10px;"></a>
-		<a class="ad" target="_blank"><img width="100%"></a>
 		
 		<div name="sample" style="display:none;">
 			<li class="list-group-item">

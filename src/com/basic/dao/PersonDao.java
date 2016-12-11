@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.basic.po.Person;
@@ -13,6 +14,9 @@ import com.common.dto.BootTablePageDto;
 @Repository
 public class PersonDao extends BaseDao<Integer, Person>{
 
+	@Autowired
+	private BasicUserDao basicUserDao;
+	
 	@SuppressWarnings("unchecked")
 	public Person findByUserId(int userId){
 		String hql = "from Person p where p.basicUser.id =:userId";
@@ -58,4 +62,15 @@ public class PersonDao extends BaseDao<Integer, Person>{
 		List<Person> list = (List<Person>)super.findByPage(hql.toString(), offset, limit, params.toArray(new String[]{}), values.toArray(new Object[]{}));
 		return new BootTablePageDto<Person>(total,list);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void deleteById(Integer id) {
+		String hql = "select basicUser.id from Person where id =:id";
+		List<Integer> list = (List<Integer>)super.find(hql, new String[]{"id"}, new Integer[]{id});
+		Integer basicUserId  = list.get(0);
+		super.deleteById(id);
+		basicUserDao.deleteById(basicUserId);
+	}
+	
 }

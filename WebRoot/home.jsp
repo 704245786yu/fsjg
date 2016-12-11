@@ -983,7 +983,7 @@
 			<td>
 				<div class="media">
   					<a class="media-left" target="_blank" href="tradeNews/showDetail/${tradeNews[0].id}">
-						<img src=""/>
+						<img>
 					</a>
 					<div class="media-body">
 						<a target="_blank" href="tradeNews/showDetail/${tradeNews[0].id}"><h4 class="media-heading">${tradeNews[0].title}</h4></a>
@@ -994,7 +994,7 @@
 			<td>
 				<div class="media">
   					<a class="media-left" target="_blank" href="tradeNews/showDetail/${tradeNews[1].id}">
-						<img src=""/>
+						<img>
 					</a>
 					<div class="media-body">
 						<a target="_blank" href="tradeNews/showDetail/${tradeNews[1].id}"><h4 class="media-heading">${tradeNews[1].title}</h4></a>
@@ -1007,7 +1007,7 @@
 			<td>
 				<div class="media">
   					<a class="media-left" target="_blank" href="tradeNews/showDetail/${tradeNews[2].id}">
-						<img src=""/>
+						<img>
 					</a>
 					<div class="media-body">
 						<a target="_blank" href="tradeNews/showDetail/${tradeNews[2].id}"><h4 class="media-heading">${tradeNews[2].title}</h4></a>
@@ -1018,7 +1018,7 @@
 			<td>
 				<div class="media">
   					<a class="media-left" target="_blank" href="tradeNews/showDetail/${tradeNews[3].id}">
-						<img src=""/>
+						<img>
 					</a>
 					<div class="media-body">
 						<a target="_blank" href="tradeNews/showDetail/${tradeNews[3].id}"><h4 class="media-heading">${tradeNews[3].title}</h4></a>

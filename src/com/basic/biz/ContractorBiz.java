@@ -232,6 +232,11 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 	}
 	
 	@Override
+	public void update(Contractor entity) {
+		dao.saveOrUpdate(entity);
+	}
+
+	@Override
 	public void deleteById(Integer id) {
 		super.deleteById(id);
 		personDao.deleteById(id);

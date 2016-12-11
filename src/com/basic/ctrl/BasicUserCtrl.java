@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.basic.biz.BasicUserBiz;
+import com.basic.biz.ContractorBiz;
 import com.basic.biz.CostumeCategoryBiz;
 import com.basic.biz.DistrictBiz;
 import com.basic.biz.EnterpriseBiz;
 import com.basic.biz.PersonBiz;
 import com.basic.po.BasicUser;
+import com.basic.po.Contractor;
 import com.basic.po.Enterprise;
 import com.basic.po.Person;
 import com.basic.po.UserAbstract;
@@ -37,6 +39,8 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 	private PersonBiz personBiz;
 	@Autowired
 	private EnterpriseBiz enterpriseBiz;
+	@Autowired
+	private ContractorBiz contractorBiz;
 	@Autowired
 	private CostumeCategoryBiz costumeCategoryBiz;
 	@Autowired
@@ -112,6 +116,9 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		int roleId = basicUser.getRoleId();
 		if(roleId == 1){
 			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
+			//获取快产专家
+			Contractor contractor = contractorBiz.getById(userAbstract.getId());
+			mav.addObject("contractor", contractor);
 		}else if(roleId == 2){
 			userAbstract = enterpriseBiz.getByBasicUserId(basicUser.getId());
 		}

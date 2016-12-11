@@ -282,7 +282,7 @@ function imgChange(file,maxSize){
  * */
 function cancel(){
 	var $form = $('#ff');
-	$form.find('input[name="logoImg"] ~ div').css('display','none');//隐藏工厂logo
+	$form.find('input[type="file"] ~ div').css('display','none');//隐藏工厂logo
 	$form.find('input[type="hidden"]').val('');
 	$form.find('input[type="radio"]').attr('checked',false);
 	$form.bootstrapValidator('resetForm', true);

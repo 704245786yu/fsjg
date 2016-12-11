@@ -101,7 +101,7 @@
 						<input type="file" name="frontPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="display:none;">
-							<img style="width:150px;height:100px" src="">
+							<img style="width:150px;height:100px">
 						</div>
 					</td>
 					<td><label>身份证照(反)</label></td>
@@ -110,7 +110,7 @@
 						<input type="file" name="backPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="display:none;">
-							<img style="width:150px;height:100px" src="">
+							<img style="width:150px;height:100px">
 						</div>
 					</td>
 				</tr>

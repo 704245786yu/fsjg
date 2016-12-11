@@ -8,6 +8,18 @@ $(function(){
 		$divs.css('display','none');
 		$divs[index-1].style.display = 'block';
 	}
+	//快产专家
+	var contractorId = $('#contractor_personId').val();
+	if(contractorId!=''){
+		var processType = $('#contractor_processType').val().split(',');
+		for(var i=0; i<processType.length; i++){
+			$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');
+		}		
+		//服饰类型
+		var costumeCode = $('#contractor_costumeCode').val();
+		var codes = costumeCode.split(',');
+		checkCostumeByCodes(codes);//设置“选择产品类别”button的显示文字
+	}
 });
 
 $('.menu_li li[class!="level1"]').click(function(){
@@ -112,4 +124,98 @@ $('#modifyPwdForm').bootstrapValidator({
     	}else
     		alert('修改失败');
     });
+});
+
+$('#contractorFrom').bootstrapValidator({
+	feedbackIcons : {
+		valid : 'glyphicon glyphicon-ok',
+		invalid : 'glyphicon glyphicon-remove',
+		validating : 'glyphicon glyphicon-refresh'
+	},
+	fields : {
+		'processType':{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			}
+    		}
+    	},
+    	'processYear':{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			},
+    			digits:{
+    				message:'必须为数字'
+    			},
+    			stringLength: {
+    				max: 3,
+    				message: '最多3个数字'
+    			}
+    		}
+    	},
+    	'workerAmount':{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			},
+    			digits:{
+    				message:'必须为数字'
+    			},
+    			stringLength: {
+    				max: 5,
+    				message: '最多5个数字'
+    			}
+    		}
+    	},
+    	'quote':{
+    		validators: {
+    			stringLength: {
+    				max: 30,
+    				message: '最多30个字符'
+    			}
+    		}
+    	},
+    	'skill':{
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			stringLength: {
+    				max: 20,
+    				message: '最多20个字符'
+    			}
+    		}
+    	},
+    	'equipment':{
+    		validators: {
+    			stringLength: {
+    				max: 100,
+    				message: '最多100个字符'
+    			}
+    		}
+    	},
+    	'processDesc':{
+    		validators: {
+    			stringLength: {
+    				max: 100,
+    				message: '最多100个字符'
+    			}
+    		}
+    	}
+	}
+}).on('success.form.bv', function(e) {
+	e.preventDefault();
+	var $form = $(e.target);
+	//检查是否选择了主营产品
+	if(!isCostumeCheck()){
+		$form.find(':submit').removeAttr('disabled');
+		alert('请选择主营产品');
+		return;
+	}
+	$form.ajaxSubmit(function(data) {     
+		if(data!=null){
+			new JqConfirmExtend().autoClose('保存成功');
+		}
+	});
 });

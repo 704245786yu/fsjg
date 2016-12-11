@@ -19,7 +19,37 @@
 <link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
 <link href="plugin/jquery-entropizer/css/jquery-entropizer.min.css" rel="stylesheet">
 <link href="CSS/my-center.css" rel="stylesheet">
+<style>
+#contractorFrom table tr{
+	height:45px;
+}
+#contractorFrom table td{
+	vertical-align:top;
+}
 
+#contractorFrom table td:FIRST-CHILD + td{
+	width:500px;
+}
+
+#contractorFrom > table select{
+	width:180px;
+}
+
+/*此处需要使用直接子类，否则会对选择服饰类别模态框中的样式产生影响*/
+#contractorFrom > table > tbody > tr >td > label{
+	width:90px;
+	margin-top:7px;
+	margin-right:7px;
+}
+#contractorFrom > table > tbody > tr > td > label span{
+	color:red;
+}
+#costumeBtn{
+	width:400px;
+	overflow:hidden;
+	background: url('image/select-btn.png') no-repeat 90%;
+}
+</style>
 <script src="plugin/jquery.min.js"></script>
 </head>
 
@@ -109,6 +139,10 @@
 				<li class="level1">帐号管理</li>
 				<li name="1" style="color:#00b8ef">详细信息</li>
 				<li name="2">修改密码</li>
+				<c:if test="${userInfo.basicUser.roleId == 1}">
+					<li class="level1">个人管理</li>
+					<li name="6">快产信息</li>
+				</c:if>
 				<c:if test="${userInfo.basicUser.roleId == 2}">
 					<%--企业用户展示接单管理 --%>
 					<li class="level1">接单管理</li>
@@ -179,6 +213,60 @@
 			<div style="display:none;">
 				<iframe src="indent/showMyConfirmed"></iframe>
 			</div>
+			<c:if test="${userInfo.basicUser.roleId == 1}">
+				<div style="display:none;">
+					<div style="border-bottom:1px solid #cccccc;line-height:49px;">
+						<strong style="font-size:18px;padding-left:20px;">快产信息</strong>
+					</div>
+					<input type="hidden" id="contractor_processType" value="${contractor.processType}">
+					<input type="hidden" id="contractor_costumeCode" value="${contractor.costumeCode}">
+					<input type="hidden" id="contractor_personId" value="${contractor.personId}">
+					<form id="contractorFrom" action="contractor/update" style="margin:10px;">
+						<input type="hidden" name="personId" value="${userInfo.id}">
+						<table>
+							<tr>
+								<td><label><span>*</span>加工类型</label></td>
+								<td>
+									<div class="form-group">
+										<c:forEach var="constantDict" items="${processTypes}">
+											<label class="checkbox-inline"><input type="checkbox" name="processType" value="${constantDict.constantValue}">${constantDict.constantName}</label>
+										</c:forEach>
+									</div>
+								</td>
+								<td><label><span>*</span>主营产品</label></td>
+								<td>
+									<div class="form-group">
+										<%@include file="/JSP/main/common/costumeCategoryModal.jsp"%>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><label><span>*</span>加工年限</label></td>
+								<td><div class="form-group"><input type="text" class="form-control" name="processYear" style="width:80%;" value="${contractor.processYear}"></div></td>
+								<td><label><span>*</span>工人数量</label></td>
+								<td><div class="form-group"><input type="text" class="form-control" name="workerAmount" style="width:80%;" value="${contractor.workerAmount}"></div></td>
+							</tr>
+							<tr>
+								<td><label>报价</label></td>
+								<td><div class="form-group"><input type="text" class="form-control" name="quote" style="width:80%;" value="${contractor.quote}"></div></td>
+								<td><label><span>*</span>专业技能</label></td>
+								<td><div class="form-group"><input type="text" class="form-control" name="skill" style="width:80%;" value="${contractor.skill}"></div></td>
+							</tr>
+							<tr>
+								<td><label>生产设备</label></td>
+								<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="equipment" style="width:100%;" value="${contractor.equipment}"></div></td>
+							</tr>
+							<tr>
+								<td><label>加工说明</label></td>
+								<td colspan="3"><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="processDesc" style="width:100%;" value="${contractor.processDesc}"></div></td>
+							</tr>
+						</table>
+						<div style="margin-top:20px;text-align:right;padding-right:100px;">
+							<button type="submit" name="save" class="btn btn-primary" style="width:80px;margin-right:10px;">保存</button>
+						</div>
+					</form>
+				</div>
+			</c:if>
 			<c:if test="${userInfo.basicUser.roleId == 2}">
 				<div style="display:none;">
 					<iframe src="indent/showMyQuoted"></iframe>
@@ -193,8 +281,10 @@
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+<script src="JS/util/jqConfirmExtend.js"></script>
 <script src="plugin/jquery-entropizer/lib/entropizer.js"></script>
 <script src="plugin/jquery-entropizer/js/jquery-entropizer.min.js"></script>
+<script src="plugin/jquery.form.min.js"></script>
 <script src="JS/main/myCenter/myCenter.js"></script>
 </body>
 </html>
