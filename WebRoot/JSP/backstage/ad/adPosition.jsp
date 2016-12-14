@@ -97,10 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="form-group">
 				<label class="col-sm-1 control-label">链接类型</label>
 				<div class="col-sm-3">
-					<select class="form-control" name="linkType">
-						<option value="0">外部网址</option>
-						<option value="1">工厂详情页</option>
-					</select>
+					<input type="radio" name="linkType" value="0"> 外部网址
+					<input type="radio" name="linkType" value="1"> 工厂详情页
 				</div>
 			</div>
 			<div class="form-group">
