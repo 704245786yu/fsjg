@@ -63,7 +63,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>	    
 	<!-- 数据表格 -->
-	<table id="dg" data-toggle="table" data-url="affiche/findByParam" data-unique-id="id" data-query-params="queryParams">
+	<table id="dg" data-toggle="table" data-url="affiche/findByParam" data-unique-id="id" data-query-params="queryParams"
+		data-pagination="true"
+		data-page-size="20"
+		data-page-list="[10,20]">
 	    <thead>
 	        <tr>
 	            <th data-field="title" data-align="center">公告标题</th>

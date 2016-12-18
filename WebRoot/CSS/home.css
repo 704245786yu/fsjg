@@ -14,7 +14,8 @@ ul.category-search{
 	list-style-type:none;
 	width:230px;
 	padding:0px 10px;
-	background-color:#F8F8F7;
+	/* background-color:#F8F8F7; */
+	background-color:#3089E7;
 }
 ul.category-search h5{
 	margin:0px;
@@ -22,18 +23,21 @@ ul.category-search h5{
 	text-align:center;
 }
 ul.category-search a{
-	color:#8C8C8C;
+	/* color:#8C8C8C; */
+	color:white;
 	font-size:12px;
 	text-decoration:none;
 }
 ul.category-search span{
-	color:#8C8C8C;
+	/* color:#8C8C8C; */
+	color:white;
 	padding:3px;
 }
 /*h5 a覆盖上面的a标签样式*/
 ul.category-search h5 a{
+/* 	color:black; */
+	color:white;
 	font-size:16px;
-	color:black;
 }
 ul.category-search a:HOVER{
 	color:#337AB7;

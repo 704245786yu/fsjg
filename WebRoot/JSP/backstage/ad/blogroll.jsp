@@ -36,7 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 数据表格 -->
 	<table id="dg" data-toggle="table" data-url="blogroll/getAll" data-unique-id="id" data-toolbar="#toolbar"
 		data-search="true" data-search-on-enter-key="true" data-search-align="left"
-		data-toolbar-align="right">
+		data-toolbar-align="right"
+		data-pagination="true"
+		data-page-size="20"
+		data-page-list="[10,20]">
 	    <thead>
 	        <tr>
 	            <th data-field="name" data-align="center">链接名称</th>
