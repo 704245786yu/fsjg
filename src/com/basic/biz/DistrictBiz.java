@@ -168,14 +168,13 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 	/**获取省、市的编码、名称键值对
 	 * @return Map<Long,String> key:Code, value:Name
 	 * */
-	public HashMap<Long,String> getAllMap(){
+	public void getAllMap(HashMap<Long,String> codeNameMap,HashMap<String,Long> nameCodeMap){
 		String hql ="select new District(districtCode, districtName) from District";
 		List<District> districts = dao.find(hql);
-		HashMap<Long,String> map = new HashMap<Long,String>();
 		for(District d : districts){
-			map.put(d.getDistrictCode(), d.getDistrictName());
+			codeNameMap.put(d.getDistrictCode(), d.getDistrictName());
+			nameCodeMap.put(d.getDistrictName(), d.getDistrictCode());
 		}
-		return map;
 	}
 	
 	/**获取省、市的编码、名称键值对

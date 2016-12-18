@@ -183,12 +183,7 @@ function query(offset,totalRows){
 				}
 				//接单地区
 				var $condDistrict = $table.find('div[name="condDistrict"]');
-				var provinceAndCity = '';//默认情况
-				if(indent.condProvince != null)
-					provinceAndCity += comm_getDistrictName(indent.condProvince,' ');
-				if(indent.condCity != null)
-					provinceAndCity += comm_getDistrictName(indent.condCity,' ');
-				$condDistrict.html(provinceAndCity);
+				$condDistrict.html(condDistrict);
 				//接单要求
 				var $condDemandDiv = $condDistrict.next();
 				$condDemandDiv.html(indent.condDemand);
@@ -201,9 +196,7 @@ function query(offset,totalRows){
 					userTypeStr = '某工厂';
 				}
 				var $district = $table.find('div[name="district"]');
-				var district = '';//默认情况
-				if(indent.province != null && indent.city != null)
-					district = comm_getDistrictName(indent.province+','+indent.city,',');
+				var district = indent.district;//默认情况
 				$district.html(district+userTypeStr);
 				//发单时间
 				$table.find('div[name="createTime"]').html(moment(indent.createTime).format('YYYY-MM-DD'));
@@ -243,28 +236,17 @@ function initIndentList(){
 		
 		//3、接单企业要求所在地区
 		var div = $($tds[3]).find('div')[0];
-		var str = comm_getDistrictName(div.innerHTML,' ');
-		div.innerHTML = str=='' ? '所有地区':str;
+		var str = div.innerHTML;
+		div.innerHTML = str==' ' ? '所有地区':str;
 		
 		//4、发单企业
 		var $children = $($tds[4]).children();
-		disctricts = $children[1].innerHTML.split(',');
-		province = g_district[disctricts[0]];
-		var districtStr = '';
-		if(province == undefined){
-			districtStr = '';			
-		}else{
-			city = g_district[disctricts[1]];
-			if(city == undefined)
-				districtStr = province;
-			else
-				districtStr = province+city;
-		}
+		var district = $children[1].innerHTML;
 		var userType = $children[0].value;
 		if(userType == 1){
-			$children[1].innerHTML = districtStr+'某个体户';
+			$children[1].innerHTML = district+'某个体户';
 		}else{
-			$children[1].innerHTML = districtStr+'某工厂';
+			$children[1].innerHTML = district+'某工厂';
 		}
 	}
 }

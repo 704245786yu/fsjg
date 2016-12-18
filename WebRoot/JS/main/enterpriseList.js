@@ -150,16 +150,7 @@ function query(offset,totalRows){
 				$amore.attr('href','enterprise/showDetail/'+enterprise.id);
 				//所在地区
 				$span = $table.find('span[name="disctrict"]');
-				str = g_district[enterprise.province]+' '+g_district[enterprise.city];
-				if(enterprise.province != null && enterprise.province != '')
-					str += g_district[enterprise.province]+' ';
-				if(enterprise.city != null && enterprise.city != '')
-					str += g_district[enterprise.city]+' ';
-				if(enterprise.county != null && enterprise.county != '')
-					str += g_district[enterprise.county]+' ';
-				if(enterprise.town != null && enterprise.town != '')
-					str += g_district[enterprise.town];
-				$span.html(str);
+				$span.html(enterprise.detailAddr);
 				//主营产品
 				$span = $table.find('span[name="costumeName"]');
 				var costumeCategoryAry = enterprise.costumeCode;
@@ -181,15 +172,6 @@ function initEnterpriseList(){
 		//加工类型
 		var $span = $table.find('span[name="processType"]');
 		var str = comm_getProcessTypeName($span.html());
-		$span.html(str);
-		//所在地区
-		$span = $table.find('span[name="disctrict"]');
-		var disctricts = $span.html().split(',');
-		str = "";
-		for(var j=0; j<disctricts.length; j++){
-			if(disctricts[j] != null && disctricts[j] != '')
-				str += g_district[disctricts[j]]+' ';
-		}
 		$span.html(str);
 		//主营产品
 		$span = $table.find('span[name="costumeName"]');

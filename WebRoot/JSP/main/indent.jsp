@@ -143,7 +143,7 @@
 							</td>
 							<td name="processType">${indent.processType}</td>
 							<td>${indent.quantity}件</td>
-							<td name="district">${indent.province},${indent.city}</td>
+							<td name="district">${districtCodeNameMap[indent.province]},${districtCodeNameMap[indent.city]}</td>
 							<td><fmt:formatDate value="${indent.createTime}"/></td>
 						</tr>
 					</c:forEach>
@@ -177,7 +177,7 @@
 							</td>
 							<td name="processType">${indent.processType}</td>
 							<td>${indent.quantity}件</td>
-							<td name="district">${indent.province},${indent.city}</td>
+							<td name="district">${districtCodeNameMap[indent.province]},${districtCodeNameMap[indent.city]}</td>
 							<td><fmt:formatDate value="${indent.createTime}"/></td>
 						</tr>
 					</c:forEach>
@@ -194,42 +194,42 @@
 				<div class="panel-body">
 					<table>
 						<tr>
-							<td><a href="province" title="浙江"><img src="image/enterprise/zhejiang.png"></a></td>
+							<td><a href="${districtNameCodeMap["浙江省"]}" title="province"><img src="image/enterprise/zhejiang.png"></a></td>
 							<td>
-								<a href="#">宁波</a><span>|</span> <a href="#">杭州</a><span>|</span> <a href="#">金华</a><span>|</span> <a href="#">绍兴</a><br/>
-								<a href="#">嘉兴</a><span>|</span> <a href="#">温州</a><span>|</span> <a href="#">湖州</a><span>|</span> <a href="#">台州</a>
+								<a href="${districtNameCodeMap["宁波市"]}">宁波</a><span>|</span> <a href="${districtNameCodeMap["杭州市"]}">杭州</a><span>|</span> <a href="${districtNameCodeMap["金华市"]}">金华</a><span>|</span> <a href="${districtNameCodeMap["绍兴市"]}">绍兴</a><br/>
+								<a href="${districtNameCodeMap["嘉兴市"]}">嘉兴</a><span>|</span> <a href="${districtNameCodeMap["温州市"]}">温州</a><span>|</span> <a href="${districtNameCodeMap["湖州市"]}">湖州</a><span>|</span> <a href="${districtNameCodeMap["台州市"]}">台州</a>
 							</td>
-							<td style="padding-left:100px;"><a href="province" title="江苏"><img src="image/enterprise/jiangsu.png"></a></td>
+							<td style="padding-left:100px;"><a href="${districtNameCodeMap["江苏省"]}" title="province"><img src="image/enterprise/jiangsu.png"></a></td>
 							<td>
-								<a href="#">苏州</a><span>|</span> <a href="#">南京</a><span>|</span> <a href="#">无锡</a><span>|</span> <a href="#">泰州</a><br/>
-								<a href="#">南通</a><span>|</span> <a href="#">盐城</a><span>|</span> <a href="#">镇江</a><span>|</span> <a href="#">常州</a>
+								<a href="${districtNameCodeMap["苏州市"]}">苏州</a><span>|</span> <a href="${districtNameCodeMap["南京市"]}">南京</a><span>|</span> <a href="${districtNameCodeMap["无锡市"]}">无锡</a><span>|</span> <a href="${districtNameCodeMap["泰州市"]}">泰州</a><br/>
+								<a href="${districtNameCodeMap["南通市"]}">南通</a><span>|</span> <a href="${districtNameCodeMap["盐城市"]}">盐城</a><span>|</span> <a href="${districtNameCodeMap["镇江市"]}">镇江</a><span>|</span> <a href="${districtNameCodeMap["常州市"]}">常州</a>
 							</td>
 						</tr>
 						<tr>
-							<td><a href="province" title="广东"><img src="image/enterprise/guangdong.png"></a></td>
+							<td><a href="${districtNameCodeMap["广东省"]}" title="province"><img src="image/enterprise/guangdong.png"></a></td>
 							<td>
-								<a href="#">广州</a><span>|</span> <a href="#">深圳</a><span>|</span> <a href="#">东莞</a><span>|</span> <a href="#">佛山</a><br/>
-								<a href="#">中山</a><span>|</span> <a href="#">汕头</a><span>|</span> <a href="#">惠州</a><span>|</span> <a href="#">江门</a>
+								<a href="${districtNameCodeMap["广州市"]}">广州</a><span>|</span> <a href="${districtNameCodeMap["深圳市"]}">深圳</a><span>|</span> <a href="${districtNameCodeMap["东莞市"]}">东莞</a><span>|</span> <a href="${districtNameCodeMap["佛山市"]}">佛山</a><br/>
+								<a href="${districtNameCodeMap["中山市"]}">中山</a><span>|</span> <a href="${districtNameCodeMap["汕头市"]}">汕头</a><span>|</span> <a href="${districtNameCodeMap["惠州市"]}">惠州</a><span>|</span> <a href="${districtNameCodeMap["江门市"]}">江门</a>
 							</td>
-							<td style="padding-left:100px;"><a href="province" title="福建"><img src="image/enterprise/fujian.png"></a></td>
+							<td style="padding-left:100px;"><a href="${districtNameCodeMap["福建省"]}" title="province"><img src="image/enterprise/fujian.png"></a></td>
 							<td>
-								<a href="#">福州</a><span>|</span> <a href="#">厦门</a><span>|</span> <a href="#">莆田</a><span>|</span> <a href="#">三明</a><br/>
-								<a href="#">泉州</a><span>|</span> <a href="#">漳州</a><span>|</span> <a href="#">南平</a><span>|</span> <a href="#">宁德</a>
+								<a href="${districtNameCodeMap["福州市"]}">福州</a><span>|</span> <a href="${districtNameCodeMap["厦门市"]}">厦门</a><span>|</span> <a href="${districtNameCodeMap["莆田市"]}">莆田</a><span>|</span> <a href="${districtNameCodeMap["三明市"]}">三明</a><br/>
+								<a href="${districtNameCodeMap["泉州市"]}">泉州</a><span>|</span> <a href="${districtNameCodeMap["漳州市"]}">漳州</a><span>|</span> <a href="${districtNameCodeMap["南平市"]}">南平</a><span>|</span> <a href="${districtNameCodeMap["宁德市"]}">宁德</a>
 							</td>
 						</tr>
 					</table>
 					<table>
 						<tr>
-							<td><a href="#">北京</a></td> <td><a href="#">上海</a></td> <td><a href="#">天津</a></td> <td><a href="#">山东</a></td> <td><a href="#">宁夏</a></td>
-							<td><a href="#">辽宁</a></td> <td><a href="#">重庆</a></td> <td><a href="#">云南</a></td> <td><a href="#">新疆</a></td> <td><a href="#">西藏</a></td>
+							<td><a href="${districtNameCodeMap["北京市"]}">北京</a></td> <td><a href="${districtNameCodeMap["上海市"]}">上海</a></td> <td><a href="${districtNameCodeMap["天津市"]}">天津</a></td> <td><a href="${districtNameCodeMap["山东省"]}">山东</a></td> <td><a href="${districtNameCodeMap["宁夏回族自治区"]}">宁夏</a></td>
+							<td><a href="${districtNameCodeMap["辽宁省"]}">辽宁</a></td> <td><a href="${districtNameCodeMap["重庆市"]}">重庆</a></td> <td><a href="${districtNameCodeMap["云南省"]}">云南</a></td> <td><a href="${districtNameCodeMap["新疆维吾尔自治区"]}">新疆</a></td> <td><a href="${districtNameCodeMap["西藏自治区"]}">西藏</a></td>
 						</tr>
 						<tr>
-							<td><a href="#">四川</a></td> <td><a href="#">陕西</a></td> <td><a href="#">山西</a></td> <td><a href="#">青海</a></td> <td><a href="#">内蒙古</a></td>
-							<td><a href="#">江西</a></td> <td><a href="#">吉林</a></td> <td><a href="#">湖南</a></td> <td><a href="#">湖北</a></td> <td><a href="#">黑龙江</a></td>
+							<td><a href="${districtNameCodeMap["四川省"]}">四川</a></td> <td><a href="${districtNameCodeMap["陕西省"]}">陕西</a></td> <td><a href="${districtNameCodeMap["山西省"]}">山西</a></td> <td><a href="${districtNameCodeMap["青海省"]}">青海</a></td> <td><a href="${districtNameCodeMap["内蒙古自治区"]}">内蒙古</a></td>
+							<td><a href="${districtNameCodeMap["江西省"]}">江西</a></td> <td><a href="${districtNameCodeMap["吉林省"]}">吉林</a></td> <td><a href="${districtNameCodeMap["湖南省"]}">湖南</a></td> <td><a href="${districtNameCodeMap["湖北省"]}">湖北</a></td> <td><a href="${districtNameCodeMap["黑龙江省"]}">黑龙江</a></td>
 						</tr>
 						<tr>
-							<td><a href="#">河南</a></td> <td><a href="#">河北</a></td> <td><a href="#">海南</a></td> <td><a href="#">贵州</a></td> <td><a href="#">广西</a></td>
-							<td><a href="#">甘肃</a></td> <td><a href="#">安徽</a></td> <td><a href="#">香港</a></td> <td><a href="#">澳门</a></td> <td><a href="#">台湾</a></td>
+							<td><a href="${districtNameCodeMap["河南省"]}">河南</a></td> <td><a href="${districtNameCodeMap["河北省"]}">河北</a></td> <td><a href="${districtNameCodeMap["海南省"]}">海南</a></td> <td><a href="${districtNameCodeMap["贵州省"]}">贵州</a></td> <td><a href="${districtNameCodeMap["广西省"]}">广西</a></td>
+							<td><a href="${districtNameCodeMap["甘肃省"]}">甘肃</a></td> <td><a href="${districtNameCodeMap["安徽省"]}">安徽</a></td> <td><a href="${districtNameCodeMap["香港省"]}">香港</a></td> <td><a href="${districtNameCodeMap["澳门"]}">澳门</a></td> <td><a href="${districtNameCodeMap["台湾省"]}">台湾</a></td>
 						</tr>
 					</table>
 				</div><!-- panel-body -->

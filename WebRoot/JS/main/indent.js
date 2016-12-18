@@ -27,10 +27,6 @@ function initTable(tableId){
 		var $processType = $tr.find('td[name="processType"]');
 		var processType = g_processType[$processType.html()];
 		$processType.html(processType);
-		//发单地区
-		var $district = $tr.find('td[name="district"]');
-		var district = comm_getDistrictName($district.html(),'');
-		$district.html(district);
 	}
 }
 
@@ -76,25 +72,13 @@ function checkDistrict(){
 $('.hotAreaDiv table:first-child a').click(function(e){
 	e.preventDefault();
 	var href = $(this).attr('href');
-	var name = null;
-	if(href=="province")
-		name = $(this).attr('title');
-	else{
-		href = "city";
-		name = $(this).html();
-	}
-	for(var code in g_district){
-		if(g_district[code].indexOf(name) != -1){
-			location.href="indent/search?"+href+"="+code;
-		}
-	}
+	var title = $(this).attr('title');
+	if(title!="province")
+		title = "city";
+	location.href="indent/search?"+title+"="+href;
 });
 $('.hotAreaDiv table:first-child + table a').click(function(e){
 	e.preventDefault();
-	var name = $(this).html();
-	for(var code in g_district){
-		if(g_district[code].indexOf(name) != -1){
-			location.href="indent/search?province="+code;
-		}
-	}
+	var href = $(this).attr('href');
+	location.href="indent/search?province="+href;
 });

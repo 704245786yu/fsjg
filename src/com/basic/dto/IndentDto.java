@@ -21,8 +21,10 @@ public class IndentDto {
 	private Date effectiveDate;//有效日期。前端选择天数，后端保存日期',
 	private Long province;//发单用户省
 	private Long city;//发单用户市
+	private String district;
 	private Long condProvince;//工厂报名条件限制：所在省',
 	private Long condCity;//工厂报名条件限制：所在市',
+	private String condDistrict;
 	private String condDemand;//工厂接单要求',
 	private Byte userType;//发单用户类型 0：个人 1：企业',
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -129,6 +131,18 @@ public class IndentDto {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	public String getDistrict() {
+		return district;
+	}
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public String getCondDistrict() {
+		return condDistrict;
+	}
+	public void setCondDistrict(String condDistrict) {
+		this.condDistrict = condDistrict;
 	}
 	
 }

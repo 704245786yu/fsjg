@@ -9,8 +9,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -212,14 +215,32 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 	 * @param offset
 	 * @param total 可为null
 	 * */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="search2")
 	@ResponseBody
-	public BootTablePageDto<IndentDto> search2(Long province,Long city,Long county,Long town, Integer[] costumeCode, 
+	public BootTablePageDto<IndentDto> search2(HttpServletRequest request,Long province,Long city,Long county,Long town, Integer[] costumeCode, 
 			Integer processType,Byte saleMarket,String indentKeyword,Byte sortMark, Byte userType, Boolean isUrgency, int offset,Long total){
 		if(indentKeyword == null)
 			indentKeyword = "";
 		int limit = 20;
 		BootTablePageDto<IndentDto> result = biz.search(province,city,county,town,costumeCode,processType,saleMarket,indentKeyword,sortMark,userType,isUrgency,offset,limit,total);
+		List<IndentDto> list = result.getRows();
+		ServletContext servletContext=request.getSession().getServletContext();
+		HashMap<Long,String> districtCodeNameMap = (HashMap<Long,String>)servletContext.getAttribute("districtCodeNameMap");
+		for(int i=0; i<list.size(); i++){
+			IndentDto indentDto = list.get(i);
+			String provinceStr = districtCodeNameMap.get(indentDto.getProvince());
+			provinceStr = provinceStr==null ? "" : provinceStr;
+			String cityStr = districtCodeNameMap.get(indentDto.getCity());
+			cityStr = cityStr==null ? "" : cityStr;
+			indentDto.setDistrict(provinceStr+" "+cityStr);
+			
+			String condProvinceStr = districtCodeNameMap.get(indentDto.getCondProvince());
+			condProvinceStr = condProvinceStr==null ? "" : condProvinceStr;
+			String condCityStr = districtCodeNameMap.get(indentDto.getCondCity());
+			condCityStr = condCityStr==null ? "" : condCityStr;
+			indentDto.setCondDistrict(condProvinceStr+" "+condCityStr);
+		}
 		return result;
 	}
 	

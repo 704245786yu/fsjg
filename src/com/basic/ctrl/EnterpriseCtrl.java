@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Workbook;
@@ -199,12 +202,28 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	 * @param offset
 	 * @param total 可为null
 	 * */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="search2")
 	@ResponseBody
-	public BootTablePageDto<Enterprise> search2(Long province,Long city,Long county,Long town, 
+	public BootTablePageDto<Enterprise> search2(HttpServletRequest request, Long province,Long city,Long county,Long town, 
 			Integer[] costumeCode, Integer processType, Integer staffNumber, String enterpriseKeyword,int offset,Long total){
 		int limit = 20;
 		BootTablePageDto<Enterprise> result = biz.search(province,city,county,town,costumeCode,processType, staffNumber,enterpriseKeyword,offset,limit,total);
+		List<Enterprise> list = result.getRows();
+		ServletContext servletContext=request.getSession().getServletContext();
+		HashMap<Long,String> districtCodeNameMap = (HashMap<Long,String>)servletContext.getAttribute("districtCodeNameMap");
+		for(int i=0; i<list.size(); i++){
+			Enterprise e = list.get(i);
+			String provinceStr = districtCodeNameMap.get(e.getProvince());
+			provinceStr = provinceStr==null ? "" : provinceStr;
+			String cityStr = districtCodeNameMap.get(e.getCity());
+			cityStr = cityStr==null ? "" : cityStr;
+			String countyStr = districtCodeNameMap.get(e.getCounty());
+			countyStr = countyStr==null ? "" : countyStr;
+			String townStr = districtCodeNameMap.get(e.getTown());
+			townStr = townStr==null ? "" : townStr;
+			e.setDetailAddr(provinceStr+" "+cityStr+" "+countyStr+" "+townStr);
+		}
 		return result;
 	}
 	

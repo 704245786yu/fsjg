@@ -53,8 +53,11 @@ public class StartupListener implements ServletContextListener {
 		
 		//全国地区的编码、名称键值对
 		DistrictBiz districtBiz = wac.getBean(DistrictBiz.class);
-		HashMap<Long,String> districtMap = districtBiz.getAllMap();
-		sc.setAttribute("districtMap", JacksonJson.beanToJson(districtMap));
+		HashMap<Long,String> districtCodeNameMap = new HashMap<Long,String>(); 
+		HashMap<String,Long> districtNameCodeMap = new HashMap<String,Long>(); 
+		districtBiz.getAllMap(districtCodeNameMap,districtNameCodeMap);
+		sc.setAttribute("districtCodeNameMap",districtCodeNameMap);
+		sc.setAttribute("districtNameCodeMap",districtNameCodeMap);
 	}
 	
 	@Override

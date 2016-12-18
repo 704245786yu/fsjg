@@ -185,7 +185,7 @@ $('.mallCategory a,.cat-subcategory a,.costumeList table table a').click(functio
 	var categoryName = $(this).html();
 	for(var key in g_costumeCategory){
 		if(g_costumeCategory[key] == categoryName)
-			location.href="enterprise/showList?costumeCode="+key+"&enterpriseKeyword="+g_costumeCategory[key]; 
+			window.open("enterprise/showList?costumeCode="+key+"&enterpriseKeyword="+g_costumeCategory[key]); 
 	}
 });
 

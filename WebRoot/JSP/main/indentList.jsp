@@ -166,12 +166,12 @@
 							<div>${indent.indentType}</div>
 						</td>
 						<td style="width:180px">
-							<div>${indent.condProvince},${indent.condCity}</div>
+							<div>${districtCodeNameMap[indent.condProvince]},${districtCodeNameMap[indent.condCity]}</div>
 							<div>${indent.condDemand}</div>
 						</td>
 						<td style="width:120px">
 							<input type="hidden" name="userType" value="${indent.userType}">
-							<div>${indent.province},${indent.city}</div>
+							<div>${districtCodeNameMap[indent.province]} ${districtCodeNameMap[indent.city]}</div>
 						</td>
 						<td style="width:100px">
 							<div>${indent.createTime}</div>

@@ -131,25 +131,13 @@ function getNewAuth(){
 $('.hotAreaDiv table:first-child a').click(function(e){
 	e.preventDefault();
 	var href = $(this).attr('href');
-	var name = null;
-	if(href=="province")
-		name = $(this).attr('title');
-	else{
-		href = "city";
-		name = $(this).html();
-	}
-	for(var code in g_district){
-		if(g_district[code].indexOf(name) != -1){
-			location.href="enterprise/search?"+href+"="+code;
-		}
-	}
+	var title = $(this).attr('title');
+	if(title!="province")
+		title = "city";
+	location.href="enterprise/search?"+title+"="+href;
 });
 $('.hotAreaDiv table:first-child + table a').click(function(e){
 	e.preventDefault();
-	var name = $(this).html();
-	for(var code in g_district){
-		if(g_district[code].indexOf(name) != -1){
-			location.href="enterprise/search?province="+code;
-		}
-	}
+	var href = $(this).attr('href');
+	location.href="enterprise/search?province="+href;
 });
