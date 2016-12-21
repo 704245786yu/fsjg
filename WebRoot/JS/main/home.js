@@ -3,8 +3,8 @@ var g_costumeCategory = null;
 $(function(){
 	initAd();
 	$('.carousel').carousel();
-	$("#carousel-small-ad").slide({ mainCell:"ul",autoPlay:true,effect:"leftLoop", vis:5, scroll:2, autoPage:true, pnLoop:false });
-	$("#bottom_carousel .picScroll").slide({ mainCell:"ul",autoPlay:true,effect:"leftLoop", vis:8, scroll:2, autoPage:true, pnLoop:false });
+	$("#carousel-small-ad").slide({ mainCell:"ul",autoPlay:true,effect:"leftMarquee", vis:5, interTime:50, pnLoop:false });
+	$("#bottom_carousel .picScroll").slide({ mainCell:"ul",autoPlay:true,effect:"leftMarquee", vis:8, interTime:50, pnLoop:false });
 	mallCategory();
 	initCostumeObj();
 	initAffiche();
