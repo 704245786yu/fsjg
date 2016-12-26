@@ -108,10 +108,10 @@ function isOverChecked(checkbox){
 	var $checkbox = $(checkbox);
 	if($checkbox.prop('checked')==true){
 		var length = $('#costumeCategoryModal :checked').not(':disabled').length;
-		var isLimitCheck = $('#costumeCategoryModal input[name="isLimitCheck"]').val();
-		if(isLimitCheck != ''){
-			if(length > 5){
-				alert('不能超过5个');
+		var limitChkNum = $('#costumeCategoryModal input[name="limitChkNum"]').val();
+		if(limitChkNum != ''){
+			if(length > limitChkNum){
+				alert('不能超过'+limitChkNum+'个');
 				$checkbox.prop('checked',false);
 				return false;
 			}

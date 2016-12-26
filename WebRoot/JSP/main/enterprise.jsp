@@ -56,7 +56,7 @@
 								<td style="width:65px"><label>产品类别</label></td>
 								<td>
 									<jsp:include page="/JSP/main/common/costumeCategoryModal.jsp">
-										<jsp:param name="isLimitCheck" value="true"/>
+										<jsp:param name="limitChkNum" value="5"/>
 									</jsp:include>
 								</td>
 							</tr>

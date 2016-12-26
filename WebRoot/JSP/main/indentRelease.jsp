@@ -76,7 +76,7 @@
 					<td>产品类别：</td>
 					<td>
 						<jsp:include page="/JSP/main/common/costumeCategoryModal.jsp">
-							<jsp:param name="isLimitCheck" value="true"/>
+							<jsp:param name="limitChkNum" value="5"/>
 						</jsp:include>
 						<input type="hidden" name="costumeCode"/>
 					</td>

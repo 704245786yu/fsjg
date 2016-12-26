@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<input name="isLimitCheck" value="${param.isLimitCheck}">
+	<input name="limitChkNum" value="${param.limitChkNum}">
 	<span name="data" style="display:none;">${applicationScope.costumeCategoryList}</span>
 </div>
 

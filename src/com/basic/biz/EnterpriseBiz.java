@@ -547,4 +547,10 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return Long.valueOf(numStr);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String,Object>> getNames(String name){
+		String hql = "select new map(number as num,enterpriseName as name) from Enterprise where enterpriseName like :name";
+		List<HashMap<String,Object>> list = (List<HashMap<String,Object>>)dao.findByPage(hql, 0, 10, new String[]{"name"}, new String[]{"%"+name+"%"});
+		return list;
+	}
 }

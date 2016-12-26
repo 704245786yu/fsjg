@@ -515,6 +515,12 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		return new ValidVo( ! biz.isExsit(enterpriseName,id));
 	}
 	
+	@RequestMapping(value="getNames")
+	@ResponseBody
+	public List<HashMap<String,Object>> getNames(String name){
+		return biz.getNames(name);
+	}
+	
 	/**保存文件到磁盘
 	 * @param srcFile 原文件
 	 * @param uploadDir 保存路径
@@ -576,7 +582,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		}
 		return errorMsg;
 	}
-
+	
 	@Override
 	public List<Enterprise> getAll() {
 		return null;
