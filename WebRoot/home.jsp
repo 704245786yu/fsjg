@@ -634,12 +634,12 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<div class="col-md-4 ad">
+					<div class="col-md-4 col-xs-4 ad">
 						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-8 col-xs-8">
 						<c:forEach var="enterprise" items="${strengths}">
-							<div class="col-md-4">
+							<div class="col-md-4 col-xs-4">
 								<img src="uploadFile/enterprise/${enterprise.logo}">
 								<div>
 									<a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
@@ -660,12 +660,12 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<div class="col-md-4 ad">
+					<div class="col-md-4 col-xs-4 ad">
 						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-8 col-xs-8">
 						<c:forEach var="enterprise" items="${auths}">
-							<div class="col-md-4">
+							<div class="col-md-4 col-xs-4">
 								<img src="uploadFile/enterprise/${enterprise.logo}">
 								<div>
 									<a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>

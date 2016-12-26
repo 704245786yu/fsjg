@@ -30,6 +30,7 @@ public class StartupListener implements ServletContextListener {
 		
 		CostumeCategoryBiz costumeCategoryBiz = wac.getBean(CostumeCategoryBiz.class);
 		HashMap<Integer,String> codeNameMap = costumeCategoryBiz.getAllCodeNameMap();
+		sc.setAttribute("costumeCateMap", codeNameMap);
 		sc.setAttribute("costumeCategoryMap", JacksonJson.beanToJson(codeNameMap));
 		
 		//服饰类型层次树

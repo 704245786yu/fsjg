@@ -3,6 +3,7 @@ var g_delImg = new Array();
 
 var g_enterpriseAry = null;
 $('input[name="enterpriseName"]').typeahead({
+	delay:1000,
 	source:function(query, process){
 		$(':hidden[name="enterpriseNum"]').val('');
 		query = query.trim();
@@ -51,6 +52,16 @@ $('#ff').bootstrapValidator({
     				message: '必选'
     			},
     			integer:{
+    				message:'必须为整数'
+    			}
+    		}
+    	},
+    	price:{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			},
+    			numeric:{
     				message:'必须为数字'
     			}
     		}
@@ -90,38 +101,49 @@ $('#ff').bootstrapValidator({
 		alert('请选择主营产品');
 		return;
 	}
-	//加入被删的图片
-	for(var i=0; i<g_delImg.length; i++){
-		formData.push({'name':'delImg','value':g_delImg[i]});
-	}
-	var enterpriseNum = $(':hidden[name="enterpriseNum"]').val();
-	for(var i=0; i<g_enterpriseAry.length; i++){
-		if(g_enterpriseAry[i].name == item){
-			$(':hidden[name="enterpriseNum"]').val(g_enterpriseAry[i].num);
-			return item;
+	
+	//工厂编号
+	var $enterpriseNum = $(':hidden[name="enterpriseNum"]');
+	var enterpriseNum = $enterpriseNum.val();
+	if(enterpriseNum==''){
+		var enterpriseName = $('#editPanel input[name="enterpriseName"]').val();
+		for(var i=0; i<g_enterpriseAry.length; i++){
+			if(g_enterpriseAry[i].name == enterpriseName){
+				enterpriseNum = g_enterpriseAry[i].num;
+				break;
+			}
+		}
+		if(enterpriseNum != ''){
+			$enterpriseNum.val(enterpriseNum);
+		}else{
+			alert('请选择正确的工厂');
+			return;
 		}
 	}
-	alert(enterpriseNum);
-	if(enterpriseNum==null || enterpriseNum==''){
-		alert('请选择正确的工厂');
-		return;
-	}
-	$form.ajaxSubmit(function(data) {     
-		var action = $form.attr('action');
-		var enterpriseName = $('input[name="enterpriseName"]').val();
-		if(data.status==200){
-			data.value.enterpriseName = enterpriseName;
-			var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
-			if(opt.indexOf("save")!=-1){
-				$('#dg').bootstrapTable('append',data.value);
-			}else if(opt.indexOf("update")!=-1){	//update by unique id
-				$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
+	$form.ajaxSubmit({
+		beforeSubmit:function(formData, jqForm, options){
+			//加入被删的图片
+			for(var i=0; i<g_delImg.length; i++){
+				formData.push({'name':'delImg','value':g_delImg[i]});
 			}
-			cancel();
-		}else if(data.status==500){
-			g_jqConfirm.showDialog('保存失败',data.value);
-		}else if(data.status==501){
-			g_jqConfirm.showDialog('保存失败',data.value);
+		},
+		success:function(data) {     
+			var action = $form.attr('action');
+			var enterpriseName = $('#editPanel input[name="enterpriseName"]').val();
+			if(data.status==200){
+				data.value.enterpriseName = enterpriseName;
+				var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
+				if(opt.indexOf("save")!=-1){
+					$('#dg').bootstrapTable('append',data.value);
+				}else if(opt.indexOf("update")!=-1){	//update by unique id
+					$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
+				}
+				cancel();
+			}else if(data.status==500){
+				g_jqConfirm.showDialog('保存失败',data.value);
+			}else if(data.status==501){
+				g_jqConfirm.showDialog('保存失败',data.value);
+			}
 		}
 	});
 });
@@ -142,7 +164,8 @@ function add(){
 function modify(id){
 	var data = $('#dg').bootstrapTable('getRowByUniqueId',id);
 	$("#ff").autofill(data);
-	checkCostumeByCodes(data.costumeCode);//设置“选择产品类别”button的显示文字
+	var codes = [data.costumeCode];
+	checkCostumeByCodes(codes);//设置“选择产品类别”button的显示文字
 	
 	//填售后保障
 	var support = data.support;
@@ -170,21 +193,21 @@ function modify(id){
 			$div.after($divTemp);
 		}
 	}
-	$('#ff').attr('action','enterprise/updateEnterprise');
+	$('#ff').attr('action','costumeSample/updateData');
 	showForm();
 }
 
-function delDetailImg(btn,hidField){
-	var $detailImg = $(':hidden[name="'+hidField+'"]');
-	var detailImgs = $detailImg.val().split(',');
+function delImg(btn,hidField){
+	var $hidImgField = $(':hidden[name="'+hidField+'"]');
+	var imgs = $hidImgField.val().split(',');
 	var path = "uploadFile/costumeSample/";
 	var $img = $(btn).parent('div').prev();
 	var src = $img.attr('src')
 	src = src.slice(path.length,src.length);
 	g_delImg.push(src);
-	var index = $.inArray(src,detailImgs);
-	detailImgs.splice(index,1);
-	$detailImg.val(detailImgs.join());
+	var index = $.inArray(src,imgs);
+	imgs.splice(index,1);
+	$hidImgField.val(imgs.join());
 	$img.parent('div').css('display','none');
 }
 

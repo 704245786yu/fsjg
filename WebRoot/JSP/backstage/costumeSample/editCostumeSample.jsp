@@ -80,6 +80,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td><label><span>*</span>单价</label></td>
+					<td>
+						<div class="form-group"><input type="text" class="form-control" name="price"></div>
+					</td>
+				</tr>
+				<tr>
 					<td><label><span>*</span>销售市场</label></td>
 					<td>
 						<div class="form-group">

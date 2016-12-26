@@ -31,11 +31,6 @@ function queryParams(params){
 	return params;
 }
 
-//日期格式化
-//function dateFormatter(value,row,index){
-//	return new Date(value).format("yyyy-MM-dd hh:mm:ss");
-//}
-
 //查询
 function search(){
 	g_total = null;//设置为null，使后台重新计算total值

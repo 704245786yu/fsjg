@@ -1,58 +1,41 @@
-package com.basic.po;
+package com.basic.vo;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-/**服饰样品*/
-@Entity
-@Table(name="basic_costume_sample")
-public class CostumeSample {
+public class CostumeSampleVo {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name="enterprise_num")
 	private Long enterpriseNum;
+	
+	private String enterpriseName;
 	
 	private Long num;//样品编号
 	
 	private String name;//样品名称
 	
-	@Column(name="costume_code")
 	private Integer costumeCode;//服饰类型编码
 	
-	@Column(name="order_amount")
+	private String costumeCate;//服饰类型
+	
 	private Integer orderAmount;//最低下单数量
 	
 	private Float price;//单价
 	
-	@Column(name="sale_market")
 	private Byte saleMarket;//销售市场
 	
 	private String support;//0：支持该款 1：贴牌生产 2：支持看样,可多选，用逗号分割
 	
-	@Column(name="process_desc")
 	private String processDesc;//加工说明
 	
-	@Column(name="sm_img")
 	private String smImg;//小图url，多个图片用逗号分隔
 	
-	@Column(name="detail_img")
 	private String detailImg;//详细信息图片url，多个图片用逗号分隔
 	
-	@Column(name="update_by")
 	private Integer updateBy;//操作用户ID,0表示用户自己
 	
-	@Column(name="update_time")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:ss:mm", timezone = "GMT+8")
 	private Date updateTime;//更改时间
 
@@ -167,6 +150,22 @@ public class CostumeSample {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getEnterpriseName() {
+		return enterpriseName;
+	}
+
+	public void setEnterpriseName(String enterpriseName) {
+		this.enterpriseName = enterpriseName;
+	}
+
+	public String getCostumeCate() {
+		return costumeCate;
+	}
+
+	public void setCostumeCate(String costumeCate) {
+		this.costumeCate = costumeCate;
 	}
 	
 }

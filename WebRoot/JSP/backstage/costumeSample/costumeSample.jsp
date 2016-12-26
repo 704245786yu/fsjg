@@ -83,8 +83,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="num" data-align="center">样品编号</th>
 		            <th data-field="name" data-align="center">样品名</th>
 		            <th data-field="enterpriseName" data-align="center">工厂名称</th>
-		            <th data-field="costumeCateName" data-align="center">服饰类型</th>
-		            <th data-field="createTime" data-align="center">添加时间</th>
+		            <th data-field="costumeCate" data-align="center">服饰类型</th>
+		            <th data-field="updateTime" data-align="center">添加时间</th>
 		            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
 		        </tr>
 		    </thead>
