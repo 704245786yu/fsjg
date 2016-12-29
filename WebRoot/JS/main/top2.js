@@ -29,7 +29,7 @@ $(function(){
 
 //页面顶部全局搜索
 $('#globalSearchForm').submit(function(e){
-	var ary = ['indent', 'enterprise', 'sample'];
+	var ary = ['indent', 'enterprise', 'costumeSample'];
 	var $form = $(e.target);
 	var $inputs = $form.find('input');
 	//判断当前要搜索的是订单、工厂、样品中的哪一个

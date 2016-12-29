@@ -167,5 +167,4 @@ public class CostumeSampleVo {
 	public void setCostumeCate(String costumeCate) {
 		this.costumeCate = costumeCate;
 	}
-	
 }

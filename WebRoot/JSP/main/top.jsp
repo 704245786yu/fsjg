@@ -57,7 +57,7 @@
 		            <div class="search-bg"></div>
 		            <input type="text" id="s1" name="indentKeyword" class="search-input" value="${indnetKeyword}">
 		            <input type="text" id="s2" name="enterpriseKeyword" class="search-input" value="${enterpriseKeyword}">
-		            <input type="text" id="s3" name="sampleKeyword" class="search-input">
+		            <input type="text" id="s3" name="sampleKeyword" class="search-input" value="${sampleKeyword}">
 		            <!-- <span class="s1 pholder">食品酒水半价抢疯</span>
 		            <span class="s2 pholder">搜商家名称</span> -->
 		            <button id="submit" class="btn-search" value="搜索">搜索</button>
@@ -77,7 +77,7 @@
 			<li name="li-enterprise"><a target="_blank" href="enterprise">加工工厂</a></li>
 			<li name="li-indent"><a target="_blank" href="indent">加工订单</a></li>
 			<li name="li-contractor"><a target="_blank" href="contractor">快产专家</a></li>
-			<li name="li-costumeSample"><a target="_blank" href="JSP/main/costumeSample.jsp">服饰样品</a></li>
+			<li name="li-costumeSample"><a target="_blank" href="costumeSample">服饰样品</a></li>
 		</ul>
 	</div>
 </nav>

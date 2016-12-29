@@ -44,7 +44,7 @@
 	<div style="width:1190px;margin:0 auto;">
 		<ul class="nav navbar-nav" >
 			<li name="li-home" style="background-image:url('image/nav-orange.png');"><a>店铺首页</a></li>
-			<!-- <li name="li"><a>样品展示</a></li> -->
+			<li name="li-sample"><a>样品展示</a></li>
 		</ul>
 	</div>
 </nav>

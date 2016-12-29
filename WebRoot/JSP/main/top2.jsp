@@ -57,7 +57,7 @@
 		            <div class="search-bg"></div>
 		            <input type="text" id="s1" name="indentKeyword" class="search-input" value="${indnetKeyword}">
 		            <input type="text" id="s2" name="enterpriseKeyword" class="search-input" value="${enterpriseKeyword}">
-		            <input type="text" id="s3" name="sampleKeyword" class="search-input">
+		            <input type="text" id="s3" name="sampleKeyword" class="search-input" value="${sampleKeyword}">
 		            <button id="submit" class="btn-search" value="搜索">搜索</button>
 		        </div>
 			</form>

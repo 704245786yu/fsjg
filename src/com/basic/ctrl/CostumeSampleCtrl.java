@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,22 +20,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ad.biz.AdPositionBiz;
+import com.ad.po.AdPosition;
 import com.basic.biz.CostumeSampleBiz;
 import com.basic.po.BasicUser;
 import com.basic.po.CostumeSample;
 import com.basic.vo.CostumeSampleVo;
+import com.basic.vo.SampleVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 import com.util.FileUtil;
+import com.util.JacksonJson;
 
 @Controller
 @RequestMapping("costumeSample")
 public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,CostumeSample>{
 
+	@Autowired
+	private AdPositionBiz adPositionBiz;
+	
 	private static final long imgMaxSize = 200000;//文档最大200kb
+	
+	public ModelAndView showDefaultPage(HttpSession session){
+		ModelAndView mav = new ModelAndView("main/costumeSample");
+		
+		BootTablePageDto<SampleVo> result = biz.search(null,null,null,null,null,"",0,20,null);
+		mav.addObject("result", result);
+		
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("sample_list");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
+		return mav;
+	}
 	
 	/**显示后台管理页面*/
 	@RequestMapping("showManage")
@@ -84,18 +104,18 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		try{
 			if(smPic.length > 0){
 				String img = null;
-				img = this.transferFile(smPic[0],uploadDir,createBy,"0pic");
+				img = this.transferFile(smPic[0],uploadDir,createBy,"0");
 				for(int i=1;i<smPic.length;i++){
-					img +=  ","+this.transferFile(smPic[i],uploadDir,createBy,i+"pic");
+					img +=  ","+this.transferFile(smPic[i],uploadDir,createBy,i+"");
 				}
 				c.setSmImg(img);
 			}
 			
 			if(detailPic.length > 0){
 				String img = null;
-				img = this.transferFile(detailPic[0],uploadDir,createBy,"0pic");
+				img = this.transferFile(detailPic[0],uploadDir,createBy,"0");
 				for(int i=1;i<detailPic.length;i++){
-					img +=  ","+this.transferFile(detailPic[i],uploadDir,createBy,i+"pic");
+					img +=  ","+this.transferFile(detailPic[i],uploadDir,createBy,i+"");
 				}
 				c.setDetailImg(img);
 			}
@@ -152,9 +172,9 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		try{
 			if(smPic.length > 0){
 				String img = null;
-				img = this.transferFile(smPic[0],uploadDir,createBy,"0pic");
+				img = this.transferFile(smPic[0],uploadDir,createBy,"0");
 				for(int i=1;i<smPic.length;i++){
-					img +=  ","+this.transferFile(smPic[i],uploadDir,createBy,i+"pic");
+					img +=  ","+this.transferFile(smPic[i],uploadDir,createBy,i+"");
 				}
 				if(c.getSmImg().length() > 0)
 					c.setSmImg(c.getSmImg()+','+img);
@@ -164,9 +184,9 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 			
 			if(detailPic.length > 0){
 				String img = null;
-				img = this.transferFile(detailPic[0],uploadDir,createBy,"0pic");
+				img = this.transferFile(detailPic[0],uploadDir,createBy,"0");
 				for(int i=1;i<detailPic.length;i++){
-					img +=  ","+this.transferFile(detailPic[i],uploadDir,createBy,i+"pic");
+					img +=  ","+this.transferFile(detailPic[i],uploadDir,createBy,i+"");
 				}
 				if(c.getDetailImg().length() > 0)
 					c.setDetailImg(c.getDetailImg()+','+img);
@@ -180,6 +200,24 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		c.setUpdateTime(new Date());
 		biz.update(c);
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, c);
+	}
+	
+	@RequestMapping("search")
+	public ModelAndView search(String sampleKeyword){
+		if(sampleKeyword == null)
+			sampleKeyword = "";
+		BootTablePageDto<SampleVo> result = biz.search(null,null,null,null,null,sampleKeyword,0,20,null);
+		ModelAndView mav = new ModelAndView("main/costumeSample");
+		mav.addObject("result", result);
+		
+		//广告位 台州市椒江牡丹服装加工厂 三门县百润服装加工厂
+		List<AdPosition> adPositions = adPositionBiz.getByCode("costume_sample");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
+		
+		//保留页面顶部搜索框的状态
+		mav.addObject("tabIndex",2);
+		mav.addObject("sampleKeyword",sampleKeyword);
+		return mav;
 	}
 	
 	/**后台分页查询*/
