@@ -437,6 +437,15 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return e;
 	}
 	
+	/**根据工厂编号获取工厂信息*/
+	public Enterprise getByNum(long num){
+		Criterion c = Restrictions.eq("number", num);
+		Enterprise e = dao.findByCriteria(c).get(0);
+		int eId = e.getId();
+		e.setCostumeCode(enterpriseCostumeRelaDao.getCostumeCode(eId));
+		return e;
+	}
+	
 	/**根据BasicUser的id获取企业的id
 	 * */
 	@SuppressWarnings("unchecked")
@@ -535,6 +544,20 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		enterpriseCostumeRelaDao.delByEnterpriseId(id);
 		dao.deleteById(id);
 		basicUserDao.deleteById(userId);
+	}
+	
+	/**根据字段名获取数据*/
+	@SuppressWarnings("unchecked")
+	public Object[] getByField(long num,String ...fields){
+		StringBuilder hql = new StringBuilder("select "+fields[0]);
+		for(int i=1; i<fields.length; i++){
+			hql.append(","+fields[i]);
+		}
+		hql.append(" from Enterprise where number =:num");
+		List<Object[]> list = (List<Object[]>)dao.find(hql.toString(), new String[]{"num"}, new Long[]{num});
+		if(list.size()==1)
+			return list.get(0);
+		return null;
 	}
 	
 	/**生成企业编号格式：YYMMddHHmmss+ 3位随机数 + 手机号后5位

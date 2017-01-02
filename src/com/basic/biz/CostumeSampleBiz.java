@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.basic.dao.CostumeSampleDao;
 import com.basic.po.CostumeSample;
 import com.basic.vo.CostumeSampleVo;
+import com.basic.vo.Sample2Vo;
 import com.basic.vo.SampleVo;
 import com.common.BaseBiz;
 import com.common.dto.BootTablePageDto;
@@ -57,6 +58,38 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
 		}
 		return dao.findByPage(num,name,enterpriseName,beginTime,endTime,offset,limit,total);
+	}
+	
+	/**获取工厂样品展示列表*/
+	public BootTablePageDto<Sample2Vo> getEntSample(long enterpriseNum,Long costumeCode,int offset,int limit,Long total){
+		BootTablePageDto<Sample2Vo> result = dao.getEntSample(enterpriseNum,costumeCode,offset,limit,total);
+		//获取小图的第一张图
+		if(result.getTotal() != 0){
+			List<Sample2Vo> list = result.getRows();
+			for(int i=0; i<list.size(); i++){
+				String img = list.get(i).getImg();
+				list.get(i).setImg(img.substring(0, 19));
+			}
+		}
+		return result;
+	}
+	
+	/**获取工厂已添加的样品的产品类别*/
+	@SuppressWarnings("unchecked")
+	public List<Integer> getCostumeCode(long enterpriseNum){
+		String hql = "select distinct costumeCode from CostumeSample where enterpriseNum =:enterpriseNum";
+		List<Integer> list = (List<Integer>)dao.find(hql, new String[]{"enterpriseNum"}, new Long[]{enterpriseNum});
+		return list;
+	}
+	
+	/**根据样品编号获取对象*/
+	public CostumeSample getByNum(long num){
+		CostumeSample sample = new CostumeSample();
+		sample.setNum(num);
+		List<CostumeSample> list = dao.findByExample(sample);
+		if(list.size()==1)
+			return list.get(0);
+		return null;
 	}
 	
 	/**删除样品时同时删除图片信息*/

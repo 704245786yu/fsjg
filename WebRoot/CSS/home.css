@@ -15,7 +15,8 @@ ul.category-search{
 	width:230px;
 	padding:0px 10px;
 	/* background-color:#F8F8F7; */
-	background-color:#3089E7;
+	/* background-color:#3089E7; */
+	background-color:#6E6568;
 }
 ul.category-search h5{
 	margin:0px;
@@ -40,7 +41,8 @@ ul.category-search h5 a{
 	font-size:16px;
 }
 ul.category-search a:HOVER{
-	color:#337AB7;
+	/* color:#337AB7; */
+	color:#009EF2;
 }
 /*服饰分类a标签间距*/
 ul.category-search li.fushi_li > a{

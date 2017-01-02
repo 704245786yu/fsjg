@@ -21,6 +21,8 @@ public class TradeNews {
 	
 	private String title;//公告标题
 	
+	private String source;//来源
+	
 	private String content;//公告内容
 	
 	@Column(name="update_by")
@@ -44,6 +46,14 @@ public class TradeNews {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 	public String getContent() {

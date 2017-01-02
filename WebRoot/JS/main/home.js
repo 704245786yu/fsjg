@@ -119,6 +119,12 @@ function initAd(){
 		}else if(ad.code=='home_mid_6'){
 			var $a = $($('a.mid_ad')[5]);
 			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_mid_7'){
+			var $a = $($('a.mid_ad')[6]);
+			setAdhrefAndImg($a,ad);
+		}else if(ad.code=='home_mid_8'){
+			var $a = $($('a.mid_ad')[7]);
+			setAdhrefAndImg($a,ad);
 		}else if(ad.code=='home_bottom_caro'){
 			var $tempLi = $bottomCaroLi.clone();
 			var $a = $tempLi.children('a');

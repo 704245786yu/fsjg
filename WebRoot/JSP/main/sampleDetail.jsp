@@ -16,8 +16,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="plugin/bs_pagination/jquery.bs_pagination.min.css" rel="stylesheet">
-<link href="CSS/costume-sample.css" rel="stylesheet">
+<link href="plugin/jquery-arc-pic/css/base.css" rel="stylesheet">
+<link href="CSS/sample-detail.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
 </head>
@@ -46,10 +46,14 @@
 			<div class="panel-body">
 				<div class="media">
 					<div class="media-left">
-						<img style="width:90px;height:90px;" class="media-object" src="uploadFile/enterprise/${enterprise.logo}">
+						<a target="_blank" href="enterprise/showDetail/${enterprise.id}">
+							<img style="width:90px;height:90px;" class="media-object" src="uploadFile/enterprise/${enterprise.logo}">
+						</a>
 					</div>
 					<div class="media-body">
-						<h5 class="media-heading">${enterprise.enterpriseName}</h5>
+						<a target="_blank" href="enterprise/showDetail/${enterprise.id}">
+							<h5 class="media-heading">${enterprise.enterpriseName}</h5>
+						</a>
 					</div>
 				</div>
 				<p style="margin-top:10px;">联 系 人：${enterprise.linkman}</p>
@@ -86,10 +90,10 @@
 				<div class="col-md-6">
 					<!--图片展示开始-->
 					<div>
-						<input type="hidden" name="enterpriseImg" value="${enterprise.enterpriseImg}">
+						<input type="hidden" name="imgs" value="${costumeSample.smImg}">
 						<div id="preview" class="spec-preview">
 							<span class="jqzoom">
-								<img style="width:410px;height:260px;" jqimg="uploadFile/enterprise/default_big.png" src="uploadFile/enterprise/default_big.png" />
+								<img style="width:410px;height:410px;" jqimg="" src="" />
 							</span>
 						</div>
 						<!--缩图开始-->
@@ -104,30 +108,32 @@
 					</div>
 					<!--图片展示结束-->
 				</div>
-				<div class="col-md-6 plist" style="padding-left:50px;">
-					<p>
-						<b>所在行业:</b>
-						<br/><input type="hidden" name="trade" value="${enterprise.trade}"><span id="tradeText"></span>
-					</p>
-					<p>
-						<b>生产工人:</b>
-						<br/>工人${enterprise.staffNumber}人
-					</p>
-					<p>
-						<b>生产设备:</b>
-						<br/>${enterprise.equipment}
-					</p>
-					<p>
-						<b>销售市场:</b>
-						<br/>
-						<c:choose>
-							<c:when test="${enterprise.saleMarket==0}">内销</c:when>
-							<c:when test="${enterprise.saleMarket==1}">外销</c:when>
-						</c:choose>
-					</p>
-					<p>
-						<b>合作客户:</b>
-						<br/>${enterprise.cooperator}
+				<div class="col-md-6" style="padding-left:20px;">
+					<table style="width:100%;margin-top:20px;text-align:center;">
+						<tr>
+							<td>
+								<img src="image/costumeSample/gai.png">
+								<div>支持改款</div>
+							</td>
+							<td style="border-left:1px solid #dfddd9;border-right:1px solid #dfddd9;">
+								<img src="image/costumeSample/tie.png">
+								<div>贴牌生产</div>
+							</td>
+							<td>
+								<img src="image/costumeSample/kan.png">
+								<div>支持看样</div>
+							</td>
+						</tr>
+					</table>
+					<div style="border-top:1px solid #dfddd9;background-color:#fff6ec;margin-top:20px;padding:20px;">
+						<div style="margin-bottom:10px;">
+							下单价格:<span style="margin-left:20px;">>=${costumeSample.orderAmount}件，${costumeSample.price}元/件</span>
+						</div>
+						<div>销售市场:<span id="saleMarket" style="margin-left:20px;">${costumeSample.saleMarket}</span></div>
+					</div>
+					<p style="margin-top:10px;">
+						<h4>加工说明:</h4>
+						<p style="padding-left:20px;">${costumeSample.processDesc}</p>
 					</p>
 				</div>
 			</div>
@@ -135,8 +141,11 @@
 		
 		<!-- 样品详情 -->
 		<div class="panel panel-default">
-			<div class="panel-body">
-				${enterprise.description}
+			<div class="panel-body" style="padding:0px;">
+				<div style="padding:10px;font-size:16px;border-top:2px solid #ad0000;border-right:1px solid #dfddd9;width:90px;text-align:center;">样品详情</div>
+				<div id="detailImgDiv" style="border-top:2px solid #dfddd9;text-align:center;padding:40px 0px;">
+					<input type="hidden" name="detailImg" value="${costumeSample.detailImg}">
+				</div>
 			</div>
 		</div>
 	</td>
@@ -150,6 +159,8 @@
 </jsp:include>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugin/jquery-arc-pic/js/base.js"></script>
+<script src="plugin/jquery-arc-pic/js/jquery.jqzoom.js"></script>
 <script src="JS/main/sampleDetail.js"></script>
 </body>
 </html>

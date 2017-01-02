@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +26,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ad.biz.AdPositionBiz;
 import com.ad.po.AdPosition;
 import com.basic.biz.CostumeSampleBiz;
+import com.basic.biz.DistrictBiz;
+import com.basic.biz.EnterpriseBiz;
+import com.basic.biz.EnterpriseCostumeRelaBiz;
 import com.basic.po.BasicUser;
 import com.basic.po.CostumeSample;
+import com.basic.po.Enterprise;
 import com.basic.vo.CostumeSampleVo;
+import com.basic.vo.Sample2Vo;
 import com.basic.vo.SampleVo;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
@@ -41,6 +49,12 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 
 	@Autowired
 	private AdPositionBiz adPositionBiz;
+	@Autowired
+	private EnterpriseBiz enterpriseBiz;
+	@Autowired
+	private EnterpriseCostumeRelaBiz enterpriseCostumeRelaBiz;
+	@Autowired
+	private DistrictBiz districtBiz;
 	
 	private static final long imgMaxSize = 200000;//文档最大200kb
 	
@@ -218,6 +232,75 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		mav.addObject("tabIndex",2);
 		mav.addObject("sampleKeyword",sampleKeyword);
 		return mav;
+	}
+	
+	@RequestMapping("showDetail/{num}")
+	public ModelAndView showDetail(@PathVariable long num){
+		ModelAndView mav = new ModelAndView("main/sampleDetail");
+		CostumeSample sample = biz.getByNum(num);
+		
+		if(sample!=null){
+			Enterprise e = enterpriseBiz.getByNum(sample.getEnterpriseNum());
+			List<String> costumeNames = enterpriseCostumeRelaBiz.getCostumeNameByEnterpriseId(e.getId());
+			List<String> districts = districtBiz.getNameByUser(e);
+			mav.addObject("enterprise", e);
+			mav.addObject("costumeNames", costumeNames);
+			mav.addObject("districts",districts);
+		}
+		mav.addObject("costumeSample", sample);
+		return mav;
+	}
+	
+	/**显示工厂详情页-样品展示*/
+	@SuppressWarnings("unchecked")
+	@RequestMapping("showEntSample/{enterpriseNum}")
+	public ModelAndView showEntSample(@PathVariable long enterpriseNum,HttpSession session){
+		ModelAndView mav = new ModelAndView("main/enterpriseSample");
+		//获取工厂名称、审核状态
+		Object[] entField = enterpriseBiz.getByField(enterpriseNum,"id","number","enterpriseName","auditState");
+		if(entField!=null){
+			Enterprise e = new Enterprise();
+			e.setId((Integer)entField[0]);
+			e.setNumber((Long)entField[1]);
+			e.setEnterpriseName((String)entField[2]);
+			e.setAuditState((Byte)entField[3]);
+			mav.addObject("enterprise", e);
+		}
+		
+		//获取工厂已添加的样品的产品类别
+		ServletContext servletContext = session.getServletContext();
+		HashMap<Integer,String> codeNameMap = (HashMap<Integer,String>)servletContext.getAttribute("costumeCateMap");
+		List<Integer> costumeCodes = biz.getCostumeCode(enterpriseNum);
+		//得到产品类别,及父类别
+		Set<Integer> costumeCodeSet = new HashSet<Integer>();
+		for(int i=0; i<costumeCodes.size(); i++){
+			int code = costumeCodes.get(i);
+			costumeCodeSet.add(code);
+			if(code>10000){
+				costumeCodeSet.add(code/100);
+			}
+		}
+		HashMap<Integer,String> costumeCateMap = new HashMap<Integer,String>();
+		Iterator<Integer> iterator = costumeCodeSet.iterator();
+		while(iterator.hasNext()){
+			Integer code = iterator.next();
+			costumeCateMap.put(code, codeNameMap.get(code));
+		}
+		mav.addObject("costumeCateMap", JacksonJson.beanToJson(costumeCateMap));
+		
+		//获取全部产品类别列表
+		BootTablePageDto<Sample2Vo> result = biz.getEntSample(enterpriseNum, null, 0, 20, null);
+		mav.addObject("result", result);
+		return mav;
+	}
+	
+	@RequestMapping("getEntSample")
+	@ResponseBody
+	public BootTablePageDto<Sample2Vo> getEntSample(long enterpriseNum,Long costumeCode,int offset,Long total){
+		if(costumeCode==0){
+			costumeCode = null;
+		}
+		return biz.getEntSample(enterpriseNum, costumeCode, offset, 20, total);
 	}
 	
 	/**后台分页查询*/

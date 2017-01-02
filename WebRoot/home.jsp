@@ -1059,42 +1059,63 @@
 	</table>
 </div>
 
-<div style="font-size:16px;margin-top:20px;">友情链接</div>
-<p class="blogroll" style="border-top:2px solid grey;padding:5px 10px;line-height:30px;">
-	<c:forEach items="${blogrolls}" var="blogroll">
-		<a style="margin-right:20px;" href="${blogroll.url}" target="_blank">${blogroll.name}</a>
-	</c:forEach>
-</p>
-
-<table class="helpTable">
+<table class="mid_ad_table" style="margin-top:20px;margin-bottom:20px;width:100%;">
 	<tr>
-		<td><img src="image/home/icon_sm1.png"></td>
-		<td><h4>新手指南</h4></td>
-		<td><img src="image/home/icon_sm2.png"></td>
-		<td><h4>认证优势</h4></td>
-		<td><img src="image/home/icon_sm3.png"></td>
-		<td><h4>服务中心</h4></td>
-		<td><img src="image/home/icon_sm4.png"></td>
-		<td><h4>关注我们</h4></td>
-	</tr>
-	<tr>
-		<td><div></div></td>
-		<td>
-			<p><a target="_blank" href="JSP/main/note.jsp?index=fdzn">发单指南</a></p>
-			<p><a target="_blank" href="JSP/main/note.jsp?index=jdbd">接单宝典</a></p>
+		<td style="width:100%;">
+			<a class="mid_ad" target="_blank"><img></a>
 		</td>
-		<td><div></div></td>
-		<td>
-			<p><a target="_blank" href="JSP/main/note.jsp?index=grsm">个人实名</a></p>
-			<p><a target="_blank" href="JSP/main/note.jsp?index=qyzzrz">企业资质认证</a></p></td>
-		<td><div></div></td>
-		<td>
-			<p><a target="_blank" href="JSP/main/note.jsp?index=ggfw">广告服务</a></p>
-			<p><a target="_blank" href="JSP/main/note.jsp?index=rzfw">认证服务</a></p></td>
-		<td><div></div></td>
-		<td><p><img style="width:48px;" src="image/home/wechat.png"><img style="width:48px;" src="image/home/qq.png"><img style="width:90px;" src="image/home/qrCode.png"></p></td>
 	</tr>
 </table>
+
+<div id="tradeNews" style="border:1px solid #DDDDDD;">
+	<p style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">友情链接</p>
+	<p class="blogroll" style="padding:5px 10px;line-height:30px;">
+		<c:forEach items="${blogrolls}" var="blogroll">
+			<a style="margin-right:20px;" href="${blogroll.url}" target="_blank">${blogroll.name}</a>
+		</c:forEach>
+	</p>
+</div>
+
+<div style="border:1px solid #DDDDDD;margin-top:20px;">
+	<table class="helpTable">
+		<tr>
+			<td><img src="image/home/icon_sm1.png"></td>
+			<td><h4>新手指南</h4></td>
+			<td><img src="image/home/icon_sm2.png"></td>
+			<td><h4>认证优势</h4></td>
+			<td><img src="image/home/icon_sm3.png"></td>
+			<td><h4>服务中心</h4></td>
+			<td><img src="image/home/icon_sm4.png"></td>
+			<td><h4>关注我们</h4></td>
+		</tr>
+		<tr>
+			<td><div></div></td>
+			<td>
+				<p><a target="_blank" href="JSP/main/note.jsp?index=fdzn">发单指南</a></p>
+				<p><a target="_blank" href="JSP/main/note.jsp?index=jdbd">接单宝典</a></p>
+			</td>
+			<td><div></div></td>
+			<td>
+				<p><a target="_blank" href="JSP/main/note.jsp?index=grsm">个人实名</a></p>
+				<p><a target="_blank" href="JSP/main/note.jsp?index=qyzzrz">企业资质认证</a></p></td>
+			<td><div></div></td>
+			<td>
+				<p><a target="_blank" href="JSP/main/note.jsp?index=ggfw">广告服务</a></p>
+				<p><a target="_blank" href="JSP/main/note.jsp?index=rzfw">认证服务</a></p></td>
+			<td><div></div></td>
+			<td><p><img style="width:48px;" src="image/home/wechat.png"><img style="width:48px;" src="image/home/qq.png"><img style="width:90px;" src="image/home/qrCode.png"></p></td>
+		</tr>
+	</table>
+</div>
+
+<table class="mid_ad_table" style="margin-top:20px;margin-bottom:20px;width:100%;">
+	<tr>
+		<td style="width:100%;">
+			<a class="mid_ad" target="_blank"><img></a>
+		</td>
+	</tr>
+</table>
+
 <%@ include file="/JSP/main/bottom.jsp"%>
 </div>
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>

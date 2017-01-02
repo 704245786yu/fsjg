@@ -14,7 +14,7 @@ import com.common.BaseDao;
 public class TradeNewsDao extends BaseDao<Integer, TradeNews>{
 
 	public List<TradeNewsVo> findByParam(String title, Date beginDate, Date endDate){
-		StringBuffer hql = new StringBuffer("select a.id as id, a.title as title, u.realName as realName, a.updateTime as updateTime from TradeNews a, User u where a.updateBy = u.id ");
+		StringBuffer hql = new StringBuffer("select a.id as id, a.title as title, a.source as source, u.realName as realName, a.updateTime as updateTime from TradeNews a, User u where a.updateBy = u.id ");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
 		if(title.length() > 0){

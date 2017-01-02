@@ -25,7 +25,7 @@
 <div style="width:1190px; margin:0 auto;">
 	<div class="panel panel-default">
 		<div class="panel-body" style="text-align:center;">
-			<h3>${tradeNews.title}</h3>
+			<h3>${tradeNews.title}<div style="float:right;font-size:14px;">来源：${tradeNews.source}</div></h3>
 			<p>时间：<fmt:formatDate value="${tradeNews.updateTime}" type="date" dateStyle="full"/></p>
 			<p>${tradeNews.content}</p>
 		</div>

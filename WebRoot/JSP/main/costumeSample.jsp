@@ -108,10 +108,10 @@
 		<div id="list" class="row" style="background-color:white;">
 			<c:forEach items="${result.rows}" var="costumeSample">
 				<div class="col-md-3 col-xs-3">
-					<a target="_blank" href="#">
-					<img src="uploadFile/costumeSample/${costumeSample.img}" style="width:100%;height:200px;">
-					<p>${costumeSample.name}</p>
-					<p><span>${costumeSample.enterpriseName}</span></p>
+					<a target="_blank" href="costumeSample/showDetail/${costumeSample.num}">
+						<img src="uploadFile/costumeSample/${costumeSample.img}" style="width:100%;height:200px;">
+						<p>${costumeSample.name}</p>
+						<p><span>${costumeSample.enterpriseName}</span></p>
 					</a>
 				</div>
 			</c:forEach>

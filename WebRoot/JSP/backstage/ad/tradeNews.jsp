@@ -71,6 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <thead>
 	        <tr>
 	            <th data-field="title" data-align="center">咨询标题</th>
+	            <th data-field="source" data-align="center">来源</th>
 	            <th data-field="realName" data-align="center">发布人</th>
 	            <th data-field="updateTime" data-align="center">发布时间</th>
 	            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
@@ -90,6 +91,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label class="col-sm-1 control-label">咨询标题</label>
 				<div class="col-sm-9">
 					<input type="text" class="form-control" name="title">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">来源</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="source">
 				</div>
 			</div>
 			<div class="form-group">
