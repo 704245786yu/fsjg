@@ -56,6 +56,7 @@ public class TradeNewsCtrl extends BaseCtrl<TradeNewsBiz, Integer, TradeNews> {
 		vo.setId(po.getId());
 		vo.setRealName(user.getRealName());
 		vo.setTitle(po.getTitle());
+		vo.setSource(po.getSource());
 		vo.setUpdateTime(new Date());
 		return vo;
 	}
