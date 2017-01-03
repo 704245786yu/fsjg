@@ -31,7 +31,15 @@ public class TradeNews {
 	@Column(name="update_time")
 	private Date updateTime; //更改时间
 	
+	public TradeNews(){}
 	
+	public TradeNews(Integer id, String title, Date updateTime) {
+		this.id = id;
+		this.title = title;
+		this.updateTime = updateTime;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

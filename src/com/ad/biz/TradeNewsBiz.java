@@ -9,6 +9,7 @@ import com.ad.dao.TradeNewsDao;
 import com.ad.po.TradeNews;
 import com.ad.vo.TradeNewsVo;
 import com.common.BaseBiz;
+import com.common.dto.BootTablePageDto;
 import com.util.DateTransform;
 
 @Service
@@ -39,5 +40,14 @@ public class TradeNewsBiz extends BaseBiz<TradeNewsDao,Integer,TradeNews>{
 	public List<TradeNews> getTen(){
 		String hql = "from TradeNews order by updateTime desc";
 		return (List<TradeNews>)dao.findByPage(hql, 0, 10, new String[]{}, new Object[]{});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public BootTablePageDto<TradeNews> getTitleByPage(int offset, int limit, Long total){
+		String hql = "select new TradeNews(id, title, updateTime) from TradeNews";
+		if(total==null)
+			total = dao.getCount();
+		List<TradeNews> list = (List<TradeNews>)dao.findByPage(hql, offset, limit, new String[]{}, new Object[]{});
+		return new BootTablePageDto<TradeNews>(total,list);
 	}
 }

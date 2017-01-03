@@ -15,6 +15,7 @@ import com.ad.biz.TradeNewsBiz;
 import com.ad.po.TradeNews;
 import com.ad.vo.TradeNewsVo;
 import com.common.BaseCtrl;
+import com.common.dto.BootTablePageDto;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
 
@@ -32,7 +33,8 @@ public class TradeNewsCtrl extends BaseCtrl<TradeNewsBiz, Integer, TradeNews> {
 
 	public ModelAndView showDefaultPage(HttpSession session){
 		ModelAndView mav = new ModelAndView("main/tradeNews");
-		
+		BootTablePageDto<TradeNews> result = biz.getTitleByPage(0, 20, null);
+		mav.addObject("result", result);
 		return mav;
 	}
 	

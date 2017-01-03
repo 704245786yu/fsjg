@@ -19,6 +19,10 @@ $('#ff').bootstrapValidator({
     		validators: {
     			notEmpty: {
     				message: '不能为空'
+    			},
+    			stringLength: {
+    				max: 50,
+    				message: '最多50个字'
     			}
     		}
     	},

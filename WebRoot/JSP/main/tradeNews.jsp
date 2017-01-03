@@ -23,9 +23,19 @@
 
 <div style="width:1190px; margin:0 auto;">
 	<div class="panel panel-default">
+		<input id="totalRows" type="hidden" value="${result.total}">
 		<ul class="list-group">
 			<li class="list-group-item"><a href="0">查看所有宝贝</a></li>
 			<li class="list-group-item"><a href="0">查看所有宝贝</a></li>
+			<c:forEach items="${result.rows}" var="tradeNews">
+				<div class="col-md-3 col-xs-3">
+					<a target="_blank" href="costumeSample/showDetail/${costumeSample.num}">
+						<img src="uploadFile/costumeSample/${costumeSample.img}" style="width:100%;height:200px;">
+						<p>${costumeSample.name}</p>
+						<p><span>${costumeSample.enterpriseName}</span></p>
+					</a>
+				</div>
+			</c:forEach>
 		</ul>
 	</div>
 </div>
