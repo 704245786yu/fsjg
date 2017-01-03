@@ -44,7 +44,7 @@ public class TradeNewsBiz extends BaseBiz<TradeNewsDao,Integer,TradeNews>{
 	
 	@SuppressWarnings("unchecked")
 	public BootTablePageDto<TradeNews> getTitleByPage(int offset, int limit, Long total){
-		String hql = "select new TradeNews(id, title, updateTime) from TradeNews";
+		String hql = "select new TradeNews(id, title, updateTime) from TradeNews order by updateTime desc";
 		if(total==null)
 			total = dao.getCount();
 		List<TradeNews> list = (List<TradeNews>)dao.findByPage(hql, offset, limit, new String[]{}, new Object[]{});

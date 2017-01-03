@@ -83,6 +83,12 @@ public class TradeNewsCtrl extends BaseCtrl<TradeNewsBiz, Integer, TradeNews> {
 		return mav;
 	}
 	
+	@RequestMapping("getList")
+	@ResponseBody
+	public BootTablePageDto<TradeNews> getList(int offset, Long total){
+		return biz.getTitleByPage(0, 20, total);
+	}
+	
 	/**获取所有咨询标题
 	 * */
 	@RequestMapping("getAllTitle")
