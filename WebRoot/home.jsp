@@ -977,7 +977,10 @@
 
 <!-- 行业资讯 -->
 <div id="tradeNews" style="border:1px solid #DDDDDD;">
-	<p style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">行业资讯</p>
+	<div style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">
+		行业资讯
+		<div style="float:right;margin-right:20px;"><a target="_blank" href="">更多</a></div>
+	</div>
 	<table style="width:100%;">
 		<tr>
 			<td>

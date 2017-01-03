@@ -30,6 +30,12 @@ public class TradeNewsCtrl extends BaseCtrl<TradeNewsBiz, Integer, TradeNews> {
 		return mav;
 	}
 
+	public ModelAndView showDefaultPage(HttpSession session){
+		ModelAndView mav = new ModelAndView("main/tradeNews");
+		
+		return mav;
+	}
+	
 	@RequestMapping("saveTradeNews")
 	@ResponseBody
 	public TradeNewsVo saveAffiche(TradeNews po, HttpSession session) {

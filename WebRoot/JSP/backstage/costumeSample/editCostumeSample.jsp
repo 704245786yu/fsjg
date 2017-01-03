@@ -66,7 +66,7 @@
 						<!-- IE9下无法多选 -->
 						<input type="hidden" name="smImg">
 						<input type="file" name="smPic" accept="image/jpeg,image/png" multiple="multiple" onchange="smImgChange(this,200)">
-						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+						<p style="color:grey;">支持jpg、png格式图片,尺寸410*410,最大200kb</p>
 						<div style="float:left;display:none;margin-right:10px;">
 							<img style="width:150px;height:100px" class="img-thumbnail">
 							<div><button type="button" class="btn btn-primary btn-sm" onclick="delImg(this,'smImg')">删除</button></div>
@@ -114,7 +114,7 @@
 						<!-- IE9下无法多选 -->
 						<input type="hidden" name="detailImg">
 						<input type="file" name="detailPic" accept="image/jpeg,image/png" multiple="multiple" onchange="detailImgChange(this,200)">
-						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
+						<p style="color:grey;">支持jpg、png格式图片,尺寸790*530,最大200kb</p>
 						<div style="float:left;display:none;margin-right:10px;">
 							<img style="width:150px;height:100px" class="img-thumbnail">
 							<div><button type="button" class="btn btn-primary btn-sm" onclick="delImg(this,'detailImg')">删除</button></div>
