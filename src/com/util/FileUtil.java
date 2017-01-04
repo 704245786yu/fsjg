@@ -1,6 +1,7 @@
 package com.util;
 
 import java.io.File;
+import java.util.Date;
 
 public class FileUtil {
 
@@ -26,6 +27,16 @@ public class FileUtil {
 			file.delete();
 		}
 		return true;
+	}
+	
+	/**生成唯一文件名
+	 * YYMMddHHmmss + 3位随机 + 工厂编号后4位
+	 * */
+	public static String genUniqueFileName(Long enterpriseNum){
+		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmss");
+		int random = new java.util.Random().nextInt(900)+100;
+		String str = time + random +enterpriseNum.toString().substring(15);
+		return str;
 	}
 	
 	/**下 载文件
