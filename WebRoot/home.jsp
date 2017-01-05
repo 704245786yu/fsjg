@@ -27,8 +27,18 @@
 
 <body>
 <input type="hidden" name="pageName" value="home">
-<a id="topAd" target="_blank;"><img style="height:90px;widht:100%;"></a>
-<br/>
+<div id="topAd" class="slideBox">
+	<div class="hd">
+		<ul><li>1</li><li>2</li><li>3</li></ul>
+	</div>
+	<div class="bd">
+		<ul>
+		</ul>
+		<div style="display:none;">
+			<li><a target="_blank"><img style="height:90px;widht:100%;"/></a></li>
+		</div>
+	</div>
+</div>
 <%@ include file="JSP/main/top.jsp" %>
 
 <div class="main-body" style="width:1190px; margin:0 auto;">
@@ -640,10 +650,12 @@
 					<div class="col-md-8 col-xs-8">
 						<c:forEach var="enterprise" items="${strengths}">
 							<div class="col-md-4 col-xs-4">
-								<img src="uploadFile/enterprise/${enterprise.logo}">
-								<div>
-									<a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
-								</div>
+								<a target="_blank" href="enterprise/showDetail/${enterprise.id}">
+									<img src="uploadFile/enterprise/${enterprise.logo}">
+									<div>
+										${enterprise.name}
+									</div>
+								</a>
 							</div>
 						</c:forEach>
 					</div>
@@ -666,10 +678,12 @@
 					<div class="col-md-8 col-xs-8">
 						<c:forEach var="enterprise" items="${auths}">
 							<div class="col-md-4 col-xs-4">
-								<img src="uploadFile/enterprise/${enterprise.logo}">
-								<div>
-									<a target="_blank" href="enterprise/showDetail/${enterprise.id}">${enterprise.name}</a>
-								</div>
+								<a target="_blank" href="enterprise/showDetail/${enterprise.id}">
+									<img src="uploadFile/enterprise/${enterprise.logo}">
+									<div>
+										${enterprise.name}
+									</div>
+								</a>
 							</div>
 						</c:forEach>
 					</div>
@@ -1111,13 +1125,18 @@
 	</table>
 </div>
 
-<table class="mid_ad_table" style="margin-top:20px;margin-bottom:20px;width:100%;">
-	<tr>
-		<td style="width:100%;">
-			<a class="mid_ad" target="_blank"><img></a>
-		</td>
-	</tr>
-</table>
+<div id="bottomSlide" class="slideBox" style="margin-top:20px;">
+	<div class="hd">
+		<ul><li>1</li><li>2</li><li>3</li></ul>
+	</div>
+	<div class="bd">
+		<ul>
+		</ul>
+		<div style="display:none;">
+			<li><a target="_blank"><img style="height:90px;widht:100%;"/></a></li>
+		</div>
+	</div>
+</div>
 
 <%@ include file="/JSP/main/bottom.jsp"%>
 </div>

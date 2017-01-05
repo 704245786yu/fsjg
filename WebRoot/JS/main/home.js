@@ -3,6 +3,7 @@ var g_costumeCategory = null;
 $(function(){
 	initAd();
 	$('.carousel').carousel();
+	$(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
 	$("#carousel-small-ad").slide({ mainCell:"ul",autoPlay:true,effect:"leftMarquee", vis:5, interTime:50, pnLoop:false });
 	$("#bottom_carousel .picScroll").slide({ mainCell:"ul",autoPlay:true,effect:"leftMarquee", vis:8, interTime:50, pnLoop:false });
 	mallCategory();
@@ -41,6 +42,10 @@ function setAdHref($a,ad){
 function initAd(){
 	var adPositions = $.parseJSON($('#adPositions').html());
 	
+	//顶部幻灯片
+	var $topAdUl = $('#topAd .bd ul');
+	var $topLi = $('#topAd .bd div li');
+	
 	//大轮播图
 	var $carouselBigAd = $('#carousel-big-ad');
 	var $carouselSampleLi = $('#carousel-big-ad div[name="sample"] li');
@@ -54,6 +59,10 @@ function initAd(){
 	var $bottomCaroUl = $('#bottom_carousel ul');
 	var $bottomCaroLi = $('#bottom_carousel div[name="sample"] li');
 	
+	//底部幻灯片
+	var $bottomAdUl = $('#bottomSlide .bd ul');
+	var $bottomLi = $('#bottomSlide .bd div li');
+	
 	//左侧大图
 	var leftAdIndex = 0;
 	//文字广告
@@ -62,9 +71,12 @@ function initAd(){
 	var tableSmAdIndex = 0;
 	for(var i=0;i<adPositions.length;i++){
 		var ad = adPositions[i];
+		//顶部轮切广告
 		if(ad.code=='home_top_ad'){
-			var $a = $('#topAd');
+			var $tempLi = $topLi.clone();
+			var $a = $tempLi.children('a');
 			setAdhrefAndImg($a,ad);
+			$topAdUl.append($tempLi);
 		}
 		if(ad.code=='home_left_big_ad'){
 			var $a = $($('a.left_big_ad')[leftAdIndex]);
@@ -75,6 +87,13 @@ function initAd(){
 			var $a = $($('a.text_ad')[textAdIndex]);
 			textAdIndex++;
 			setAdHref($a,ad);
+		}
+		//底部幻灯片
+		if(ad.code=='home_bottom_slide'){
+			var $tempLi = $bottomLi.clone();
+			var $a = $tempLi.children('a');
+			setAdhrefAndImg($a,ad);
+			$bottomAdUl.append($tempLi);
 		}
 		//首页表格小广告
 		if(ad.code=='home_table_sm_ad'){
@@ -121,9 +140,6 @@ function initAd(){
 			setAdhrefAndImg($a,ad);
 		}else if(ad.code=='home_mid_7'){
 			var $a = $($('a.mid_ad')[6]);
-			setAdhrefAndImg($a,ad);
-		}else if(ad.code=='home_mid_8'){
-			var $a = $($('a.mid_ad')[7]);
 			setAdhrefAndImg($a,ad);
 		}else if(ad.code=='home_bottom_caro'){
 			var $tempLi = $bottomCaroLi.clone();

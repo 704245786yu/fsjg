@@ -10,7 +10,7 @@
 <html lang="en" class="no-js">
 <head>
 <base href="<%=basePath%>">
-<title>服饰加工网-行业咨询</title>
+<title>服饰加工网-行业资讯</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -48,7 +48,7 @@
 <div style="width:1190px; margin:0 auto;">
 	<div class="crumb">
 		<span class="glyphicon glyphicon-home"></span>
-		当前位置：<a href="#">首页</a> > 行业咨询 
+		当前位置：<a href="#">首页</a> > 行业资讯 
 	</div>
 	<div class="panel panel-default" style="padding:20px;">
 		<input id="totalRows" type="hidden" value="${result.total}">

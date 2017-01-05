@@ -113,7 +113,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		try{
 			MicroOfficeFile mof = new MicroOfficeFile();
 			Workbook wb = mof.readExcel(file);
-			List<String[]> data = mof.getAllData(wb,0);
+			List<String[]> data = mof.getAllData(wb,0,29);
 			if(data.size() < 4){
 				List<String> errorInfo = new ArrayList<String>();
 				errorInfo.add("读取文件出错，文件内容可能有误");

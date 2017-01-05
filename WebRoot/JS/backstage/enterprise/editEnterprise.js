@@ -117,6 +117,14 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
+    	fixPhone:{
+    		validators: {
+    			stringLength: {
+    				max: 15,
+    				message: '15个字符'
+    			}
+    		}
+    	},
     	qq:{
     		validators: {
     			digits:{
@@ -160,24 +168,28 @@ $('#ff').bootstrapValidator({
 		alert('请选择主营产品');
 		return;
 	}
-	//加入被删的图片
-	for(var i=0; i<g_delImg.length; i++){
-		formData.push({'name':'delImg','value':g_delImg[i]});
-	}
-	$form.ajaxSubmit(function(data) {     
-		var action = $form.attr('action');
-		if(data.status==200){
-			var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
-			if(opt.indexOf("save")!=-1){
-				$('#dg').bootstrapTable('append',data.value);
-			}else if(opt.indexOf("update")!=-1){	//update by unique id
-				$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
+	$form.ajaxSubmit({
+		beforeSubmit:function(formData, jqForm, options){
+			//加入被删的图片
+			for(var i=0; i<g_delImg.length; i++){
+				formData.push({'name':'delImg','value':g_delImg[i]});
 			}
-			cancel();
-		}else if(data.status==500){
-			g_jqConfirm.showDialog('保存失败',data.value);
-		}else if(data.status==501){
-			g_jqConfirm.showDialog('保存失败',data.value);
+		},
+		success:function(data) {
+			var action = $form.attr('action');
+			if(data.status==200){
+				var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
+				if(opt.indexOf("save")!=-1){
+					$('#dg').bootstrapTable('append',data.value);
+				}else if(opt.indexOf("update")!=-1){	//update by unique id
+					$('#dg').bootstrapTable('updateByUniqueId',{'id':data.value.id,'row':data.value});
+				}
+				cancel();
+			}else if(data.status==500){
+				g_jqConfirm.showDialog('保存失败',data.value);
+			}else if(data.status==501){
+				g_jqConfirm.showDialog('保存失败',data.value);
+			}
 		}
 	});
 });

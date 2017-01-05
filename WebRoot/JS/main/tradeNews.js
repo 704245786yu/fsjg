@@ -26,7 +26,7 @@ function generateList(data){
 		var $tempDiv = $template.clone();
 		$tempDiv.children('a').attr('href','tradeNews/showDetail/'+tradeNews.id).text(tradeNews.title);
 		$tempDiv.children('div').text(moment(tradeNews.updateTime).format('YYYY-MM-DD HH:mm'));
-		$list.after($tempDiv);
+		$list.append($tempDiv);
 	}
 }
 

@@ -114,6 +114,75 @@ public class MicroOfficeFile {
 		}
 		return dataList;
 	}
+	
+	/**取Excel所有数据，包含header
+	 * @param sheetIndex sheet下标从0开始
+	 * @param columnNum 列数，防止sheet.getRow(0).getLastCellNum()读取的最后一列不准确
+	 * @return List<String[]>
+	 */
+	public List<String[]> getAllData(Workbook wb, int sheetIndex, int columnNum) {
+		List<String[]> dataList = new ArrayList<String[]>();
+//		int columnNum = 0;
+		Sheet sheet = wb.getSheetAt(sheetIndex);
+//		if (sheet.getRow(0) != null) {
+//			columnNum = sheet.getRow(0).getLastCellNum() - sheet.getRow(0).getFirstCellNum();
+//		}
+		if (columnNum > 0) {
+			for (Row row : sheet) {
+				String[] singleRow = new String[columnNum];
+				int n = 0;
+				for (int i = 0; i < columnNum; i++) {
+					Cell cell = row.getCell(i, Row.CREATE_NULL_AS_BLANK);
+					switch (cell.getCellType()) {
+					case Cell.CELL_TYPE_BLANK:
+						singleRow[n] = "";
+						break;
+					case Cell.CELL_TYPE_BOOLEAN:
+						singleRow[n] = Boolean.toString( cell.getBooleanCellValue() );
+						break;
+					// 数值
+					case Cell.CELL_TYPE_NUMERIC:
+						if (DateUtil.isCellDateFormatted(cell)) {	//判断是否是日期
+							Date date = cell.getDateCellValue();
+							singleRow[n] = DateTransform.Date2String(date, "yyyy-MM-dd HH:mm:ss");
+						} else {
+							cell.setCellType(Cell.CELL_TYPE_STRING);
+							String temp = cell.getStringCellValue();
+							// 判断是否包含小数点，如果不含小数点，则以字符串读取，如果含小数点，则转换为Double类型的字符串
+							if (temp.indexOf(".") > -1) {
+								singleRow[n] = String.valueOf( new Double(temp) ).trim();
+							} else {
+								singleRow[n] = temp.trim();
+							}
+						}
+						break;
+					case Cell.CELL_TYPE_STRING:
+						singleRow[n] = cell.getStringCellValue().trim();
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						singleRow[n] = "";
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						cell.setCellType(Cell.CELL_TYPE_STRING);
+						singleRow[n] = cell.getStringCellValue();
+						if (singleRow[n] != null) {
+							singleRow[n] = singleRow[n].replaceAll("#N/A", "").trim();
+						}
+						break;
+					default:
+						singleRow[n] = "";
+						break;
+					}
+					n++;
+				}
+				if ("".equals(singleRow[0])) {
+					continue;
+				}// 如果第一行为空，跳过
+				dataList.add(singleRow);
+			}
+		}
+		return dataList;
+	}
 
 	/*
 	 * private void resolveExcel2003(InputStream ins, int beginRowNum, int

@@ -123,7 +123,12 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 					errorInfo.add("第"+(i+rowOffset)+"行 详细地址超过50个字");
 				}
 				//固定电话
-				enterprise.setFixPhone(temp[7]);
+				String fixPhone = temp[7];
+				if(fixPhone.length() <= 15){
+					enterprise.setFixPhone(fixPhone);
+				}else{
+					errorInfo.add("第"+(i+rowOffset)+"行 固定电话超过15个字");
+				}
 				//QQ
 				String qqStr = temp[9];
 				if(qqStr.length()!=0)
