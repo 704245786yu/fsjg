@@ -32,14 +32,6 @@
 
 <table style="width:1190px;margin:0 auto;bakcground-color:#FBF8F9;">
 <tr>
-	<td colspan="2">
-		<div class="crumb">
-			<span class="glyphicon glyphicon-home"></span>
-			当前位置：<a href="contractor">快产专家</a>
-		</div>
-	</td>
-</tr>
-<tr>
 	<td style="width:906px;background-color:#FBF8F9;vertical-align:top;">
 		<!-- 广告 -->
 		<a class="ad" target="_blank"><img style="width:100%;height:260px;margin-bottom:10px;"></a>
