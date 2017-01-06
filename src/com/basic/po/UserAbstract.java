@@ -21,7 +21,7 @@ public abstract class UserAbstract {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	@OneToOne(cascade=CascadeType.PERSIST,targetEntity=BasicUser.class)
+	@OneToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE},targetEntity=BasicUser.class)
 	@JoinColumn(name="user_id")
 	private BasicUser basicUser;
 	

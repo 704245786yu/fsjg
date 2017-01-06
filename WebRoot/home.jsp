@@ -35,7 +35,7 @@
 		<ul>
 		</ul>
 		<div style="display:none;">
-			<li><a target="_blank"><img style="height:90px;widht:100%;"/></a></li>
+			<li><a target="_blank"><img style="height:90px;width:100%;"/></a></li>
 		</div>
 	</div>
 </div>
@@ -1133,7 +1133,7 @@
 		<ul>
 		</ul>
 		<div style="display:none;">
-			<li><a target="_blank"><img style="height:90px;widht:100%;"/></a></li>
+			<li><a target="_blank"><img style="height:90px;width:100%;"/></a></li>
 		</div>
 	</div>
 </div>

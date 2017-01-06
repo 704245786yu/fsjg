@@ -43,6 +43,13 @@
 <span style="display:none;" id="adPositions">${adPositions}</span>
 
 <div style="width:1190px; margin:0 auto;">
+	<table style="width:100%;height:90px;margin-bottom:10px;">
+		<tr>
+			<td style="width:25%;padding-right:10px;"><a class="ad" target="_blank"><img style="height:90px;width:100%;"/></a></td>
+			<td style="width:25%;padding-right:10px;"><a class="ad" target="_blank"><img style="height:90px;width:100%;"/></a></td>
+			<td style="width:50%;"><a class="ad" target="_blank"><img style="height:90px;width:100%;"/></a></td>
+		</tr>
+	</table>
 	<!-- 左边栏(主体) -->
 	<div style="width:900px;float:left;">
 		<!-- 工厂搜索 -->

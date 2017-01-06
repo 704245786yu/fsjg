@@ -51,8 +51,11 @@ function setAdhrefAndImg($a,ad){
 
 function initAd(){
 	var adPositions = $.parseJSON($('#adPositions').html());
-	var $a = $('.ad');
-	setAdhrefAndImg($a,adPositions[0]);
+	var $aAds = $('.ad');
+	for(var i=0;i<adPositions.length;i++){
+		var $a = $($aAds[i]);
+		setAdhrefAndImg($a,adPositions[i]);
+	}
 }
 
 //确定选择地区

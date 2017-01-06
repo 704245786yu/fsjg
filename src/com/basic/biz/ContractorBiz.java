@@ -196,7 +196,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 		p.getBasicUser().setRoleId(3);
 		if(p.getAuditState()==null)
 			p.setAuditState((byte)0);
-		personDao.update(p);
+		personDao.merge(p);
 		dao.update(c);
 	}
 	

@@ -117,7 +117,7 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 				return new ReturnValueVo(ReturnValueVo.ERROR,errorInfo);
 			}
 			User loginUser = UserCtrl.getLoginUser(session);
-			return biz.batchSaveContractor(data.subList(2, data.size()),loginUser.getId());
+			return biz.batchSaveContractor(data.subList(3, data.size()),loginUser.getId());
 		}catch(Exception e){
 			e.printStackTrace();
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION,"读取文件发生错误，请与管理员联系");
