@@ -49,6 +49,17 @@
 					<td><div class="form-group"><input type="text" class="form-control" name="person.realName"></div></td>
 				</tr>
 				<tr>
+					<td><label><span>*</span>性别</label></td>
+					<td>
+						<div class="form-group" style="padding-top:5px;">
+							<label class="radio-inline"><input type="radio" name="person.gender" value="男">男</label>
+							<label class="radio-inline"><input type="radio" name="person.gender" value="女">女</label>
+						</div>
+					</td>
+					<td><label><span>*</span>年龄</label></td>
+					<td><div class="form-group"><input type="text" class="form-control" name="person.age"></div></td>
+				</tr>
+				<tr>
 					<td><label><span>*</span>省</label></td>
 					<td>
 						<div class="form-group"><select class="form-control" id="province" name="person.province"></select></div>
@@ -123,15 +134,17 @@
 							</c:forEach>
 						</div>
 					</td>
-					<td><label><span>*</span>主营产品</label></td>
+					<td><label><span>*</span>专业技能</label></td>
 					<td>
 						<div class="form-group">
-							<%@include file="/JSP/main/common/costumeCategoryModal.jsp"%>
+							<jsp:include page="/JSP/main/common/costumeCategoryModal.jsp">
+								<jsp:param name="limitChkNum" value="2"/>
+							</jsp:include>
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<td><label><span>*</span>加工年限</label></td>
+					<td><label><span>*</span>工龄</label></td>
 					<td><div class="form-group"><input type="text" class="form-control" name="contractor.processYear"></div></td>
 					<td><label><span>*</span>工人数量</label></td>
 					<td><div class="form-group"><input type="text" class="form-control" name="contractor.workerAmount"></div></td>
@@ -139,8 +152,19 @@
 				<tr>
 					<td><label>报价</label></td>
 					<td><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.quote" style="width:100%;"></div></td>
-					<td><label><span>*</span>专业技能</label></td>
-					<td><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.skill" style="width:100%;"></div></td>
+					<td><label><span>*</span>工作场地</label></td>
+					<td>
+						<div class="form-group" style="padding-top:5px;">
+							<!-- <select class="form-control" name="contractor.workSpace">
+								<option value="0">在家</option>
+								<option value="1">到厂</option>
+							</select> -->
+							<label class="radio-inline"><input type="radio" name="contractor.workSpace" value="0">在家</label>
+							<label class="radio-inline"><input type="radio" name="contractor.workSpace" value="1">到厂</label>
+						</div>
+					</td>
+					<!-- <td><label><span>*</span>专业技能</label></td>
+					<td><div class="form-group" style="width:100%;"><input type="text" class="form-control" name="contractor.skill" style="width:100%;"></div></td> -->
 				</tr>
 				<tr>
 					<td><label>生产设备</label></td>

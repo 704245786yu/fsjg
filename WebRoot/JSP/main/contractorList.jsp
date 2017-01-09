@@ -32,9 +32,19 @@
 
 <table style="width:1190px;margin:0 auto;bakcground-color:#FBF8F9;">
 <tr>
+	<td colspan="2">
+		<table style="width:100%;height:90px;margin-bottom:10px;">
+			<tr>
+				<td style="width:25%;padding-right:10px;"><a class="ad" target="_blank"><img style="height:90px;width:100%;"/></a></td>
+				<td style="width:25%;padding-right:10px;"><a class="ad" target="_blank"><img style="height:90px;width:100%;"/></a></td>
+				<td style="width:25%;padding-right:10px;"><a class="ad" target="_blank"><img style="height:90px;width:100%;"/></a></td>
+				<td style="width:25%;"><a class="ad" target="_blank"><img style="height:90px;width:100%;"/></a></td>
+			</tr>
+		</table>
+	</td>
+</tr>
+<tr>
 	<td style="width:906px;background-color:#FBF8F9;vertical-align:top;">
-		<!-- 广告 -->
-		<a class="ad" target="_blank"><img style="width:100%;height:260px;margin-bottom:10px;"></a>
 		<div class="panel panel-default search-panel">
 			<div class="panel-body">
 				<table>
@@ -110,27 +120,25 @@
 				<td><input type="checkbox" onclick="query()"> 只看急单</td>
 			</tr>
 		</table> -->
-		<table id="contractorTable" class="table" style="font-size:18px;margin-bottom:0px;background-color:white;">
+		<table id="contractorTable" class="table table-hover" style="font-size:18px;margin-bottom:0px;background-color:white;">
+			<thead>
 			<tr>
-				<th>姓名</th>
+				<th>性别</th>
 				<th>年龄</th>
-				<th>加工年限</th>
-				<th>员工人数</th>
+				<th>工龄</th>
+				<th>人数</th>
 				<th>地址</th>
-				<th>主营产品</th>
 				<th>专业技能</th>
-				<th>发布日期</th>
+				<th>工作场地</th>
 			</tr>
+			</thead>
+			<tbody></tbody>
 		</table>
 		<div id="bsPagination" style="text-align:center"></div>
 	</td>
 	
 	<!-- 右边栏 -->
 	<td style="width:274px;vertical-align:top;padding-left:10px;background-color:#FBF8F9">
-		<!-- 广告 -->
-		<a class="ad" target="_blank"><img width="100%" style="margin-bottom:10px;"></a>
-		<a class="ad" target="_blank"><img width="100%" style="margin-bottom:10px;"></a>
-		
 		<!-- 行业分类 -->
 		<div class="panel panel-default">
 			<div class="panel-heading">

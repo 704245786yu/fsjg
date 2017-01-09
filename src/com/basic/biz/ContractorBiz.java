@@ -67,7 +67,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 				//创建BasicUser
 				BasicUser basicUser = new BasicUser();
 				try{
-					String teleStr = temp[9];
+					String teleStr = temp[8];
 					if(teleStr.length() != 11)
 						throw new Exception("telephone length != 11");
 					Long telephone = Long.parseLong(teleStr);
@@ -94,10 +94,10 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 					errorInfo.add("第"+(i+rowOffset)+"行 年龄有误");
 				}
 				//省，市，区县，镇/乡/街道
-				List<String> subErrorInfo = this.setDistrictCode(i+rowOffset, person, temp[4], temp[5], temp[6], temp[7], provinceMap, cityMap, countyMap, townMap);
+				List<String> subErrorInfo = this.setDistrictCode(i+rowOffset, person, temp[3], temp[4], temp[5], temp[6], provinceMap, cityMap, countyMap, townMap);
 				errorInfo.addAll(subErrorInfo);
 				//详细地址
-				String detailAddr = temp[8];
+				String detailAddr = temp[7];
 				if(detailAddr.length() < 50){
 					person.setDetailAddr(detailAddr);
 				}else{
@@ -124,19 +124,29 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 				//快产专家
 				Contractor contractor = new Contractor();
 				//加工类型
-				String processType = this.getProcessType(temp[10], processTypeMap);
+				String processType = this.getProcessType(temp[9], processTypeMap);
 				if(processType.length() == 0)
 					errorInfo.add("第"+(i+rowOffset)+"行 加工类型信息不正确");
 				else
 					contractor.setProcessType(processType);
-				//主营产品
-				String costumeCode = this.getCostumeCategory(temp[11], costumeMap);
+				//专业技能(原主营产品)
+				String costumeCode = this.getCostumeCategory(temp[10], costumeMap);
 				if(costumeCode.length() == 0)
-					errorInfo.add("第"+(i+rowOffset)+"行 主营产品信息不正确");
+					errorInfo.add("第"+(i+rowOffset)+"行 专业技能信息不正确");
 				else
 					contractor.setCostumeCode(costumeCode);
-				contractor.setProcessYear(NumberTransform.getShort(temp[12]));
-				contractor.setWorkerAmount(NumberTransform.getShort(temp[13]));
+				contractor.setProcessYear(NumberTransform.getShort(temp[11]));
+				contractor.setWorkerAmount(NumberTransform.getShort(temp[12]));
+				//工作场地
+				String workSpaceStr = temp[13];
+				if(workSpaceStr.equals("在家"))
+					contractor.setWorkSpace((byte)0);
+				else if(workSpaceStr.equals("到厂"))
+					contractor.setWorkSpace((byte)1);
+				else
+					errorInfo.add("第"+(i+rowOffset)+"行工作场地不正确");
+					
+				//报价
 				String quote = temp[14];
 				if(quote.length() > 200){
 					errorInfo.add("第"+(i+rowOffset)+"行 报价字数超过20个字");
@@ -218,7 +228,12 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 				ContractorSimpleVo c = list.get(i);
 				List<String> names = districtBiz.getNameByCode(c.getProvince(), c.getCity(), c.getCounty(), c.getTown());
 				StringBuilder sb = new StringBuilder();
-				for(int j=0;j<names.size();j++){
+				int times = 2;//选了区县、镇乡则显示，不选择则不显示
+				if(county!=null)
+					times = 3;
+				if(town!=null)
+					times = 4;
+				for(int j=0;j<names.size() && j<times;j++){
 					sb.append(names.get(j));
 				}
 				c.setDistrict(sb.toString());
@@ -317,6 +332,9 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 	private String getCostumeCategory(String costume, HashMap<String,Integer> costumeMap){
 		StringBuilder sb = new StringBuilder();
 		String[] costumeAry = costume.split("，");	//中文逗号分割
+		//不能多余两个
+		if(costumeAry.length > 2)
+			return "";
 		Integer costumeCode = costumeMap.get(costumeAry[0]);
 		if(costumeCode != null)
 			sb.append(costumeCode);

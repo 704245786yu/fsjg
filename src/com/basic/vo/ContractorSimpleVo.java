@@ -1,13 +1,9 @@
 package com.basic.vo;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ContractorSimpleVo {
 
 	private Integer id;
-	private String realName;
+	private String gender;
 	private Byte age;
 	private Short processYear;
 	private Short workerAmount;
@@ -17,9 +13,7 @@ public class ContractorSimpleVo {
 	private Long town;
 	private String district;
 	private String costumeCode;
-	private String skill;
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private Date createTime;
+	private Byte workSpace;
 	
 	public Integer getId() {
 		return id;
@@ -27,11 +21,11 @@ public class ContractorSimpleVo {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getRealName() {
-		return realName;
+	public String getGender() {
+		return gender;
 	}
-	public void setRealName(String realName) {
-		this.realName = realName;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public Byte getAge() {
 		return age;
@@ -81,23 +75,17 @@ public class ContractorSimpleVo {
 	public void setCostumeCode(String costumeCode) {
 		this.costumeCode = costumeCode;
 	}
-	public String getSkill() {
-		return skill;
-	}
-	public void setSkill(String skill) {
-		this.skill = skill;
-	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
 	public String getDistrict() {
 		return district;
 	}
 	public void setDistrict(String district) {
 		this.district = district;
+	}
+	public Byte getWorkSpace() {
+		return workSpace;
+	}
+	public void setWorkSpace(Byte workSpace) {
+		this.workSpace = workSpace;
 	}
 	
 }

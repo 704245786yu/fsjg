@@ -131,22 +131,28 @@ function initIndentList(){
 	});
 }
 
+//行点击事件
+function trClick(id){
+	window.open("contractor/showDetail/"+id);
+}
+
 function generateTable(data){
-	var $firstTr = $('#contractorTable tr:first-child');
-	$firstTr.nextAll().remove();
+	var $tbody = $('#contractorTable tbody');
+	$tbody.empty();
 	var rows = data.rows;
 	for(var i=0;i<rows.length;i++){
 		var contractor = rows[i];
-		var $tr = $('<tr>');
-		var $a = $('<a target="_blank">');
-		$a.attr('href','contractor/showDetail/'+contractor.id).html(contractor.realName);
-		$tr.append($('<td>').append($a));
+		var $tr = $('<tr onclick="trClick('+contractor.id+')">');
+		if(contractor.gender=='男')
+			$tr.append($('<td>').html('<img src="image/man.png">'));
+		else
+			$tr.append($('<td>').html('<img src="image/woman.png">'));
 		$tr.append($('<td>').html(contractor.age));
 		$tr.append($('<td>').html(contractor.processYear));
 		$tr.append($('<td>').html(contractor.workAmount));
 		$tr.append($('<td>').html(contractor.district));
 		
-		//主营产品
+		//专业技能
 		var costumeCategoryAry = contractor.costumeCode.split(',');
 		var costumeStr = "";
 		for(var j=0; j<costumeCategoryAry.length; j++){
@@ -154,9 +160,15 @@ function generateTable(data){
 		}
 		
 		$tr.append($('<td>').html(costumeStr));
-		$tr.append($('<td>').html(contractor.skill));
-		$tr.append($('<td>').html(contractor.createTime));
-		$firstTr.after($tr);
+		//工作场地
+		var workSpace = null;
+		if(contractor.workSpace==0)
+			workSpace = '在家';
+		else if(contractor.workSpace==1)
+			workSpace = '到厂';
+		$tr.append($('<td>').html(workSpace));
+		
+		$tbody.append($tr);
 	}
 }
 

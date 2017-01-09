@@ -40,6 +40,27 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
+    	'person.gender': {
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			}
+    		}
+    	},
+    	'person.age': {
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			integer:{
+    				message:'必须为整数'
+    			},
+    			stringLength: {
+    				max: 2,
+    				message: '最多2个字符'
+    			}
+    		}
+    	},
     	'person.basicUser.telephone': {
     		threshold: 11,
     		validators: {
@@ -141,6 +162,13 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
+    	'contractor.workSpace':{
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			}
+    		}
+    	},
     	'contractor.quote':{
     		validators: {
     			stringLength: {
@@ -149,7 +177,7 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
-    	'contractor.skill':{
+    	/*'contractor.skill':{
     		validators: {
     			notEmpty: {
     				message: '不能为空'
@@ -159,7 +187,7 @@ $('#ff').bootstrapValidator({
     				message: '最多20个字符'
     			}
     		}
-    	},
+    	},*/
     	'contractor.equipment':{
     		validators: {
     			stringLength: {
@@ -236,6 +264,8 @@ function modify(id){
 		contractor.processType = processType;
 		$("#ff").fill(person);
 		$("#ff").fill(contractor);
+		//工作场地
+//		$('select[name="contractor.workSpace"]').val(contractor.workSpace);
 		//服饰类型
 		var costumeCode = contractor.costumeCode;
 		var codes = costumeCode.split(',');

@@ -97,7 +97,7 @@ public class ContractorDao extends BaseDao<Integer, Contractor>{
 				return new BootTablePageDto<ContractorSimpleVo>(0L,new ArrayList<ContractorSimpleVo>());
 		}
 		
-		StringBuffer sql = new StringBuffer("select p.id as id, p.realName as realName, p.age as age, c.processYear as processYear, c.workerAmount as workerAmount, p.province as province, p.city as city, p.county as county, p.town as town, c.costumeCode as costumeCode, c.skill as skill, p.basicUser.createTime as createTime");
+		StringBuffer sql = new StringBuffer("select p.id as id, p.gender as gender, p.age as age, c.processYear as processYear, c.workerAmount as workerAmount, p.province as province, p.city as city, p.county as county, p.town as town, c.costumeCode as costumeCode, c.workSpace as workSpace ");
 		sql.append(subSql).append(" order by p.basicUser.createTime desc");
 		List<ContractorSimpleVo> contractors = super.findByPage(sql.toString(), offset, limit, paramsAry, valuesAry, ContractorSimpleVo.class);
 		return new BootTablePageDto<ContractorSimpleVo>(total, contractors);

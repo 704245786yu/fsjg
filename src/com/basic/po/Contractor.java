@@ -24,6 +24,9 @@ public class Contractor {
 	@Column(name="worker_amount")
 	private Short workerAmount;	//工人数量
 	
+	@Column(name="work_space")
+	private Byte workSpace;//工作场地
+	
 	private String skill;	//专业技能
 	
 	private String quote;	//报价，填写接单价格规则
@@ -107,6 +110,14 @@ public class Contractor {
 
 	public void setSkill(String skill) {
 		this.skill = skill;
+	}
+
+	public Byte getWorkSpace() {
+		return workSpace;
+	}
+
+	public void setWorkSpace(Byte workSpace) {
+		this.workSpace = workSpace;
 	}
 	
 }
