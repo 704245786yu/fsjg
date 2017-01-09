@@ -296,6 +296,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 			errorInfo.add("第"+rowNum+"行镇/乡/街道信息不正确或无此信息");
 			return errorInfo;
 		}
+		userAbstract.setTown(townCode);
 		return errorInfo;
 	}
 	

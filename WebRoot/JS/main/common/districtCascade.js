@@ -61,6 +61,7 @@
 
 function assembleSelect(selectId, data){
 	var $district = $(selectId);
+	$district.empty();
 	$('<option>').text('--请选择--').val("").appendTo($district);
 	for(var i=0; i<data.length; i++){
 		$('<option>').text(data[i].districtName).val(data[i].districtCode).appendTo($district);

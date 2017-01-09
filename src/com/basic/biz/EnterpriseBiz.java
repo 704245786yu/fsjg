@@ -330,6 +330,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 			errorInfo.add("第"+rowNum+"行镇/乡/街道信息不正确或无此信息");
 			return errorInfo;
 		}
+		enterprise.setTown(townCode);
 		return errorInfo;
 	}
 	

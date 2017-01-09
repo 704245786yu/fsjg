@@ -90,7 +90,7 @@ public class DistrictCtrl extends BaseCtrl<DistrictBiz,Long,District>{
 			countyList = biz.getNameAndCodeByPcode(city);
 		List<District> townList = new ArrayList<District>();
 		if(county != null)
-				biz.getNameAndCodeByPcode(county);
+			townList = biz.getNameAndCodeByPcode(county);
 		Map<String, List<District>> map = new HashMap<String, List<District>>();
 		map.put("cityList", cityList);
 		map.put("countyList", countyList);

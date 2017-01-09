@@ -234,10 +234,8 @@ function modify(id){
 		var processType = contractor.processType;
 		processType = processType.split(',');
 		contractor.processType = processType;
-		console.log(new Date());
 		$("#ff").fill(person);
 		$("#ff").fill(contractor);
-		console.log(new Date());
 		//服饰类型
 		var costumeCode = contractor.costumeCode;
 		var codes = costumeCode.split(',');

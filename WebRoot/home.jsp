@@ -53,21 +53,20 @@
 				<ul class="category-search">
 					<li>
 						<h5><a href="#">针织</a></h5>
-						<a href="#">针织内裤</a><span>|</span>
-						<a href="#">针织大衣/风衣</a><span>|</span>
-						<a href="#">针织便装</a>
-						<a href="#">针织裤&nbsp;&nbsp;&nbsp;&nbsp;</a><span>|</span>
-						<a href="#" style="padding:0px 13px">针织浴袍</a><span>|</span>
+						<a href="#">针织内裤</a><span style="padding:0 15px;">|</span>
+						<a href="#">针织大衣/风衣</a><br>
+						<!-- <a href="#"></a> -->
+						<a href="#">针织裤</a><span style="padding:0 6px;">|</span>
+						<a href="#">针织浴袍</a><span style="padding:0 6px;">|</span>
 						<a href="#">针织衬衫</a>
 					</li>
 					<li>
 						<h5><a href="#">梭织</a></h5>
 						<a href="#">牛仔服装</a><span>|</span>
 						<a href="#">真丝服装</a><span>|</span>
-						<a href="#">旗袍</a><span>|</span>
-						<a href="#">休闲服</a>
+						<a href="#">旗袍</a><br>
 						<a href="#">手工定制</a><span>|</span>
-						<a href="#">中山装&nbsp;&nbsp;&nbsp;&nbsp;</a><span>|</span>
+						<a href="#">休闲服</a><span>|</span>
 						<a href="#">唐装</a><span>|</span>
 						<a href="#">汉服</a>
 					</li>
@@ -76,7 +75,7 @@
 						<a href="#">帽类</a><span>|</span>
 						<a href="#">领带</a><span>|</span>
 						<a href="#">围巾类</a><span>|</span>
-						<a href="#">手套</a>
+						<a href="#">手套</a><br>
 						<a href="#">袜子</a><span>|</span>
 						<a href="#">阳伞</a><span>|</span>
 						<a href="#">工艺品</a><span>|</span>
@@ -612,8 +611,8 @@
 					<div id="afficheDemo" style="display:none">
 						<li style="width:183px;"><a>[公告]B2B的春天sdfsf正在到来</a></li>
 					</div>
-					<a name="right_top_ad" target="_blank"><img width="100%" height="80px"></a>
-					<a name="right_top_ad" target="_blank"><img width="100%" height="80px"></a>
+					<a name="right_top_ad" target="_blank"><img width="100%" height="100px"></a>
+					<a name="right_top_ad" target="_blank"><img width="100%" height="100px"></a>
 				</div>
 			</div>
 		</td>
