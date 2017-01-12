@@ -61,7 +61,7 @@
 			<!-- 用户基本信息 -->
 			<c:choose>
 				<%--普通用户信息 --%>
-				<c:when test="${userInfo.basicUser.roleId==1}">
+				<c:when test="${userInfo.basicUser.roleId != 2}">
 					<table id="basic-info" class="table">
 						<tr>
 							<td rowspan="3" style="width:200px;text-align:center;">
@@ -139,7 +139,7 @@
 				<li class="level1">帐号管理</li>
 				<li name="1" style="color:#00b8ef">详细信息</li>
 				<li name="2">修改密码</li>
-				<c:if test="${userInfo.basicUser.roleId == 1}">
+				<c:if test="${userInfo.basicUser.roleId != 2}">
 					<li class="level1">个人管理</li>
 					<li name="6">快产信息</li>
 				</c:if>
@@ -160,7 +160,7 @@
 			<div>
 				<c:choose>
 					<%--普通用户详情 --%>
-					<c:when test="${userInfo.basicUser.roleId==1}">
+					<c:when test="${userInfo.basicUser.roleId!=2}">
 						<%@ include file="personInfo.jsp"%>
 					</c:when>
 					<%--企业用户详情 --%>
@@ -213,7 +213,7 @@
 			<div style="display:none;">
 				<iframe src="indent/showMyConfirmed"></iframe>
 			</div>
-			<c:if test="${userInfo.basicUser.roleId == 1}">
+			<c:if test="${userInfo.basicUser.roleId != 2}">
 				<div style="display:none;">
 					<div style="border-bottom:1px solid #cccccc;line-height:49px;">
 						<strong style="font-size:18px;padding-left:20px;">快产信息</strong>
@@ -233,15 +233,17 @@
 										</c:forEach>
 									</div>
 								</td>
-								<td><label><span>*</span>主营产品</label></td>
+								<td><label><span>*</span>专业技能</label></td>
 								<td>
 									<div class="form-group">
-										<%@include file="/JSP/main/common/costumeCategoryModal.jsp"%>
+										<jsp:include page="/JSP/main/common/costumeCategoryModal.jsp">
+											<jsp:param name="limitChkNum" value="2"/>
+										</jsp:include>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td><label><span>*</span>加工年限</label></td>
+								<td><label><span>*</span>工龄</label></td>
 								<td><div class="form-group"><input type="text" class="form-control" name="processYear" style="width:80%;" value="${contractor.processYear}"></div></td>
 								<td><label><span>*</span>工人数量</label></td>
 								<td><div class="form-group"><input type="text" class="form-control" name="workerAmount" style="width:80%;" value="${contractor.workerAmount}"></div></td>
@@ -249,8 +251,13 @@
 							<tr>
 								<td><label>报价</label></td>
 								<td><div class="form-group"><input type="text" class="form-control" name="quote" style="width:80%;" value="${contractor.quote}"></div></td>
-								<td><label><span>*</span>专业技能</label></td>
-								<td><div class="form-group"><input type="text" class="form-control" name="skill" style="width:80%;" value="${contractor.skill}"></div></td>
+								<td><label><span>*</span>工作场地</label></td>
+								<td>
+									<div class="form-group" style="padding-top:5px;">
+										<label class="radio-inline"><input type="radio" name="workSpace" value="${contractor.workSpace}">在家</label>
+										<label class="radio-inline"><input type="radio" name="workSpace" value="${contractor.workSpace}">到厂</label>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td><label>生产设备</label></td>

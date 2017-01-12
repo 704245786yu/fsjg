@@ -69,6 +69,9 @@
 				</div>
 			</div>
 		</form>
+		<div>
+			<a class="forgetPwd" href="forgetPwd">忘记密码</a>
+		</div>
 	</div>
 </div>
 <%@ include file="/JSP/main/bottom.jsp"%>

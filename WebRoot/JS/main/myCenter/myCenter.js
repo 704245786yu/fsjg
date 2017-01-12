@@ -176,14 +176,10 @@ $('#contractorFrom').bootstrapValidator({
     			}
     		}
     	},
-    	'skill':{
+    	'workSpace':{
     		validators: {
     			notEmpty: {
-    				message: '不能为空'
-    			},
-    			stringLength: {
-    				max: 20,
-    				message: '最多20个字符'
+    				message: '必选'
     			}
     		}
     	},

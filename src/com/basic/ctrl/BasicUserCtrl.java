@@ -114,7 +114,7 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		UserAbstract userAbstract = null;
 		mav = new ModelAndView("main/myCenter/myCenter");
 		int roleId = basicUser.getRoleId();
-		if(roleId == 1){
+		if(roleId != 2){
 			userAbstract = personBiz.getByBasicUserId(basicUser.getId());
 			//获取快产专家
 			Contractor contractor = contractorBiz.getById(userAbstract.getId());

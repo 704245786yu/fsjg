@@ -49,4 +49,9 @@ public class MainCtrl {
 		model.addAttribute("tradeNews", tradeNews);
 		return "../home";
 	}
+	
+	@RequestMapping("forgetPwd")
+	public String forgetPwd(){
+		return "main/forgetPwd";
+	}
 }
