@@ -44,7 +44,7 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 			List<SampleVo> list = result.getRows();
 			for(int i=0; i<list.size(); i++){
 				String img = list.get(i).getImg();
-				list.get(i).setImg(img.substring(0, 19));
+				list.get(i).setImg(img.split(",")[0]);
 			}
 		}
 		return result;
@@ -68,7 +68,7 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 			List<Sample2Vo> list = result.getRows();
 			for(int i=0; i<list.size(); i++){
 				String img = list.get(i).getImg();
-				list.get(i).setImg(img.substring(0, 19));
+				list.get(i).setImg(img.split(",")[0]);
 			}
 		}
 		return result;

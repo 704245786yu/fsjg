@@ -144,6 +144,8 @@
 					<li name="6">快产信息</li>
 				</c:if>
 				<c:if test="${userInfo.basicUser.roleId == 2}">
+					<li class="level1">店铺管理</li>
+					<li name="8">样品管理</li>
 					<%--企业用户展示接单管理 --%>
 					<li class="level1">接单管理</li>
 					<li name="6">我的报价</li>
@@ -280,6 +282,9 @@
 				</div>
 				<div style="display:none;">
 					<iframe src="indent/showMyReceivedIndent"></iframe>
+				</div>
+				<div style="display:none;">
+					<iframe src="JSP/main/myCenter/mySample.jsp"></iframe>
 				</div>
 			</c:if>
 		</td>

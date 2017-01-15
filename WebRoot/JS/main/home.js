@@ -59,9 +59,13 @@ function initAd(){
 	var $bottomCaroUl = $('#bottom_carousel ul');
 	var $bottomCaroLi = $('#bottom_carousel div[name="sample"] li');
 	
-	//底部幻灯片
-	var $bottomAdUl = $('#bottomSlide .bd ul');
-	var $bottomLi = $('#bottomSlide .bd div li');
+	//底部幻灯片1
+	var $bottomAdUl1 = $('#bottomSlide1 .bd ul');
+	var $bottomLi1 = $('#bottomSlide1 .bd div li');
+	
+	//底部幻灯片2
+	var $bottomAdUl2 = $('#bottomSlide2 .bd ul');
+	var $bottomLi2 = $('#bottomSlide2 .bd div li');
 	
 	//左侧大图
 	var leftAdIndex = 0;
@@ -88,12 +92,19 @@ function initAd(){
 			textAdIndex++;
 			setAdHref($a,ad);
 		}
-		//底部幻灯片
-		if(ad.code=='home_bottom_slide'){
-			var $tempLi = $bottomLi.clone();
+		//底部幻灯片1
+		if(ad.code=='home_bottom_slide1'){
+			var $tempLi = $bottomLi1.clone();
 			var $a = $tempLi.children('a');
 			setAdhrefAndImg($a,ad);
-			$bottomAdUl.append($tempLi);
+			$bottomAdUl1.append($tempLi);
+		}
+		//底部幻灯片2
+		if(ad.code=='home_bottom_slide2'){
+			var $tempLi = $bottomLi2.clone();
+			var $a = $tempLi.children('a');
+			setAdhrefAndImg($a,ad);
+			$bottomAdUl2.append($tempLi);
 		}
 		//首页表格小广告
 		if(ad.code=='home_table_sm_ad'){
@@ -137,9 +148,6 @@ function initAd(){
 			setAdhrefAndImg($a,ad);
 		}else if(ad.code=='home_mid_6'){
 			var $a = $($('a.mid_ad')[5]);
-			setAdhrefAndImg($a,ad);
-		}else if(ad.code=='home_mid_7'){
-			var $a = $($('a.mid_ad')[6]);
 			setAdhrefAndImg($a,ad);
 		}else if(ad.code=='home_bottom_caro'){
 			var $tempLi = $bottomCaroLi.clone();

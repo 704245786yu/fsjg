@@ -20,7 +20,7 @@ public class SMS {
 	 * @return 返回验证码发送状态
 	 * */
 	@SuppressWarnings("unchecked")
-	public static HashMap<String,LinkedHashMap<String,Object>> sendNum(long telephone,int num){
+	public static HashMap<String,LinkedHashMap<String,Object>> sendNum(long telephone,String smsTemplateCode,int num){
 		String tele = String.valueOf(telephone);
 		String number = String.valueOf(num);
 		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
@@ -30,7 +30,7 @@ public class SMS {
 		req.setSmsFreeSignName(freeSignName);
 		req.setSmsParamString("{number:'"+number+"'}");
 		req.setRecNum(tele);
-		req.setSmsTemplateCode("SMS_14761073");
+		req.setSmsTemplateCode(smsTemplateCode);
 		AlibabaAliqinFcSmsNumSendResponse rsp = null;
 		try {
 			rsp = client.execute(req);

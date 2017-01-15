@@ -40,6 +40,7 @@ import com.common.dto.BootTablePageDto;
 import com.common.vo.ReturnValueVo;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
+import com.util.DateTransform;
 import com.util.FileUtil;
 import com.util.JacksonJson;
 
@@ -118,18 +119,18 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		try{
 			if(smPic.length > 0){
 				String img = null;
-				img = this.transferFile(smPic[0],uploadDir,createBy,"0");
+				img = this.transferFile(smPic[0],uploadDir,c.getEnterpriseNum(),"0");
 				for(int i=1;i<smPic.length;i++){
-					img +=  ","+this.transferFile(smPic[i],uploadDir,createBy,i+"");
+					img +=  ","+this.transferFile(smPic[i],uploadDir,c.getEnterpriseNum(),i+"");
 				}
 				c.setSmImg(img);
 			}
 			
 			if(detailPic.length > 0){
 				String img = null;
-				img = this.transferFile(detailPic[0],uploadDir,createBy,"0");
+				img = this.transferFile(detailPic[0],uploadDir,c.getEnterpriseNum(),"0");
 				for(int i=1;i<detailPic.length;i++){
-					img +=  ","+this.transferFile(detailPic[i],uploadDir,createBy,i+"");
+					img +=  ","+this.transferFile(detailPic[i],uploadDir,c.getEnterpriseNum(),i+"");
 				}
 				c.setDetailImg(img);
 			}
@@ -186,9 +187,9 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		try{
 			if(smPic.length > 0){
 				String img = null;
-				img = this.transferFile(smPic[0],uploadDir,createBy,"0");
+				img = this.transferFile(smPic[0],uploadDir,c.getEnterpriseNum(),"0");
 				for(int i=1;i<smPic.length;i++){
-					img +=  ","+this.transferFile(smPic[i],uploadDir,createBy,i+"");
+					img +=  ","+this.transferFile(smPic[i],uploadDir,c.getEnterpriseNum(),i+"");
 				}
 				if(c.getSmImg().length() > 0)
 					c.setSmImg(c.getSmImg()+','+img);
@@ -198,9 +199,9 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 			
 			if(detailPic.length > 0){
 				String img = null;
-				img = this.transferFile(detailPic[0],uploadDir,createBy,"0");
+				img = this.transferFile(detailPic[0],uploadDir,c.getEnterpriseNum(),"0");
 				for(int i=1;i<detailPic.length;i++){
-					img +=  ","+this.transferFile(detailPic[i],uploadDir,createBy,i+"");
+					img +=  ","+this.transferFile(detailPic[i],uploadDir,c.getEnterpriseNum(),i+"");
 				}
 				if(c.getDetailImg().length() > 0)
 					c.setDetailImg(c.getDetailImg()+','+img);
@@ -303,6 +304,25 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		return biz.getEntSample(enterpriseNum, costumeCode, offset, 20, total);
 	}
 	
+	/**个人中信-店铺管理-样品分页查询*/
+	@SuppressWarnings("unchecked")
+	@RequestMapping("findMySample")
+	@ResponseBody
+	public BootTablePageDto<CostumeSampleVo> findMySample(HttpSession session,Long num,String name, String beginDate,String endDate, int offset, int limit, Long total){
+		ServletContext servletContext=session.getServletContext();
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		HashMap<Integer,String> costumeCateMap = (HashMap<Integer,String>)servletContext.getAttribute("costumeCateMap");
+		BootTablePageDto<CostumeSampleVo> bt = biz.findByPage(num, name, enterpriseName, beginDate, endDate, offset, limit, total);
+		
+		List<CostumeSampleVo> list = bt.getRows();
+		for(int i=0; i<list.size(); i++){
+			CostumeSampleVo vo = list.get(i);
+			String str = costumeCateMap.get(vo.getCostumeCode());
+			vo.setCostumeCate(str);
+		}
+		return bt;
+	}
+	
 	/**后台分页查询*/
 	@SuppressWarnings("unchecked")
 	@RequestMapping("findByPage")
@@ -362,21 +382,22 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		return errorMsg;
 	}
 	
-	/**保存文件到磁盘
+	/**保存文件到磁盘 YYMMddHHmmss+ 3位随机数 + 工厂编号后4位
 	 * @param srcFile 原文件
 	 * @param uploadDir 保存路径
 	 * @param createBy 创建人ID
 	 * @return 返回新文件名
 	 * @throws IOException 
 	 * @throws IllegalStateException */
-	private String transferFile(MultipartFile srcFile, String uploadDir, int createBy, String newName) throws IllegalStateException, IOException{
+	private String transferFile(MultipartFile srcFile, String uploadDir, Long enterpriseNum, String newName) throws IllegalStateException, IOException{
 		String suffix = null;
 		String fileName = srcFile.getOriginalFilename();//获取上传文件的原名
 		String ary[] = fileName.split("\\.");
 		suffix = ary[ary.length-1];
 		//通过transferTo()将文件存储到硬件中
-		long time = System.currentTimeMillis();
-		String newFileName = createBy+""+time+newName+"."+suffix;
+		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmss");
+		int random = new java.util.Random().nextInt(900)+100;
+		String newFileName = time + random + enterpriseNum.toString().substring(15)+newName+"."+suffix;
 		srcFile.transferTo(new File(uploadDir + newFileName));
 		return newFileName;
 	}

@@ -75,6 +75,18 @@ public class BasicUserCtrl extends BaseCtrl<BasicUserBiz, Integer, BasicUser> {
 		return "success";
 	}
 	
+	/**忘记密码-修改密码
+	 * @return success：修改成功
+	 * */
+	@RequestMapping("modifyPwdByTele")
+	@ResponseBody
+	public ReturnValueVo modifyPwdByTele(String password, long telephone){
+		if(biz.modifyPwd(telephone, password)==1)
+			return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
+		else
+			return new ReturnValueVo(ReturnValueVo.ERROR,null);
+	}
+	
 	/**校验用户名是否存在,判断是否存在时排除id值
 	 * */
 	@RequestMapping(value="isNameExist")

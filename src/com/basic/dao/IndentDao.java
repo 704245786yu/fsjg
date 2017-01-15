@@ -97,9 +97,9 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 	 * */
 	public BootTablePageDto<IndentDto> search(Long province,Long city,Long county,Long town, 
 			Integer[] costumeCodes,String processType,Byte saleMarket,String keyword,Byte sortMark,Byte userType,Boolean isUrgency,int offset,int limit,Long total){
-		StringBuffer subSql = new StringBuffer(" from process_indent pi,(select user_id,1 as userType,province,city from basic_person ")
+		StringBuffer subSql = new StringBuffer(" from process_indent pi inner join (select user_id,1 as userType,province,city from basic_person ")
 			.append(" union select user_id,2 as userType,province,city from basic_enterprise ")
-			.append(") as user where pi.create_by = user.user_id and (indent_name like :keyword or description like :keyword)");
+			.append(") as user on pi.create_by = user.user_id where (indent_name like :keyword or description like :keyword)");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
 		//关键字匹配订单名称、订单说明

@@ -33,12 +33,12 @@ public class PersonDao extends BaseDao<Integer, Person>{
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
 		if(userName.length()>0){
-			hql.append(" and userName like :userName");
+			hql.append(" and basicUser.userName like :userName");
 			params.add("userName");
 			values.add("%"+userName+"%");
 		}
 		if(telephone!=null){
-			hql.append(" and telephone =:telephone");
+			hql.append(" and basicUser.telephone =:telephone");
 			params.add("telephone");
 			values.add(telephone);
 		}

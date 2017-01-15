@@ -32,7 +32,7 @@
 }
 </style>
 <div class="panel">
-<div id="editPanel" class="panel panel-primary" style="display:none;">
+<div id="editPanel" class="panel" style="display:none;">
 	<div class="panel-body">
 		<form id="ff" method="post" enctype="multipart/form-data" class="form-inline">
 			<input type="hidden" name="id"/>

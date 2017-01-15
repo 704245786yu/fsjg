@@ -32,14 +32,15 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 	@Override
 	@Transactional
 	public void update(Person p) {
-		BasicUser tempBasicUser = p.getBasicUser();
+		BasicUser basicUser = p.getBasicUser();
 		
-		Person old = dao.findByUserId(tempBasicUser.getId());
-		BasicUser basicUser = old.getBasicUser();
-		basicUser.setUserName(tempBasicUser.getUserName());
-		basicUser.setTelephone(tempBasicUser.getTelephone());
-		basicUser.setUpdateBy(tempBasicUser.getUpdateBy());
-		basicUserDao.update(basicUser);
+		Person old = dao.findByUserId(basicUser.getId());
+		BasicUser oldBasicUser = old.getBasicUser();
+		basicUser.setPassword(oldBasicUser.getPassword());
+		basicUser.setRoleId(oldBasicUser.getRoleId());
+		basicUser.setState(oldBasicUser.getState());
+		basicUser.setCreateBy(oldBasicUser.getCreateBy());
+		basicUser.setCreateTime(oldBasicUser.getCreateTime());
 		
 		p.setId(old.getId());
 		p.setAuditState(old.getAuditState());

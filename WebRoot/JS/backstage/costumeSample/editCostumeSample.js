@@ -126,6 +126,14 @@ $('#ff').bootstrapValidator({
 			for(var i=0; i<g_delImg.length; i++){
 				formData.push({'name':'delImg','value':g_delImg[i]});
 			}
+			if(formData[6].value=="" && formData[7].value==""){ //smImg, smPic
+				alert('未上传样品图片');
+				return false;
+			}
+			if(formData[13].value=="" && formData[14].value==""){ //detailImg, detailPic
+				alert('未上传详情图片');
+				return false;
+			}
 		},
 		success:function(data) {     
 			var action = $form.attr('action');
@@ -247,8 +255,8 @@ function detailImgChange(file,maxSize){
 	//IE9以下无此属性
 	if(files==null)
 		return;
-	if((files.length+imgs.length) > 5){
-		g_jqConfirm.autoClose("最多选择5张图片");
+	if((files.length+imgs.length) > 10){
+		g_jqConfirm.autoClose("最多选择10张图片");
 		return;
 	}
 	for(var i=0; i<files.length; i++){

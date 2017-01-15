@@ -1075,13 +1075,18 @@
 	</table>
 </div>
 
-<table class="mid_ad_table" style="margin-top:20px;margin-bottom:20px;width:100%;">
-	<tr>
-		<td style="width:100%;">
-			<a class="mid_ad" target="_blank"><img></a>
-		</td>
-	</tr>
-</table>
+<div id="bottomSlide1" class="slideBox" style="margin-top:20px;">
+	<div class="hd">
+		<ul><li>1</li><li>2</li></ul>
+	</div>
+	<div class="bd">
+		<ul>
+		</ul>
+		<div style="display:none;">
+			<li><a target="_blank"><img style="height:90px;width:100%;"/></a></li>
+		</div>
+	</div>
+</div>
 
 <div id="tradeNews" style="border:1px solid #DDDDDD;">
 	<p style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">友情链接</p>
@@ -1124,7 +1129,7 @@
 	</table>
 </div>
 
-<div id="bottomSlide" class="slideBox" style="margin-top:20px;">
+<div id="bottomSlide2" class="slideBox" style="margin-top:20px;">
 	<div class="hd">
 		<ul><li>1</li><li>2</li><li>3</li></ul>
 	</div>

@@ -45,7 +45,29 @@ public class LoginCtrl {
 	@ResponseBody
 	public ReturnValueVo getSmsNum(@PathVariable long telephone, HttpSession session){
 		int num = (int)(Math.random()*(9999-1000+1))+1000;//产生1000-9999的随机数
-		HashMap<String,LinkedHashMap<String,Object>> map = SMS.sendNum(telephone, num);
+		HashMap<String,LinkedHashMap<String,Object>> map = SMS.sendNum(telephone,"SMS_14761073",num);
+		LinkedHashMap<String,Object> map2 = (LinkedHashMap<String,Object>)map.get("alibaba_aliqin_fc_sms_num_send_response").get("result");
+		if((boolean)map2.get("success")){
+			//发送成功后保存验证码和当前时间到session，用于调用注册方法时进行验证码和时间的比对
+			HashMap<String,Long> sms = new HashMap<String,Long>();
+			sms.put("smsNum", (long)num);
+			sms.put("generateTime", System.currentTimeMillis());
+			session.setAttribute("sms",sms);
+			return new ReturnValueVo(ReturnValueVo.SUCCESS,null);
+		}else{
+			System.out.println("发送验证码错误："+map);
+			return new ReturnValueVo(ReturnValueVo.ERROR,null);
+		}
+	}
+	
+	/**忘记密码-发送短信验证码
+	 * */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("getSmsNumOfPwd/{telephone}")
+	@ResponseBody
+	public ReturnValueVo getSmsNumOfPwd(@PathVariable long telephone, HttpSession session){
+		int num = (int)(Math.random()*(9999-1000+1))+1000;//产生1000-9999的随机数
+		HashMap<String,LinkedHashMap<String,Object>> map = SMS.sendNum(telephone, "SMS_41655206", num);
 		LinkedHashMap<String,Object> map2 = (LinkedHashMap<String,Object>)map.get("alibaba_aliqin_fc_sms_num_send_response").get("result");
 		if((boolean)map2.get("success")){
 			//发送成功后保存验证码和当前时间到session，用于调用注册方法时进行验证码和时间的比对

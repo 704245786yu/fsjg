@@ -62,6 +62,13 @@ public class BasicUserBiz extends BaseBiz<BasicUserDao,Integer,BasicUser>{
 				new String[]{"password","userId"}, new Object[]{password,userId});
 	}
 	
+	/**忘记密码-修改密码
+	 * */
+	public int modifyPwd(long telephone, String password){
+		return dao.executeUpdate("update BasicUser set password =:password where telephone =:telephone",
+				new String[]{"password","telephone"}, new Object[]{password,telephone});
+	}
+	
 	public BasicUser login(String nameOrTele, String password){
 		return dao.login(nameOrTele, password);
 	}

@@ -491,15 +491,15 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	/**先更新基本用户信息，后更新企业信息*/
 	@Transactional
 	public void update(Enterprise e,Byte isAudit) {
-		BasicUser tempBasicUser = e.getBasicUser();
-		BasicUser basicUser = basicUserDao.findById(tempBasicUser.getId());
-		basicUser.setUserName(tempBasicUser.getUserName());
-		basicUser.setTelephone(tempBasicUser.getTelephone());
-		basicUser.setUpdateBy(tempBasicUser.getUpdateBy());
-		tempBasicUser.setCreateTime(basicUser.getCreateTime());
-		basicUserDao.update(basicUser);
+		BasicUser basicUser = e.getBasicUser();
+		BasicUser oldBasicUser = basicUserDao.findById(basicUser.getId());
+		basicUser.setPassword(oldBasicUser.getPassword());
+		basicUser.setRoleId(oldBasicUser.getRoleId());
+		basicUser.setState(oldBasicUser.getState());
+		basicUser.setCreateBy(oldBasicUser.getCreateBy());
+		basicUser.setCreateTime(oldBasicUser.getCreateTime());
 		
-		Enterprise old = this.getByBasicUserId(tempBasicUser.getId());
+		Enterprise old = this.getByBasicUserId(basicUser.getId());
 		Byte oldAuditState = old.getAuditState();
 		//审核状态
 		if(isAudit==null || ((Integer)(isAudit+1)).equals(oldAuditState)){
