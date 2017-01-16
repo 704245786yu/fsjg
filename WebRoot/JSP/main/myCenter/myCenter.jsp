@@ -284,7 +284,7 @@
 					<iframe src="indent/showMyReceivedIndent"></iframe>
 				</div>
 				<div style="display:none;">
-					<iframe src="JSP/main/myCenter/mySample.jsp"></iframe>
+					<iframe src="costumeSample/showMySample"></iframe>
 				</div>
 			</c:if>
 		</td>

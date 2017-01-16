@@ -461,6 +461,15 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return list.get(0);
 	}
 	
+	/**根据BasicUser的id获取企业的number
+	 * */
+	@SuppressWarnings("unchecked")
+	public Long getNumByUserId(int userId){
+		String hql = "select number from Enterprise where basicUser.id =:userId";
+		List<Long> list = (List<Long>)dao.find(hql, new String[]{"userId"}, new Integer[]{userId});
+		return list.get(0);
+	}
+	
 	/**根据服饰类型编码获取关联的企业
 	 * @param limit 返回的记录数
 	 * */

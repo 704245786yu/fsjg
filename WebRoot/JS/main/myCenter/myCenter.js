@@ -9,8 +9,11 @@ $(function(){
 		$divs[index-1].style.display = 'block';
 	}
 	//快产专家
-	var contractorId = $('#contractor_personId').val();
-	if(contractorId!=''){
+	var contractorId = null; 
+	var $contractorId = $('#contractor_personId');
+	if($contractorId != undefined)
+		contractorId = $contractorId.val();
+	if(contractorId!='' && contractorId!=null){
 		var processType = $('#contractor_processType').val().split(',');
 		for(var i=0; i<processType.length; i++){
 			$(':checkbox[name="processType"][value="'+processType[i]+'"]').prop('checked','checked');

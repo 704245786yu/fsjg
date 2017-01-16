@@ -31,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="form-group">
 					<label>样品编号</label>
 					<input type="text" class="form-control" name="num">
+					<input type="hidden" id="enterpriseNum" value="${enterpriseNum}">
 				</div>
 				<div class="form-group">
 					<label>样品名</label>
@@ -66,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 		<!-- 数据表格 -->
-		<table id="dg" data-toggle="table" data-url="costumeSample/findByPage" data-unique-id="id"
+		<table id="dg" data-toggle="table" data-url="costumeSample/findMySample" data-unique-id="id"
 				data-pagination="true"
 				data-side-pagination="server"
 				data-query-params="queryParams"
@@ -77,7 +78,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	<th data-formatter="seqnumFormatter" data-align="center">序号</th>
 		            <th data-field="num" data-align="center">样品编号</th>
 		            <th data-field="name" data-align="center">样品名</th>
-		            <th data-field="enterpriseName" data-align="center">工厂名称</th>
 		            <th data-field="costumeCate" data-align="center">服饰类型</th>
 		            <th data-field="updateTime" data-align="center">添加时间</th>
 		            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
-<script src="JS/backstage/costumeSample/costumeSample.js"></script>
+<script src="JS/main/myCenter/mySample.js"></script>
 
 <%@ include file="editMySample.jsp" %>
 </body>

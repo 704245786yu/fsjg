@@ -89,7 +89,7 @@ public class CostumeSampleDao extends BaseDao<Integer, CostumeSample>{
 			values.add("%"+name+"%");
 		}
 		if(num!=null){
-			hql.append(" and c.num like :num");
+			hql.append(" and c.num =:num");
 			params.add("num");
 			values.add(num);
 		}
@@ -108,6 +108,43 @@ public class CostumeSampleDao extends BaseDao<Integer, CostumeSample>{
 				return new BootTablePageDto<CostumeSampleVo>(total,new ArrayList<CostumeSampleVo>());
 		}
 		StringBuilder sql = new StringBuilder("select c.id as id, c.enterpriseNum as enterpriseNum, e.enterpriseName as enterpriseName, c.num as num, c.name as name, c.costumeCode as costumeCode, c.orderAmount as orderAmount, c.price as price, c.saleMarket as saleMarket, c.support as support, c.processDesc as processDesc, c.smImg as smImg, c.detailImg as detailImg, c.updateTime as updateTime ");
+		sql.append(hql);
+		List<CostumeSampleVo> list = super.findByPage(sql.toString(), offset, limit, params.toArray(new String[]{}), values.toArray(new Object[]{}),CostumeSampleVo.class);
+		return new BootTablePageDto<CostumeSampleVo>(total,list);
+	}
+	
+	public BootTablePageDto<CostumeSampleVo> findMySample(Long num,String name,long entNum, Date beginDate,Date endDate, int offset, int limit, Long total){
+		StringBuilder hql = new StringBuilder("from CostumeSample c where c.enterpriseNum =:entNum ");
+		List<String> params = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
+		params.add("entNum");
+		values.add(entNum);
+		
+		if(name.length()>0){
+			hql.append(" and c.name like :name");
+			params.add("name");
+			values.add("%"+name+"%");
+		}
+		if(num!=null){
+			hql.append(" and c.num =:num");
+			params.add("num");
+			values.add(num);
+		}
+		if(beginDate!=null && endDate!=null){
+			hql.append(" and c.updateTime between :beginDate and :endDate");
+			params.add("beginDate");
+			values.add(beginDate);
+			params.add("endDate");
+			values.add(endDate);
+		}
+		if(total==null){
+			StringBuilder countSql = new StringBuilder("select count(1) ");
+			countSql.append(hql);
+			total = super.getCount(countSql.toString(), params.toArray(new String[]{}), values.toArray(new Object[]{}));
+			if(total==0)
+				return new BootTablePageDto<CostumeSampleVo>(total,new ArrayList<CostumeSampleVo>());
+		}
+		StringBuilder sql = new StringBuilder("select c.id as id, c.num as num, c.name as name, c.costumeCode as costumeCode, c.orderAmount as orderAmount, c.price as price, c.saleMarket as saleMarket, c.support as support, c.processDesc as processDesc, c.smImg as smImg, c.detailImg as detailImg, c.updateTime as updateTime ");
 		sql.append(hql);
 		List<CostumeSampleVo> list = super.findByPage(sql.toString(), offset, limit, params.toArray(new String[]{}), values.toArray(new Object[]{}),CostumeSampleVo.class);
 		return new BootTablePageDto<CostumeSampleVo>(total,list);

@@ -42,13 +42,7 @@
 					<td><label><span>*</span>样品名称</label></td>
 					<td>
 						<div class="form-group"><input type="text" class="form-control" name="name"></div>
-					</td>
-				</tr>
-				<tr>
-					<td><label><span>*</span>关联工厂</label></td>
-					<td>
 						<input type="hidden" name="enterpriseNum">
-						<div class="form-group"><input type="text" class="form-control" data-provide="typeahead" name="enterpriseName" autocomplete="OFF"></div>
 					</td>
 				</tr>
 				<tr>
@@ -135,5 +129,4 @@
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.form.min.js"></script>
 <script src="plugin/jquery.formautofill.min.js"></script>
-<script src="plugin/bootstrap3-typeahead.min.js"></script>
-<script src="JS/backstage/costumeSample/editCostumeSample.js"></script>
+<script src="JS/main/myCenter/editMySample.js"></script>

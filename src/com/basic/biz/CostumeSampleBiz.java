@@ -60,6 +60,16 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 		return dao.findByPage(num,name,enterpriseName,beginTime,endTime,offset,limit,total);
 	}
 	
+	public BootTablePageDto<CostumeSampleVo> findMySample(Long num,String name,long entNum, String beginDate,String endDate, int offset, int limit, Long total){
+		Date beginTime = null;
+		Date endTime = null;
+		if(beginDate.length()>0 && endDate.length()>0){
+			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
+			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
+		}
+		return dao.findMySample(num,name,entNum,beginTime,endTime,offset,limit,total);
+	}
+	
 	/**获取工厂样品展示列表*/
 	public BootTablePageDto<Sample2Vo> getEntSample(long enterpriseNum,Long costumeCode,int offset,int limit,Long total){
 		BootTablePageDto<Sample2Vo> result = dao.getEntSample(enterpriseNum,costumeCode,offset,limit,total);

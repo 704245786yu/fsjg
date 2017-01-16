@@ -1,25 +1,6 @@
 var g_jqConfirm = new JqConfirmExtend();
 var g_delImg = new Array();
 
-var g_enterpriseAry = null;
-$('input[name="enterpriseName"]').typeahead({
-	delay:1000,
-	source:function(query, process){
-		$(':hidden[name="enterpriseNum"]').val('');
-		query = query.trim();
-		if(query.length==0)
-			return;
-		$.get('enterprise/getNames',{'name':query},function(data){
-			g_enterpriseAry = data;
-			var ary = new Array(data.length);
-			for(var i=0; i<data.length; i++){
-				ary[i] = data[i].name;
-			}
-			process(ary);
-		});
-	}
-});
-
 //表单验证
 $('#ff').bootstrapValidator({
     feedbackIcons: {
@@ -36,13 +17,6 @@ $('#ff').bootstrapValidator({
     			stringLength: {
     				max: 20,
     				message: '最多20个字符'
-    			}
-    		}
-    	},
-    	enterpriseName: {
-    		validators: {
-    			notEmpty: {
-    				message: '不能为空'
     			}
     		}
     	},
@@ -102,24 +76,6 @@ $('#ff').bootstrapValidator({
 		return;
 	}
 	
-	//工厂编号
-	var $enterpriseNum = $(':hidden[name="enterpriseNum"]');
-	var enterpriseNum = $enterpriseNum.val();
-	if(enterpriseNum==''){
-		var enterpriseName = $('#editPanel input[name="enterpriseName"]').val();
-		for(var i=0; i<g_enterpriseAry.length; i++){
-			if(g_enterpriseAry[i].name == enterpriseName){
-				enterpriseNum = g_enterpriseAry[i].num;
-				break;
-			}
-		}
-		if(enterpriseNum != ''){
-			$enterpriseNum.val(enterpriseNum);
-		}else{
-			alert('请选择正确的工厂');
-			return;
-		}
-	}
 	$form.ajaxSubmit({
 		beforeSubmit:function(formData, jqForm, options){
 			//加入被删的图片
@@ -137,9 +93,7 @@ $('#ff').bootstrapValidator({
 		},
 		success:function(data) {     
 			var action = $form.attr('action');
-			var enterpriseName = $('#editPanel input[name="enterpriseName"]').val();
 			if(data.status==200){
-				data.value.enterpriseName = enterpriseName;
 				var opt = action.split('/')[1];	//根据url判断执行的是save还是update方法
 				var costumeCate = getNameByCodes(data.value.costumeCode.toString());
 				data.value.costumeCate = costumeCate;
@@ -163,6 +117,7 @@ function showForm(){
 	g_delImg = new Array();
 	$('#listPanel').hide();
 	$('#editPanel').show();
+	$(':hidden[name="enterpriseNum"]').val($('#enterpriseNum').val());
 }
 
 //新增，该方法由主页面的add按钮触发

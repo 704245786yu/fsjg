@@ -304,15 +304,23 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		return biz.getEntSample(enterpriseNum, costumeCode, offset, 20, total);
 	}
 	
+	@RequestMapping("showMySample")
+	public ModelAndView showMySample(HttpSession session){
+		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
+		long entNum = enterpriseBiz.getNumByUserId(basicUser.getId());
+		ModelAndView mav = new ModelAndView("main/myCenter/mySample");
+		mav.addObject("enterpriseNum", entNum);
+		return mav;
+	}
+	
 	/**个人中信-店铺管理-样品分页查询*/
 	@SuppressWarnings("unchecked")
 	@RequestMapping("findMySample")
 	@ResponseBody
-	public BootTablePageDto<CostumeSampleVo> findMySample(HttpSession session,Long num,String name, String beginDate,String endDate, int offset, int limit, Long total){
+	public BootTablePageDto<CostumeSampleVo> findMySample(HttpSession session,Long num,String name, long enterpriseNum, String beginDate,String endDate, int offset, int limit, Long total){
 		ServletContext servletContext=session.getServletContext();
-		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
 		HashMap<Integer,String> costumeCateMap = (HashMap<Integer,String>)servletContext.getAttribute("costumeCateMap");
-		BootTablePageDto<CostumeSampleVo> bt = biz.findByPage(num, name, enterpriseName, beginDate, endDate, offset, limit, total);
+		BootTablePageDto<CostumeSampleVo> bt = biz.findMySample(num, name, enterpriseNum, beginDate, endDate, offset, limit, total);
 		
 		List<CostumeSampleVo> list = bt.getRows();
 		for(int i=0; i<list.size(); i++){
