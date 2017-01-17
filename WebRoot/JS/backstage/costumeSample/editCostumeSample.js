@@ -126,11 +126,11 @@ $('#ff').bootstrapValidator({
 			for(var i=0; i<g_delImg.length; i++){
 				formData.push({'name':'delImg','value':g_delImg[i]});
 			}
-			if(formData[6].value=="" && formData[7].value==""){ //smImg, smPic
+			if(formData[7].value=="" && formData[8].value==""){ //smImg, smPic
 				alert('未上传样品图片');
 				return false;
 			}
-			if(formData[13].value=="" && formData[14].value==""){ //detailImg, detailPic
+			if(formData[14].value=="" && formData[15].value==""){ //detailImg, detailPic
 				alert('未上传详情图片');
 				return false;
 			}
