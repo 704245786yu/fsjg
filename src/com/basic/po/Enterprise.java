@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 @Table(name="basic_enterprise")
 public class Enterprise extends UserAbstract{
 	
-	private Long number;	//企业编号
+	private String number;	//企业编号
 	
 	@Column(name="enterprise_name")
 	private String enterpriseName;
@@ -68,11 +68,11 @@ public class Enterprise extends UserAbstract{
 	
 	private String description;	//工厂描述
 
-	public Long getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Long number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

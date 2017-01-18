@@ -3,6 +3,7 @@ package com.basic.ctrl;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,12 @@ import com.ad.biz.TradeNewsBiz;
 import com.ad.po.AdPosition;
 import com.ad.po.Blogroll;
 import com.ad.po.TradeNews;
+import com.basic.biz.ContractorBiz;
 import com.basic.biz.EnterpriseBiz;
+import com.basic.biz.IndentBiz;
+import com.basic.po.Indent;
 import com.basic.vo.AuthEnterpriseVo;
+import com.basic.vo.ContractorHomeVo;
 import com.basic.vo.StrengthEnterpriseVo;
 import com.common.vo.ReturnValueVo;
 import com.util.JacksonJson;
@@ -29,20 +34,33 @@ public class MainCtrl {
 	@Autowired
 	private EnterpriseBiz enterpriseBiz;
 	@Autowired
+	private ContractorBiz contractorBiz;
+	@Autowired
+	private IndentBiz indentBiz;
+	@Autowired
 	private BlogrollBiz blogrollBiz;
 	@Autowired
 	private AdPositionBiz adPositionBiz;
 	@Autowired
 	private TradeNewsBiz tradeNewsBiz;
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping({"/","home"})
-	public String home(Model model){
+	public String home(Model model,HttpSession session){
+		ServletContext servletContext=session.getServletContext();
+		HashMap<Long,String> districtCodeNameMap = (HashMap<Long,String>)servletContext.getAttribute("districtCodeNameMap");
 		//实力工厂
 		List<StrengthEnterpriseVo> strengths = enterpriseBiz.getStrength(6);
 		model.addAttribute("strengths", strengths);
 		//认证工厂
 		List<AuthEnterpriseVo> auths = enterpriseBiz.getNewAuth(6,false);
 		model.addAttribute("auths", auths);
+		//快产专家
+		List<ContractorHomeVo> contractors = contractorBiz.getHomeList();
+		model.addAttribute("contractors", contractors);
+		//最新订单
+		List<Indent> indents = indentBiz.getHomeList(districtCodeNameMap);
+		model.addAttribute("indents", indents);
 		//友情链接
 		List<Blogroll> blogrolls = blogrollBiz.getAll();
 		model.addAttribute("blogrolls", blogrolls);

@@ -517,7 +517,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	
 	@RequestMapping(value="getNames")
 	@ResponseBody
-	public List<HashMap<String,Object>> getNames(String name){
+	public List<HashMap<String,String>> getNames(String name){
 		return biz.getNames(name);
 	}
 	

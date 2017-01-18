@@ -692,6 +692,58 @@
 	</tr>
 </table>
 
+<table id="table3">
+	<tr>
+		<td style="width:595px;padding-right:3px">
+			<!-- 最新订单 -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span>最新订单</span>
+					<div class="pull-right">
+				 		<a href="indent/search" style="text-decoration:none;"><span class="label label-info" style="font-size:14px;color:white;">更多</span></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-4 col-xs-4 ad">
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
+					</div>
+					<div class="col-md-8 col-xs-8">
+						<table class="table table-hover">
+							<c:forEach var="indent" items="${indents}">
+								<tr onclick="window.open('indent/detail/${indent.indentNum}')"><td>${indent.indentName}</td><td>${indent.quantity}件</td><td>${indent.district}</td></tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+			</div>
+		</td>
+		<td style="width:595px;padding-left:3px">
+			<!-- 快产专家 -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span>快产专家</span>
+					<div class="pull-right">
+				 		<a href="contractor" style="text-decoration:none;"><span class="label label-info" style="font-size:14px;color:white;">更多</span></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-4 col-xs-4 ad">
+						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
+					</div>
+					<div class="col-md-8 col-xs-8">
+						<table class="table table-hover">
+							<tr><td>性别</td>	<td>年龄</td>	<td>工龄</td>	<td>员工人数</td><td>地址</td></tr>
+							<c:forEach var="contractor" items="${contractors}">
+								<tr onclick="window.open('contractor/showDetail/${contractor.id}')"><td>${contractor.gender}</td><td>${contractor.age}</td><td>${contractor.processYear}年</td><td>${contractor.workerAmount}人</td><td>${contractor.district}</td></tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
+
 <!-- 中间广告 -->
 <table class="mid_ad_table" style="margin-bottom:20px;">
 	<tr>

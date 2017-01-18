@@ -165,6 +165,21 @@ ul.affiche li{
 	height:100px;
 }
 
+/*最新订单、快产专家*/
+#table3 table{
+	margin-bottom:0px;
+}
+#table3 table td{
+	border:0px;
+	padding-top:5px;
+	padding-bottom:5px;
+	white-space: nowrap;
+}
+
+#table3 table tr:HOVER{
+	cursor:pointer;
+}
+
 /*服饰类型列表*/
 .costumeList{
 	/* height:290px; */

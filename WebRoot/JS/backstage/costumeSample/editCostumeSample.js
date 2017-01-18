@@ -17,6 +17,16 @@ $('input[name="enterpriseName"]').typeahead({
 			}
 			process(ary);
 		});
+	},
+	updater:function(item){
+		for(var i=0; i<g_enterpriseAry.length; i++){
+			if(g_enterpriseAry[i].name == item){
+				var enterpriseNum = g_enterpriseAry[i].num;
+				$(':hidden[name="enterpriseNum"]').val(enterpriseNum);
+				break;
+			}
+		}
+		return item;
 	}
 });
 
@@ -106,19 +116,8 @@ $('#ff').bootstrapValidator({
 	var $enterpriseNum = $(':hidden[name="enterpriseNum"]');
 	var enterpriseNum = $enterpriseNum.val();
 	if(enterpriseNum==''){
-		var enterpriseName = $('#editPanel input[name="enterpriseName"]').val();
-		for(var i=0; i<g_enterpriseAry.length; i++){
-			if(g_enterpriseAry[i].name == enterpriseName){
-				enterpriseNum = g_enterpriseAry[i].num;
-				break;
-			}
-		}
-		if(enterpriseNum != ''){
-			$enterpriseNum.val(enterpriseNum);
-		}else{
-			alert('请选择正确的工厂');
-			return;
-		}
+		alert('请选择正确的工厂');
+		return;
 	}
 	$form.ajaxSubmit({
 		beforeSubmit:function(formData, jqForm, options){
@@ -126,11 +125,27 @@ $('#ff').bootstrapValidator({
 			for(var i=0; i<g_delImg.length; i++){
 				formData.push({'name':'delImg','value':g_delImg[i]});
 			}
-			if(formData[7].value=="" && formData[8].value==""){ //smImg, smPic
+			var smImg = null;
+			var smPic = null;
+			var detailImg = null;
+			var detailPic = null;
+			for(var i=0; i<formData.length; i++){
+				if(formData[i].name=="smImg")
+					smImg = formData[i].value;
+				if(formData[i].name=="smPic")
+					smPic = formData[i].value;
+				if(formData[i].name=="detailImg")
+					detailImg = formData[i].value;
+				if(formData[i].name=="detailPic")
+					detailPic = formData[i].value;
+			}
+			if(smImg=="" && smPic==""){ //smImg, smPic
 				alert('未上传样品图片');
+				$form.bootstrapValidator('disableSubmitButtons', false);
 				return false;
 			}
-			if(formData[14].value=="" && formData[15].value==""){ //detailImg, detailPic
+			if(detailImg=="" && detailPic==""){ //detailImg, detailPic
+				$form.bootstrapValidator('disableSubmitButtons', false);
 				alert('未上传详情图片');
 				return false;
 			}

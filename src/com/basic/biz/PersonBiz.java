@@ -1,6 +1,7 @@
 package com.basic.biz;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
@@ -58,5 +59,13 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 	
 	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
 		return dao.findByPage(userName, telephone, auditState, beginDate, endDate, offset, limit, total);
+	}
+	
+	/**获取省市信息*/
+	@SuppressWarnings("unchecked")
+	public Object[] getDistrict(int userId){
+		String hql = "select province,city from Person where basicUser.id =:userId";
+		List<Object[]> list = (List<Object[]>)dao.find(hql, new String[]{"userId"}, new Integer[]{userId});
+		return list.get(0);
 	}
 }

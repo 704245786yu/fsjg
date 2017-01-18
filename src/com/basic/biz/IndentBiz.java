@@ -26,11 +26,16 @@ import com.common.dto.BootTablePageDto;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
 import com.util.DateTransform;
+import com.util.JacksonJson;
 import com.util.SMS;
 
 @Service
 public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 
+	@Autowired
+	private PersonBiz personBiz;
+	@Autowired
+	private EnterpriseBiz enterpriseBiz;
 	@Autowired
 	private ConstantDictBiz constantDictBiz;
 	@Autowired
@@ -196,7 +201,7 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	 * */
 	public List<IndentDistVo> getNewstByUserType(byte createUserType){
 		String hql = null;
-		if(createUserType == 1){
+		if(createUserType != 2){
 			hql = "select i.indentNum as indentNum, i.indentName as indentName, i.costumeCode as costumeCode, i.processType as processType, i.isUrgency as isUrgency , i.quantity as quantity, i.createTime as createTime, p.province as province, p.city as city from Indent i,Person p where i.createBy = p.basicUser.id and i.createUserType =:createUserType order by i.createTime desc";
 		}else if(createUserType == 2){
 			hql = "select i.indentNum as indentNum, i.indentName as indentName, i.costumeCode as costumeCode, i.processType as processType, i.isUrgency as isUrgency , i.quantity as quantity, i.createTime as createTime, e.province as province, e.city as city from Indent i,Enterprise e where i.createBy = e.basicUser.id and i.createUserType =:createUserType order by i.createTime desc";
@@ -230,4 +235,29 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 		return 200;
 	}
 	
+	/**首页最新订单
+	 * @return 订单名称、数量、地区
+	 * */
+	@SuppressWarnings("unchecked")
+	public List<Indent> getHomeList(HashMap<Long,String> districtCodeNameMap){
+		String hql = "select new Indent(indentNum,indentName,quantity,isUrgency,createBy,createUserType) from Indent order by createTime desc";
+		List<Indent> indents = (List<Indent>)dao.findByPage(hql, 0, 8, new String[]{}, null);
+		for(int i=0; i<indents.size(); i++){
+			Indent indent = indents.get(i);
+			Object[] districts;
+			if(indent.getCreateUserType()==2){
+				districts = enterpriseBiz.getDistrict(indent.getCreateBy());
+			}else{
+				districts = personBiz.getDistrict(indent.getCreateBy());
+			}
+//			String district = "";
+//			if(districts.length==1)
+//				district = districtCodeNameMap.get(districts[0]);
+//			else if(districts.length==2)
+				String district = districtCodeNameMap.get(districts[0])+districtCodeNameMap.get(districts[1]);
+			indent.setDistrict(district);
+		}
+		JacksonJson.printBeanToJson(indents);
+		return indents;
+	}
 }

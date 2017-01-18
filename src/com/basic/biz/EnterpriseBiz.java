@@ -100,7 +100,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 				Enterprise enterprise=new Enterprise();
 				//关联工厂的基本用户信息
 				enterprise.setBasicUser(basicUser);
-				enterprise.setNumber(this.generateNumber(enterprise.getBasicUser().getTelephone()));
+				enterprise.setNumber(this.generateNumber(enterprise.getBasicUser().getTelephone()).toString());
 				//企业名称
 				String enterpriseName = temp[0];
 				if(enterpriseName.length() > 0 && enterpriseName.length()<=30){
@@ -444,7 +444,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	}
 	
 	/**根据工厂编号获取工厂信息*/
-	public Enterprise getByNum(long num){
+	public Enterprise getByNum(String num){
 		Criterion c = Restrictions.eq("number", num);
 		Enterprise e = dao.findByCriteria(c).get(0);
 		int eId = e.getId();
@@ -492,7 +492,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		e.getBasicUser().setPassword(defaultPassword);
 		e.getBasicUser().setRoleId(2);
 		e.setAuditState((byte)0);
-		e.setNumber(this.generateNumber(e.getBasicUser().getTelephone()));
+		e.setNumber(this.generateNumber(e.getBasicUser().getTelephone()).toString());
 		dao.persist(e);
 		enterpriseCostumeRelaDao.save(e.getId(), e.getCostumeCode());
 	}
@@ -575,7 +575,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return null;
 	}
 	
-	/**生成企业编号格式：YYMMddHHmmss+ 3位随机数 + 手机号后5位
+	/**生成企业编号格式：YYMMddHHmmss+ 3位随机数 + 手机号后4位
 	 * @param telephone 手机号
 	 * */
 	public Long generateNumber(Long telephone){
@@ -586,9 +586,24 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<HashMap<String,Object>> getNames(String name){
-		String hql = "select new map(number as num,enterpriseName as name) from Enterprise where enterpriseName like :name";
-		List<HashMap<String,Object>> list = (List<HashMap<String,Object>>)dao.findByPage(hql, 0, 10, new String[]{"name"}, new String[]{"%"+name+"%"});
-		return list;
+	public List<HashMap<String,String>> getNames(String name){
+		String hql = "select number,enterpriseName from Enterprise where enterpriseName like :name";
+		List<Object[]> list = (List<Object[]>)dao.findByPage(hql, 0, 10, new String[]{"name"}, new String[]{"%"+name+"%"});
+		List<HashMap<String,String>> result = new ArrayList<HashMap<String,String>>();
+		for(int i=0; i<list.size(); i++){
+			HashMap<String,String> map = new HashMap<String,String>();
+			map.put("num", list.get(i)[0].toString());
+			map.put("name", list.get(i)[1].toString());
+			result.add(map);
+		}
+		return result;
+	}
+	
+	/**获取省市信息*/
+	@SuppressWarnings("unchecked")
+	public Object[] getDistrict(int userId){
+		String hql = "select province,city from Enterprise where basicUser.id =:userId";
+		List<Object[]> list = (List<Object[]>)dao.find(hql, new String[]{"userId"}, new Integer[]{userId});
+		return list.get(0);
 	}
 }

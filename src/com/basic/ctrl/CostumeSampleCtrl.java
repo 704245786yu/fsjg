@@ -262,7 +262,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		if(entField!=null){
 			Enterprise e = new Enterprise();
 			e.setId((Integer)entField[0]);
-			e.setNumber((Long)entField[1]);
+			e.setNumber((String)entField[1]);
 			e.setEnterpriseName((String)entField[2]);
 			e.setAuditState((Byte)entField[3]);
 			mav.addObject("enterprise", e);
@@ -397,7 +397,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 	 * @return 返回新文件名
 	 * @throws IOException 
 	 * @throws IllegalStateException */
-	private String transferFile(MultipartFile srcFile, String uploadDir, Long enterpriseNum, String newName) throws IllegalStateException, IOException{
+	private String transferFile(MultipartFile srcFile, String uploadDir, String enterpriseNum, String newName) throws IllegalStateException, IOException{
 		String suffix = null;
 		String fileName = srcFile.getOriginalFilename();//获取上传文件的原名
 		String ary[] = fileName.split("\\.");

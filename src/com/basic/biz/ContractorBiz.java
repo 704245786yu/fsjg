@@ -18,6 +18,7 @@ import com.basic.po.BasicUser;
 import com.basic.po.Contractor;
 import com.basic.po.Person;
 import com.basic.po.UserAbstract;
+import com.basic.vo.ContractorHomeVo;
 import com.basic.vo.ContractorSimpleVo;
 import com.basic.vo.ContractorVo;
 import com.common.BaseBiz;
@@ -257,6 +258,23 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 		personDao.deleteById(id);
 	}
 
+	/**首页快产人才展示
+	 * @return 性别、年龄、工龄、员工人数、地址（省、市）
+	 * */
+	public List<ContractorHomeVo> getHomeList(){
+		List<ContractorHomeVo> list = dao.getHomeList();
+		for(int i=0;i<list.size();i++){
+			ContractorHomeVo c = list.get(i);
+			List<String> names = districtBiz.getNameByCode(c.getProvince(), c.getCity(), null, null);
+			StringBuilder sb = new StringBuilder();
+			for(int j=0;j<names.size();j++){
+				sb.append(names.get(j));
+			}
+			c.setDistrict(sb.toString());
+		}
+		return list;
+	}
+	
 	/**设置地区编码信息
 	 * @return errorInfo
 	 * */

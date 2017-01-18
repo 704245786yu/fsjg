@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.basic.po.Contractor;
 import com.basic.po.Person;
+import com.basic.vo.ContractorHomeVo;
 import com.basic.vo.ContractorSimpleVo;
 import com.basic.vo.ContractorVo;
 import com.common.BaseDao;
@@ -141,5 +142,11 @@ public class ContractorDao extends BaseDao<Integer, Contractor>{
 				+ "p.realName as realName,p.basicUser.state as state, p.auditState as auditState, p.basicUser.createTime as createTime "+hql.toString(),
 				offset, limit, params.toArray(new String[]{}), values.toArray(new Object[]{}),ContractorVo.class);
 		return new BootTablePageDto<ContractorVo>(total,list);
+	}
+	
+	public List<ContractorHomeVo> getHomeList(){
+		String hql = "select c.personId as id, p.gender as gender, p.age as age, c.processYear as processYear, c.workerAmount as workerAmount, p.province as province, p.city as city from Contractor c, Person p where c.personId = p.id order by c.personId desc";
+		List<ContractorHomeVo> list = super.findByPage(hql, 0, 6, new String[]{}, null, ContractorHomeVo.class);
+		return list;
 	}
 }

@@ -8,7 +8,7 @@ public class CostumeSampleVo {
 
 	private Integer id;
 	
-	private Long enterpriseNum;
+	private String enterpriseNum;
 	
 	private String enterpriseName;
 	
@@ -48,11 +48,11 @@ public class CostumeSampleVo {
 		this.id = id;
 	}
 
-	public Long getEnterpriseNum() {
+	public String getEnterpriseNum() {
 		return enterpriseNum;
 	}
 
-	public void setEnterpriseNum(Long enterpriseNum) {
+	public void setEnterpriseNum(String enterpriseNum) {
 		this.enterpriseNum = enterpriseNum;
 	}
 

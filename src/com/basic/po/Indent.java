@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -114,6 +115,9 @@ public class Indent {
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@Column(name="update_time")
 	private Date updateTime;//更新时间
+	
+	@Transient
+	private String district;//地区
 
 	public Indent(){}
 	
@@ -131,6 +135,16 @@ public class Indent {
 		this.expectPrice = expectPrice;
 		this.state = state;
 		this.createTime = createTime;
+	}
+
+	public Indent(Long indentNum, String indentName, Integer quantity,
+			Boolean isUrgency, Integer createBy, Byte createUserType) {
+		this.indentNum = indentNum;
+		this.indentName = indentName;
+		this.quantity = quantity;
+		this.isUrgency = isUrgency;
+		this.createBy = createBy;
+		this.createUserType = createUserType;
 	}
 
 	public Integer getId() {
@@ -379,6 +393,14 @@ public class Indent {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 	
 }

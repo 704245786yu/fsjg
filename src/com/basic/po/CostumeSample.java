@@ -21,7 +21,7 @@ public class CostumeSample {
 	private Integer id;
 	
 	@Column(name="enterprise_num")
-	private Long enterpriseNum;
+	private String enterpriseNum;
 	
 	private Long num;//样品编号
 	
@@ -65,11 +65,11 @@ public class CostumeSample {
 		this.id = id;
 	}
 
-	public Long getEnterpriseNum() {
+	public String getEnterpriseNum() {
 		return enterpriseNum;
 	}
 
-	public void setEnterpriseNum(Long enterpriseNum) {
+	public void setEnterpriseNum(String enterpriseNum) {
 		this.enterpriseNum = enterpriseNum;
 	}
 

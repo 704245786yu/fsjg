@@ -121,10 +121,10 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 	/**生成样品编号格式：YYMMddHHmmss+ 3位随机数 + 工厂编号后4位
 	 * @param telephone 手机号
 	 * */
-	public long generateNumber(Long enterpriseNum){
+	public long generateNumber(String enterpriseNum){
 		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmss");
 		int random = new java.util.Random().nextInt(900)+100;
-		String numStr = time + random +enterpriseNum.toString().substring(15);
+		String numStr = time + random + enterpriseNum.toString().substring(15);
 		return Long.valueOf(numStr);
 	}
 }
