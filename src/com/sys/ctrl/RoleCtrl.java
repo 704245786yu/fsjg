@@ -22,7 +22,6 @@ import com.sys.po.Authority;
 import com.sys.po.Menu;
 import com.sys.po.Role;
 import com.sys.po.User;
-import com.util.JacksonJson;
 
 @Controller
 @RequestMapping("role")
@@ -52,11 +51,6 @@ public class RoleCtrl extends BaseCtrl<RoleBiz, Integer, Role>{
 	@RequestMapping("saveRole")
 	@ResponseBody
 	public Role saveRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam(value="authorityIds[]", required=false)Integer[] authorityIds,HttpSession session){
-		User user = UserCtrl.getLoginUser(session);
-//		JacksonJson.printBeanToJson(role);
-//		JacksonJson.printBeanToJson(menuIds);
-//		JacksonJson.printBeanToJson(authorityIds);
-//		role.setUpdateBy(user.getId());
 		role.setUpdateTime(new Date());
 		return biz.save(role, menuIds, authorityIds);
 	}
@@ -67,10 +61,7 @@ public class RoleCtrl extends BaseCtrl<RoleBiz, Integer, Role>{
 	@RequestMapping("updateRole")
 	@ResponseBody
 	public Role updateRole(Role role, @RequestParam("menuIds[]") Integer[] menuIds, @RequestParam(value="authorityIds[]", required=false)Integer[] authorityIds,HttpSession session){
-		User user = UserCtrl.getLoginUser(session);;
-		JacksonJson.printBeanToJson(role);
-		JacksonJson.printBeanToJson(menuIds);
-		JacksonJson.printBeanToJson(authorityIds);
+//		User user = UserCtrl.getLoginUser(session);;
 //		role.setUpdateBy(user.getId());
 		role.setUpdateTime(new Date());
 		biz.update(role, menuIds, authorityIds);

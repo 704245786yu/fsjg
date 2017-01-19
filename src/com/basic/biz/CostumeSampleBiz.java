@@ -60,7 +60,7 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 		return dao.findByPage(num,name,enterpriseName,beginTime,endTime,offset,limit,total);
 	}
 	
-	public BootTablePageDto<CostumeSampleVo> findMySample(Long num,String name,long entNum, String beginDate,String endDate, int offset, int limit, Long total){
+	public BootTablePageDto<CostumeSampleVo> findMySample(Long num,String name,String entNum, String beginDate,String endDate, int offset, int limit, Long total){
 		Date beginTime = null;
 		Date endTime = null;
 		if(beginDate.length()>0 && endDate.length()>0){
@@ -71,7 +71,7 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 	}
 	
 	/**获取工厂样品展示列表*/
-	public BootTablePageDto<Sample2Vo> getEntSample(long enterpriseNum,Long costumeCode,int offset,int limit,Long total){
+	public BootTablePageDto<Sample2Vo> getEntSample(String enterpriseNum,Long costumeCode,int offset,int limit,Long total){
 		BootTablePageDto<Sample2Vo> result = dao.getEntSample(enterpriseNum,costumeCode,offset,limit,total);
 		//获取小图的第一张图
 		if(result.getTotal() != 0){
@@ -86,14 +86,14 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 	
 	/**获取工厂已添加的样品的产品类别*/
 	@SuppressWarnings("unchecked")
-	public List<Integer> getCostumeCode(long enterpriseNum){
+	public List<Integer> getCostumeCode(String enterpriseNum){
 		String hql = "select distinct costumeCode from CostumeSample where enterpriseNum =:enterpriseNum";
-		List<Integer> list = (List<Integer>)dao.find(hql, new String[]{"enterpriseNum"}, new Long[]{enterpriseNum});
+		List<Integer> list = (List<Integer>)dao.find(hql, new String[]{"enterpriseNum"}, new String[]{enterpriseNum});
 		return list;
 	}
 	
 	/**根据样品编号获取对象*/
-	public CostumeSample getByNum(long num){
+	public CostumeSample getByNum(String num){
 		CostumeSample sample = new CostumeSample();
 		sample.setNum(num);
 		List<CostumeSample> list = dao.findByExample(sample);
@@ -121,7 +121,7 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 	/**生成样品编号格式：YYMMddHHmmss+ 3位随机数 + 工厂编号后4位
 	 * @param telephone 手机号
 	 * */
-	public long generateNumber(String enterpriseNum){
+	public Long generateNumber(String enterpriseNum){
 		String time = DateTransform.Date2String(new Date(), "YYMMddHHmmss");
 		int random = new java.util.Random().nextInt(900)+100;
 		String numStr = time + random + enterpriseNum.toString().substring(15);

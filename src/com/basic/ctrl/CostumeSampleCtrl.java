@@ -138,7 +138,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 			ex.printStackTrace();
 			return new ReturnValueVo(ReturnValueVo.EXCEPTION, "上传图片出错,请重试");
 		}
-		c.setNum(biz.generateNumber(c.getEnterpriseNum()));
+		c.setNum(biz.generateNumber(c.getEnterpriseNum()).toString());
 		c.setUpdateTime(new Date());
 		biz.save(c);
 		return new ReturnValueVo(ReturnValueVo.SUCCESS, c);
@@ -236,7 +236,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 	}
 	
 	@RequestMapping("showDetail/{num}")
-	public ModelAndView showDetail(@PathVariable long num){
+	public ModelAndView showDetail(@PathVariable String num){
 		ModelAndView mav = new ModelAndView("main/sampleDetail");
 		CostumeSample sample = biz.getByNum(num);
 		
@@ -255,7 +255,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 	/**显示工厂详情页-样品展示*/
 	@SuppressWarnings("unchecked")
 	@RequestMapping("showEntSample/{enterpriseNum}")
-	public ModelAndView showEntSample(@PathVariable long enterpriseNum,HttpSession session){
+	public ModelAndView showEntSample(@PathVariable String enterpriseNum,HttpSession session){
 		ModelAndView mav = new ModelAndView("main/enterpriseSample");
 		//获取工厂名称、审核状态
 		Object[] entField = enterpriseBiz.getByField(enterpriseNum,"id","number","enterpriseName","auditState");
@@ -297,7 +297,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 	
 	@RequestMapping("getEntSample")
 	@ResponseBody
-	public BootTablePageDto<Sample2Vo> getEntSample(long enterpriseNum,Long costumeCode,int offset,Long total){
+	public BootTablePageDto<Sample2Vo> getEntSample(String enterpriseNum,Long costumeCode,int offset,Long total){
 		if(costumeCode==0){
 			costumeCode = null;
 		}
@@ -307,7 +307,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 	@RequestMapping("showMySample")
 	public ModelAndView showMySample(HttpSession session){
 		BasicUser basicUser = BasicUserCtrl.getLoginUser(session);
-		long entNum = enterpriseBiz.getNumByUserId(basicUser.getId());
+		String entNum = enterpriseBiz.getNumByUserId(basicUser.getId());
 		ModelAndView mav = new ModelAndView("main/myCenter/mySample");
 		mav.addObject("enterpriseNum", entNum);
 		return mav;
@@ -317,7 +317,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 	@SuppressWarnings("unchecked")
 	@RequestMapping("findMySample")
 	@ResponseBody
-	public BootTablePageDto<CostumeSampleVo> findMySample(HttpSession session,Long num,String name, long enterpriseNum, String beginDate,String endDate, int offset, int limit, Long total){
+	public BootTablePageDto<CostumeSampleVo> findMySample(HttpSession session,Long num,String name, String enterpriseNum, String beginDate,String endDate, int offset, int limit, Long total){
 		ServletContext servletContext=session.getServletContext();
 		HashMap<Integer,String> costumeCateMap = (HashMap<Integer,String>)servletContext.getAttribute("costumeCateMap");
 		BootTablePageDto<CostumeSampleVo> bt = biz.findMySample(num, name, enterpriseNum, beginDate, endDate, offset, limit, total);

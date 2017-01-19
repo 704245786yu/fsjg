@@ -464,9 +464,9 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	/**根据BasicUser的id获取企业的number
 	 * */
 	@SuppressWarnings("unchecked")
-	public Long getNumByUserId(int userId){
+	public String getNumByUserId(int userId){
 		String hql = "select number from Enterprise where basicUser.id =:userId";
-		List<Long> list = (List<Long>)dao.find(hql, new String[]{"userId"}, new Integer[]{userId});
+		List<String> list = (List<String>)dao.find(hql, new String[]{"userId"}, new Integer[]{userId});
 		return list.get(0);
 	}
 	
@@ -563,13 +563,13 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	
 	/**根据字段名获取数据*/
 	@SuppressWarnings("unchecked")
-	public Object[] getByField(long num,String ...fields){
+	public Object[] getByField(String num,String ...fields){
 		StringBuilder hql = new StringBuilder("select "+fields[0]);
 		for(int i=1; i<fields.length; i++){
 			hql.append(","+fields[i]);
 		}
 		hql.append(" from Enterprise where number =:num");
-		List<Object[]> list = (List<Object[]>)dao.find(hql.toString(), new String[]{"num"}, new Long[]{num});
+		List<Object[]> list = (List<Object[]>)dao.find(hql.toString(), new String[]{"num"}, new String[]{num});
 		if(list.size()==1)
 			return list.get(0);
 		return null;

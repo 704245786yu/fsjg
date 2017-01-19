@@ -149,7 +149,7 @@ function generateTable(data){
 			$tr.append($('<td>').html('<img src="image/woman.png">'));
 		$tr.append($('<td>').html(contractor.age));
 		$tr.append($('<td>').html(contractor.processYear));
-		$tr.append($('<td>').html(contractor.workAmount));
+		$tr.append($('<td>').html(contractor.workerAmount+'人'));
 		$tr.append($('<td>').html(contractor.district));
 		
 		//专业技能

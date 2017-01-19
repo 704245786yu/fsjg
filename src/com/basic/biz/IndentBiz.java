@@ -26,7 +26,6 @@ import com.common.dto.BootTablePageDto;
 import com.sys.biz.ConstantDictBiz;
 import com.sys.po.ConstantDict;
 import com.util.DateTransform;
-import com.util.JacksonJson;
 import com.util.SMS;
 
 @Service
@@ -257,7 +256,6 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 				String district = districtCodeNameMap.get(districts[0])+districtCodeNameMap.get(districts[1]);
 			indent.setDistrict(district);
 		}
-		JacksonJson.printBeanToJson(indents);
 		return indents;
 	}
 }

@@ -101,7 +101,7 @@
 				</tr>
 				<tr style="height:100px">
 					<td><label>加工说明</label></td>
-					<td colspan="3"><div class="form-group"><textarea class="form-control" rows="3" name="processDesc" style="width:1011px;"></textarea></div></td>
+					<td colspan="3"><div class="form-group"><textarea class="form-control" rows="3" name="processDesc" style="width:600px;"></textarea></div></td>
 				</tr>
 				<tr>
 					<td><label>样品详图</label></td>

@@ -12,7 +12,7 @@ public class CostumeSampleVo {
 	
 	private String enterpriseName;
 	
-	private Long num;//样品编号
+	private String num;//样品编号
 	
 	private String name;//样品名称
 	
@@ -56,11 +56,11 @@ public class CostumeSampleVo {
 		this.enterpriseNum = enterpriseNum;
 	}
 
-	public Long getNum() {
+	public String getNum() {
 		return num;
 	}
 
-	public void setNum(Long num) {
+	public void setNum(String num) {
 		this.num = num;
 	}
 

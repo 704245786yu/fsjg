@@ -166,6 +166,9 @@ ul.affiche li{
 }
 
 /*最新订单、快产专家*/
+#table3 .ad{
+	padding:0px;
+}
 #table3 table{
 	margin-bottom:0px;
 }
@@ -175,7 +178,6 @@ ul.affiche li{
 	padding-bottom:5px;
 	white-space: nowrap;
 }
-
 #table3 table tr:HOVER{
 	cursor:pointer;
 }

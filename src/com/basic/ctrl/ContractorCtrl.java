@@ -132,7 +132,6 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 			@RequestParam(value="frontPhoto",required=false)MultipartFile frontPhoto,
 			@RequestParam(value="backPhoto",required=false)MultipartFile backPhoto,
 			HttpSession session){
-		JacksonJson.printBeanToJson(contractorDto);
 		Person person = contractorDto.getPerson();
 		Contractor contractor = contractorDto.getContractor();
 		

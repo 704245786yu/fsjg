@@ -23,7 +23,7 @@ public class CostumeSample {
 	@Column(name="enterprise_num")
 	private String enterpriseNum;
 	
-	private Long num;//样品编号
+	private String num;//样品编号
 	
 	private String name;//样品名称
 	
@@ -73,11 +73,11 @@ public class CostumeSample {
 		this.enterpriseNum = enterpriseNum;
 	}
 
-	public Long getNum() {
+	public String getNum() {
 		return num;
 	}
 
-	public void setNum(Long num) {
+	public void setNum(String num) {
 		this.num = num;
 	}
 

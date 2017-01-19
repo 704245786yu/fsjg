@@ -113,7 +113,7 @@ public class CostumeSampleDao extends BaseDao<Integer, CostumeSample>{
 		return new BootTablePageDto<CostumeSampleVo>(total,list);
 	}
 	
-	public BootTablePageDto<CostumeSampleVo> findMySample(Long num,String name,long entNum, Date beginDate,Date endDate, int offset, int limit, Long total){
+	public BootTablePageDto<CostumeSampleVo> findMySample(Long num,String name,String entNum, Date beginDate,Date endDate, int offset, int limit, Long total){
 		StringBuilder hql = new StringBuilder("from CostumeSample c where c.enterpriseNum =:entNum ");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
@@ -151,7 +151,7 @@ public class CostumeSampleDao extends BaseDao<Integer, CostumeSample>{
 	}
 	
 	/**获取工厂样品展示列表*/
-	public BootTablePageDto<Sample2Vo> getEntSample(long enterpriseNum,Long costumeCode,int offset, int limit, Long total){
+	public BootTablePageDto<Sample2Vo> getEntSample(String enterpriseNum,Long costumeCode,int offset, int limit, Long total){
 		StringBuilder hql = new StringBuilder(" from basic_costume_sample where enterprise_num =:enterpriseNum ");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
