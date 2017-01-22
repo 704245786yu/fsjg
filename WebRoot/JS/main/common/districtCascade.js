@@ -69,6 +69,8 @@ function assembleSelect(selectId, data){
 }
 
 function fillDistrict(province, city, county, town){
+	if(province==null)
+		return;
 	$.get('district/getCascade',{'province':province, 'city':city, 'county':county},function(data){
 		assembleSelect('#city', data.cityList);
 		assembleSelect('#county', data.countyList);
