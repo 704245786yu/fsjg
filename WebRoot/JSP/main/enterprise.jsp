@@ -273,8 +273,8 @@
 										<img class="media-object" src="image/new.png">
 									</div>
 									<div class="media-body">
-										<h4 class="media-heading"><a target="_blank">工厂名称</a></h4>
-										<p class="list-group-item-text">主营产品</p>
+										<h4 class="media-heading" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a target="_blank">工厂名称</a></h4>
+										<p class="list-group-item-text" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">主营产品</p>
 									</div>
 								</div>
 							</li>
@@ -331,6 +331,7 @@
 <span style="display:none" id="hiddenCostumeCategory">${costumeCategoryMap}</span>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugin/advanced-news-ticker/jquery.newsTicker.min.js"></script>
 <script src="JS/util/treeUtil.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/main/enterprise.js"></script>

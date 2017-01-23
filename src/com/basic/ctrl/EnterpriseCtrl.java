@@ -145,14 +145,14 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 	@RequestMapping("getNewest")
 	@ResponseBody
 	public List<Enterprise> getNewest(){
-		return biz.getNewest(6);//获取六个工厂
+		return biz.getNewest(10);//获取10个工厂
 	}
 	
 	/**最新认证加工厂*/
 	@RequestMapping("getNewAuth")
 	@ResponseBody
 	public List<AuthEnterpriseVo> getNewAuth(){
-		return biz.getNewAuth(6,true);//获取六个工厂
+		return biz.getNewAuth(10,true);//获取10个工厂
 	}
 	
 	/**首页服饰分类链接显示工厂列表*/

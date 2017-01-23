@@ -111,7 +111,7 @@
 						<input type="hidden" name="enterpriseImg" value="${enterprise.enterpriseImg}">
 						<div id="preview" class="spec-preview">
 							<span class="jqzoom">
-								<img style="width:410px;height:260px;" jqimg="uploadFile/enterprise/default_big.png" src="uploadFile/enterprise/default_big.png" />
+								<img style="width:410px;height:260px;" jqimg="">
 							</span>
 						</div>
 						<!--缩图开始-->
