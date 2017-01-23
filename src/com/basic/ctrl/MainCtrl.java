@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ad.biz.ActivityBiz;
 import com.ad.biz.AdPositionBiz;
 import com.ad.biz.BlogrollBiz;
 import com.ad.biz.TradeNewsBiz;
+import com.ad.po.Activity;
 import com.ad.po.AdPosition;
 import com.ad.po.Blogroll;
 import com.ad.po.TradeNews;
@@ -43,6 +45,8 @@ public class MainCtrl {
 	private AdPositionBiz adPositionBiz;
 	@Autowired
 	private TradeNewsBiz tradeNewsBiz;
+	@Autowired
+	private ActivityBiz activityBiz;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping({"/","home"})
@@ -70,6 +74,11 @@ public class MainCtrl {
 		//行业资讯
 		List<TradeNews> tradeNews = tradeNewsBiz.getTen();
 		model.addAttribute("tradeNews", tradeNews);
+		//活动推广
+		List<Activity> activitySlide = activityBiz.getFive();
+		model.addAttribute("activitySlide", activitySlide);
+		List<Activity> activities = activityBiz.getHomeList();
+		model.addAttribute("activities", activities);
 		return "../home";
 	}
 	

@@ -34,12 +34,19 @@ public class ActivityBiz extends BaseBiz<ActivityDao,Integer,Activity>{
 		return (List<Object[]>)dao.find(hql,new String[]{},new Object[]{});
 	}*/
 	
-	/**获取最新的10个咨询*//*
+	/**获取5个轮播图活动*/
 	@SuppressWarnings("unchecked")
-	public List<TradeNews> getTen(){
-		String hql = "from TradeNews order by updateTime desc";
-		return (List<TradeNews>)dao.findByPage(hql, 0, 10, new String[]{}, new Object[]{});
-	}*/
+	public List<Activity> getFive(){
+		String hql = "from Activity";
+		return (List<Activity>)dao.findByPage(hql, 0, 5, new String[]{}, new Object[]{});
+	}
+	
+	/**获取前26个活动标题*/
+	@SuppressWarnings("unchecked")
+	public List<Activity> getHomeList(){
+		String hql = "select new Activity(id,title) from Activity";
+		return (List<Activity>)dao.findByPage(hql, 0, 26, new String[]{}, new Object[]{});
+	}
 	
 	@SuppressWarnings("unchecked")
 	public BootTablePageDto<Activity> getTitleByPage(int offset, int limit, Long total){

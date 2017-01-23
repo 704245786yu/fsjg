@@ -619,6 +619,18 @@
 	</tr>
 </table>
 
+<!-- 活动推广 -->
+<table>
+	<tr>
+		<!-- 活动推广 -->
+		<td width="960px" style="padding-right:5px;">
+			
+		</td>
+		<!-- 最新报道 -->
+		<td width="230px">
+		</td>
+	</tr>
+</table>
 <!-- 服饰分类栏下方广告 -->
 <table class="mid_ad_table" style="margin-bottom:10px;">
 	<tr>

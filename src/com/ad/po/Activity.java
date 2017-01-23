@@ -48,6 +48,11 @@ public class Activity {
 	
 	public Activity(){}
 	
+	public Activity(Integer id, String title) {
+		this.id = id;
+		this.title = title;
+	}
+	
 	public Activity(Integer id, String title, Date updateTime) {
 		this.id = id;
 		this.title = title;

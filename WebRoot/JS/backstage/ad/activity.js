@@ -133,7 +133,7 @@ function modify(id){
 	$.post('activity/getContent',{'id':id},function(data){
 		g_bsFormTableExtend.showModifyPanel(id, 'activity/updateActivity');
 		var ue = UE.getEditor('editor');
-		ue.setContent(content);
+		ue.setContent(data);
 	});
 }
 

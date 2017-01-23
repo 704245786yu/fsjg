@@ -249,11 +249,11 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 			}else{
 				districts = personBiz.getDistrict(indent.getCreateBy());
 			}
-//			String district = "";
-//			if(districts.length==1)
-//				district = districtCodeNameMap.get(districts[0]);
-//			else if(districts.length==2)
-				String district = districtCodeNameMap.get(districts[0])+districtCodeNameMap.get(districts[1]);
+			String district = "";
+			if(districts.length==1)
+				district = districtCodeNameMap.get(districts[0]);
+			else if(districts.length==2)
+				district = districtCodeNameMap.get(districts[0])+districtCodeNameMap.get(districts[1]);
 			indent.setDistrict(district);
 		}
 		return indents;

@@ -66,6 +66,9 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 	public Object[] getDistrict(int userId){
 		String hql = "select province,city from Person where basicUser.id =:userId";
 		List<Object[]> list = (List<Object[]>)dao.find(hql, new String[]{"userId"}, new Integer[]{userId});
-		return list.get(0);
+		if(list.size()!=1)
+			return new Object[]{};
+		else
+			return list.get(0);
 	}
 }
