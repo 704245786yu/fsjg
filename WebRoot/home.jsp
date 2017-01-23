@@ -602,7 +602,7 @@
 						</tr>
 					</table>
 					<h5 style="padding:0 10px;">公告</h5>
-					<ul class="affiche">
+					<ul id="affiche" class="affiche">
 					    <!-- <li>[公告]B2B的春天正在到来</li>
 					    <li>[公告]海外尖货频道上线</li>
 					    <li>[公告]开启拳王诚心通时代</li>
@@ -620,14 +620,98 @@
 </table>
 
 <!-- 活动推广 -->
-<table>
+<table id="activity" style="margin-bottom:10px;">
 	<tr>
 		<!-- 活动推广 -->
 		<td width="960px" style="padding-right:5px;">
-			
+			<div style="border:1px solid #DDDDDD;">
+				<div style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">
+					活动推广
+					<div style="float:right;margin-right:20px;"><a target="_blank" href="activity" style="color:#317EE7;">更多</a></div>
+				</div>
+				<table class="table">
+					<tr>
+						<td style="width:30%;vertical-align:top;" rowspan="8">
+							<div class="focusBox" style="margin:0 auto">
+									<ul class="pic">
+										<li><a href="activity/showDetail/${activitySlide[0].id}" target="_blank"><img src="${activitySlide[0].imgUrl}"/></a></li>
+										<li><a href="activity/showDetail/${activitySlide[1].id}" target="_blank"><img src="${activitySlide[1].imgUrl}"/></a></li>
+										<li><a href="activity/showDetail/${activitySlide[2].id}" target="_blank"><img src="${activitySlide[2].imgUrl}"/></a></li>
+										<li><a href="activity/showDetail/${activitySlide[3].id}" target="_blank"><img src="${activitySlide[3].imgUrl}"/></a></li>
+										<li><a href="activity/showDetail/${activitySlide[4].id}" target="_blank"><img src="${activitySlide[4].imgUrl}"/></a></li>
+									</ul>
+									<div class="txt-bg"></div>
+									<div class="txt">
+										<ul>
+											<li><a href="activity/showDetail/${activitySlide[0].id}" target="_blank">${activitySlide[0].title}</a></li>
+											<li><a href="activity/showDetail/${activitySlide[1].id}" target="_blank">${activitySlide[1].title}</a></li>
+											<li><a href="activity/showDetail/${activitySlide[2].id}" target="_blank">${activitySlide[2].title}</a></li>
+											<li><a href="activity/showDetail/${activitySlide[3].id}" target="_blank">${activitySlide[3].title}</a></li>
+											<li><a href="activity/showDetail/${activitySlide[4].id}" target="_blank">${activitySlide[4].title}</a></li>
+										</ul>
+									</div>
+									<ul class="num">
+										<li><a>1</a><span></span></li>
+										<li><a>2</a><span></span></li>
+										<li><a>3</a><span></span></li>
+										<li><a>4</a><span></span></li>
+										<li><a>5</a><span></span></li>
+									</ul>
+							</div>
+						</td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[0].id}">${activities[0].title}</a></td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[1].id}">${activities[1].title}</a></td>
+					</tr>
+					<tr>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[2].id}">${activities[2].title}</a></td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[3].id}">${activities[3].title}</a></td>
+					</tr>
+					<tr>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[4].id}">${activities[4].title}</a></td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[5].id}">${activities[5].title}</a></td>
+					</tr>
+					<tr>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[6].id}">${activities[6].title}</a></td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[7].id}">${activities[7].title}</a></td>
+					</tr>
+					<tr>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[8].id}">${activities[8].title}</a></td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[9].id}">${activities[9].title}</a></td>
+					</tr>
+					<tr>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[10].id}">${activities[10].title}</a></td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[11].id}">${activities[11].title}</a></td>
+					</tr>
+					<tr>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[12].id}">${activities[12].title}</a></td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[13].id}">${activities[13].title}</a></td>
+					</tr>
+					<tr>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[14].id}">${activities[14].title}</a></td>
+						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[15].id}">${activities[15].title}</a></td>
+					</tr>
+				</table>
+			</div>
 		</td>
 		<!-- 最新报道 -->
 		<td width="230px">
+			<div style="border:1px solid #DDDDDD;height:280px;">
+				<div style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">
+					最新报道
+				</div>
+				<ul id="activityUl" class="affiche">
+				    <li><a href="${activities[16].id}" target="_blank">${activitySlide[16].title}</a></li>
+				    <li><a href="${activities[17].id}" target="_blank">${activitySlide[17].title}</a></li>
+				    <li><a href="${activities[18].id}" target="_blank">${activitySlide[18].title}</a></li>
+				    <li><a href="${activities[19].id}" target="_blank">${activitySlide[19].title}</a></li>
+				    <li><a href="${activities[20].id}" target="_blank">${activitySlide[20].title}</a></li>
+				    <li><a href="${activities[21].id}" target="_blank">${activitySlide[21].title}</a></li>
+				    <li><a href="${activities[22].id}" target="_blank">${activitySlide[22].title}</a></li>
+				    <li><a href="${activities[23].id}" target="_blank">${activitySlide[23].title}</a></li>
+				    <li><a href="${activities[24].id}" target="_blank">${activitySlide[24].title}</a></li>
+				    <li><a href="${activities[25].id}" target="_blank">${activitySlide[25].title}</a></li>
+				</ul>
+			</div>
 		</td>
 	</tr>
 </table>

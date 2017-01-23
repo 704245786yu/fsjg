@@ -32,7 +32,7 @@ public class ActivityCtrl extends BaseCtrl<ActivityBiz, Integer, Activity> {
 
 	public ModelAndView showDefaultPage(HttpSession session){
 		ModelAndView mav = new ModelAndView("main/activity");
-		BootTablePageDto<Activity> result = biz.getTitleByPage(0, 20, null);
+		BootTablePageDto<Activity> result = biz.getTitleByPage(null,null,null,null, 0, 20, null);
 		mav.addObject("result", result);
 		return mav;
 	}
@@ -77,8 +77,8 @@ public class ActivityCtrl extends BaseCtrl<ActivityBiz, Integer, Activity> {
 	
 	@RequestMapping("getList")
 	@ResponseBody
-	public BootTablePageDto<Activity> getList(int offset, Long total){
-		return biz.getTitleByPage(offset, 20, total);
+	public BootTablePageDto<Activity> getList(Long province, Long city, Long county, Long town, int offset, Long total){
+		return biz.getTitleByPage(province, city, county, town, offset, 20, total);
 	}
 	
 	/**获取所有咨询标题

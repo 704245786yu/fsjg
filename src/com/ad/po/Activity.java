@@ -42,6 +42,9 @@ public class Activity {
 	@Transient
 	private String realName; //管理员名称
 	
+	@Transient
+	private String imgUrl;//第一张图的地址，首页用
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name="update_time")
 	private Date updateTime; //更改时间
@@ -158,6 +161,14 @@ public class Activity {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 	
 }

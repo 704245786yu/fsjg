@@ -1,7 +1,10 @@
 package com.ad.biz;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -38,7 +41,23 @@ public class ActivityBiz extends BaseBiz<ActivityDao,Integer,Activity>{
 	@SuppressWarnings("unchecked")
 	public List<Activity> getFive(){
 		String hql = "from Activity";
-		return (List<Activity>)dao.findByPage(hql, 0, 5, new String[]{}, new Object[]{});
+		List<Activity> list = (List<Activity>)dao.findByPage(hql, 0, 5, new String[]{}, new Object[]{});
+		//获取每个活动的第一个图片 http://blog.csdn.net/g631521612/article/details/11928301
+		for(int i=0; i<list.size(); i++){
+			Activity activity = list.get(i);
+			String regex = "src=\"(.*?)\"";
+			Pattern pa = Pattern.compile(regex, Pattern.DOTALL);    
+			Matcher ma = pa.matcher(activity.getContent());    
+			if(ma.find())    
+			{  
+				String srcStr = ma.group();
+				int begin = srcStr.indexOf("\"")+1;
+                int end = srcStr.lastIndexOf("\"");
+                String imgUrl = srcStr.substring(begin, end);
+                activity.setImgUrl(imgUrl);
+			}
+		}
+		return list;
 	}
 	
 	/**获取前26个活动标题*/
@@ -49,11 +68,39 @@ public class ActivityBiz extends BaseBiz<ActivityDao,Integer,Activity>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public BootTablePageDto<Activity> getTitleByPage(int offset, int limit, Long total){
-		String hql = "select new Activity(id, title, updateTime) from TradeNews order by updateTime desc";
-		if(total==null)
-			total = dao.getCount();
-		List<Activity> list = (List<Activity>)dao.findByPage(hql, offset, limit, new String[]{}, new Object[]{});
+	public BootTablePageDto<Activity> getTitleByPage(Long province, Long city, Long county, Long town, int offset, int limit, Long total){
+		StringBuilder hql = new  StringBuilder(" from Activity where 1=1 ");
+		List<String> params = new ArrayList<String>();
+		List<Long> values = new ArrayList<Long>();
+		if(province!=null){
+			hql.append(" and province =:province");
+			params.add("province");
+			values.add(province);
+		}
+		if(city!=null){
+			hql.append(" and city =:city");
+			params.add("city");
+			values.add(city);
+		}
+		if(county!=null){
+			hql.append(" and county =:county");
+			params.add("county");
+			values.add(county);
+		}
+		if(town!=null){
+			hql.append(" and town =:town");
+			params.add("town");
+			values.add(town);
+		}
+		
+		if(total==null){
+			StringBuilder countSql = new StringBuilder("select count(1)");
+			countSql.append(hql);
+			total = dao.getCount(countSql.toString(), params.toArray(new String[]{}), values.toArray(new Long[]{}));
+			if(total == 0)
+				return new BootTablePageDto<Activity>(total, new ArrayList<Activity>());
+		}
+		List<Activity> list = (List<Activity>)dao.findByPage("select new Activity(id, title, updateTime) "+hql.toString()+" order by updateTime desc", offset, limit, params.toArray(new String[]{}), values.toArray(new Long[]{}));
 		return new BootTablePageDto<Activity>(total,list);
 	}
 }

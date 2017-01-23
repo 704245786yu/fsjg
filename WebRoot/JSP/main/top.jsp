@@ -78,6 +78,7 @@
 			<li name="li-indent"><a target="_blank" href="indent">加工订单</a></li>
 			<li name="li-contractor"><a target="_blank" href="contractor">快产专家</a></li>
 			<li name="li-costumeSample"><a target="_blank" href="costumeSample">服饰样品</a></li>
+			<li name="li-activity"><a target="_blank" href="activity">活动推广</a></li>
 		</ul>
 	</div>
 </nav>

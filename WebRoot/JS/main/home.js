@@ -9,7 +9,16 @@ $(function(){
 	mallCategory();
 	initCostumeObj();
 	initAffiche();
+	initActivity();
 	initTradeNews();
+	
+	//活动推广
+	$(".focusBox").slide({ titCell:".num li", mainCell:".pic",effect:"fold", autoPlay:true,trigger:"click",
+		//下面startFun代码用于控制文字上下切换
+		startFun:function(i){
+			 jQuery(".focusBox .txt li").eq(i).animate({"bottom":0}).siblings().animate({"bottom":-36});
+		}
+	});
 });
 
 function initCostumeObj(){
@@ -170,7 +179,7 @@ function initAd(){
 //公告
 function initAffiche(){
 	$.get('affiche/getAllTitle',function(data){
-		var $ul = $('ul.affiche');
+		var $ul = $('#affiche');
 		var $li = $('#afficheDemo li');
 		for(var i=0;i<data.length;i++){
 			var $temp = $li.clone();
@@ -186,6 +195,19 @@ function initAffiche(){
 			});
 		}
 	});
+}
+
+//活动推广-最新报道
+function initActivity(){
+	var $ul = $('#activityUl');
+	var $li = $ul.children('li');
+	if($li.length > 5){
+		var nt_example1 = $ul.newsTicker({
+			row_height: 25,
+			max_rows: 10,
+			duration: 4000
+		});
+	}
 }
 
 //行业咨询
