@@ -275,6 +275,13 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 		return list;
 	}
 	
+	/**快产人才主页用，推荐快产团队
+	 * 获取前工人数前10的快产团队
+	 * */
+	public List<ContractorHomeVo> getRecommend(){
+		return dao.getRecommend();
+	}
+	
 	/**设置地区编码信息
 	 * @return errorInfo
 	 * */

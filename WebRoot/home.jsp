@@ -697,7 +697,7 @@
 		<td width="230px">
 			<div style="border:1px solid #DDDDDD;height:280px;">
 				<div style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">
-					最新报道
+					<span class="glyphicon glyphicon-volume-up"></span> 最新报道
 				</div>
 				<ul id="activityUl" class="affiche">
 				    <li><a href="${activities[16].id}" target="_blank">${activitySlide[16].title}</a></li>
@@ -830,7 +830,13 @@
 						<table class="table table-hover">
 							<tr><td>性别</td>	<td>年龄</td>	<td>工龄</td>	<td>员工人数</td><td>地址</td></tr>
 							<c:forEach var="contractor" items="${contractors}">
-								<tr onclick="window.open('contractor/showDetail/${contractor.id}')"><td>${contractor.gender}</td><td>${contractor.age}</td><td>${contractor.processYear}年</td><td>${contractor.workerAmount}人</td><td>${contractor.district}</td></tr>
+								<tr onclick="window.open('contractor/showDetail/${contractor.id}')">
+									<td><input type="hidden" name="gender" value="${contractor.gender}"><img style="width:20px;"></td>
+									<td>${contractor.age}</td>
+									<td>${contractor.processYear}年</td>
+									<td>${contractor.workerAmount}人</td>
+									<td>${contractor.district}</td>
+								</tr>
 							</c:forEach>
 						</table>
 					</div>

@@ -6,6 +6,7 @@ $(function(){
 	initAd();
 	setCostumeCategoryDiv(0);
 	initIndentList();
+	initRecommend();
 	initPagination();//初始化分页
 });
 
@@ -207,6 +208,18 @@ function hiddenMoreAlabel(){
 		$p.height(height-lineHeight);
 		$('a.excessA').css('display','none');
 		$a.children('span').attr('class','glyphicon glyphicon glyphicon-chevron-down');
+	}
+}
+
+function initRecommend(){
+	var $genders = $('input[name="gender"]');
+	for(var i=0; i<$genders.length; i++){
+		var $gender = $genders.eq(i);
+		if($gender.val()=='男'){
+			$gender.next().attr('src','image/man.png');
+		}else if($gender.val()=='女'){
+			$gender.next().attr('src','image/woman.png');
+		}
 	}
 }
 

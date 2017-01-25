@@ -19,7 +19,26 @@
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="plugin/bs_pagination/jquery.bs_pagination.min.css" rel="stylesheet">
 <link href="CSS/indent-list.css" rel="stylesheet">
-
+<style>
+.table th, .table td{
+	text-align:center;
+}
+.recomContractor{
+	background-image:url('image/recomContractor.png');
+	background-repeat:no-repeat;
+	background-position:center;
+}
+.recomContractor div{
+	padding-top:8px;
+}
+.circle{
+	border:2px solid #CCCCCC;
+	border-radius:50%;
+	width:25px;
+	height:25px;
+	margin:0 auto;
+}
+</style>
 <script src="plugin/jquery.min.js"></script>
 </head>
 
@@ -160,11 +179,44 @@
 			</div><!-- panel-body -->
 		</div><!-- panel -->
 		
-		<div name="sample" style="display:none;">
-			<li class="list-group-item">
-				<a target="_blank"><img width="100%"></a>
-			</li>
-		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 推荐快产团队</h3>
+			</div>
+			<table id="recommend" class="table table-hover">
+				<tr><td>排名</td><td>性别</td><td>年龄</td><td>人数</td><td>工龄</td></tr>
+				<tr onclick="window.open('contractor/showDetail/${recommends[0].id}')">
+					<td class="recomContractor"><div>1</div></td>
+					<td><input type="hidden" name="gender" value="${recommends[0].gender}"><img></td>
+					<td>${recommends[0].age}</td>
+					<td>${recommends[0].workerAmount}人</td>
+					<td>${recommends[0].processYear}年</td>
+				</tr>
+				<tr onclick="window.open('contractor/showDetail/${recommends[1].id}')">
+					<td class="recomContractor"><div>2</div></td>
+					<td><input type="hidden" name="gender" value="${recommends[1].gender}"><img></td>
+					<td>${recommends[1].age}</td>
+					<td>${recommends[1].workerAmount}人</td>
+					<td>${recommends[1].processYear}年</td>
+				</tr>
+				<tr onclick="window.open('contractor/showDetail/${recommends[2].id}')">
+					<td class="recomContractor"><div>3</div></td>
+					<td><input type="hidden" name="gender" value="${recommends[2].gender}"><img></td>
+					<td>${recommends[2].age}</td>
+					<td>${recommends[2].workerAmount}人</td>
+					<td>${recommends[2].processYear}年</td>
+				</tr>
+				<c:forEach items="${recommends}" var="contractor" begin="3" varStatus="status">
+					<tr onclick="window.open('contractor/showDetail/${contractor.id}')">
+						<td><div class="circle">${status.count+3}</div></td>
+						<td><input type="hidden" name="gender" value="${contractor.gender}"><img></td>
+						<td>${contractor.age}</td>
+						<td>${contractor.workerAmount}人</td>
+						<td>${contractor.processYear}年</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div><!-- panel -->
 	</td>
 </tr>
 </table>

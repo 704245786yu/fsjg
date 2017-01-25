@@ -12,6 +12,16 @@ $(function(){
 	initActivity();
 	initTradeNews();
 	
+	var $genders = $('input[name="gender"]');
+	for(var i=0; i<$genders.length; i++){
+		var $gender = $genders.eq(i);
+		if($gender.val()=='男'){
+			$gender.next().attr('src','image/man.png');
+		}else if($gender.val()=='女'){
+			$gender.next().attr('src','image/woman.png');
+		}
+	}
+	
 	//活动推广
 	$(".focusBox").slide({ titCell:".num li", mainCell:".pic",effect:"fold", autoPlay:true,trigger:"click",
 		//下面startFun代码用于控制文字上下切换
