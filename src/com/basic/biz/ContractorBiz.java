@@ -366,7 +366,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 		for(int i=1; i<costumeAry.length; i++){
 			costumeCode = costumeMap.get(costumeAry[i]);
 			if(costumeCode != null)
-				sb.append(costumeCode);
+				sb.append(","+costumeCode);
 		}
 		return sb.toString();
 	}

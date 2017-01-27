@@ -17,6 +17,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="plugin/superSlide/superSlide.css" rel="stylesheet">
 <link href="CSS/common/default.css" rel="stylesheet">
 <link href="CSS/enterprise-main.css" rel="stylesheet">
 <style type="text/css">
@@ -266,8 +267,9 @@
 						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新入驻的工厂</h3>
 					</div>
 					<div class="panel-body" style="padding:0px;">
+						<div id="newEnterprise">
 						<ul id="newEnterpriseList" class="list-group" style="margin-bottom:0px;">
-							<li class="list-group-item enterprise" style="display:none;border-bottom:0px;border-left:0px;border-right:0px;">
+							<li class="list-group-item enterprise" style="height:80px;display:none;border-bottom:0px;border-left:0px;border-right:0px;">
 								<div class="media">
 									<div class="media-left">
 										<img class="media-object" src="image/new.png">
@@ -279,6 +281,7 @@
 								</div>
 							</li>
 						</ul>
+						</div>
 					</div><!-- panel-body -->
 				</div><!-- panel -->
 			</div><!-- col-md -->
@@ -312,7 +315,7 @@
 					<div class="panel-heading">
 						 <h3 class="panel-title cus-panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新认证加工厂</h3>
 					</div>
-					<div class="panel-body" style="padding:0px;">
+					<div id="newAuthEnterprise" class="panel-body" style="padding:0px;">
 						<ul id="newAuthEnterpriseList" class="list-group" style="margin-bottom:0px;">
 							<li class="list-group-item enterprise" style="display:none;border-bottom:0px;border-left:0px;border-right:0px;">
 								<h4 class="media-heading"><a target="_blank">工厂名称</a></h4>
@@ -331,7 +334,7 @@
 <span style="display:none" id="hiddenCostumeCategory">${costumeCategoryMap}</span>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="plugin/advanced-news-ticker/jquery.newsTicker.min.js"></script>
+<script src="plugin/superSlide/jquery.SuperSlide.js"></script>
 <script src="JS/util/treeUtil.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/main/enterprise.js"></script>

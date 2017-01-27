@@ -235,8 +235,9 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		return mav;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("showDetail/{num}")
-	public ModelAndView showDetail(@PathVariable String num){
+	public ModelAndView showDetail(@PathVariable String num,HttpSession session){
 		ModelAndView mav = new ModelAndView("main/sampleDetail");
 		CostumeSample sample = biz.getByNum(num);
 		
@@ -247,6 +248,35 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 			mav.addObject("enterprise", e);
 			mav.addObject("costumeNames", costumeNames);
 			mav.addObject("districts",districts);
+			
+			ServletContext servletContext = session.getServletContext();
+			HashMap<Integer,String> codeNameMap = (HashMap<Integer,String>)servletContext.getAttribute("costumeCateMap");
+			List<Integer> costumeCodes = biz.getCostumeCode(e.getNumber());
+			//得到产品类别,及父类别
+			Set<Integer> costumeCodeSet = new HashSet<Integer>();
+			for(int i=0; i<costumeCodes.size(); i++){
+				int code = costumeCodes.get(i);
+				costumeCodeSet.add(code);
+				if(code>10000){
+					costumeCodeSet.add(code/100);
+				}
+			}
+			HashMap<Integer,String> costumeCateMap = new HashMap<Integer,String>();
+			Iterator<Integer> iterator = costumeCodeSet.iterator();
+			while(iterator.hasNext()){
+				Integer code = iterator.next();
+				costumeCateMap.put(code, codeNameMap.get(code));
+			}
+			mav.addObject("costumeCateMap", JacksonJson.beanToJson(costumeCateMap));
+			
+			//获取最新的两个服饰样品
+			List<CostumeSample> newest = biz.getNewest(num, e.getNumber());
+			for(int i=0;i<newest.size();i++){
+				String smImg = newest.get(i).getSmImg();
+				String[] imgs = smImg.split(",");
+				newest.get(i).setSmImg(imgs[0]);
+			}
+			mav.addObject("newestList", newest);
 		}
 		mav.addObject("costumeSample", sample);
 		return mav;
@@ -254,8 +284,8 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 	
 	/**显示工厂详情页-样品展示*/
 	@SuppressWarnings("unchecked")
-	@RequestMapping("showEntSample/{enterpriseNum}")
-	public ModelAndView showEntSample(@PathVariable String enterpriseNum,HttpSession session){
+	@RequestMapping("showEntSample/{enterpriseNum}/{costumeCode}")
+	public ModelAndView showEntSample(@PathVariable String enterpriseNum,@PathVariable Long costumeCode,HttpSession session){
 		ModelAndView mav = new ModelAndView("main/enterpriseSample");
 		//获取工厂名称、审核状态
 		Object[] entField = enterpriseBiz.getByField(enterpriseNum,"id","number","enterpriseName","auditState");
@@ -289,8 +319,10 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		}
 		mav.addObject("costumeCateMap", JacksonJson.beanToJson(costumeCateMap));
 		
+		if(costumeCode==0)
+			costumeCode = null;//点击工厂详情里的样品展示跳转的页面
 		//获取全部产品类别列表
-		BootTablePageDto<Sample2Vo> result = biz.getEntSample(enterpriseNum, null, 0, 20, null);
+		BootTablePageDto<Sample2Vo> result = biz.getEntSample(enterpriseNum, costumeCode, 0, 20, null);
 		mav.addObject("result", result);
 		return mav;
 	}

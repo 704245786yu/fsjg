@@ -102,11 +102,7 @@ function getNewest(){
 			$head.next().text('主营产品：'+costumeStr);
 			$enterpriseList.append($new);
 		}
-		$enterpriseList.newsTicker({
-			row_height: 63,
-			max_rows: 6,
-			duration: 4000
-		});
+		$("#newEnterprise").slide({mainCell:"ul",autoPlay:true,effect:"topMarquee",vis:3,interTime:50});
 	});
 }
 
@@ -129,11 +125,7 @@ function getNewAuth(){
 			$head.next().text('主营产品：'+costumeStr);
 			$enterpriseList.append($new);
 		}
-		$enterpriseList.newsTicker({
-			row_height: 103,
-			max_rows: 6,
-			duration: 4000
-		});
+		$("#newAuthEnterprise").slide({mainCell:"ul",autoPlay:true,effect:"topMarquee",vis:5,interTime:50});
 	});
 }
 

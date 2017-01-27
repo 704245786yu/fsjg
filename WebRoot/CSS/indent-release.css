@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+*{
+	font-family:Microsoft YaHei;
+}
 /*"新建发布订单"标头*/
 table.title{
 	text-align:center;

@@ -56,7 +56,14 @@ public class CostumeSample {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:ss:mm", timezone = "GMT+8")
 	private Date updateTime;//更改时间
 
+	public CostumeSample(){}
 	
+	public CostumeSample(String num, String name, String smImg) {
+		this.num = num;
+		this.name = name;
+		this.smImg = smImg;
+	}
+
 	public Integer getId() {
 		return id;
 	}

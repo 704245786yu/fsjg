@@ -499,7 +499,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 		if(total == null){
 			total = super.getCount("select count(1) "+hql.toString(), paramNames.toArray(new String[]{}), values.toArray(new Object[]{}));
 			if(total == 0)
-				return new BootTablePageDto<Indent>(total, null);
+				return new BootTablePageDto<Indent>(total, new ArrayList<Indent>());
 		}
 		List<Indent> list = (List<Indent>)super.findByPage(hql.toString(), offset, limit, paramNames.toArray(new String[]{}), values.toArray(new Object[]{}));
 		return new BootTablePageDto<Indent>(total, list);

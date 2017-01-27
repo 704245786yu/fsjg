@@ -105,7 +105,7 @@
 		<div id="list">
 			<c:forEach items="${result.rows}" var="activity">
 				<div>
-					<a target="_blank" href="tradeNews/showDetail/${activity.id}">${activity.title}</a>
+					<a target="_blank" href="activity/showDetail/${activity.id}">${activity.title}</a>
 					<div style="float:right"><fmt:formatDate value="${activity.updateTime}" pattern="yyyy-MM-dd HH:mm" /></div>
 				</div>
 			</c:forEach>

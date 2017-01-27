@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 /*订单搜索*/
+*{
+	font-family:Microsoft YaHei;
+}
 .form-horizontal > table td{
 	padding-bottom:15px;
 }

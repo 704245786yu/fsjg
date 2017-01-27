@@ -2,9 +2,10 @@
 html,body,div,ul,p,span,button{
 	padding:0;
 	margin:0;
-	font-family:微软雅黑;
 }
-
+*{
+	font-family:Microsoft YaHei;
+}
 /*用户基本信息*/
 #basic-info td{
 	border:0px;
