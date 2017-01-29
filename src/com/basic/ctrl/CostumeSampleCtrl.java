@@ -235,6 +235,14 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		return mav;
 	}
 	
+	@RequestMapping("search2")
+	@ResponseBody
+	public BootTablePageDto<SampleVo> search2(Long province,Long city,Long county,Long town, 
+			Integer costumeCode,int offset,Long total){
+		BootTablePageDto<SampleVo> result = biz.search(province,city,county,town,costumeCode,"",0,20,total);
+		return result;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("showDetail/{num}")
 	public ModelAndView showDetail(@PathVariable String num,HttpSession session){

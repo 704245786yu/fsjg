@@ -88,7 +88,7 @@
 			<span id="costumeCateMap" style="display:none;">${costumeCateMap}</span>
 			<ul class="list-group">
 				<li class="list-group-item"  style="background-color:#F5F5F5;"><h3 class="panel-title"><span class="glyphicon glyphicon-volume-up"></span> 产品类别</h3></li>
-				<li class="list-group-item"><a href="0" onclick="return querySample(this)">查看所有宝贝</a></li>
+				<li class="list-group-item"><a href="costumeSample/showEntSample/${enterprise.number}/0" target="_blank">查看所有宝贝</a></li>
 			</ul>
 			<!-- 类目Demo -->
 			<div id="costumeCateLi" style="display:none;">

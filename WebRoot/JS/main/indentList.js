@@ -183,7 +183,7 @@ function query(offset,totalRows){
 				}
 				//接单地区
 				var $condDistrict = $table.find('div[name="condDistrict"]');
-				$condDistrict.html(condDistrict);
+				$condDistrict.html(indent.condDistrict);
 				//接单要求
 				var $condDemandDiv = $condDistrict.next();
 				$condDemandDiv.html(indent.condDemand);

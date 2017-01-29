@@ -102,8 +102,8 @@
 				<div class="col-md-3 col-xs-3">
 					<a target="_blank" href="costumeSample/showDetail/${costumeSample.num}">
 						<img src="uploadFile/costumeSample/${costumeSample.img}" style="width:100%;height:200px;">
-						<p>${costumeSample.name}</p>
-						<p><span>${costumeSample.enterpriseName}</span></p>
+						<p style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">${costumeSample.name}</p>
+						<p style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">${costumeSample.enterpriseName}</p>
 					</a>
 				</div>
 			</c:forEach>
@@ -139,9 +139,13 @@
 		</div><!-- panel -->
 		
 		<div name="sample" style="display:none;">
-			<li class="list-group-item">
-				<a target="_blank"><img width="100%"></a>
-			</li>
+			<div class="col-md-3 col-xs-3">
+				<a target="_blank" href="">
+					<img src="" style="width:100%;height:200px;">
+					<p style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"></p>
+					<p style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><span></span></p>
+				</a>
+			</div>
 		</div>
 	</td>
 </tr>
@@ -152,9 +156,8 @@
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="plugin/bs_pagination/jquery.bs_pagination.min.js"></script>
 <script src="plugin/bs_pagination/localization/en.js"></script>
-<script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
-<script src="JS/main/contractorList.js"></script>
+<script src="JS/main/costumeSample.js"></script>
 </body>
 </html>
 

@@ -99,12 +99,15 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			Integer[] costumeCodes,String processType,Byte saleMarket,String keyword,Byte sortMark,Byte userType,Boolean isUrgency,int offset,int limit,Long total){
 		StringBuffer subSql = new StringBuffer(" from process_indent pi inner join (select user_id,1 as userType,province,city from basic_person ")
 			.append(" union select user_id,2 as userType,province,city from basic_enterprise ")
-			.append(") as user on pi.create_by = user.user_id where (indent_name like :keyword or description like :keyword)");
+			.append(") as user on pi.create_by = user.user_id where 1=1 ");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
-		//关键字匹配订单名称、订单说明
-		params.add("keyword");
-		values.add("%"+keyword+"%");
+		//关键字匹配订单名称
+		if(keyword.length() > 0){
+			subSql.append(" and indent_name like :keyword");
+			params.add("keyword");
+			values.add("%"+keyword+"%");
+		}
 		
 		//接单用户的省市区县乡镇
 		if(province != null){
@@ -133,7 +136,7 @@ public class IndentDao extends BaseDao<Integer, Indent>{
 			StringBuffer subCostumeCode = new StringBuffer(" costume_code like '%"+costumeCodes[0]+"%'");
 			for(int i=1; i<costumeCodes.length; i++)
 				subCostumeCode.append(" or costume_code like '%"+costumeCodes[i]+"%'");
-			subSql.append(" or ("+subCostumeCode.toString()+")");
+			subSql.append(" and ("+subCostumeCode.toString()+")");
 		}
 		
 		//加工类型

@@ -36,6 +36,8 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 				endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
 			}
 			costumeCodes = costumeCategoryCodes.subList(0, endIndex).toArray(new Integer[]{});
+		}else{
+			costumeCodes = new Integer[]{costumeCode};
 		}
 		
 		BootTablePageDto<SampleVo> result = dao.search(province,city,county,town,costumeCodes,keyword,offset,limit,total);

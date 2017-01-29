@@ -58,7 +58,7 @@ public class CostumeSampleDao extends BaseDao<Integer, CostumeSample>{
 		}
 		
 		String[] paramAry = params.toArray(new String[]{});
-		String[] valueAry = values.toArray(new String[]{});
+		Object[] valueAry = values.toArray(new Object[]{});
 		//若有total表示翻页操作，无须再次查询total
 		if(total == null){
 			StringBuilder countSql = new StringBuilder("select count(1)");
