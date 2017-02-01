@@ -29,7 +29,7 @@ public class PersonDao extends BaseDao<Integer, Person>{
 	
 	@SuppressWarnings("unchecked")
 	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
-		StringBuffer hql = new StringBuffer("from Person where 1=1");
+		StringBuffer hql = new StringBuffer("from Person where basicUser.roleId=1 ");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
 		if(userName.length()>0){

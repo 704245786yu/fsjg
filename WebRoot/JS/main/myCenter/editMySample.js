@@ -84,10 +84,12 @@ $('#ff').bootstrapValidator({
 			}
 			if(formData[6].value=="" && formData[7].value==""){ //smImg, smPic
 				alert('未上传样品图片');
+				$form.bootstrapValidator('disableSubmitButtons', false)  // Enable the submit buttons
 				return false;
 			}
 			if(formData[13].value=="" && formData[14].value==""){ //detailImg, detailPic
 				alert('未上传详情图片');
+				$form.bootstrapValidator('disableSubmitButtons', false)  // Enable the submit buttons
 				return false;
 			}
 		},

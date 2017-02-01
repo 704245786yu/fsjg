@@ -99,7 +99,7 @@
 					<td><label><span>*</span>售后保障</label></td>
 					<td>
 						<div class="form-group">
-							<label class="checkbox-inline"><input type="checkbox" name="support" value="0">支持该款</label>
+							<label class="checkbox-inline"><input type="checkbox" name="support" value="0">支持改款</label>
 							<label class="checkbox-inline"><input type="checkbox" name="support" value="1">贴牌生产</label>
 							<label class="checkbox-inline"><input type="checkbox" name="support" value="2">支持看样</label>
 						</div>
