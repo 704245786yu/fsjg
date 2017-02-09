@@ -23,6 +23,11 @@ $(function(){
 		var codes = costumeCode.split(',');
 		checkCostumeByCodes(codes);//设置“选择产品类别”button的显示文字
 	}
+	//工作场地
+	var workSpace = $('#workspaceVal').val();
+	if(workSpace!=''){
+		$('input[name="workSpace"]').eq(workSpace).attr('checked','true');
+	}
 });
 
 $('.menu_li li[class!="level1"]').click(function(){

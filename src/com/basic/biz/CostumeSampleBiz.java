@@ -36,6 +36,8 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 				endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
 			}
 			costumeCodes = costumeCategoryCodes.subList(0, endIndex).toArray(new Integer[]{});
+		}else{
+			costumeCodes = new Integer[]{costumeCode};
 		}
 		
 		BootTablePageDto<SampleVo> result = dao.search(province,city,county,town,costumeCodes,keyword,offset,limit,total);
@@ -116,6 +118,16 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 			FileUtil.delImg(uploadDir, pics);
 		}
 		dao.deleteById(id);
+	}
+	
+	/**样品详情用，获取工厂最新上架的服饰样品
+	 * @param num 不包含的样品编号
+	 * @param entNum 企业编号
+	 * */
+	@SuppressWarnings("unchecked")
+	public List<CostumeSample> getNewest(String num,String entNum){
+		String hql = "select new CostumeSample(num,name,smImg) from CostumeSample where enterpriseNum =:entNum and num !=:num order by updateTime desc";
+		return (List<CostumeSample>)dao.findByPage(hql, 0, 2, new String[]{"entNum","num"}, new String[]{entNum,num});
 	}
 	
 	/**生成样品编号格式：YYMMddHHmmss+ 3位随机数 + 工厂编号后4位

@@ -58,7 +58,7 @@ public class CostumeSampleDao extends BaseDao<Integer, CostumeSample>{
 		}
 		
 		String[] paramAry = params.toArray(new String[]{});
-		String[] valueAry = values.toArray(new String[]{});
+		Object[] valueAry = values.toArray(new Object[]{});
 		//若有total表示翻页操作，无须再次查询total
 		if(total == null){
 			StringBuilder countSql = new StringBuilder("select count(1)");
@@ -173,7 +173,7 @@ public class CostumeSampleDao extends BaseDao<Integer, CostumeSample>{
 		StringBuilder sql = new StringBuilder("select num as num, name as name, sm_img as img");
 		sql.append(hql);
 		List<Object[]> scalars = new ArrayList<Object[]>();
-		scalars.add(new Object[]{"num",StandardBasicTypes.LONG});
+		scalars.add(new Object[]{"num",StandardBasicTypes.STRING});
 		scalars.add(new Object[]{"name",StandardBasicTypes.STRING});
 		scalars.add(new Object[]{"img",StandardBasicTypes.STRING});
 		List<Sample2Vo> list = super.findByNativeSql(sql.toString(), params, values, scalars, offset, limit, Sample2Vo.class);

@@ -255,9 +255,10 @@
 								<td><div class="form-group"><input type="text" class="form-control" name="quote" style="width:80%;" value="${contractor.quote}"></div></td>
 								<td><label><span>*</span>工作场地</label></td>
 								<td>
+									<input type="hidden" id="workspaceVal" value="${contractor.workSpace}">
 									<div class="form-group" style="padding-top:5px;">
-										<label class="radio-inline"><input type="radio" name="workSpace" value="${contractor.workSpace}">在家</label>
-										<label class="radio-inline"><input type="radio" name="workSpace" value="${contractor.workSpace}">到厂</label>
+										<label class="radio-inline"><input type="radio" name="workSpace" value="0">在家</label>
+										<label class="radio-inline"><input type="radio" name="workSpace" value="1">到厂</label>
 									</div>
 								</td>
 							</tr>

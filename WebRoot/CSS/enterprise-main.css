@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+*{
+	font-family:Microsoft YaHei;
+}
 #newEnterpriseList a,#newAuthEnterpriseList a{
 	text-decoration:none;
 }

@@ -40,7 +40,12 @@
 	</div>
 </div>
 <%@ include file="JSP/main/top.jsp" %>
-
+<div style="float:left;width:50px;margin-left:60px;color:#FF5900;">
+	<h2>网站测试中 尽请期待</h2>
+</div>
+<div style="float:right;width:50px;margin-right:60px;color:#FF5900">
+	<h2>网站测试中 尽请期待</h2>
+</div>
 <div class="main-body" style="width:1190px; margin:0 auto;">
 <span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
 <span style="display:none;" id="adPositions">${adPositions}</span>
@@ -662,34 +667,12 @@
 						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[0].id}">${activities[0].title}</a></td>
 						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[1].id}">${activities[1].title}</a></td>
 					</tr>
-					<tr>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[2].id}">${activities[2].title}</a></td>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[3].id}">${activities[3].title}</a></td>
-					</tr>
-					<tr>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[4].id}">${activities[4].title}</a></td>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[5].id}">${activities[5].title}</a></td>
-					</tr>
-					<tr>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[6].id}">${activities[6].title}</a></td>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[7].id}">${activities[7].title}</a></td>
-					</tr>
-					<tr>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[8].id}">${activities[8].title}</a></td>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[9].id}">${activities[9].title}</a></td>
-					</tr>
-					<tr>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[10].id}">${activities[10].title}</a></td>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[11].id}">${activities[11].title}</a></td>
-					</tr>
-					<tr>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[12].id}">${activities[12].title}</a></td>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[13].id}">${activities[13].title}</a></td>
-					</tr>
-					<tr>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[14].id}">${activities[14].title}</a></td>
-						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[15].id}">${activities[15].title}</a></td>
-					</tr>
+					<c:forEach items="${activities}" var="activity" varStatus="status" begin="2" end="15" step="2">
+						<tr>
+							<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[status.index].id}">${activities[status.index].title}</a></td>
+							<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[status.index+1].id}">${activities[status.index+1].title}</a></td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 		</td>
@@ -697,19 +680,12 @@
 		<td width="230px">
 			<div style="border:1px solid #DDDDDD;height:280px;">
 				<div style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">
-					最新报道
+					<span class="glyphicon glyphicon-volume-up"></span> 最新报道
 				</div>
 				<ul id="activityUl" class="affiche">
-				    <li><a href="${activities[16].id}" target="_blank">${activitySlide[16].title}</a></li>
-				    <li><a href="${activities[17].id}" target="_blank">${activitySlide[17].title}</a></li>
-				    <li><a href="${activities[18].id}" target="_blank">${activitySlide[18].title}</a></li>
-				    <li><a href="${activities[19].id}" target="_blank">${activitySlide[19].title}</a></li>
-				    <li><a href="${activities[20].id}" target="_blank">${activitySlide[20].title}</a></li>
-				    <li><a href="${activities[21].id}" target="_blank">${activitySlide[21].title}</a></li>
-				    <li><a href="${activities[22].id}" target="_blank">${activitySlide[22].title}</a></li>
-				    <li><a href="${activities[23].id}" target="_blank">${activitySlide[23].title}</a></li>
-				    <li><a href="${activities[24].id}" target="_blank">${activitySlide[24].title}</a></li>
-				    <li><a href="${activities[25].id}" target="_blank">${activitySlide[25].title}</a></li>
+					<c:forEach items="${activities}" var="activity" begin="16">
+					    <li><a href="activity/showDetail/${activity.id}" target="_blank">${activity.title}</a></li>
+					</c:forEach>
 				</ul>
 			</div>
 		</td>
@@ -803,10 +779,15 @@
 					<div class="col-md-4 col-xs-4 ad">
 						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
 					</div>
-					<div class="col-md-8 col-xs-8">
+					<div class="col-md-8 col-xs-8" style="padding-left:5px;padding-right:5px;">
 						<table class="table table-hover">
+							<tr><td>订单名称</td>	<td>订单数</td>	<td>地区</td></tr>
 							<c:forEach var="indent" items="${indents}">
-								<tr onclick="window.open('indent/detail/${indent.indentNum}')"><td>${indent.indentName}</td><td>${indent.quantity}件</td><td>${indent.district}</td></tr>
+								<tr onclick="window.open('indent/detail/${indent.indentNum}')">
+									<td><c:if test="${indent.isUrgency==true}"><span class="circle">&nbsp;急&nbsp;</span></c:if>${indent.indentName}</td>
+									<td>${indent.quantity}件</td>
+									<td>${indent.district}</td>
+								</tr>
 							</c:forEach>
 						</table>
 					</div>
@@ -827,10 +808,16 @@
 						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
 					</div>
 					<div class="col-md-8 col-xs-8">
-						<table class="table table-hover">
+						<table id="contractor" class="table table-hover">
 							<tr><td>性别</td>	<td>年龄</td>	<td>工龄</td>	<td>员工人数</td><td>地址</td></tr>
 							<c:forEach var="contractor" items="${contractors}">
-								<tr onclick="window.open('contractor/showDetail/${contractor.id}')"><td>${contractor.gender}</td><td>${contractor.age}</td><td>${contractor.processYear}年</td><td>${contractor.workerAmount}人</td><td>${contractor.district}</td></tr>
+								<tr onclick="window.open('contractor/showDetail/${contractor.id}')">
+									<td><input type="hidden" name="gender" value="${contractor.gender}"><img style="width:20px;"></td>
+									<td>${contractor.age}</td>
+									<td>${contractor.processYear}年</td>
+									<td>${contractor.workerAmount}人</td>
+									<td>${contractor.district}</td>
+								</tr>
 							</c:forEach>
 						</table>
 					</div>
@@ -1236,7 +1223,7 @@
 	</div>
 </div>
 
-<div id="tradeNews" style="border:1px solid #DDDDDD;">
+<div id="tradeNews" style="border:1px solid #DDDDDD;margin-top:20px;">
 	<p style="border-bottom:1px solid #DDDDDD;color:#317EE7;font-size:16px;font-weight:bold;padding:3px 0 3px 5px;margin-bottom:0px;">友情链接</p>
 	<p class="blogroll" style="padding:5px 10px;line-height:30px;">
 		<c:forEach items="${blogrolls}" var="blogroll">

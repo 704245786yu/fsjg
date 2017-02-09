@@ -167,8 +167,7 @@ BsFormTableExtend.prototype.cancelEdit = function(){
 	$form.bootstrapValidator('resetForm');
 	$form[0].reset();
 	$('input[type="file"]').val('');
-	$form.find(":hidden").val('');
-	
+	$form.find("input:hidden").val('');
 	$editPanel.hide();
 }
 

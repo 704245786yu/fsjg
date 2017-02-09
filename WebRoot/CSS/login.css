@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+*{
+	font-family:Microsoft YaHei;
+}
 .top-banner{
 	width:100%;
 	padding:20px 180px;

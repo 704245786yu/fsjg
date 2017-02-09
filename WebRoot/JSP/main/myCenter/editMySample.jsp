@@ -56,7 +56,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label>样品图片</label></td>
+					<td><label><span>*</span>样品图片</label></td>
 					<td colspan="3">
 						<!-- IE9下无法多选 -->
 						<input type="hidden" name="smImg">
@@ -93,18 +93,18 @@
 					<td><label><span>*</span>售后保障</label></td>
 					<td>
 						<div class="form-group">
-							<label class="checkbox-inline"><input type="checkbox" name="support" value="0">支持该款</label>
+							<label class="checkbox-inline"><input type="checkbox" name="support" value="0">支持改款</label>
 							<label class="checkbox-inline"><input type="checkbox" name="support" value="1">贴牌生产</label>
 							<label class="checkbox-inline"><input type="checkbox" name="support" value="2">支持看样</label>
 						</div>
 					</td>
 				</tr>
 				<tr style="height:100px">
-					<td><label>加工说明</label></td>
+					<td><label><span>*</span>加工说明</label></td>
 					<td colspan="3"><div class="form-group"><textarea class="form-control" rows="3" name="processDesc" style="width:600px;"></textarea></div></td>
 				</tr>
 				<tr>
-					<td><label>样品详图</label></td>
+					<td><label><span>*</span>样品详图</label></td>
 					<td colspan="3">
 						<!-- IE9下无法多选 -->
 						<input type="hidden" name="detailImg">

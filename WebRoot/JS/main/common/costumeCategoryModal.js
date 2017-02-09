@@ -160,7 +160,7 @@ function getNameByCodes(codesStr){
 
 /**重置模态框*/
 function resetModal(){
-	$('#costumeCategoryModal #costumeBtn').html('选择产品类别');
+	$('#costumeBtn').text('选择产品类别');
 }
 
 function isCostumeCheck(){

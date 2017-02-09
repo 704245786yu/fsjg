@@ -27,6 +27,7 @@ import com.basic.biz.DistrictBiz;
 import com.basic.dto.ContractorDto;
 import com.basic.po.Contractor;
 import com.basic.po.Person;
+import com.basic.vo.ContractorHomeVo;
 import com.basic.vo.ContractorSimpleVo;
 import com.basic.vo.ContractorVo;
 import com.common.BaseCtrl;
@@ -62,6 +63,9 @@ public class ContractorCtrl extends BaseCtrl<ContractorBiz, Integer, Contractor>
 	
 	public ModelAndView showDefaultPage(HttpSession session){
 		ModelAndView mav = new ModelAndView(defaultPage);
+		//推荐快产团队
+		List<ContractorHomeVo> list = biz.getRecommend();
+		mav.addObject("recommends",list);
 		//广告位
 		List<AdPosition> adPositions = adPositionBiz.getByCode("contractor_list");
 		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));

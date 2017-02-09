@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+*{
+	font-family:Microsoft YaHei;
+}
 .container-fluid{
 	width:95%;
 	margin-top:8px;

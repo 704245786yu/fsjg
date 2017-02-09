@@ -27,7 +27,7 @@ public class BasicUser {
 	private String password;
 	
 	@Column(name="role_id")
-	private Integer roleId;	//角色ID 1：普通用户 2：企业用户
+	private Integer roleId;	//角色ID 1：普通用户 2：企业用户 3：快产专家
 	
 	private Byte state;	//用户状态 0：正常 1：冻结
 	

@@ -20,8 +20,10 @@ $(function(){
 			$liTemp.children('img').attr({"bimg":imgUrl, "src":imgUrl});
 			$imgUl.append($liTemp);
 		}
+		$('.jqzoom img').attr({'src':'uploadFile/enterprise/'+enterpriseImgAry[0],'jqimg':'uploadFile/enterprise/'+enterpriseImgAry[0]});
 	}else{
 		$imgUl.append($li);
+		$('.jqzoom img').attr({'src':'uploadFile/enterprise/default_big.png','jqimg':'uploadFile/enterprise/default_big.png'});
 	}
 	
 	//设置感兴趣的工厂的加工类型

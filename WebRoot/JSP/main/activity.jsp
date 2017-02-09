@@ -63,7 +63,7 @@
 				<tr>
 					<td><b>所在地区：</b></td>
 					<td>
-						<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择接单地区</button>
+						<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择地区</button>
 						<!-- 选择地区模态框 -->
 						<div class="modal fade" id="districtModal" tabindex="-1">
 							<div class="modal-dialog">
@@ -105,7 +105,7 @@
 		<div id="list">
 			<c:forEach items="${result.rows}" var="activity">
 				<div>
-					<a target="_blank" href="tradeNews/showDetail/${activity.id}">${activity.title}</a>
+					<a target="_blank" href="activity/showDetail/${activity.id}">${activity.title}</a>
 					<div style="float:right"><fmt:formatDate value="${activity.updateTime}" pattern="yyyy-MM-dd HH:mm" /></div>
 				</div>
 			</c:forEach>

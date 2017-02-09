@@ -56,6 +56,9 @@ $('#personForm').bootstrapValidator({
     	telephone: {
     		threshold: 11,
     		validators: {
+    			notEmpty : {
+					message : '不能为空'
+				},
     			regexp: {
                     regexp: /^1[3|4|5|7|8]\d{9}$/,
                     message: '手机号码格式不正确'
@@ -156,6 +159,9 @@ $('#enterpriseForm').bootstrapValidator({
     	telephone: {
     		threshold: 11,
     		validators: {
+    			notEmpty : {
+					message : '不能为空'
+				},
     			regexp: {
                     regexp: /^1[3|4|5|7|8]\d{9}$/,
                     message: '手机号码格式不正确'

@@ -3,10 +3,8 @@ var g_costumeCategory = null;
 
 $(function(){
 	initTradeAndCostumeObj();
-	initAd();
+//	initAd();
 	setCostumeCategoryDiv(0);
-	initIndentList();
-	initRecommend();
 	initPagination();//初始化分页
 });
 
@@ -47,17 +45,6 @@ $('#tradeDiv a').click(function(e){
 	setCostumeCategoryDiv(href-1);
 });
 
-//排序a点击事件
-/*$('#tableSort a').click(function(e){
-	e.preventDefault();
-	$('#tableSort a').css('color','black');
-	var $a = $(this);
-	$a.css('color','#4EB1E5');
-	var href = $a.attr('href');
-	$('input[name="sortMark"]').val(href);
-	query();
-});*/
-
 function setCostumeCategoryDiv(index){
 	//默认显示第一个行业分类下的服饰类型
 	var costumeCategory = g_tradeAndCostumeMap[index].children;
@@ -96,7 +83,7 @@ function checkDistrict(){
 	query();
 }
 
-//订单查询
+//查询
 function query(offset,totalRows){
 	//没有offset表示非翻页操作，需重新初始化分页控件
 	if(offset == undefined)
@@ -109,14 +96,8 @@ function query(offset,totalRows){
 	var county = $district.find('#county').val();
 	var town = $district.find('#town').val();
 	
-//	var processType = $('#processType a.label').attr('href');
-//	processType = processType == 0 ? null : processType;
-	var processYear = $('#processYear a.label').attr('href');
-	processYear = processYear == 0 ? null : processYear;
-	//排序
-//	var sortMark = $('input[name="sortMark"]').val();
-	$.get('contractor/search',{'costumeCode':costumeCode, 'province':province, 'city':city, 'county':county, 'town':town,
-		'processYear':processYear,'offset':offset,'total':totalRows},function(data){
+	$.get('costumeSample/search2',{'costumeCode':costumeCode, 'province':province, 'city':city, 'county':county, 'town':town,
+		'offset':offset,'total':totalRows},function(data){
 		//isResetPagination为true需重新初始化分页控件
 		if(totalRows==undefined){
 			resetPagination(data.total);
@@ -125,51 +106,21 @@ function query(offset,totalRows){
 	});
 }
 
-function initIndentList(){
-	$.get('contractor/search',{offset:0},function(data){
-		resetPagination(data.total);
-		generateTable(data);
-	});
-}
-
-//行点击事件
-function trClick(id){
-	window.open("contractor/showDetail/"+id);
-}
-
 function generateTable(data){
-	var $tbody = $('#contractorTable tbody');
-	$tbody.empty();
+	var $list = $('#list');
+	var $template = $('div[name="sample"] div');
+	$list.empty();
 	var rows = data.rows;
 	for(var i=0;i<rows.length;i++){
-		var contractor = rows[i];
-		var $tr = $('<tr onclick="trClick('+contractor.id+')">');
-		if(contractor.gender=='男')
-			$tr.append($('<td>').html('<img src="image/man.png">'));
-		else
-			$tr.append($('<td>').html('<img src="image/woman.png">'));
-		$tr.append($('<td>').html(contractor.age));
-		$tr.append($('<td>').html(contractor.processYear));
-		$tr.append($('<td>').html(contractor.workerAmount+'人'));
-		$tr.append($('<td>').html(contractor.district));
-		
-		//专业技能
-		var costumeCategoryAry = contractor.costumeCode.split(',');
-		var costumeStr = "";
-		for(var j=0; j<costumeCategoryAry.length; j++){
-			costumeStr += g_costumeCategory[costumeCategoryAry[j]]+' ';
-		}
-		
-		$tr.append($('<td>').html(costumeStr));
-		//工作场地
-		var workSpace = null;
-		if(contractor.workSpace==0)
-			workSpace = '在家';
-		else if(contractor.workSpace==1)
-			workSpace = '到厂';
-		$tr.append($('<td>').html(workSpace));
-		
-		$tbody.append($tr);
+		var costumeSample = rows[i];
+		var $temp = $template.clone();
+		var $a = $temp.children('a');
+		$a.attr('href','costumeSample/showDetail/'+costumeSample.num);
+		$a.children('img').attr('src','uploadFile/costumeSample/'+costumeSample.img);
+		var $pAry = $a.children('p');
+		$pAry.eq(0).text(costumeSample.name);
+		$pAry.eq(1).children('span').text(costumeSample.enterpriseName);
+		$list.append($temp);
 	}
 }
 
@@ -208,18 +159,6 @@ function hiddenMoreAlabel(){
 		$p.height(height-lineHeight);
 		$('a.excessA').css('display','none');
 		$a.children('span').attr('class','glyphicon glyphicon glyphicon-chevron-down');
-	}
-}
-
-function initRecommend(){
-	var $genders = $('input[name="gender"]');
-	for(var i=0; i<$genders.length; i++){
-		var $gender = $genders.eq(i);
-		if($gender.val()=='男'){
-			$gender.next().attr('src','image/man.png');
-		}else if($gender.val()=='女'){
-			$gender.next().attr('src','image/woman.png');
-		}
 	}
 }
 

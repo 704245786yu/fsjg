@@ -275,6 +275,13 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 		return list;
 	}
 	
+	/**快产人才主页用，推荐快产团队
+	 * 获取前工人数前10的快产团队
+	 * */
+	public List<ContractorHomeVo> getRecommend(){
+		return dao.getRecommend();
+	}
+	
 	/**设置地区编码信息
 	 * @return errorInfo
 	 * */
@@ -359,7 +366,7 @@ public class ContractorBiz extends BaseBiz<ContractorDao, Integer, Contractor> {
 		for(int i=1; i<costumeAry.length; i++){
 			costumeCode = costumeMap.get(costumeAry[i]);
 			if(costumeCode != null)
-				sb.append(costumeCode);
+				sb.append(","+costumeCode);
 		}
 		return sb.toString();
 	}

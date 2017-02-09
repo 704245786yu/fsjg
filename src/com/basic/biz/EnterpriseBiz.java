@@ -414,13 +414,14 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		//判断是否需要根据关键字匹配主营产品
 		if(costumeCodes == null || costumeCodes.length == 0){
 			List<Integer> costumeCategoryCodes = new ArrayList<Integer>();
-			int endIndex = 0;
+//			int endIndex = 0;
 			if(keyword.length() > 0){
 				costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
 				//为保证性能，取前3条服饰类型记录
-				endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
+//				endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
 			}
-			costumeCodes = costumeCategoryCodes.subList(0, endIndex).toArray(new Integer[]{});
+//			costumeCodes = costumeCategoryCodes.subList(0, endIndex).toArray(new Integer[]{});
+			costumeCodes = costumeCategoryCodes.toArray(new Integer[]{});
 		}
 		
 		BootTablePageDto<Enterprise> result = dao.search(province,city,county,town,

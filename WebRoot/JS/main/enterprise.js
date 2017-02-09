@@ -102,6 +102,7 @@ function getNewest(){
 			$head.next().text('主营产品：'+costumeStr);
 			$enterpriseList.append($new);
 		}
+		$("#newEnterprise").slide({mainCell:"ul",autoPlay:true,effect:"topMarquee",vis:3,interTime:50});
 	});
 }
 
@@ -124,6 +125,7 @@ function getNewAuth(){
 			$head.next().text('主营产品：'+costumeStr);
 			$enterpriseList.append($new);
 		}
+		$("#newAuthEnterprise").slide({mainCell:"ul",autoPlay:true,effect:"topMarquee",vis:5,interTime:50});
 	});
 }
 

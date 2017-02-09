@@ -1,4 +1,7 @@
 @CHARSET "UTF-8";
+*{
+	font-family:Microsoft YaHei;
+}
 /*面包屑*/
 .crumb{
 	border:1px solid #DDD;

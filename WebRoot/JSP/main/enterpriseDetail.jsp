@@ -44,7 +44,7 @@
 	<div style="width:1190px;margin:0 auto;">
 		<ul class="nav navbar-nav" >
 			<li name="li-home" style="background-image:url('image/nav-orange.png');"><a>店铺首页</a></li>
-			<li name="li-sample"><a target="_blank" href="costumeSample/showEntSample/${enterprise.number}">样品展示</a></li>
+			<li name="li-sample"><a target="_blank" href="costumeSample/showEntSample/${enterprise.number}/0">样品展示</a></li>
 		</ul>
 	</div>
 </nav>
@@ -111,7 +111,7 @@
 						<input type="hidden" name="enterpriseImg" value="${enterprise.enterpriseImg}">
 						<div id="preview" class="spec-preview">
 							<span class="jqzoom">
-								<img style="width:410px;height:260px;" jqimg="uploadFile/enterprise/default_big.png" src="uploadFile/enterprise/default_big.png" />
+								<img style="width:410px;height:260px;" jqimg="">
 							</span>
 						</div>
 						<!--缩图开始-->

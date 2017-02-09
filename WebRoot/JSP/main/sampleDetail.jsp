@@ -16,6 +16,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="plugin/awesome-bootstrap-checkbox/Font-Awesome/css/font-awesome.min.css" rel="stylesheet">
 <link href="plugin/jquery-arc-pic/css/base.css" rel="stylesheet">
 <link href="CSS/sample-detail.css" rel="stylesheet">
 
@@ -46,6 +47,7 @@
 			<div class="panel-body">
 				<div class="media">
 					<div class="media-left">
+						<input type="hidden" name="entNum" value="${enterprise.number}">
 						<a target="_blank" href="enterprise/showDetail/${enterprise.id}">
 							<img style="width:90px;height:90px;" class="media-object" src="uploadFile/enterprise/${enterprise.logo}">
 						</a>
@@ -82,8 +84,41 @@
 				<p>地址：<c:forEach items="${districts}" var="district">${district}</c:forEach>${enterprise.detailAddr}</p>
 			</div>
 		</div>
+		<div>
+			<span id="costumeCateMap" style="display:none;">${costumeCateMap}</span>
+			<ul class="list-group">
+				<li class="list-group-item"  style="background-color:#F5F5F5;"><h3 class="panel-title"><span class="glyphicon glyphicon-volume-up"></span> 产品类别</h3></li>
+				<li class="list-group-item"><a href="costumeSample/showEntSample/${enterprise.number}/0" target="_blank">查看所有宝贝</a></li>
+			</ul>
+			<!-- 类目Demo -->
+			<div id="costumeCateLi" style="display:none;">
+				<li class="list-group-item">
+					<!-- 二级类目 -->
+					<a class="faSquare" href="#">
+						<i class="fa fa-plus-square-o"></i>
+					</a> <a name="secCate"></a>
+					<!-- 三级类目 -->
+					<div style="padding-left:25px;display:none">
+						<!-- <div><a href="#">内裤</a></div> -->
+					</div>
+				</li>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				 <h3 class="panel-title"><span class="glyphicon glyphicon-volume-up"></span> 最新上架</h3>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${newestList}" var="newest">
+					<a target="_blank" href="costumeSample/showDetail/${newest.num}">
+						<img src="uploadFile/costumeSample/${newest.smImg}" style="width:100%;height:200px;">
+						<p>${newest.name}</p>
+					</a>
+				</c:forEach>
+			</div>
+		</div>
 	</td>
-	<td style="padding-left:5px;">
+	<td style="padding-left:5px;vertical-align:top;">
 		<!-- 主体 -->
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -109,17 +144,19 @@
 					<!--图片展示结束-->
 				</div>
 				<div class="col-md-6" style="padding-left:20px;">
-					<table style="width:100%;margin-top:20px;text-align:center;">
+					<input type="hidden" name="support" value="${costumeSample.support}">
+					<table id="supportTable" style="width:100%;margin-top:20px;text-align:center;">
 						<tr>
-							<td>
+							<td style="display:none;">
 								<img src="image/costumeSample/gai.png">
 								<div>支持改款</div>
 							</td>
-							<td style="border-left:1px solid #dfddd9;border-right:1px solid #dfddd9;">
+							<!-- <td style="border-left:1px solid #dfddd9;border-right:1px solid #dfddd9;"> -->
+							<td style="display:none;">
 								<img src="image/costumeSample/tie.png">
 								<div>贴牌生产</div>
 							</td>
-							<td>
+							<td style="display:none;">
 								<img src="image/costumeSample/kan.png">
 								<div>支持看样</div>
 							</td>

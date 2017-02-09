@@ -2,9 +2,10 @@
 html,body,div,ul,p,span,button{
 	padding:0;
 	margin:0;
-	font-family:微软雅黑;
 }
-
+*{
+	font-family:Microsoft YaHei;
+}
 /*面包屑*/
 .crumb{
 	border:1px solid #DDD;
@@ -29,3 +30,12 @@ html,body,div,ul,p,span,button{
 #baseInfoDiv a{
 	text-decoration:none;
 }
+
+/*产品类别*/
+ul.list-group a{
+	color:black;
+	text-decoration:none;
+}
+ul.list-group a:hover{
+	color:#009EF2;
+};
