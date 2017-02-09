@@ -13,7 +13,7 @@ $(function(){
 });
 
 $('#dg').bootstrapTable({
-	onPageChange:function(number,size){
+	onLoadSuccess:function(number,size){
 		g_total = $('#dg').bootstrapTable('getOptions').totalRows;
 	}
 });
@@ -22,14 +22,15 @@ function queryParams(params){
 	var userName = $('input[name="userName"]').val();
 	var telephone = $('input[name="telephone"]').val();
 	var auditState = $('select[name="auditState"]').val();
+	var createType = $('select[name="createType"]').val();
 	var beginDate = $('input[name="beginDate"]').val();
 	var endDate = $('input[name="endDate"]').val();
 	params.userName = userName;
 	params.telephone = telephone;
 	params.auditState = auditState;
+	params.createType = createType;
 	params.beginDate = beginDate;
 	params.endDate = endDate;
-	
 	params.total = g_total;//g_total可能为null
 	
 	delete params.order;
@@ -60,7 +61,7 @@ function view(id){
 			str += data[i];
 		}
 		var detailAddr = row.detailAddr == null ? '' : row.detailAddr;
-		str += row.detailAddr;
+		str += detailAddr;
 		$viewPanel.find('p[name="detailAddr"]').html(str);
 	});
 	$viewPanel.find('p[name="userName"]').html(row.basicUser.userName);
@@ -70,8 +71,10 @@ function view(id){
 		auditState = '无';
 	$viewPanel.find('p[name="auditState"]').html(auditState);
 	$viewPanel.find('p[name="state"]').html(g_userState[row.basicUser.state]);
-	if(row.idFrontPhoto != null){
+	if(row.idFrontPhoto != null && row.idFrontPhoto != ''){
 		$viewPanel.find('img[name="idFrontPhoto"]').attr('src',"uploadFile/person/"+row.idFrontPhoto);
+	}
+	if(row.idBackPhoto != null && row.idBackPhoto != ''){
 		$viewPanel.find('img[name="idBackPhoto"]').attr('src',"uploadFile/person/"+row.idBackPhoto);
 	}
 	$('#listPanel').hide();
@@ -79,6 +82,7 @@ function view(id){
 }
 
 function hideView(){
+	$('#viewPanel img').removeAttr('src','');
 	$('#listPanel').show();
 	$('#viewPanel').hide();
 }
@@ -96,6 +100,14 @@ function stateFormatter(value,row,index){
 	return g_userState[value];
 }
 
+//注册类型
+function createByFormatter(value,row,index){
+	if(value==0)
+		return '前台注册';
+	else
+		return '后台导入';
+}
+
 function operFormatter(value,row,index){
 	var viewBtn = "<button type='button' class='btn btn-default btn-xs' title='查看' onclick='view("+row.id+")'><span class='text-primary glyphicon glyphicon-eye-open'></span></button>";
 	var stateBtn = '';
@@ -106,11 +118,6 @@ function operFormatter(value,row,index){
 	}
 	var delBtn = " <button type='button' class='btn btn-default btn-xs' title='删除' onclick='del("+index+","+row.id+")'><span class='text-primary glyphicon glyphicon-trash'></span></button>";
 	return viewBtn + stateBtn + delBtn;
-}
-
-//根据常量名称搜索
-function search(){
-	$('#dg').bootstrapTable('selectPage',1);
 }
 
 //审核处理
@@ -137,81 +144,6 @@ function modifyState(id, state){
 		}
 	});
 }
-
-//表单验证
-/*$('#ff').bootstrapValidator({
-    feedbackIcons: {
-        valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-        validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-    	constantName: {
-    		validators: {
-    			notEmpty: {
-    				message: '不能为空'
-    			},
-    			stringLength: {
-    				max: 10,
-    				message: '最多10个字符'
-    			}
-    		}
-    	},
-    	constantTypeCode: {
-            validators: {
-                notEmpty: {
-                    message: '不能为空'
-                },
-                stringLength: {
-                    min: 1,
-                    max: 20,
-                    message: '请输入1到20个字符'
-                },
-                regexp: {
-                    regexp: /^[a-zA-Z_]+$/,
-                    message: '只能由字母和下划线组成'
-                }
-            }
-        },
-        constantValue: {
-            validators: {
-                notEmpty: {
-                    message: '不能为空'
-                },
-                stringLength: {
-                    min: 1,
-                    max: 8,
-                    message: '请输入1到8个字符'
-                },
-                regexp: {
-                    regexp: /^[0-9]+$/,
-                    message: '只能输入数字'
-                }
-            }
-        },
-        description: {
-            validators: {
-                stringLength: {
-                    min: 1,
-                    max: 30,
-                    message: '请输入1到30个字符'
-                }
-            }
-        }
-    }
-}).on('success.form.bv', function(e) {
-	new BsFormTableExtend().submitFunc(e);
-});*/
-
-//新增
-/*function add(){
-	$('#ff').attr('action','person/save');
-}*/
-
-//修改
-/*function modify(id){
-	new BsFormTableExtend().showModifyForm(id, 'person/update');
-}*/
 
 //删除
 function del(index,id){

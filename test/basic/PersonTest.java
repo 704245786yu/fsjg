@@ -39,7 +39,7 @@ public class PersonTest {
 		Date endTime = null;
 		beginTime = DateTransform.String2Date("2016-08-01", "yyyy-MM-dd");
 		endTime = DateTransform.String2Date("2016-10-10"+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
-		JacksonJson.printBeanToJson(personDao.findByPage("", null, null, beginTime, endTime, 0, 10, null));
+		JacksonJson.printBeanToJson(personDao.findByPage("", null, null, null, beginTime, endTime, 0, 10, null));
 	}
 	
 	@Test

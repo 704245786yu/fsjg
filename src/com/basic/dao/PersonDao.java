@@ -28,7 +28,7 @@ public class PersonDao extends BaseDao<Integer, Person>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
+	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Integer createType,Date beginDate,Date endDate,int offset, int limit, Long total){
 		StringBuffer hql = new StringBuffer("from Person where 1=1");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
@@ -46,6 +46,13 @@ public class PersonDao extends BaseDao<Integer, Person>{
 			hql.append(" and auditState =:auditState");
 			params.add("auditState");
 			values.add(auditState);
+		}
+		if(createType!=null){
+			if(createType==0){
+				hql.append(" and basicUser.createBy = 0");
+			}else{
+				hql.append(" and basicUser.createBy != 0");
+			}
 		}
 		if(beginDate!=null && endDate!=null){
 			hql.append(" and basicUser.createTime between :beginDate and :endDate");

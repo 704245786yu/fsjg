@@ -48,6 +48,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</select>
 			</div>
 			<div class="form-group">
+				<label>注册类型</label>
+				<select class="form-control" name="createType">
+					<option value="">全部</option>
+					<option value="0">前台注册</option>
+					<option value="1">后台导入</option>
+				</select>
+			</div>
+			<div class="form-group">
 				<label for="startDate">创建日期</label>
 				<div class="input-group date">
 	                <input type="text" class="form-control" name="beginDate"/>
@@ -84,6 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="basicUser.createTime" data-align="center">注册时间</th>
 		            <th data-field="auditState" data-align="center" data-formatter="auditFormatter">实名审核状态</th>
 		            <th data-field="basicUser.state" data-align="center" data-formatter="stateFormatter">用户状态</th>
+		            <th data-field="basicUser.createBy" data-align="center" data-formatter="createByFormatter">注册类型</th>
 		            <th data-formatter="operFormatter" class="col-sm-2" data-align="center">操作</th>
 		        </tr>
 		    </thead>

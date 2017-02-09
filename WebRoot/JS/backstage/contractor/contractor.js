@@ -11,7 +11,7 @@ $(function(){
 });
 
 $('#dg').bootstrapTable({
-	onPageChange:function(number,size){
+	onLoadSuccess:function(number,size){
 		g_total = $('#dg').bootstrapTable('getOptions').totalRows;
 	}
 });
@@ -71,15 +71,9 @@ function dateFormatter(value,row,index){
 
 //根据常量名称搜索
 function search(){
+	g_total = null;
 	$('#dg').bootstrapTable('selectPage',1);
 }
-
-//查询框回车执行查询操作
-$('#searchText').keydown(function(event){
-	if(event.keyCode == 13){
-		search();
-	}
-});
 
 //删除
 function del(index,id){

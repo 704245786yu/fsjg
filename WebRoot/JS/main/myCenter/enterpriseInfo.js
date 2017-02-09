@@ -275,6 +275,8 @@ function success(data){
 		}
 		//清空删除的旧图片
 		g_delImg = new Array();
+		//清空上传表单域
+		$('input[type="file"]').val('');
 	}else if(data.status==500){
 		g_jqConfirm.showDialog('保存失败',data.value);
 	}else if(data.status==501){

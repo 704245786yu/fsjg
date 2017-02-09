@@ -116,6 +116,8 @@ public class LoginCtrl {
 		}
 
 		basicUser.setState((byte)0);
+		basicUser.setCreateBy(0);
+		basicUser.setUpdateBy(0);
 		errorMsg = basicUserBiz.signUp(basicUser, enterpriseName);
 		if(errorMsg != null){
 			mav.setViewName(redirectSignUp);
@@ -155,10 +157,11 @@ public class LoginCtrl {
 	public ModelAndView login(String userName, String password, HttpSession session){
 		BasicUser basicUser = basicUserBiz.login(userName, password);
 		ModelAndView mav = new ModelAndView();
+		Integer one = new Integer(1);
 		if(basicUser == null){
 			mav.setViewName("../login");
 			mav.addObject("errorMsg", "用户名或密码错误");
-		}else if(basicUser.getState() == 1){
+		}else if(one.equals(basicUser.getState())){
 			mav.setViewName("../login");
 			mav.addObject("errorMsg", "您的帐号已冻结请联系客服");
 		}else{

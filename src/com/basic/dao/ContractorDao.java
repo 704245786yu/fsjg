@@ -109,17 +109,17 @@ public class ContractorDao extends BaseDao<Integer, Contractor>{
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
 		if(userName.length()>0){
-			hql.append(" and userName like :userName");
+			hql.append(" and p.basicUser.userName like :userName");
 			params.add("userName");
 			values.add("%"+userName+"%");
 		}
 		if(telephone!=null){
-			hql.append(" and telephone =:telephone");
+			hql.append(" and p.basicUser.telephone =:telephone");
 			params.add("telephone");
 			values.add(telephone);
 		}
 		if(auditState!=null){
-			hql.append(" and auditState =:auditState");
+			hql.append(" and p.auditState =:auditState");
 			params.add("auditState");
 			values.add(auditState);
 		}

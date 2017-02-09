@@ -59,14 +59,14 @@ public class PersonCtrl extends BaseCtrl<PersonBiz, Integer, Person> {
 	 * */
 	@RequestMapping("findByPage")
 	@ResponseBody
-	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,String beginDate,String endDate,int offset, int limit, Long total){
+	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Integer createType,String beginDate,String endDate,int offset, int limit, Long total){
 		Date beginTime = null;
 		Date endTime = null;
 		if(beginDate.length()>0 && endDate.length()>0){
 			beginTime = DateTransform.String2Date(beginDate, "yyyy-MM-dd");
 			endTime = DateTransform.String2Date(endDate+" 23:59:59", "yyyy-MM-dd HH:mm:ss");
 		}
-		return biz.findByPage(userName,telephone,auditState,beginTime,endTime,offset,limit,total);
+		return biz.findByPage(userName,telephone,auditState,createType,beginTime,endTime,offset,limit,total);
 	}
 	
 	/**实名审核*/

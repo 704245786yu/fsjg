@@ -57,8 +57,8 @@ public class PersonBiz extends BaseBiz<PersonDao, Integer, Person> {
 		dao.executeUpdate(hql, new String[]{"auditState","auditBy","auditTime","id"}, new Object[]{auditState,auditBy,new Date(),id});
 	}
 	
-	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
-		return dao.findByPage(userName, telephone, auditState, beginDate, endDate, offset, limit, total);
+	public BootTablePageDto<Person> findByPage(String userName,Long telephone,Byte auditState,Integer createType,Date beginDate,Date endDate,int offset, int limit, Long total){
+		return dao.findByPage(userName, telephone, auditState, createType, beginDate, endDate, offset, limit, total);
 	}
 	
 	/**获取省市信息*/

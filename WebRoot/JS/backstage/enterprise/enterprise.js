@@ -18,7 +18,7 @@ $(function(){
 });
 
 $('#dg').bootstrapTable({
-	onPageChange:function(number,size){
+	onLoadSuccess:function(number,size){
 		g_total = $('#dg').bootstrapTable('getOptions').totalRows;
 	}
 });
