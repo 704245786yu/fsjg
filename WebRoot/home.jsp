@@ -40,12 +40,12 @@
 	</div>
 </div>
 <%@ include file="JSP/main/top.jsp" %>
-<div style="float:left;width:50px;margin-left:60px;color:#FF5900;">
+<!-- <div style="float:left;width:50px;margin-left:60px;color:#FF5900;">
 	<h2>网站测试中 尽请期待</h2>
 </div>
 <div style="float:right;width:50px;margin-right:60px;color:#FF5900">
 	<h2>网站测试中 尽请期待</h2>
-</div>
+</div> -->
 <div class="main-body" style="width:1190px; margin:0 auto;">
 <span style="display:none;" id="tradeAndCostumeMap">${applicationScope.tradeAndCostumeMap}</span>
 <span style="display:none;" id="adPositions">${adPositions}</span>
