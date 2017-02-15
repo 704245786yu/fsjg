@@ -308,6 +308,9 @@
 				</div>
 			</div>
 		</div> -->
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
 		<!-- 最新认证加工厂 -->
 		<div class="row">
 			<div class="col-md-12">
