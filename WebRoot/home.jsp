@@ -14,6 +14,7 @@
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
+<meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
