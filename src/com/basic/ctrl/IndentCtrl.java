@@ -198,6 +198,13 @@ public class IndentCtrl extends BaseCtrl<IndentBiz,Integer,Indent>{
 		ModelAndView mav = new ModelAndView("main/indentList");
 		mav.addObject("result", result);
 		
+		//热门区域 如果通过城市点击进来，需获取所在省，以便工厂列表进行翻页
+		if(city!=null && province==null){
+			province = districtBiz.getPcode(city);
+		}
+		mav.addObject("province", province);
+		mav.addObject("city", city);
+		
 		//广告位
 		List<AdPosition> adPositions = adPositionBiz.getByCode("indent_list");
 		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));

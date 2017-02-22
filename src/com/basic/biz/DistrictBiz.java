@@ -216,6 +216,14 @@ public class DistrictBiz extends BaseBiz<DistrictDao,Long,District>{
 		return dao.getNameByCode(codes);
 	}
 	
+	/**根据子Code获取父级code*/
+	@SuppressWarnings("unchecked")
+	public Long getPcode(Long code){
+		String hql = "select pCode from District where districtCode =:code";
+		List<Long> list = (List<Long>)dao.find(hql, new String[]{"code"}, new Long[]{code});
+		return list.get(0);
+	}
+	
 	/**根据地区名称分页查询
 	 * @param districtName 地区名称模糊匹配
 	 * */

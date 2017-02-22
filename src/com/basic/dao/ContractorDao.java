@@ -152,7 +152,7 @@ public class ContractorDao extends BaseDao<Integer, Contractor>{
 	
 	public List<ContractorHomeVo> getRecommend(){
 		String hql = "select c.personId as id, p.gender as gender, p.age as age, c.processYear as processYear, c.workerAmount as workerAmount from Contractor c, Person p where c.personId = p.id order by c.workerAmount desc";
-		List<ContractorHomeVo> list = super.findByPage(hql, 0, 6, new String[]{}, null, ContractorHomeVo.class);
+		List<ContractorHomeVo> list = super.findByPage(hql, 0, 20, new String[]{}, null, ContractorHomeVo.class);
 		return list;
 	}
 }

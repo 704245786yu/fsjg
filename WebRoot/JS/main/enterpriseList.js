@@ -7,7 +7,16 @@ $(function(){
 	initAd();
 	initEnterpriseList();
 	initPagination();//初始化分页
+	initDistrict();
 });
+
+function initDistrict(){
+	var province = $(':hidden[name="province"]').val();
+	var city = $(':hidden[name="city"]').val();
+	if(province != null){
+		fillDistrict(province,city,null,null);
+	}
+}
 
 function initTradeAndCostumeObj(){
 	var str = $('#tradeAndCostumeMap').html();

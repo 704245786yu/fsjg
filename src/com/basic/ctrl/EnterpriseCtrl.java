@@ -188,6 +188,13 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		mav.addObject("result", result);
 		
+		//热门区域 如果通过城市点击进来，需获取所在省，以便工厂列表进行翻页
+		if(city!=null && province==null){
+			province = districtBiz.getPcode(city);
+		}
+		mav.addObject("province", province);
+		mav.addObject("city", city);
+		
 		//广告位
 		List<AdPosition> adPositions = adPositionBiz.getByCode("enterprise_list");
 		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));

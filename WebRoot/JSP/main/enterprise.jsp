@@ -321,8 +321,8 @@
 					<div id="newAuthEnterprise" class="panel-body" style="padding:0px;">
 						<ul id="newAuthEnterpriseList" class="list-group" style="margin-bottom:0px;">
 							<li class="list-group-item enterprise" style="display:none;border-bottom:0px;border-left:0px;border-right:0px;">
-								<h4 class="media-heading"><a target="_blank">工厂名称</a></h4>
-								<p class="list-group-item-text"></p>
+								<h4 class="media-heading" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><a target="_blank">工厂名称</a></h4>
+								<p class="list-group-item-text" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"></p>
 								<h4><span class="label" style="background-color:#ff6717">已通过资质认证</span></h4>
 							</li>
 						</ul>
