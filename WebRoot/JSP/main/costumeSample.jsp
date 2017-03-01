@@ -113,10 +113,6 @@
 	
 	<!-- 右边栏 -->
 	<td style="width:274px;vertical-align:top;padding-left:10px;background-color:#FBF8F9">
-		<!-- 广告 -->
-		<a class="ad" target="_blank"><img width="100%" style="margin-bottom:10px;"></a>
-		<a class="ad" target="_blank"><img width="100%" style="margin-bottom:10px;"></a>
-		
 		<!-- 行业分类 -->
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -137,6 +133,19 @@
 				</p>
 			</div><!-- panel-body -->
 		</div><!-- panel -->
+		
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
 		
 		<div name="sample" style="display:none;">
 			<div class="col-md-3 col-xs-3">

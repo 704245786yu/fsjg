@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <link href="plugin/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet">
+<link href="plugin/zoom-js/zoom.css" rel="stylesheet">
 <style>
 #ff table tr{
 	height:45px;
@@ -112,7 +113,7 @@
 						<input type="file" name="frontPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="display:none;">
-							<img style="width:150px;height:100px">
+							<img style="width:150px;height:100px" data-action="zoom">
 						</div>
 					</td>
 					<td><label>身份证照(反)</label></td>
@@ -121,7 +122,7 @@
 						<input type="file" name="backPhoto" accept="image/jpeg,image/png" onchange="imgChange(this,200)">
 						<p style="color:grey;">支持jpg、png格式图片,尺寸400*240,最大200kb</p>
 						<div style="display:none;">
-							<img style="width:150px;height:100px">
+							<img style="width:150px;height:100px" data-action="zoom">
 						</div>
 					</td>
 				</tr>
@@ -196,5 +197,6 @@
 <script src="plugin/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script src="plugin/jquery.form.min.js"></script>
 <script src="plugin/jquery.formFill.js"></script>
+<script src="plugin/zoom-js/zoom.min.js"></script>
 <script src="JS/main/common/districtCascade.js"></script>
 <script src="JS/backstage/contractor/editContractor.js"></script>

@@ -217,6 +217,10 @@
 				</c:forEach>
 			</table>
 		</div><!-- panel -->
+		
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
 	</td>
 </tr>
 </table>

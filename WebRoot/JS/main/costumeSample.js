@@ -3,7 +3,7 @@ var g_costumeCategory = null;
 
 $(function(){
 	initTradeAndCostumeObj();
-//	initAd();
+	initAd();
 	setCostumeCategoryDiv(0);
 	initPagination();//初始化分页
 });

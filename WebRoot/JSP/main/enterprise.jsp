@@ -330,6 +330,9 @@
 				</div><!-- panel -->
 			</div><!-- col-md -->
 		</div><!-- row -->
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
 	</div><!-- 右边栏 -->
 </div>
 <%@ include file="/JSP/main/bottom.jsp"%>

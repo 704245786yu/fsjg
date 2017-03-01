@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 	<link href="plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="plugin/zoom-js/zoom.css" rel="stylesheet">
 </head>
   
 <body>
@@ -312,8 +313,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label class="col-sm-1 control-label">身份证照:</label>
 				<div class="col-sm-9">
 					<p class="form-control-static" name="authenticationState">
-						<img name="idFrontPhoto" style="width:200px;height:150px;margin-right:20px;"/>
-						<img name="idBackPhoto" style="width:200px;height:150px"/>
+						<img name="idFrontPhoto" data-action="zoom" style="width:200px;height:150px;margin-right:20px;"/>
+						<img name="idBackPhoto" data-action="zoom" style="width:200px;height:150px"/>
 					</p>
 				</div>
 			</div>
@@ -350,6 +351,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="plugin/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
 <script src="plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="plugin/jquery.mask.min.js"></script>
+
+<script src="plugin/zoom-js/zoom.min.js"></script>
 
 <script src="JS/util/bsFormTableExtend.js"></script>
 <script src="JS/util/jqConfirmExtend.js"></script>
