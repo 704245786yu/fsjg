@@ -106,11 +106,16 @@
 		<div class="panel panel-default" style="padding:20px;">
 			<input id="totalRows" type="hidden" value="${result.total}">
 			<table class="table table-hover" id="list">
+				<thead style="font-size:16px;">
+					<th>发布地址</th>
+					<th style="text-align:center;">活动内容</th>
+					<th style="text-align:center;">活动日期</th>
+				</thead>
 				<c:forEach items="${result.rows}" var="activity">
 					<tr onclick="window.open('activity/showDetail/${activity.id}')">
 						<td>${activity.detailAddr}</td>
 						<td style="text-align:center;">${activity.title}</td>
-						<td style="text-align:right;"><fmt:formatDate value="${activity.updateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
+						<td style="text-align:center;"><fmt:formatDate value="${activity.updateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
 					</tr>
 				</c:forEach>
 			</table>

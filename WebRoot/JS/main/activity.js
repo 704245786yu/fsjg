@@ -65,12 +65,17 @@ function generateList(data){
 	var $list = $('#list');
 	$list.empty();
 	var rows = data.rows;
+	var $tr = $('<thead style="font-size:16px;">');
+	$tr.append($('<th>').text("发布地址"));
+	$tr.append($('<th style="text-align:center;">').text("活动内容"));
+	$tr.append($('<th style="text-align:center;">').text("活动日期"));
+	$list.append($tr);
 	for(var i=0;i<rows.length;i++){
 		var activity = rows[i];
-		var $tr = $('<tr onclick="trClick('+activity.id+')">');
+		$tr = $('<tr onclick="trClick('+activity.id+')">');
 		$tr.append($('<td>').text(activity.detailAddr));
 		$tr.append($('<td style="text-align:center;">').text(activity.title));
-		$tr.append($('<td style="text-align:right;">').text(moment(activity.updateTime).format('YYYY-MM-DD HH:mm')));
+		$tr.append($('<td style="text-align:center;">').text(moment(activity.updateTime).format('YYYY-MM-DD HH:mm')));
 		$list.append($tr);
 	}
 }
