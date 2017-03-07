@@ -100,7 +100,7 @@ public class ActivityBiz extends BaseBiz<ActivityDao,Integer,Activity>{
 			if(total == 0)
 				return new BootTablePageDto<Activity>(total, new ArrayList<Activity>());
 		}
-		List<Activity> list = (List<Activity>)dao.findByPage("select new Activity(id, title, updateTime) "+hql.toString()+" order by updateTime desc", offset, limit, params.toArray(new String[]{}), values.toArray(new Long[]{}));
+		List<Activity> list = (List<Activity>)dao.findByPage("select new Activity(id, province, city, county, title, updateTime) "+hql.toString()+" order by updateTime desc", offset, limit, params.toArray(new String[]{}), values.toArray(new Long[]{}));
 		return new BootTablePageDto<Activity>(total,list);
 	}
 }

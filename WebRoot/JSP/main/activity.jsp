@@ -52,73 +52,87 @@
 <body>
 <%@ include file="top.jsp" %>
 <input type="hidden" name="pageName" value="activity">
-<div style="width:1190px; margin:0 auto;">
-	<div class="crumb">
-		<span class="glyphicon glyphicon-home"></span>
-		当前位置：<a href="#">首页</a> > 活动推广 
-	</div>
-	<div class="panel panel-default search-panel">
-		<div class="panel-body">
-			<table>
-				<tr>
-					<td><b>所在地区：</b></td>
-					<td>
-						<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择地区</button>
-						<!-- 选择地区模态框 -->
-						<div class="modal fade" id="districtModal" tabindex="-1">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-										<h5 class="modal-title" id="myModalLabel">选择地区</h5>
-									</div>
-									<div id="districtContainer" class="modal-body">
-										<div class="row">
-											<div class="col-sm-3">
-												<select class="form-control" id="province" name="province"></select>
-											</div>
-											<div class="col-sm-3">
-												<select class="form-control" id="city" name="city"></select>
-											</div>
-											<div class="col-sm-3">
-												<select class="form-control" id="county" name="county"></select>
-											</div>
-											<div class="col-sm-3">
-												<select class="form-control" id="town" name="town"></select>
+<span style="display:none;" id="adPositions">${adPositions}</span>
+<table style="width:1190px;margin:0 auto;">
+<tr>
+	<td style="width:906px;vertical-align:top;">
+		<div class="crumb">
+			<span class="glyphicon glyphicon-home"></span>
+			当前位置：<a href="#">首页</a> > 活动推广 
+		</div>
+		<div class="panel panel-default search-panel">
+			<div class="panel-body">
+				<table>
+					<tr>
+						<td><b>所在地区：</b></td>
+						<td>
+							<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择地区</button>
+							<!-- 选择地区模态框 -->
+							<div class="modal fade" id="districtModal" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+											<h5 class="modal-title" id="myModalLabel">选择地区</h5>
+										</div>
+										<div id="districtContainer" class="modal-body">
+											<div class="row">
+												<div class="col-sm-3">
+													<select class="form-control" id="province" name="province"></select>
+												</div>
+												<div class="col-sm-3">
+													<select class="form-control" id="city" name="city"></select>
+												</div>
+												<div class="col-sm-3">
+													<select class="form-control" id="county" name="county"></select>
+												</div>
+												<div class="col-sm-3">
+													<select class="form-control" id="town" name="town"></select>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkDistrict()">确定</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="checkDistrict()">确定</button>
+											<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	<div class="panel panel-default" style="padding:20px;">
-		<input id="totalRows" type="hidden" value="${result.total}">
-		<div id="list">
-			<c:forEach items="${result.rows}" var="activity">
-				<div>
-					<a target="_blank" href="activity/showDetail/${activity.id}">${activity.title}</a>
-					<div style="float:right"><fmt:formatDate value="${activity.updateTime}" pattern="yyyy-MM-dd HH:mm" /></div>
-				</div>
-			</c:forEach>
-		</div>
-		<div id="bsPagination" style="text-align:center"></div>
-		<div id="template" style="display:none">
-			<div>
-				<a target="_blank" href="activity/showDetail/"></a>
-				<div style="float:right"></div>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
-	</div>
-</div>
+		<div class="panel panel-default" style="padding:20px;">
+			<input id="totalRows" type="hidden" value="${result.total}">
+			<table class="table table-hover" id="list">
+				<c:forEach items="${result.rows}" var="activity">
+					<tr onclick="window.open('activity/showDetail/${activity.id}')">
+						<td>${activity.detailAddr}</td>
+						<td style="text-align:center;">${activity.title}</td>
+						<td style="text-align:right;"><fmt:formatDate value="${activity.updateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
+					</tr>
+				</c:forEach>
+			</table>
+			<div id="bsPagination" style="text-align:center"></div>
+		</div>
+	</td>
+	<td style="width:274px;vertical-align:top;padding-left:10px;">
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
+		<div style="margin-bottom:20px;">
+			<a class="ad" target="_blank"><img style="height:210px;width:280px;"/></a>
+		</div>
+	</td>
+</tr>
+</table>
 <%@ include file="/JSP/main/bottom.jsp"%>
 
 <script src="plugin/bootstrap/js/bootstrap.min.js"></script>

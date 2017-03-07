@@ -1,10 +1,13 @@
 package com.ad.ctrl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +15,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ad.biz.ActivityBiz;
+import com.ad.biz.AdPositionBiz;
 import com.ad.po.Activity;
+import com.ad.po.AdPosition;
 import com.common.BaseCtrl;
 import com.common.dto.BootTablePageDto;
 import com.sys.ctrl.UserCtrl;
 import com.sys.po.User;
+import com.util.JacksonJson;
 
 @Controller
 @RequestMapping("activity")
 public class ActivityCtrl extends BaseCtrl<ActivityBiz, Integer, Activity> {
 
+	@Autowired
+	private AdPositionBiz adPositionBiz;
+	
 	/**显示后台管理页面*/
 	@RequestMapping("showManage")
 	public ModelAndView showManage(){
@@ -30,9 +39,26 @@ public class ActivityCtrl extends BaseCtrl<ActivityBiz, Integer, Activity> {
 		return mav;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ModelAndView showDefaultPage(HttpSession session){
 		ModelAndView mav = new ModelAndView("main/activity");
 		BootTablePageDto<Activity> result = biz.getTitleByPage(null,null,null,null, 0, 20, null);
+		List<Activity> list = result.getRows();
+		ServletContext servletContext=session.getServletContext();
+		HashMap<Long,String> districtCodeNameMap = (HashMap<Long,String>)servletContext.getAttribute("districtCodeNameMap");
+		for(int i=0; i<list.size(); i++){
+			Activity a = list.get(i);
+			String provinceStr = districtCodeNameMap.get(a.getProvince());
+			provinceStr = provinceStr==null ? "" : provinceStr;
+			String cityStr = districtCodeNameMap.get(a.getCity());
+			cityStr = cityStr==null ? "" : cityStr;
+			String countyStr = districtCodeNameMap.get(a.getCounty());
+			countyStr = countyStr==null ? "" : countyStr;
+			a.setDetailAddr(provinceStr+" "+cityStr+" "+countyStr);
+		}
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("activity_list");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
 		mav.addObject("result", result);
 		return mav;
 	}
@@ -68,26 +94,36 @@ public class ActivityCtrl extends BaseCtrl<ActivityBiz, Integer, Activity> {
 	}
 	
 	@RequestMapping("showDetail/{id}")
-	public ModelAndView showDetail(@PathVariable int id){
+	public ModelAndView showDetail(@PathVariable int id,HttpSession session){
 		ModelAndView mav = new ModelAndView("main/activityDetail");
 		Activity activity = biz.getById(id);
 		mav.addObject("activity", activity);
+		//广告位
+		List<AdPosition> adPositions = adPositionBiz.getByCode("activity_detail");
+		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
 		return mav;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("getList")
 	@ResponseBody
-	public BootTablePageDto<Activity> getList(Long province, Long city, Long county, Long town, int offset, Long total){
-		return biz.getTitleByPage(province, city, county, town, offset, 20, total);
+	public BootTablePageDto<Activity> getList(HttpSession session, Long province, Long city, Long county, Long town, int offset, Long total){
+		BootTablePageDto<Activity> result =  biz.getTitleByPage(province, city, county, town, offset, 20, total);
+		List<Activity> list = result.getRows();
+		ServletContext servletContext=session.getServletContext();
+		HashMap<Long,String> districtCodeNameMap = (HashMap<Long,String>)servletContext.getAttribute("districtCodeNameMap");
+		for(int i=0; i<list.size(); i++){
+			Activity a = list.get(i);
+			String provinceStr = districtCodeNameMap.get(a.getProvince());
+			provinceStr = provinceStr==null ? "" : provinceStr;
+			String cityStr = districtCodeNameMap.get(a.getCity());
+			cityStr = cityStr==null ? "" : cityStr;
+			String countyStr = districtCodeNameMap.get(a.getCounty());
+			countyStr = countyStr==null ? "" : countyStr;
+			a.setDetailAddr(provinceStr+" "+cityStr+" "+countyStr);
+		}
+		return result;
 	}
-	
-	/**获取所有咨询标题
-	 * */
-	/*@RequestMapping("getAllTitle")
-	@ResponseBody
-	public List<Object[]> getAllTitle(){
-		return biz.getAllTitle();
-	}*/
 	
 	@RequestMapping("findByParam")
 	@ResponseBody

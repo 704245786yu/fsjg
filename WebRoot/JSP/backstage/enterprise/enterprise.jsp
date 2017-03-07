@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="text" class="form-control" name="enterpriseName">
 				</div>
 				<div class="form-group">
-				<label>认证状态</label>
+					<label>认证状态</label>
 					<select class="form-control" name="auditState">
 						<option value="">全部</option>
 						<option value="0">待审核</option>
@@ -42,16 +42,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<option value="2">已通过</option>
 					</select>
 				</div>
+				<div class="form-group">
+					<label>注册类型</label>
+					<select class="form-control" name="createType">
+						<option value="">全部</option>
+						<option value="0">前台注册</option>
+						<option value="1">后台导入</option>
+					</select>
+				</div>
 				<label for="startDate">创建日期</label>
 				<div class="input-group date">
-	                <input type="text" class="form-control" name="beginDate"/>
+	                <input type="text" class="form-control" name="beginDate" style="width:120px;"/>
 	                <span class="input-group-addon">
 	                	<span class="glyphicon glyphicon-calendar"></span>
 	                </span>
 	            </div>
 				至
 				<div class="input-group date">
-	                <input type="text" class="form-control" name="endDate"/>
+	                <input type="text" class="form-control" name="endDate" style="width:120px;"/>
 	                <span class="input-group-addon">
 	                	<span class="glyphicon glyphicon-calendar"></span>
 	                </span>
@@ -92,6 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <th data-field="enterpriseName" data-align="center">工厂名称</th>
 		            <th data-field="auditState" data-align="center" data-formatter="auditStateFormatter">审核状态</th>
 		            <th data-field="processType" data-align="center" data-formatter="processTypeFormatter">加工类型</th>
+		            <th data-field="basicUser.createBy" data-align="center" data-formatter="createByFormatter">注册类型</th>
 		            <th data-field="basicUser.createTime" data-align="center">注册时间</th>
 		            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
 		        </tr>

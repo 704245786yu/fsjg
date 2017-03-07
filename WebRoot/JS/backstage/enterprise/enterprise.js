@@ -26,10 +26,12 @@ $('#dg').bootstrapTable({
 function queryParams(params){
 	var enterpriseName = $('#listPanel input[name="enterpriseName"]').val().trim();
 	var auditState = $('#listPanel select[name="auditState"]').val();
+	var createType = $('select[name="createType"]').val();
 	var beginDate = $('#listPanel input[name="beginDate"]').val();
 	var endDate = $('#listPanel input[name="endDate"]').val();
 	params.enterpriseName = enterpriseName;
 	params.auditState = auditState;
+	params.createType = createType;
 	params.beginDate = beginDate;
 	params.endDate = endDate;
 	
@@ -59,6 +61,14 @@ function processTypeFormatter(value,row,index){
 //日期格式化
 function dateFormatter(value,row,index){
 	return new Date(value).format("yyyy-MM-dd hh:mm:ss");
+}
+
+//注册类型
+function createByFormatter(value,row,index){
+	if(value==0)
+		return '前台注册';
+	else
+		return '后台导入';
 }
 
 //查询

@@ -36,6 +36,9 @@ public class Activity {
 	
 	private Long town;	//镇/乡/街道
 	
+	@Transient
+	private String detailAddr;//详细地址，列表页用
+	
 	@Column(name="update_by")
 	private Integer updateBy; //操作用户Id
 	
@@ -56,9 +59,14 @@ public class Activity {
 		this.title = title;
 	}
 	
-	public Activity(Integer id, String title, Date updateTime) {
+	public Activity(Integer id, Long province, Long city,
+			Long county, String title, Date updateTime) {
+		super();
 		this.id = id;
 		this.title = title;
+		this.province = province;
+		this.city = city;
+		this.county = county;
 		this.updateTime = updateTime;
 	}
 
@@ -169,6 +177,14 @@ public class Activity {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public String getDetailAddr() {
+		return detailAddr;
+	}
+
+	public void setDetailAddr(String detailAddr) {
+		this.detailAddr = detailAddr;
 	}
 	
 }

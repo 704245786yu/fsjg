@@ -47,8 +47,8 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		return dao.isExsit(enterpriseName, enterpriseId);
 	}
 	
-	public BootTablePageDto<Enterprise> findByPage(String enterpriseName,Byte auditState,Date beginDate,Date endDate,int offset, int limit, Long total){
-		BootTablePageDto<Enterprise> bt = dao.findByPage(enterpriseName, auditState, beginDate, endDate, offset, limit, total);
+	public BootTablePageDto<Enterprise> findByPage(String enterpriseName,Byte auditState,Integer createType,Date beginDate,Date endDate,int offset, int limit, Long total){
+		BootTablePageDto<Enterprise> bt = dao.findByPage(enterpriseName, auditState, createType, beginDate, endDate, offset, limit, total);
 		List<Enterprise> enterprises = bt.getRows();
 		for(int i=0; i<enterprises.size(); i++){
 			Enterprise e = enterprises.get(i);

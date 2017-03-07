@@ -1,4 +1,5 @@
 $(function(){
+	initAd();
 	initPagination();//初始化分页
 });
 
@@ -35,17 +36,42 @@ function checkDistrict(){
 	query();
 }
 
+//设置链接地址和图片，供initAd()方法调用
+function setAdhrefAndImg($a,ad){
+	if(ad.linkType==0)//外部链接
+		$a.attr('href','http://'+ad.link);
+	else if(ad.linkType==1)//工厂详情页
+		$a.attr('href','enterprise/showDetail/'+ad.link);
+	
+	$a.children('img').attr('src','uploadFile/ad/'+ad.img);
+}
+
+function initAd(){
+	var adPositions = $.parseJSON($('#adPositions').html());
+	var $aAds = $('a.ad');
+	for(var i=0;i<adPositions.length;i++){
+		var $a = $($aAds[i]);
+		setAdhrefAndImg($a,adPositions[i]);
+	}
+	
+}
+
+//行点击事件
+function trClick(id){
+	window.open("activity/showDetail/"+id);
+}
+
 function generateList(data){
 	var $list = $('#list');
 	$list.empty();
-	var $template = $('#template > div');
 	var rows = data.rows;
 	for(var i=0;i<rows.length;i++){
 		var activity = rows[i];
-		var $tempDiv = $template.clone();
-		$tempDiv.children('a').attr('href','activity/showDetail/'+activity.id).text(activity.title);
-		$tempDiv.children('div').text(moment(activity.updateTime).format('YYYY-MM-DD HH:mm'));
-		$list.append($tempDiv);
+		var $tr = $('<tr onclick="trClick('+activity.id+')">');
+		$tr.append($('<td>').text(activity.detailAddr));
+		$tr.append($('<td style="text-align:center;">').text(activity.title));
+		$tr.append($('<td style="text-align:right;">').text(moment(activity.updateTime).format('YYYY-MM-DD HH:mm')));
+		$list.append($tr);
 	}
 }
 
