@@ -226,7 +226,7 @@ public class CostumeSampleCtrl extends BaseCtrl<CostumeSampleBiz,Integer,Costume
 		mav.addObject("result", result);
 		
 		//广告位 台州市椒江牡丹服装加工厂 三门县百润服装加工厂
-		List<AdPosition> adPositions = adPositionBiz.getByCode("costume_sample");
+		List<AdPosition> adPositions = adPositionBiz.getByCode("sample_list");
 		mav.addObject("adPositions", JacksonJson.beanToJson(adPositions));
 		
 		//保留页面顶部搜索框的状态
