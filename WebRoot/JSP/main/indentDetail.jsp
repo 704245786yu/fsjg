@@ -123,7 +123,7 @@
 					<p style="padding:20px 0 20px 20px;">
 						<span>
 							<c:forEach var="district" items="${districts}">${district}</c:forEach>
-						</span>企业，${indent.condDemand}
+						</span>${indent.condDemand}
 					</p>
 					<p>
 						<c:choose>

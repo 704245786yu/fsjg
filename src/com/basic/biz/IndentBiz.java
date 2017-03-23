@@ -211,16 +211,20 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 	/**取前10条最新报价*/
 	@SuppressWarnings("unchecked")
 	public List<NewstQuoteIndentVo> getNewstQuote(){
+		//获取有报价的订单编号、报价人数
 		String hql = "select indentNum,count(indentNum) from IndentQuote group by indentNum order by createTime desc";
 		List<Object[]> list1 = (List<Object[]>)dao.findByPage(hql,0,10,new String[]{},new Object[]{});
 		if(list1.size() == 0)
 			return null;
+		//遍历获取订单编号
 		ArrayList<Long> indentNums = new ArrayList<Long>();
 		for(int i=0; i<list1.size(); i++){
 			indentNums.add((Long)list1.get(i)[0]);
 		}
-		hql = "select indentNum as indentNum,indentName as indentName,quantity as quantity,processType as processType from Indent where indentNum in (:indentNums)";
+		//根据订单编号获取：订单名称、订单数量、加工类型
+		hql = "select indentNum as indentNum, indentName as indentName, quantity as quantity, processType as processType from Indent where indentNum in (:indentNums)";
 		List<NewstQuoteIndentVo> list = dao.find(hql, new String[]{"indentNums"}, new Object[]{indentNums}, NewstQuoteIndentVo.class);
+		//设置每个订单的报价人数
 		for(int i=0; i<list1.size(); i++)
 			list.get(i).setCountNum((Long)list1.get(i)[1]);
 		return list;

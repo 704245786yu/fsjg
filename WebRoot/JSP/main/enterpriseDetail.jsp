@@ -182,7 +182,7 @@
 								<div class="panel-body">
 							    	<div class="media">
 										<div class="media-left">
-											<img class="media-object" style="width:90px;height:90px;" src="uploadFile/enterprise/default_logo.png">
+											<img class="media-object" style="width:90px;height:90px;" src="uploadFile/enterprise/${enterprise.logo}" onerror="javascript:this.src='uploadFile/enterprise/default_logo.png'">
 										</div>
 										<div class="media-body">
 											<a target="_blank" href="enterprise/showDetail/${enterprise.id}"><h5 class="media-heading" style="font-weight:bold;">${enterprise.enterpriseName}</h5></a>
