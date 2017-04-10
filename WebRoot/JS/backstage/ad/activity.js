@@ -25,6 +25,17 @@ $('#ff').bootstrapValidator({
     			}
     		}
     	},
+    	duration: {
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			stringLength: {
+    				max: 30,
+    				message: '最多30个字'
+    			}
+    		}
+    	},
     	source: {
     		validators: {
     			notEmpty: {

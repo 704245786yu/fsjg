@@ -33,7 +33,7 @@ public class ActivityDao extends BaseDao<Integer, Activity>{
 	
 	@SuppressWarnings("unchecked")
 	public List<Activity> findByParam(String title, Date beginDate, Date endDate){
-		StringBuffer hql = new StringBuffer("select new Activity(a.id as id, a.title as title, a.source as source, a.province as province, a.city as city, a.county as county, a.town as town, u.realName as realName, a.updateTime as updateTime) from Activity a, User u where a.updateBy = u.id ");
+		StringBuffer hql = new StringBuffer("select new Activity(a.id as id, a.title as title, a.duration as duration, a.source as source, a.province as province, a.city as city, a.county as county, a.town as town, u.realName as realName, a.updateTime as updateTime) from Activity a, User u where a.updateBy = u.id ");
 		List<String> params = new ArrayList<String>();
 		List<Object> values = new ArrayList<Object>();
 		if(title.length() > 0){

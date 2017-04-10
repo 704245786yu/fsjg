@@ -29,7 +29,7 @@
 		<div class="panel panel-default">
 			<div class="panel-body" style="text-align:center;">
 				<h3>${activity.title}<div style="float:right;font-size:14px;">来源：${activity.source}</div></h3>
-				<p>时间：<fmt:formatDate value="${activity.updateTime}" type="date" dateStyle="full"/></p>
+				<p>时间：${activity.duration}</p>
 				<p>${activity.content}</p>
 			</div>
 		</div>

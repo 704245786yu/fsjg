@@ -115,7 +115,7 @@
 					<tr onclick="window.open('activity/showDetail/${activity.id}')">
 						<td>${activity.detailAddr}</td>
 						<td style="text-align:center;">${activity.title}</td>
-						<td style="text-align:center;"><fmt:formatDate value="${activity.updateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
+						<td style="text-align:center;">${activity.duration}</td>
 					</tr>
 				</c:forEach>
 			</table>

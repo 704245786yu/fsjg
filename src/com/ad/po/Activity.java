@@ -28,6 +28,8 @@ public class Activity {
 	
 	private String content;//内容
 	
+	private String duration;//活动时长
+	
 	private Long province;	//省
 	
 	private Long city;	//市
@@ -60,20 +62,21 @@ public class Activity {
 	}
 	
 	public Activity(Integer id, Long province, Long city,
-			Long county, String title, Date updateTime) {
+			Long county, String title, String duration) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.province = province;
 		this.city = city;
 		this.county = county;
-		this.updateTime = updateTime;
+		this.duration = duration;
 	}
 
-	public Activity(Integer id, String title, String source, Long province,
+	public Activity(Integer id, String title, String duration, String source, Long province,
 			Long city, Long county, Long town, String realName, Date updateTime) {
 		this.id = id;
 		this.title = title;
+		this.duration = duration;
 		this.source = source;
 		this.province = province;
 		this.city = city;
@@ -185,6 +188,14 @@ public class Activity {
 
 	public void setDetailAddr(String detailAddr) {
 		this.detailAddr = detailAddr;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 	
 }

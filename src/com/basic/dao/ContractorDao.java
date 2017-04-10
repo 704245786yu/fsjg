@@ -146,7 +146,7 @@ public class ContractorDao extends BaseDao<Integer, Contractor>{
 	
 	public List<ContractorHomeVo> getHomeList(){
 		String hql = "select c.personId as id, p.gender as gender, p.age as age, c.processYear as processYear, c.workerAmount as workerAmount, p.province as province, p.city as city from Contractor c, Person p where c.personId = p.id order by c.personId desc";
-		List<ContractorHomeVo> list = super.findByPage(hql, 0, 6, new String[]{}, null, ContractorHomeVo.class);
+		List<ContractorHomeVo> list = super.findByPage(hql, 0, 8, new String[]{}, null, ContractorHomeVo.class);
 		return list;
 	}
 	
