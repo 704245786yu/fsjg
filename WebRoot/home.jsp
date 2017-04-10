@@ -769,14 +769,14 @@
 	<tr>
 		<td style="width:595px;padding-right:3px">
 			<!-- 最新订单 -->
-			<div class="panel panel-default">
+			<div class="panel panel-default" >
 				<div class="panel-heading">
 					<span>最新订单</span>
 					<div class="pull-right">
 				 		<a href="indent/search" style="text-decoration:none;"><span class="label label-info" style="font-size:14px;color:white;">更多</span></a>
 					</div>
 				</div>
-				<div class="panel-body">
+				<div class="panel-body" style="padding-bottom:25px;">
 					<div class="col-md-4 col-xs-4 ad">
 						<a class="left_big_ad" target="_blank"><img style="width:100%;height:240px;"></a>
 					</div>
