@@ -40,10 +40,10 @@ margin:30px auto 10px auto;
 		<a target="_blank" href="http://idinfo.zjaic.gov.cn/bscx.do?method=hddoc&id=33100400006540"><img src="image/bottom/gongshang.png"></a>
 		<a target="_blank" href="http://zjnet.zjaic.gov.cn/sign/addSignOnline.action"><img src="image/bottom/lianmeng.png"></a>
 		<a target="_blank" href="https://credit.cecdc.com/cx20160725011867130318.html"><img src="image/bottom/kexin.png"></a>
-		<a key ="58d3679fefbfb0751820acbe"  logo_size="124x47"  logo_type="realname"  href="http://www.anquan.org" >
+		<a key ="58d3679fefbfb0751820acbe"  logo_size="83x30"  logo_type="common"  href="http://www.anquan.org" >
 			<script src="//static.anquan.org/static/outer/js/aq_auth.js"></script>
 		</a>
-		<a key ="58d3679fefbfb0751820acbe"  logo_size="83x30"  logo_type="common"  href="http://www.anquan.org" >
+		<a key ="58d3679fefbfb0751820acbe"  logo_size="124x47"  logo_type="realname"  href="http://www.anquan.org" >
 			<script src="//static.anquan.org/static/outer/js/aq_auth.js"></script>
 		</a>
 	</div>

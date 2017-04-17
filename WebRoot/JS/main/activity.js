@@ -75,7 +75,7 @@ function generateList(data){
 		$tr = $('<tr onclick="trClick('+activity.id+')">');
 		$tr.append($('<td>').text(activity.detailAddr));
 		$tr.append($('<td style="text-align:center;">').text(activity.title));
-		$tr.append($('<td style="text-align:center;">').text(moment(activity.updateTime).format('YYYY-MM-DD HH:mm')));
+		$tr.append($('<td style="text-align:center;">').text(activity.duration));
 		$list.append($tr);
 	}
 }
