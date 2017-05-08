@@ -254,7 +254,9 @@ public class IndentBiz extends BaseBiz<IndentDao, Integer, Indent> {
 				districts = personBiz.getDistrict(indent.getCreateBy());
 			}
 			String district = "";
-			if(districts.length==1)
+			if(districts == null)
+				;
+			else if(districts.length==1)
 				district = districtCodeNameMap.get(districts[0]);
 			else if(districts.length==2)
 				district = districtCodeNameMap.get(districts[0])+districtCodeNameMap.get(districts[1]);

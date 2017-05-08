@@ -605,6 +605,9 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 	public Object[] getDistrict(int userId){
 		String hql = "select province,city from Enterprise where basicUser.id =:userId";
 		List<Object[]> list = (List<Object[]>)dao.find(hql, new String[]{"userId"}, new Integer[]{userId});
-		return list.get(0);
+		if(list.size()==0)
+			return null;
+		else
+			return list.get(0);
 	}
 }
