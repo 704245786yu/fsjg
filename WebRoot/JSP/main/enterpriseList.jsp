@@ -30,6 +30,7 @@
 <span style="display:none;" id="adPositions">${adPositions}</span>
 <input type="hidden" name="province" value="${province}">
 <input type="hidden" name="city" value="${city}">
+<input type="hidden" name="costumeCode" value="${costumeCode}">
 
 <table style="width:1190px;margin:0 auto;bakcground-color:#FBF8F9;">
 <tr>

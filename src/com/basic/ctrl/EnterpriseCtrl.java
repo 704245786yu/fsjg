@@ -172,6 +172,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		//保留页面顶部搜索框的状态
 		mav.addObject("tabIndex",1);
 		mav.addObject("enterpriseKeyword",enterpriseKeyword);
+		mav.addObject("costumeCode",costumeCode);
 		return mav;
 	}
 	

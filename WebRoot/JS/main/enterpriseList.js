@@ -19,13 +19,18 @@ function initDistrict(){
 }
 
 function initTradeAndCostumeObj(){
-	var str = $('#tradeAndCostumeMap').html();
+	var str = $('#tradeAndCostumeMap').html(); 
 	g_tradeAndCostumeMap = $.parseJSON(str);
 	g_costumeCategory = {};
 	for(var i=0; i<g_tradeAndCostumeMap.length; i++){
 		$.extend(g_costumeCategory,g_tradeAndCostumeMap[i].children);
 	}
-	setCostumeCategoryDiv(0);
+	var costumeCode = $(':hidden[name="costumeCode"]').val();
+	if(costumeCode == ''){
+		setCostumeCategoryDiv(0);
+	}else{
+		initCostumeCategoryDiv(costumeCode);
+	}
 }
 
 //设置链接地址和图片，供initAdd()方法调用
@@ -66,6 +71,35 @@ $('#tradeDiv a').click(function(e){
 	var href = $(this).attr('href');
 	setCostumeCategoryDiv(href-1);
 });
+
+//根据costumeCode初始化产品类别
+function initCostumeCategoryDiv(costumeCode){
+	var i=0;
+	var costumeCategory = null;
+	for(i; i<4; i++){
+		costumeCategory = g_tradeAndCostumeMap[i].children;
+		if(costumeCategory[costumeCode] != null){
+			break;
+		}
+	}
+	var $costumeCategory = $('#costumeCategory');
+	var index=0;
+	$.each(costumeCategory,function(i,n){
+		var $a = null;
+		if(index<30)
+			$a = $('<a onclick="return aClick(this)">').html(n).attr('href',i);
+		else
+			$('<a class="excessA" onclick="return aClick(this)">').html(n).attr('href',i).css('display','none');
+		//判断是否为点中的costumeCode
+		if(i==costumeCode){
+			$costumeCategory.find('a.label').removeClass('label label-info');
+			$a.addClass('label label-info');
+		}
+		$a.appendTo($costumeCategory);
+		index++;
+	});
+	hiddenMoreAlabel();
+}
 
 function setCostumeCategoryDiv(index){
 	//默认显示第一个行业分类下的服饰类型
