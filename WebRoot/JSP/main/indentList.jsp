@@ -168,7 +168,7 @@
 							<div>${indent.indentType}</div>
 						</td>
 						<td style="width:180px">
-							<div>${districtCodeNameMap[indent.condProvince]},${districtCodeNameMap[indent.condCity]}</div>
+							<div>${districtCodeNameMap[indent.condProvince]}${districtCodeNameMap[indent.condCity]}</div>
 							<div>${indent.condDemand}</div>
 						</td>
 						<td style="width:120px">
