@@ -16,6 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="plugin/jquery.min.js"></script>
+<script src="<%=basePath%>JS/main/note.js"></script>
 <style type="text/css">
 ul.menu_li{
 	padding:0px;
@@ -51,6 +52,11 @@ ul.menu_li{
 	text-indent:2em;
 	line-height:200%;
 }
+iframe{
+	width:100%;
+	height:2500px;
+	border:0px;
+}
 </style>
 </head>
 
@@ -60,7 +66,7 @@ ul.menu_li{
 <table style="width:1190px; margin:0 auto;">
 	<tr>
 		<!-- 左边菜单 -->
-		<td style="padding:0px;width:200px;">
+		<td style="padding:0px;width:200px;vertical-align:top;">
 			<ul class="menu_li">
 				<li class="level1">新手指南</li>
 				<li name="fdzn" style="color:#00b8ef">发单指南</li>
@@ -77,17 +83,17 @@ ul.menu_li{
 		</td>
 		<!-- 主体内容 -->
 		<td id="mainContent" style="padding-left:5px;vertical-align:top;">
-			<div name="fdzn">
-				发单指南
+			<div name="fdzn" style="display:none;">
+				<iframe src="<%=basePath%>/html/fdzn.html"></iframe>
 			</div>
 			<div name="jdbd" style="display:none;">
-				接单宝典
+				<iframe src="<%=basePath%>/html/jdbd.html"></iframe>
 			</div>
-			<div style="display:none;">2
+			<div style="display:none;">
 			</div>
-			<div style="display:none;">3
+			<div style="display:none;">
 			</div>
-			<div style="display:none;">4
+			<div style="display:none;">
 			</div>
 			<div style="display:none;">
 			</div>
@@ -105,6 +111,6 @@ ul.menu_li{
 	</tr>
 </table>
 
-<script src="JS/main/note.js"></script>
 </body>
+
 </html>
