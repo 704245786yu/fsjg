@@ -60,6 +60,17 @@
 			<td><div class="form-group"><input type="text" class="form-control" name="basicUser.telephone" value="${userInfo.basicUser.telephone}"></div></td>
 		</tr>
 		<tr>
+			<td><label><span>*</span>性别</label></td>
+			<td>
+				<div class="form-group" style="padding-top:5px;">
+					<label class="radio-inline"><input type="radio" name="gender" value="男" ${userInfo.gender=='男'?"checked":''}>男</label>
+					<label class="radio-inline"><input type="radio" name="gender" value="女" ${userInfo.gender=='女'?"checked":''}>女</label>
+				</div>
+			</td>
+			<td><label><span>*</span>年龄</label></td>
+			<td><div class="form-group"><input type="text" class="form-control" name="age" value="${userInfo.age}"></div></td>
+		</tr>
+		<tr>
 			<td><label><span>*</span>市</label></td>
 			<td>
 				<div class="form-group"><select class="form-control" id="city" name="city"></select></div>
