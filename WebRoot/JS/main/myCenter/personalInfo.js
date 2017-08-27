@@ -71,6 +71,27 @@ $('#ff').bootstrapValidator({
 				}
     		}
     	},
+    	gender: {
+    		validators: {
+    			notEmpty: {
+    				message: '必选'
+    			}
+    		}
+    	},
+    	age: {
+    		validators: {
+    			notEmpty: {
+    				message: '不能为空'
+    			},
+    			integer:{
+    				message:'必须为整数'
+    			},
+    			stringLength: {
+    				max: 2,
+    				message: '最多2个字符'
+    			}
+    		}
+    	},
     	province:{
     		validators: {
     			notEmpty: {

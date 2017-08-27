@@ -89,7 +89,7 @@ function initCostumeCategoryDiv(costumeCode){
 		if(index<30)
 			$a = $('<a onclick="return aClick(this)">').html(n).attr('href',i);
 		else
-			$('<a class="excessA" onclick="return aClick(this)">').html(n).attr('href',i).css('display','none');
+			$a = $('<a class="excessA" onclick="return aClick(this)">').html(n).attr('href',i).css('display','none');
 		//判断是否为点中的costumeCode
 		if(i==costumeCode){
 			$costumeCategory.find('a.label').removeClass('label label-info');
