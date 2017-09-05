@@ -209,7 +209,7 @@
 				<tr>
 					<td style="width:120px;padding-left:2em;">所在地区：</td>
 					<td style="width:180px;">
-						<button id="districtBtn" type="button" class="btn btn-default btn-select" data-toggle="modal" data-target="#districtModal">选择发单地区</button>
+						<button id="districtBtn" type="button" class="btn btn-default btn-select" data-toggle="modal" data-target="#districtModal">选择接单地区</button>
 						<!-- 选择地区模态框 -->
 						<div class="modal fade" id="districtModal" tabindex="-1">
 							<div class="modal-dialog">
