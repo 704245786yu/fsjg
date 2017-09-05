@@ -68,10 +68,10 @@ public class ActivityBiz extends BaseBiz<ActivityDao,Integer,Activity>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public BootTablePageDto<Activity> getTitleByPage(Long province, Long city, Long county, Long town, int offset, int limit, Long total){
+	public BootTablePageDto<Activity> getTitleByPage(Byte type, Long province, Long city, Long county, Long town, int offset, int limit, Long total){
 		StringBuilder hql = new  StringBuilder(" from Activity where 1=1 ");
 		List<String> params = new ArrayList<String>();
-		List<Long> values = new ArrayList<Long>();
+		List<Object> values = new ArrayList<>();
 		if(province!=null){
 			hql.append(" and province =:province");
 			params.add("province");
@@ -92,15 +92,20 @@ public class ActivityBiz extends BaseBiz<ActivityDao,Integer,Activity>{
 			params.add("town");
 			values.add(town);
 		}
+		if(type!=null){
+			hql.append(" and type =:type");
+			params.add("type");
+			values.add(type);
+		}
 		
 		if(total==null){
 			StringBuilder countSql = new StringBuilder("select count(1)");
 			countSql.append(hql);
-			total = dao.getCount(countSql.toString(), params.toArray(new String[]{}), values.toArray(new Long[]{}));
+			total = dao.getCount(countSql.toString(), params.toArray(new String[]{}), values.toArray(new Object[]{}));
 			if(total == 0)
 				return new BootTablePageDto<Activity>(total, new ArrayList<Activity>());
 		}
-		List<Activity> list = (List<Activity>)dao.findByPage("select new Activity(id, province, city, county, title, duration) "+hql.toString()+" order by updateTime desc", offset, limit, params.toArray(new String[]{}), values.toArray(new Long[]{}));
+		List<Activity> list = (List<Activity>)dao.findByPage("select new Activity(id, type, province, city, county, title, duration) "+hql.toString()+" order by updateTime desc", offset, limit, params.toArray(new String[]{}), values.toArray(new Object[]{}));
 		return new BootTablePageDto<Activity>(total,list);
 	}
 }

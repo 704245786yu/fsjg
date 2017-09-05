@@ -1,19 +1,21 @@
+var g_type = ['','开业','促销','库存','活动'];
+
 $(function(){
 	initAd();
 	initPagination();//初始化分页
 });
 
-//订单查询
 function query(offset,totalRows){
 	//没有offset表示非翻页操作，需重新初始化分页控件
 	if(offset == undefined)
 		offset = 0;
+	var type = $('select[name="type"]').val();
 	var $district = $('#districtContainer');
 	var province = $district.find('#province').val();
 	var city = $district.find('#city').val();
 	var county = $district.find('#county').val();
 	var town = $district.find('#town').val();
-	$.get('activity/getList',{'province':province, 'city':city, 'county':county, 'town':town, 'offset':offset,'total':totalRows},function(data){
+	$.get('activity/getList',{'type':type,'province':province, 'city':city, 'county':county, 'town':town, 'offset':offset,'total':totalRows},function(data){
 		//isResetPagination为true需重新初始化分页控件
 		if(totalRows==undefined){
 			resetPagination(data.total);
@@ -21,6 +23,10 @@ function query(offset,totalRows){
 		generateList(data);
 	});
 }
+
+$('select[name="type"]').change(function(){
+	query();
+});
 
 //确定选择地区
 function checkDistrict(){
@@ -67,6 +73,7 @@ function generateList(data){
 	var rows = data.rows;
 	var $tr = $('<thead style="font-size:16px;">');
 	$tr.append($('<th>').text("发布地址"));
+	$tr.append($('<th style="text-align:center;">').text("活动类型"));
 	$tr.append($('<th style="text-align:center;">').text("活动内容"));
 	$tr.append($('<th style="text-align:center;">').text("活动日期"));
 	$list.append($tr);
@@ -74,6 +81,7 @@ function generateList(data){
 		var activity = rows[i];
 		$tr = $('<tr onclick="trClick('+activity.id+')">');
 		$tr.append($('<td>').text(activity.detailAddr));
+		$tr.append($('<td style="text-align:center;">').text(g_type[activity.type]));
 		$tr.append($('<td style="text-align:center;">').text(activity.title));
 		$tr.append($('<td style="text-align:center;">').text(activity.duration));
 		$list.append($tr);

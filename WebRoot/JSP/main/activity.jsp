@@ -64,6 +64,18 @@
 			<div class="panel-body">
 				<table>
 					<tr>
+						<td><b>活动类型：</b></td>
+						<td style="padding-bottom:10px;">
+							<select class="form-control" name="type">
+								<option value="">全部</option>
+								<option value="1">开业</option>
+								<option value="2">促销</option>
+								<option value="3">库存</option>
+								<option value="4">活动</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<td><b>所在地区：</b></td>
 						<td>
 							<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择地区</button>
@@ -108,12 +120,21 @@
 			<table class="table table-hover" id="list">
 				<thead style="font-size:16px;">
 					<th>发布地址</th>
+					<th style="text-align:center;">活动类型</th>
 					<th style="text-align:center;">活动内容</th>
 					<th style="text-align:center;">活动日期</th>
 				</thead>
 				<c:forEach items="${result.rows}" var="activity">
 					<tr onclick="window.open('activity/showDetail/${activity.id}')">
 						<td>${activity.detailAddr}</td>
+						<td style="text-align:center;">
+							<c:choose>
+							   <c:when test="${activity.type==1}">开业</c:when>
+							   <c:when test="${activity.type==2}">促销</c:when>
+							   <c:when test="${activity.type==3}">库存</c:when>
+							   <c:when test="${activity.type==4}">活动</c:when>
+							</c:choose>
+						</td>
 						<td style="text-align:center;">${activity.title}</td>
 						<td style="text-align:center;">${activity.duration}</td>
 					</tr>

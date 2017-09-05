@@ -73,6 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <th data-field="title" data-align="center">标题</th>
 	            <th data-field="duration" data-align="center">活动日期</th>
 	            <th data-field="source" data-align="center">来源</th>
+	            <th data-field="type" data-align="center" data-formatter="typeFmt">类型</th>
 	            <th data-field="realName" data-align="center">发布人</th>
 	            <th data-field="updateTime" data-align="center">发布时间</th>
 	            <th data-formatter="operFormatter" class="col-sm-1" data-align="center">操作</th>
@@ -104,6 +105,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label class="col-sm-1 control-label">来源</label>
 				<div class="col-sm-3">
 					<input type="text" class="form-control" name="source">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">类型</label>
+				<div class="col-sm-3">
+					<select class="form-control" name="type">
+						<option value="1">开业</option>
+						<option value="2">促销</option>
+						<option value="3">库存</option>
+						<option value="4">活动</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">

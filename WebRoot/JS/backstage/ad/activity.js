@@ -1,3 +1,5 @@
+var g_type = ['','开业','促销','库存','活动'];
+
 $(function(){
 	$('.date').datetimepicker({
 		format: 'YYYY-MM-DD',
@@ -160,4 +162,8 @@ function del(index,id){
 		});
 	 }
 //	g_bsFormTableExtend.delRecord(index,id,'tradeNews/delete/');
+}
+
+function typeFmt(value,row,index){
+	return g_type[value];
 }

@@ -42,7 +42,7 @@ public class ActivityCtrl extends BaseCtrl<ActivityBiz, Integer, Activity> {
 	@SuppressWarnings("unchecked")
 	public ModelAndView showDefaultPage(HttpSession session){
 		ModelAndView mav = new ModelAndView("main/activity");
-		BootTablePageDto<Activity> result = biz.getTitleByPage(null,null,null,null, 0, 20, null);
+		BootTablePageDto<Activity> result = biz.getTitleByPage(null,null,null,null,null, 0, 20, null);
 		List<Activity> list = result.getRows();
 		ServletContext servletContext=session.getServletContext();
 		HashMap<Long,String> districtCodeNameMap = (HashMap<Long,String>)servletContext.getAttribute("districtCodeNameMap");
@@ -107,8 +107,8 @@ public class ActivityCtrl extends BaseCtrl<ActivityBiz, Integer, Activity> {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("getList")
 	@ResponseBody
-	public BootTablePageDto<Activity> getList(HttpSession session, Long province, Long city, Long county, Long town, int offset, Long total){
-		BootTablePageDto<Activity> result =  biz.getTitleByPage(province, city, county, town, offset, 20, total);
+	public BootTablePageDto<Activity> getList(HttpSession session,Byte type, Long province, Long city, Long county, Long town, int offset, Long total){
+		BootTablePageDto<Activity> result =  biz.getTitleByPage(type, province, city, county, town, offset, 20, total);
 		List<Activity> list = result.getRows();
 		ServletContext servletContext=session.getServletContext();
 		HashMap<Long,String> districtCodeNameMap = (HashMap<Long,String>)servletContext.getAttribute("districtCodeNameMap");

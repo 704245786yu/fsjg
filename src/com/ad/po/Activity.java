@@ -26,6 +26,8 @@ public class Activity {
 	
 	private String source;//来源
 	
+	private Byte type;//活动类型
+	
 	private String content;//内容
 	
 	private String duration;//活动时长
@@ -61,23 +63,25 @@ public class Activity {
 		this.title = title;
 	}
 	
-	public Activity(Integer id, Long province, Long city,
+	public Activity(Integer id, Byte type, Long province, Long city,
 			Long county, String title, String duration) {
 		super();
 		this.id = id;
 		this.title = title;
+		this.type = type;
 		this.province = province;
 		this.city = city;
 		this.county = county;
 		this.duration = duration;
 	}
 
-	public Activity(Integer id, String title, String duration, String source, Long province,
+	public Activity(Integer id, String title, String duration, String source, Byte type, Long province,
 			Long city, Long county, Long town, String realName, Date updateTime) {
 		this.id = id;
 		this.title = title;
 		this.duration = duration;
 		this.source = source;
+		this.type = type;
 		this.province = province;
 		this.city = city;
 		this.county = county;
@@ -108,6 +112,14 @@ public class Activity {
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	public Byte getType() {
+		return type;
+	}
+
+	public void setType(Byte type) {
+		this.type = type;
 	}
 
 	public String getContent() {
