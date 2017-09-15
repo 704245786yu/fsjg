@@ -33,9 +33,10 @@ public class CostumeSampleBiz extends BaseBiz<CostumeSampleDao, Integer, Costume
 			if(keyword.length() > 0){
 				costumeCategoryCodes = costumeCategoryBiz.getCodeByCategoryName(keyword);
 				//为保证性能，取前3条服饰类型记录
-				endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
+//				endIndex = costumeCategoryCodes.size()>3 ? 3 : costumeCategoryCodes.size();
 			}
-			costumeCodes = costumeCategoryCodes.subList(0, endIndex).toArray(new Integer[]{});
+//			costumeCodes = costumeCategoryCodes.subList(0, endIndex).toArray(new Integer[]{});
+			costumeCodes = costumeCategoryCodes.toArray(new Integer[]{});
 		}else{
 			costumeCodes = new Integer[]{costumeCode};
 		}

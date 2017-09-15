@@ -43,7 +43,7 @@ $(function(){
 	}
 	
 	imgs = $(':hidden[name="detailImg"]').val();
-	var $img = $('<img style="width:790px;height:530px;margin-bottom:20px;">');
+	var $img = $('<img style="width:750px;margin-bottom:20px;">');
 	var $detailImgDiv = $('#detailImgDiv');
 	if(imgs!=null && imgs!=''){
 		var imgAry = imgs.split(',');

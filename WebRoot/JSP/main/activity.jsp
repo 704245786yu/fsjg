@@ -72,6 +72,8 @@
 								<option value="2">促销</option>
 								<option value="3">库存</option>
 								<option value="4">活动</option>
+								<option value="5">增加求购</option>
+								<option value="6">二手旧货</option>
 							</select>
 						</td>
 					</tr>
@@ -133,6 +135,8 @@
 							   <c:when test="${activity.type==2}">促销</c:when>
 							   <c:when test="${activity.type==3}">库存</c:when>
 							   <c:when test="${activity.type==4}">活动</c:when>
+							   <c:when test="${activity.type==5}">增加求购</c:when>
+							   <c:when test="${activity.type==6}">二手旧货</c:when>
 							</c:choose>
 						</td>
 						<td style="text-align:center;">${activity.title}</td>
