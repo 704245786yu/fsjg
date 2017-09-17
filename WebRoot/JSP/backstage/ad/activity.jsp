@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 添加/更新面板 -->
 <div id="editPanel" class="panel panel-primary" style="display:none;">
 	<button type="button" class="btn btn-primary" onclick="cancelEdit()" style="width:100px;"><span class="glyphicon glyphicon-step-backward"></span>返回</button>
-	<div id="districtContainer" class="panel-body">
+	<div class="panel-body">
 		<form id="ff" method="post" class="form-horizontal" action="constantType/save">
 			<input type="hidden" name="id"/>
 			<div class="form-group">
@@ -126,6 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<script id="editor" name="content" type="text/plain" style="height:500px;"></script>
 				</div>
 			</div>
+			<div id="districtContainer">
 			<div class="form-group">
 				<label class="col-sm-1 control-label">省</label>
 				<div class="col-sm-3">
@@ -149,6 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="col-sm-3">
 					<select class="form-control" id="town" name="town"></select>
 				</div>
+			</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-4 col-sm-offset-8" style="text-align:right">

@@ -48,5 +48,7 @@ margin:30px auto 10px auto;
 		<a key ="58d3679fefbfb0751820acbe"  logo_size="124x47"  logo_type="realname"  href="http://www.anquan.org" >
 			<script src="//static.anquan.org/static/outer/js/aq_auth.js"></script>
 		</a>
+		<a id='___szfw_logo___' href='https://credit.szfw.org/CX20170904036085330422.html' target='_blank'><img src='http://icon.szfw.org/sf.png' border='0'/></a>
+<script type='text/javascript'>(function(){document.getElementById('___szfw_logo___').oncontextmenu = function(){return false;}})();</script>
 	</div>
 </div>
