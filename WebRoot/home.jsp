@@ -1260,7 +1260,7 @@
 				<p><a target="_blank" href="JSP/main/note.jsp?index=ggfw">广告服务</a></p>
 				<p><a target="_blank" href="JSP/main/note.jsp?index=rzfw">认证服务</a></p></td>
 			<td><div></div></td>
-			<td><p><img style="width:48px;" src="image/home/wechat.png"><img style="width:48px;" src="image/home/qq.png"><img style="width:90px;" src="image/home/qrCode.png"></p></td>
+			<td><p><img style="width:90px;" src="image/home/ewm.jpg"></p></td>
 		</tr>
 	</table>
 </div>

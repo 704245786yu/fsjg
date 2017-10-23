@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="form-inline" style="padding-bottom:10px;">
 			<div class="form-group">
 				<label for="workerAmount">标题</label>
-				<input type="text" class="form-control" name="title">
+				<input type="text" class="form-control" name="title" style="width:350px">
 			</div>
 			<div class="form-group">
 				<label for="startDate">发布日期</label>

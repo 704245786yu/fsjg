@@ -68,7 +68,7 @@
 			<div class="panel-body">
 				<table>
 					<tr>
-						<td><b>产品类别：</b></td>
+						<td><b>产品类别:</b></td>
 						<td style="width:806px;">
 							<p id="costumeCategory" style="float:left;width:90%;height:75px;line-height:25px;overflow:hidden;overflow-x:hidden">
 								<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
@@ -77,7 +77,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><b>所在地区：</b></td>
+						<td><b>所在地区:</b></td>
 						<td>
 							<button id="districtBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#districtModal">选择接单地区</button>
 							<!-- 选择地区模态框 -->
@@ -114,7 +114,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><b>加工年限：</b></td>
+						<td><b>工龄:</b></td>
 						<td id="processYear">
 							<a class="label label-info" href="0" onclick="return aClick(this)">全部</a>
 							<a href="1" onclick="return aClick(this)">1-5年</a>
