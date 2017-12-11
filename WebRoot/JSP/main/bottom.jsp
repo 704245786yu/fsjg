@@ -47,6 +47,7 @@ margin:30px auto 10px auto;
 		<a key ="58d3679fefbfb0751820acbe"  logo_size="124x47"  logo_type="realname"  href="http://www.anquan.org" >
 			<script src="//static.anquan.org/static/outer/js/aq_auth.js"></script>
 		</a>
+		<a id="_pingansec_bottomimagelarge_brand" href="http://si.trustutn.org/info?sn=864171204031138201504&certType=1"><img src="http://v.trustutn.org/images/cert/brand_bottom_large.jpg"/></a>
 		<script type='text/javascript'>(function(){document.getElementById('___szfw_logo___').oncontextmenu = function(){return false;}})();</script>
 	</div>
 </div>

@@ -24,6 +24,7 @@
 <link href="CSS/home.css" rel="stylesheet">
 
 <script src="plugin/jquery.min.js"></script>
+<script type="text/javascript" src="//trusted.shuidi.cn/trusted.js?id=1135"></script>
 </head>
 
 <body>
@@ -669,7 +670,7 @@
 						<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[1].id}">${activities[1].title}</a></td>
 					</tr>
 					<c:forEach items="${activities}" var="activity" varStatus="status" begin="2" end="15" step="2">
-						<tr>
+						<tr class="activity">
 							<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[status.index].id}">${activities[status.index].title}</a></td>
 							<td style="width:35%;"><a target="_blank" href="activity/showDetail/${activities[status.index+1].id}">${activities[status.index+1].title}</a></td>
 						</tr>
