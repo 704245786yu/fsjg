@@ -161,6 +161,12 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 		ModelAndView mav = new ModelAndView("main/enterpriseList");
 		List<Integer> costumeCodes = costumeCategoryBiz.getSubCode(costumeCode);
 		int endIndex = costumeCodes.size()>3 ? 3 : costumeCodes.size();
+		//由于sql查询有问题，这里判定当costumeCode有值时，就忽视enterpriseKeyword的值，因为这两个在页面上不会同时有值且不一样
+        String tempKeyWord = null;  //用于界面搜索框回显
+		if(costumeCode!=null){
+            tempKeyWord = enterpriseKeyword;
+            enterpriseKeyword = "";
+        }
 		//获取子类型
 		BootTablePageDto<Enterprise> result = biz.search(null,null,null,null,costumeCodes.subList(0, endIndex).toArray(new Integer[]{}),null, null,enterpriseKeyword,0,20,null);
 		mav.addObject("result", result);
@@ -171,7 +177,7 @@ public class EnterpriseCtrl extends BaseCtrl<EnterpriseBiz,Integer,Enterprise>{
 
 		//保留页面顶部搜索框的状态
 		mav.addObject("tabIndex",1);
-		mav.addObject("enterpriseKeyword",enterpriseKeyword);
+		mav.addObject("enterpriseKeyword",tempKeyWord);
 		mav.addObject("costumeCode",costumeCode);
 		return mav;
 	}

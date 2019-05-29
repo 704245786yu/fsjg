@@ -400,7 +400,7 @@ public class EnterpriseBiz extends BaseBiz<EnterpriseDao, Integer, Enterprise>{
 		String processTypeStr = null;//要查询的加工类型编码
 		//判断是否需要根据关键字匹配加工类型
 		if(processType == null){
-			if(keyword.length() > 0){
+			if(keyword != null && keyword.length() > 0){
 				//为简化查询，不匹配多个加工类型
 				List<ConstantDict> processTypes = constantDictBiz.getByCodeAndConstantName("process_type", keyword);
 				if(processTypes.size() != 0){
