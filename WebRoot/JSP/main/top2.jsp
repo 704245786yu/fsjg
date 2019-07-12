@@ -36,13 +36,13 @@
 
 <!-- banner -->
 <div class="banner">
-	<div class="row">
-		<div class="col-md-3" style="width:275px;">
+	<div  style="width:1220px">
+		<div style="width:370px;float:left;">
 			<a href="">
 				<img src="image/logo.png">
 			</a>
 		</div>
-		<div class="col-md-6 col-md-offset-1 searchBox">
+		<div class="searchBox" style="float:left">
 			<!-- 判断搜索框tab的选中状态 -->
 	    	<input type="hidden" name="tabIndex" value="${tabIndex}">
 			<form id="globalSearchForm" class="jq22-search-form">

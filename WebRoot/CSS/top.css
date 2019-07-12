@@ -56,15 +56,21 @@ nav.topNav{
 	/* background-image: url("../image/nav-blue.png"); */
 	background-color: #3089e7;
 }
+nav.topNav li{
+    width:180px;
+    displaty:block;
+    float:left;
+    height:49px;
+    text-align:center;
+    padding-top:15px;
+    list-style-type:none;
+}
 nav.topNav li a{
-	width:180px;
 	font-size:18px;
-	text-align:center;
-	height:49px;
 	color:white;
+    text-decoration:none
 }
 nav.topNav li a:hover{
-	/* background-image: url("../image/nav-orange.png"); */
 	background-color: #1b72ce;
 }
 nav.topNav li a:visited {

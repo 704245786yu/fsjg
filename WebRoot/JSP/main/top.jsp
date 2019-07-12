@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="CSS/top.css" rel="stylesheet">
 <div id="topBanner" class="top">
@@ -36,13 +36,13 @@
 
 <!-- banner -->
 <div class="banner" style="height:82px;">
-	<div class="row">
-		<div class="col-md-3" style="width:275px;">
+	<div style="width:1220px">
+		<div style="width:370px;float:left;">
 			<a href="">
 				<img src="image/logo.png" style="width:354px;height:82px;">
 			</a>
 		</div>
-		<div class="col-md-6 col-md-offset-1 searchBox">
+		<div class="searchBox" style="float:left">
 			<!-- 判断搜索框tab的选中状态 -->
 	    	<input type="hidden" name="tabIndex" value="${tabIndex}">
 			<form id="globalSearchForm" class="jq22-search-form">
@@ -72,7 +72,7 @@
 
 <nav class="topNav">
 	<div style="width:1190px;margin:0 auto;">
-		<ul class="nav navbar-nav" >
+		<ul style="width:1190px">
 			<li name="li-home"><a href="home" style="width:230px">首页</a></li>
 			<li name="li-enterprise"><a target="_blank" href="enterprise">加工工厂</a></li>
 			<li name="li-indent"><a target="_blank" href="indent">加工订单</a></li>

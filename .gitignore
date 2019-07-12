@@ -5,3 +5,6 @@
 .tern-project
 /build/
 .externalToolBuilders
+out
+.idea
+*.iml
