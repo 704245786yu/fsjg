@@ -15,7 +15,6 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="plugin/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
