@@ -75,6 +75,7 @@
 								<option value="5">求购</option>
 								<option value="6">零衣柜</option>
 								<option value="7">店面出租</option>
+								<option value="8">招聘营业员</option>
 							</select>
 						</td>
 					</tr>
@@ -139,6 +140,7 @@
 							   <c:when test="${activity.type==5}">求购</c:when>
 							   <c:when test="${activity.type==6}">零衣柜</c:when>
 							   <c:when test="${activity.type==7}">店面出租</c:when>
+							   <c:when test="${activity.type==8}">招聘营业员</c:when>
 							</c:choose>
 						</td>
 						<td style="text-align:center;">${activity.title}</td>

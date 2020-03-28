@@ -15,6 +15,8 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta name="renderer" content="webkit">
+<meta name="keywords" content="服饰加工,加工,服饰,服装,男装,女装,童装,服饰样品,服饰资讯,加工工厂,加功订单,活动推广,服饰快产"/>
+<meta name="description" content="服饰加工,加工,服饰,服装,男装,女装,童装,服饰样品,服饰资讯,加工工厂,加功订单,活动推广,服饰快产"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 <link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
