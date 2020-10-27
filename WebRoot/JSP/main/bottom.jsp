@@ -32,13 +32,13 @@ margin:30px auto 10px auto;
 		<a target="_blank" href="http://beian.miit.gov.cn/" style="display:inline-block;text-decoration:none;">
 		<img src="image/bottom/beian_sm.png" style="width:20px;height:20px;"/>浙公网安备 33100402331369号</a> 台州市顺天网络技术有限公司 版权所有
 	</p>
-	<p>浙ICP备09055575号-1&nbsp;&nbsp;&nbsp;Copyright©2009-2019 FSJGW.com.
+	<p><a target="_blank" href="http://beian.miit.gov.cn/" style="text-decoration:none;">浙ICP备09055575号-1</a>&nbsp;&nbsp;&nbsp;Copyright©2009-2019 FSJGW.com.
 		<script src="https://s4.cnzz.com/z_stat.php?id=1260941888&web_id=1260941888" language="JavaScript"></script>
 	</p>
 	<div style="margin-top:20px;text-align:center;">
 		<img style="width:49px;" src="image/bottom/police.png">
 		<a target="_blank" href="http://www.12377.cn/"><img src="image/bottom/jubao.png"></a>
-		<a target="_blank" href="http://www.miibeian.gov.cn/"><img src="image/bottom/beian.png"></a>
+		<a target="_blank" href="http://beian.miit.gov.cn/"><img src="image/bottom/beian.png"></a>
 		<a target="_blank" href="http://idinfo.zjaic.gov.cn/bscx.do?method=hddoc&id=33100400006540"><img src="image/bottom/gongshang.png"></a>
 		<a id='___szfw_logo___' href='https://credit.szfw.org/CX20170904036085330422.html' target='_blank'><img src='http://icon.szfw.org/sf.png' border='0'/></a>
 		<a key ="58d3679fefbfb0751820acbe"  logo_size="83x30"  logo_type="common"  href="http://www.anquan.org" >
